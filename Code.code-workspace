@@ -39,7 +39,10 @@
             "**/.DS_Store": true,
             "**/build": true,
             "**/DerivedData": true
-        }
+        },
+        "editor.codeActions.triggerOnFocusChange": false,
+        "github.copilot.chat.codesearch.enabled": true,
+        "github.copilot.chat.languageContext.fix.typescript.enabled": true
     },
     "extensions": {
         "recommendations": [
