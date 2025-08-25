@@ -87,9 +87,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run AI recovery (dry-run)
+      - name: Run Quantum Agent entrypoint (dry-run)
         run: |
-          python3 Tools/Automation/ai_workflow_recovery.py --project Projects/PlannerApp --dry-run 2>&1 | tee ai_recovery_plannerapp.log || true
+          bash Tools/Automation/quantum_agent_entrypoint.sh Projects/PlannerApp true false 2>&1 | tee ai_recovery_plannerapp.log || true
 
       - name: Upload AI recovery log
         if: always()
