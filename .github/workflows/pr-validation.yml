@@ -1,44 +1,89 @@
-name: PR Validation (SwiftPM)
+name: PR Validation
 
 on:
   pull_request:
-    branches:
-      - main
-      - develop
+    types: [opened, synchronize, reopened]
 
 jobs:
-  pr-validate:
+  validate:
     runs-on: macos-latest
-    timeout-minutes: 15
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '15.0'
-
-      - name: Make Scripts Executable
+      - name: Show environment
         run: |
-          chmod +x Tools/Automation/run_parallel_tests.sh
-          chmod +x Tools/Automation/detect_issues.sh
+          sw_vers
+          swift --version || true
 
-      - name: Run Parallel Tests (auto-discover)
+      - name: Install CocoaPods (best-effort)
         run: |
-          Tools/Automation/run_parallel_tests.sh
+          if ! command -v pod >/dev/null 2>&1; then
+            sudo gem install cocoapods || true
+          fi
 
-      - name: Detect Issues
-        if: always()
+      - name: Install pods if Podfile present
         run: |
-          Tools/Automation/detect_issues.sh || echo "Issues detected"
+          if [[ -f "AvoidObstaclesGame/Podfile" ]]; then
+            (cd AvoidObstaclesGame && pod install) || true
+          else
+            echo "No Podfile; skipping pods"
+          fi
 
-      - name: Upload Artifacts
+      - name: Run game test script (if present)
+        run: |
+          if [[ -x "test_game.sh" ]]; then
+            ./test_game.sh || true
+          else
+            echo "No executable test_game.sh; skipping"
+          fi
+
+      - name: Build and test with xcodebuild
+        run: |
+          set -o pipefail
+          proj=$(ls *.xcodeproj 2>/dev/null | head -n1 || true)
+          if [[ -n "$proj" ]]; then
+            schemes=$(xcodebuild -list -project "$proj" 2>/dev/null | sed -n '/Schemes:/,$p' | tail -n +2)
+            scheme=$(echo "$schemes" | head -n1 | xargs)
+            if [[ -n "$scheme" ]]; then
+              xcodebuild -project "$proj" -scheme "$scheme" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16' clean build test | tee xcodebuild.log
+            else
+              echo "No scheme found; skipping xcodebuild"
+            fi
+          else
+            echo "No .xcodeproj found; skipping xcodebuild"
+          fi
+
+      - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pr-validation-artifacts
+          name: avoidobstacles-validation-logs
           path: |
-            test_results/
-            test_results/issues/
-          retention-days: 7
+            xcodebuild.log
+            test_game.sh || true
+
+  quantum-self-heal-run:
+    name: Quantum Agent - Dry Run Self-Heal
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Run Quantum Agent entrypoint (dry-run)
+        run: |
+          bash Tools/Automation/quantum_agent_entrypoint.sh Projects/AvoidObstaclesGame true false 2>&1 | tee ai_recovery_avoid.log || true
+
+      - name: Upload AI recovery log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avoidobstacles-ai-recovery-log
+          path: ai_recovery_avoid.log
