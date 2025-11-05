@@ -26,7 +26,9 @@ public class AudioManager: NSObject {
     private var soundEffects: [String: AVAudioPlayer] = [:]
 
     /// Audio session
+    #if os(iOS)
     private let audioSession = AVAudioSession.sharedInstance()
+    #endif
 
     /// Audio settings
     private var isAudioEnabled: Bool {
@@ -66,12 +68,14 @@ public class AudioManager: NSObject {
 
     /// Sets up the audio session for the app
     private func setupAudioSession() {
+        #if os(iOS)
         do {
             try audioSession.setCategory(.ambient, mode: .default, options: [.mixWithOthers])
             try audioSession.setActive(true)
         } catch {
             print("Failed to setup audio session: \(error)")
         }
+        #endif
     }
 
     /// Sets default audio settings if not already set
@@ -346,11 +350,13 @@ public class AudioManager: NSObject {
     func cleanup() {
         stopBackgroundMusic()
         soundEffects.removeAll()
+        #if os(iOS)
         do {
             try audioSession.setActive(false)
         } catch {
             print("Failed to deactivate audio session: \(error)")
         }
+        #endif
     }
 }
 

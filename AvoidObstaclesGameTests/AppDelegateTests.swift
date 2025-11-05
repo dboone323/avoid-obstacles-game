@@ -15,6 +15,7 @@ final class AppDelegateTests: XCTestCase {
 
     // MARK: - AppDelegate Tests
 
+    #if os(iOS)
     func testAppDelegateInitialization() {
         // Test basic initialization
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -32,4 +33,5 @@ final class AppDelegateTests: XCTestCase {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         XCTAssertNotNil(appDelegate, "AppDelegate should respond to methods")
     }
+    #endif
 }

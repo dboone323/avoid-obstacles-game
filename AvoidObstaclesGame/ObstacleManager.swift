@@ -7,7 +7,9 @@
 //
 
 import SpriteKit
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// Protocol for obstacle-related events
 protocol ObstacleDelegate: AnyObject {
@@ -420,7 +422,7 @@ enum ObstacleType {
             ObstacleConfiguration(
                 size: CGSize(width: 30, height: 30),
                 color: .systemRed,
-                borderColor: UIColor(red: 0.6, green: 0.0, blue: 0.0, alpha: 1.0),
+                borderColor: SKColor(red: 0.6, green: 0.0, blue: 0.0, alpha: 1.0),
                 fallSpeed: 3.5,
                 canRotate: false,
                 hasGlow: false
@@ -429,7 +431,7 @@ enum ObstacleType {
             ObstacleConfiguration(
                 size: CGSize(width: 25, height: 25),
                 color: .systemOrange,
-                borderColor: UIColor(red: 0.8, green: 0.4, blue: 0.0, alpha: 1.0),
+                borderColor: SKColor(red: 0.8, green: 0.4, blue: 0.0, alpha: 1.0),
                 fallSpeed: 4.5,
                 canRotate: true,
                 hasGlow: true
@@ -438,7 +440,7 @@ enum ObstacleType {
             ObstacleConfiguration(
                 size: CGSize(width: 45, height: 45),
                 color: .systemPurple,
-                borderColor: UIColor(red: 0.4, green: 0.0, blue: 0.6, alpha: 1.0),
+                borderColor: SKColor(red: 0.4, green: 0.0, blue: 0.6, alpha: 1.0),
                 fallSpeed: 2.8,
                 canRotate: false,
                 hasGlow: false
@@ -447,7 +449,7 @@ enum ObstacleType {
             ObstacleConfiguration(
                 size: CGSize(width: 20, height: 20),
                 color: .systemPink,
-                borderColor: UIColor(red: 0.8, green: 0.0, blue: 0.4, alpha: 1.0),
+                borderColor: SKColor(red: 0.8, green: 0.0, blue: 0.4, alpha: 1.0),
                 fallSpeed: 5.0,
                 canRotate: true,
                 hasGlow: true
@@ -459,8 +461,8 @@ enum ObstacleType {
 /// Configuration for obstacle types
 struct ObstacleConfiguration {
     let size: CGSize
-    let color: UIColor
-    let borderColor: UIColor
+    let color: SKColor
+    let borderColor: SKColor
     let fallSpeed: CGFloat
     let canRotate: Bool
     let hasGlow: Bool

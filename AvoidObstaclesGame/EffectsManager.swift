@@ -6,7 +6,9 @@
 //
 
 import SpriteKit
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// Manages visual effects and animations
 class EffectsManager {
@@ -50,11 +52,16 @@ class EffectsManager {
         guard let explosion = explosionEmitter else { return }
 
         // Create particle texture programmatically
+        #if canImport(UIKit)
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 8, height: 8))
         let sparkImage = renderer.image { context in
             context.cgContext.setFillColor(UIColor.white.cgColor)
             context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 8, height: 8)))
         }
+        #else
+        // For macOS, create a simple colored image
+        let sparkImage = createMacOSImage(color: SKColor.white, size: CGSize(width: 8, height: 8))
+        #endif
 
         // Configure explosion particles
         explosion.particleTexture = SKTexture(image: sparkImage)
@@ -91,11 +98,15 @@ class EffectsManager {
         guard let trail = trailEmitter else { return }
 
         // Create particle texture
+        #if canImport(UIKit)
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 4, height: 4))
         let particleImage = renderer.image { context in
             context.cgContext.setFillColor(UIColor.cyan.cgColor)
             context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 4, height: 4)))
         }
+        #else
+        let particleImage = createMacOSImage(color: SKColor.cyan, size: CGSize(width: 4, height: 4))
+        #endif
 
         // Configure trail particles
         trail.particleTexture = SKTexture(image: particleImage)
@@ -121,11 +132,15 @@ class EffectsManager {
         guard let sparkle = sparkleEmitter else { return }
 
         // Create particle texture
+        #if canImport(UIKit)
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 6, height: 6))
         let sparkleImage = renderer.image { context in
             context.cgContext.setFillColor(UIColor.yellow.cgColor)
             context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 6, height: 6)))
         }
+        #else
+        let sparkleImage = createMacOSImage(color: SKColor.yellow, size: CGSize(width: 6, height: 6))
+        #endif
 
         // Configure sparkle particles
         sparkle.particleTexture = SKTexture(image: sparkleImage)
@@ -202,7 +217,7 @@ class EffectsManager {
     /// Creates a screen flash effect
     /// - Parameter color: The color of the flash
     /// - Parameter duration: How long the flash lasts
-    func createScreenFlash(color: UIColor = .white, duration: TimeInterval = 0.1) {
+    func createScreenFlash(color: SKColor = .white, duration: TimeInterval = 0.1) {
         guard let scene else { return }
 
         let flashNode = SKSpriteNode(color: color, size: scene.size)
@@ -265,7 +280,7 @@ class EffectsManager {
     ///   - score: The score value to display
     ///   - position: Where to show the popup
     ///   - color: The color of the text
-    func createScorePopup(score: Int, at position: CGPoint, color: UIColor = .yellow) {
+    func createScorePopup(score: Int, at position: CGPoint, color: SKColor = .yellow) {
         guard let scene else { return }
 
         let scoreLabel = SKLabelNode(fontNamed: "Arial-Bold")
@@ -375,14 +390,32 @@ class EffectsManager {
     /// - Parameters:
     ///   - color: The color of the particle
     ///   - size: The size of the particle texture
-    /// - Returns: A UIImage for use as particle texture
-    func createParticleTexture(color: UIColor, size: CGSize) -> UIImage {
+    /// - Returns: A platform-specific image for use as particle texture
+    func createParticleTexture(color: SKColor, size: CGSize) -> Any {
+        #if canImport(UIKit)
         let renderer = UIGraphicsImageRenderer(size: size)
         return renderer.image { context in
             context.cgContext.setFillColor(color.cgColor)
             context.cgContext.fill(CGRect(origin: .zero, size: size))
         }
+        #else
+        return createMacOSImage(color: color, size: size)
+        #endif
     }
+
+    // MARK: - macOS Helper Methods
+
+    #if !canImport(UIKit)
+    /// Creates a simple colored image for macOS
+    private func createMacOSImage(color: SKColor, size: CGSize) -> NSImage {
+        let image = NSImage(size: size)
+        image.lockFocus()
+        color.setFill()
+        NSRect(origin: .zero, size: size).fill()
+        image.unlockFocus()
+        return image
+    }
+    #endif
 
     // MARK: - Cleanup
 
@@ -417,7 +450,7 @@ class EffectsManager {
     /// Creates a screen flash effect asynchronously
     /// - Parameter color: The color of the flash
     /// - Parameter duration: How long the flash lasts
-    func createScreenFlashAsync(color: UIColor = .white, duration: TimeInterval = 0.1) async {
+    func createScreenFlashAsync(color: SKColor = .white, duration: TimeInterval = 0.1) async {
         await Task.detached {
             self.createScreenFlash(color: color, duration: duration)
         }.value
@@ -443,7 +476,7 @@ class EffectsManager {
     ///   - score: The score value to display
     ///   - position: Where to show the popup
     ///   - color: The color of the text
-    func createScorePopupAsync(score: Int, at position: CGPoint, color: UIColor = .yellow) async {
+    func createScorePopupAsync(score: Int, at position: CGPoint, color: SKColor = .yellow) async {
         await Task.detached {
             self.createScorePopup(score: score, at: position, color: color)
         }.value

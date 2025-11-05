@@ -7,7 +7,10 @@
 //
 
 import Foundation
+import QuartzCore
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// Protocol for performance-related events
 protocol PerformanceDelegate: AnyObject {
@@ -109,25 +112,30 @@ class PerformanceManager {
 
     /// Detects the current device's performance capability
     private static func detectDeviceCapability() -> DeviceCapability {
-        let device = UIDevice.current
         let processInfo = ProcessInfo.processInfo
 
         // Check processor count and device type
         let processorCount = processInfo.processorCount
         let isModernDevice = processorCount >= 6
 
-        #if targetEnvironment(simulator)
-            // Simulator - assume high capability
-            return .high
+        #if canImport(UIKit)
+            #if targetEnvironment(simulator)
+                // Simulator - assume high capability
+                return .high
+            #else
+                // Physical iOS device
+                let device = UIDevice.current
+                if device.userInterfaceIdiom == .pad {
+                    return .high
+                } else if isModernDevice {
+                    return .high
+                } else {
+                    return .medium
+                }
+            #endif
         #else
-            // Physical device
-            if device.userInterfaceIdiom == .pad {
-                return .high
-            } else if isModernDevice {
-                return .high
-            } else {
-                return .medium
-            }
+            // macOS - use processor count only
+            return isModernDevice ? .high : .medium
         #endif
     }
 
@@ -135,13 +143,18 @@ class PerformanceManager {
 
     /// Sets up performance monitoring
     private func setupPerformanceMonitoring() {
+        #if os(iOS)
         // Monitor frame rate using CADisplayLink
         let displayLink = CADisplayLink(target: self, selector: #selector(self.frameUpdate))
         displayLink.add(to: .main, forMode: .common)
+        #else
+        // For macOS, use NSTimer for frame rate monitoring
+        Timer.scheduledTimer(timeInterval: 1.0/60.0, target: self, selector: #selector(self.frameUpdate), userInfo: nil, repeats: true)
+        #endif
     }
 
     /// Called on each frame update
-    @objc private func frameUpdate(displayLink _: CADisplayLink) {
+    @objc private func frameUpdate(_ sender: Any?) {
         self.frameCount += 1
         let currentTime = CACurrentMediaTime()
         let deltaTime = currentTime - self.lastFrameTime

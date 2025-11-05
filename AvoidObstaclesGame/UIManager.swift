@@ -7,7 +7,9 @@
 //
 
 import SpriteKit
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// Protocol for UI-related events
 protocol UIManagerDelegate: AnyObject {

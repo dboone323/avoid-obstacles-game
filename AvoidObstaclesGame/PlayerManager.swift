@@ -8,7 +8,9 @@
 
 import CoreMotion
 import SpriteKit
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// Protocol for player-related events
 protocol PlayerDelegate: AnyObject {
@@ -47,7 +49,9 @@ class PlayerManager {
     private var trailEffect: SKEmitterNode?
 
     /// Motion manager for tilt controls
+    #if os(iOS)
     private let motionManager = CMMotionManager()
+    #endif
 
     /// Current tilt sensitivity
     private var tiltSensitivity: CGFloat = 0.5
@@ -91,6 +95,7 @@ class PlayerManager {
 
     /// Creates a rounded rectangle player node
     private func createRoundedPlayerNode(size: CGSize, cornerRadius: CGFloat) -> SKShapeNode {
+        #if canImport(UIKit)
         let path = UIBezierPath(
             roundedRect: CGRect(
                 origin: CGPoint(x: -size.width / 2, y: -size.height / 2),
@@ -99,7 +104,13 @@ class PlayerManager {
             cornerRadius: cornerRadius
         )
         let shapeNode = SKShapeNode(path: path.cgPath)
-        shapeNode.fillColor = .systemBlue
+        #else
+        // For macOS, create a simple rounded rect using CGPath
+        let rect = CGRect(origin: CGPoint(x: -size.width / 2, y: -size.height / 2), size: size)
+        let path = CGPath(roundedRect: rect, cornerWidth: cornerRadius, cornerHeight: cornerRadius, transform: nil)
+        let shapeNode = SKShapeNode(path: path)
+        #endif
+        shapeNode.fillColor = .blue
         shapeNode.strokeColor = .cyan
         shapeNode.lineWidth = 2
         shapeNode.glowWidth = 1
@@ -142,11 +153,15 @@ class PlayerManager {
         guard let trailEffect else { return }
 
         // Create simple particle texture
+        #if canImport(UIKit)
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 4, height: 4))
         let particleImage = renderer.image { context in
             context.cgContext.setFillColor(UIColor.cyan.cgColor)
             context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 4, height: 4)))
         }
+        #else
+        let particleImage = createMacOSImage(color: NSColor.cyan, size: CGSize(width: 4, height: 4))
+        #endif
 
         trailEffect.particleTexture = SKTexture(image: particleImage)
         trailEffect.particleBirthRate = 20
@@ -331,6 +346,7 @@ class PlayerManager {
     /// Enables tilt-based movement controls
     /// - Parameter sensitivity: Sensitivity multiplier for tilt controls (0.1 to 2.0)
     func enableTiltControls(sensitivity: CGFloat = 0.5) {
+        #if os(iOS)
         tiltSensitivity = max(0.1, min(sensitivity, 2.0))
         tiltControlsEnabled = true
 
@@ -342,12 +358,18 @@ class PlayerManager {
                 handleMotionUpdate(motion)
             }
         }
+        #else
+        // Tilt controls not available on macOS
+        print("Tilt controls are not available on macOS")
+        #endif
     }
 
     /// Disables tilt-based movement controls
     func disableTiltControls() {
         tiltControlsEnabled = false
+        #if os(iOS)
         motionManager.stopDeviceMotionUpdates()
+        #endif
     }
 
     /// Handles device motion updates for tilt controls
@@ -478,7 +500,7 @@ public enum PowerUpType: CaseIterable {
     case speed
     case magnet
 
-    var color: UIColor {
+    var color: SKColor {
         switch self {
         case .shield: .blue
         case .speed: .green
@@ -486,6 +508,20 @@ public enum PowerUpType: CaseIterable {
         }
     }
 }
+
+#if !canImport(UIKit)
+
+
+/// Creates a simple colored image for macOS
+private func createMacOSImage(color: NSColor, size: CGSize) -> NSImage {
+    let image = NSImage(size: size)
+    image.lockFocus()
+    color.setFill()
+    NSRect(origin: .zero, size: size).fill()
+    image.unlockFocus()
+    return image
+}
+#endif
 
 // MARK: - Object Pooling
 

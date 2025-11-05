@@ -7,7 +7,9 @@
 
 import GameplayKit
 import SpriteKit
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// The main SpriteKit scene for AvoidObstaclesGame.
 /// Coordinates all game services and manages the high-level game flow.
@@ -219,6 +221,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: - Touch Handling
 
     /// Handles touch input
+    #if canImport(UIKit)
     override public func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
@@ -238,6 +241,25 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         let location = touch.location(in: self)
         playerManager.moveTo(location)
     }
+    #else
+    override public func mouseDown(with event: NSEvent) {
+        let location = event.location(in: self)
+
+        if gameStateManager.isGameOver() {
+            // Handle restart
+            uiManager.handleTouch(at: location)
+        } else {
+            // Handle player movement
+            playerManager.moveTo(location)
+        }
+    }
+
+    override public func mouseDragged(with event: NSEvent) {
+        guard !gameStateManager.isGameOver() else { return }
+        let location = event.location(in: self)
+        playerManager.moveTo(location)
+    }
+    #endif
 
     // MARK: - Physics Contact Delegate
 

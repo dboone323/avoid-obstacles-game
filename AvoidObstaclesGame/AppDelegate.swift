@@ -5,6 +5,7 @@
 //  Created by Daniel Stevens on 5/16/25.
 //
 
+#if os(iOS)
 import UIKit
 
 @main
@@ -15,8 +16,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         _: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        // Create the main window
+        let window = UIWindow()
+        window.rootViewController = GameViewController()
+        window.makeKeyAndVisible()
+        self.window = window
+
         // Override point for customization after application launch.
-        true
+        return true
     }
 
     public func applicationWillResignActive(_: UIApplication) {
@@ -45,3 +52,35 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         // refresh the user interface.
     }
 }
+#elseif os(macOS)
+import Cocoa
+import SpriteKit
+
+@main
+public class AppDelegate: NSObject, NSApplicationDelegate {
+    public var window: NSWindow?
+
+    public func applicationDidFinishLaunching(_: Notification) {
+        // Create the main window
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 800, height: 600),
+            styleMask: [.titled, .closable, .miniaturizable, .resizable],
+            backing: .buffered,
+            defer: false
+        )
+        window.center()
+        window.title = "Avoid Obstacles Game"
+
+        // Create GameViewController
+        let gameVC = GameViewController()
+        window.contentViewController = gameVC
+
+        window.makeKeyAndOrderFront(nil)
+        self.window = window
+    }
+
+    public func applicationWillTerminate(_: Notification) {
+        // Insert code here to tear down your application
+    }
+}
+#endif

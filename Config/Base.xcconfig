@@ -1,2 +1,10 @@
-#include "../../Config/WorkspaceBase.xcconfig"
 // App specific overrides (universal for macOS + iOS target groups)
+
+// Main storyboard conditional on platform - removed for programmatic UI
+INFOPLIST_KEY_UIMainStoryboardFile = 
+
+// Launch storyboard conditional on platform - removed for programmatic UI
+INFOPLIST_KEY_UILaunchStoryboardName = 
+
+// Exclude storyboards for all platforms since we're using programmatic UI
+EXCLUDED_SOURCE_FILE_NAMES = Main.storyboard LaunchScreen.storyboard
