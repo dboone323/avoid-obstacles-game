@@ -166,7 +166,7 @@ class GameStateManager {
             "totalScore": totalScore,
             "averageScore": gamesPlayed > 0 ? Double(totalScore) / Double(gamesPlayed) : 0,
             "bestSurvivalTime": bestSurvivalTime,
-            "highestScore": HighScoreManager.shared.getHighestScore(),
+            "highestScore": HighScoreManager.shared.getHighestScore()
         ]
     }
 
@@ -179,7 +179,7 @@ class GameStateManager {
             "totalScore": totalScore,
             "averageScore": gamesPlayed > 0 ? Double(totalScore) / Double(gamesPlayed) : 0,
             "bestSurvivalTime": bestSurvivalTime,
-            "highestScore": highestScore,
+            "highestScore": highestScore
         ]
     }
 

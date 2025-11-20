@@ -7,7 +7,7 @@
 
 import SpriteKit
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #endif
 
 /// Manages visual effects and animations
@@ -53,14 +53,14 @@ class EffectsManager {
 
         // Create particle texture programmatically
         #if canImport(UIKit)
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 8, height: 8))
-        let sparkImage = renderer.image { context in
-            context.cgContext.setFillColor(UIColor.white.cgColor)
-            context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 8, height: 8)))
-        }
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: 8, height: 8))
+            let sparkImage = renderer.image { context in
+                context.cgContext.setFillColor(UIColor.white.cgColor)
+                context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 8, height: 8)))
+            }
         #else
-        // For macOS, create a simple colored image
-        let sparkImage = createMacOSImage(color: SKColor.white, size: CGSize(width: 8, height: 8))
+            // For macOS, create a simple colored image
+            let sparkImage = createMacOSImage(color: SKColor.white, size: CGSize(width: 8, height: 8))
         #endif
 
         // Configure explosion particles
@@ -99,13 +99,13 @@ class EffectsManager {
 
         // Create particle texture
         #if canImport(UIKit)
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 4, height: 4))
-        let particleImage = renderer.image { context in
-            context.cgContext.setFillColor(UIColor.cyan.cgColor)
-            context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 4, height: 4)))
-        }
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: 4, height: 4))
+            let particleImage = renderer.image { context in
+                context.cgContext.setFillColor(UIColor.cyan.cgColor)
+                context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 4, height: 4)))
+            }
         #else
-        let particleImage = createMacOSImage(color: SKColor.cyan, size: CGSize(width: 4, height: 4))
+            let particleImage = createMacOSImage(color: SKColor.cyan, size: CGSize(width: 4, height: 4))
         #endif
 
         // Configure trail particles
@@ -133,13 +133,13 @@ class EffectsManager {
 
         // Create particle texture
         #if canImport(UIKit)
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 6, height: 6))
-        let sparkleImage = renderer.image { context in
-            context.cgContext.setFillColor(UIColor.yellow.cgColor)
-            context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 6, height: 6)))
-        }
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: 6, height: 6))
+            let sparkleImage = renderer.image { context in
+                context.cgContext.setFillColor(UIColor.yellow.cgColor)
+                context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 6, height: 6)))
+            }
         #else
-        let sparkleImage = createMacOSImage(color: SKColor.yellow, size: CGSize(width: 6, height: 6))
+            let sparkleImage = createMacOSImage(color: SKColor.yellow, size: CGSize(width: 6, height: 6))
         #endif
 
         // Configure sparkle particles
@@ -174,7 +174,7 @@ class EffectsManager {
         // Auto-remove after animation
         let removeAction = SKAction.sequence([
             SKAction.wait(forDuration: 1.0),
-            SKAction.removeFromParent(),
+            SKAction.removeFromParent()
         ])
 
         explosion.run(removeAction)
@@ -229,7 +229,7 @@ class EffectsManager {
 
         let fadeAction = SKAction.sequence([
             SKAction.fadeOut(withDuration: duration),
-            SKAction.removeFromParent(),
+            SKAction.removeFromParent()
         ])
 
         flashNode.run(fadeAction)
@@ -267,7 +267,7 @@ class EffectsManager {
 
         let removeAction = SKAction.sequence([
             SKAction.wait(forDuration: 1.0),
-            SKAction.removeFromParent(),
+            SKAction.removeFromParent()
         ])
 
         sparkle.run(removeAction)
@@ -393,28 +393,28 @@ class EffectsManager {
     /// - Returns: A platform-specific image for use as particle texture
     func createParticleTexture(color: SKColor, size: CGSize) -> Any {
         #if canImport(UIKit)
-        let renderer = UIGraphicsImageRenderer(size: size)
-        return renderer.image { context in
-            context.cgContext.setFillColor(color.cgColor)
-            context.cgContext.fill(CGRect(origin: .zero, size: size))
-        }
+            let renderer = UIGraphicsImageRenderer(size: size)
+            return renderer.image { context in
+                context.cgContext.setFillColor(color.cgColor)
+                context.cgContext.fill(CGRect(origin: .zero, size: size))
+            }
         #else
-        return createMacOSImage(color: color, size: size)
+            return createMacOSImage(color: color, size: size)
         #endif
     }
 
     // MARK: - macOS Helper Methods
 
     #if !canImport(UIKit)
-    /// Creates a simple colored image for macOS
-    private func createMacOSImage(color: SKColor, size: CGSize) -> NSImage {
-        let image = NSImage(size: size)
-        image.lockFocus()
-        color.setFill()
-        NSRect(origin: .zero, size: size).fill()
-        image.unlockFocus()
-        return image
-    }
+        /// Creates a simple colored image for macOS
+        private func createMacOSImage(color: SKColor, size: CGSize) -> NSImage {
+            let image = NSImage(size: size)
+            image.lockFocus()
+            color.setFill()
+            NSRect(origin: .zero, size: size).fill()
+            image.unlockFocus()
+            return image
+        }
     #endif
 
     // MARK: - Cleanup

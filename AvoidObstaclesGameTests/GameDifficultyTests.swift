@@ -3,15 +3,6 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 final class GameDifficultyTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        // Put setup code here
-    }
-
-    override func tearDown() {
-        // Put teardown code here
-        super.tearDown()
-    }
 
     // MARK: - GameDifficulty Tests
 

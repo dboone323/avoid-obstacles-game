@@ -265,7 +265,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
             "level": 3,
             "lives": 2,
             "playerX": 100.0,
-            "playerY": 200.0,
+            "playerY": 200.0
         ]
 
         XCTAssertEqual(gameData["score"] as? Int, 1500)
@@ -280,7 +280,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         let savedData = [
             "score": 2500,
             "level": 5,
-            "lives": 3,
+            "lives": 3
         ]
 
         let loadedScore = savedData["score"] ?? 0

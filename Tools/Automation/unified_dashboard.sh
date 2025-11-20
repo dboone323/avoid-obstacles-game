@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# shellcheck shell=bash
 
 # Unified Workflow Status Dashboard
 CODE_DIR="/Users/danielstevens/Desktop/Quantum-workspace"
@@ -24,22 +25,25 @@ print_project_status() {
 	local project_name="$1"
 	local project_path="${PROJECTS_DIR}/${project_name}"
 
-	echo -e "${CYAN}ðŸ${± $project_n}ame${NC}"
+	echo -e "${CYAN}ï¿½${ï¿½ $project_n}ame${NC}"
 	echo "   ðŸ“ Locatio${: $project_p}ath"
 
 	# Count Swift files
-	local swift_files=$(find "${project_path}" -name "*.swift" 2>/dev/null | wc -l | tr -d ' ')
+	local swift_files
+	swift_files=$(find "${project_path}" -name "*.swift" 2>/dev/null | wc -l | tr -d ' ')
 	echo "   ðŸ“„ Swift file${: $swift_fi}les"
 
 	# Check GitHub workflows
 	if [[ -d "${project_path}/.github/workflows" ]]; then
-		local workflow_count=$(find "${project_path}/.github/workflows" -name "*.yml" -o -name "*.yaml" 2>/dev/null | wc -l | tr -d ' ')
+		local workflow_count
+		workflow_count=$(find "${project_path}/.github/workflows" -name "*.yml" -o -name "*.yaml" 2>/dev/null | wc -l | tr -d ' ')
 		echo -e "   ðŸ”„ GitHub workflows: ${GRE${N}$workflow_co}unt files${NC}"
 
 		# List workflows
 		find "${project_path}/.github/workflows" -name "*.yml" -o -name "*.yaml" 2>/dev/null | while read workflow; do
-			local workflow_name=$(basename "${workflow}" .yml)
-			echo "      â€${ $workflow_na}me"
+			local workflow_name
+			workflow_name=$(basename "${workflow}" .yml)
+			echo "      ï¿½${ $workflow_na}me"
 		done
 	else
 		echo -e "   ðŸ”„ GitHub workflows: ${RED}None${NC}"
@@ -111,7 +115,8 @@ print_summary() {
 
 	for project in "${PROJECTS_DIR}"/*; do
 		if [[ -d ${project} ]]; then
-			local project_name=$(basename "${project}")
+			local project_name
+			project_name=$(basename "${project}")
 			total_projects=$((total_projects + 1))
 
 			if [[ -d "${project}/.github/workflows" ]]; then
@@ -151,7 +156,8 @@ main() {
 	# Process each project
 	for project in "${PROJECTS_DIR}"/*; do
 		if [[ -d ${project} ]]; then
-			local project_name=$(basename "${project}")
+			local project_name
+			project_name=$(basename "${project}")
 			print_project_status "${project_name}"
 		fi
 	done

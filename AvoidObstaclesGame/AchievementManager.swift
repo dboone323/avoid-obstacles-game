@@ -244,7 +244,7 @@ class AchievementManager {
                 type: .timeBased,
                 targetValue: 30,
                 isHidden: true
-            ),
+            )
         ]
 
         for achievement in allAchievements {
@@ -301,13 +301,11 @@ class AchievementManager {
             ("survivor_30s", 30.0),
             ("survivor_60s", 60.0),
             ("survivor_120s", 120.0),
-            ("speedrunner", 30.0),
+            ("speedrunner", 30.0)
         ]
 
-        for (achievementId, targetTime) in timeAchievements {
-            if survivalTime >= targetTime {
-                unlockAchievement(achievementId)
-            }
+        for (achievementId, targetTime) in timeAchievements where survivalTime >= targetTime {
+            unlockAchievement(achievementId)
         }
     }
 
@@ -316,13 +314,11 @@ class AchievementManager {
         let difficultyAchievements = [
             ("level_3", 3),
             ("level_5", 5),
-            ("level_6", 6),
+            ("level_6", 6)
         ]
 
-        for (achievementId, targetLevel) in difficultyAchievements {
-            if level >= targetLevel {
-                unlockAchievement(achievementId)
-            }
+        for (achievementId, targetLevel) in difficultyAchievements where level >= targetLevel {
+            unlockAchievement(achievementId)
         }
     }
 
@@ -330,13 +326,11 @@ class AchievementManager {
     private func updateStreakAchievements(score: Int) {
         let streakAchievements = [
             ("perfect_start", 50),
-            ("no_hit_100", 100),
+            ("no_hit_100", 100)
         ]
 
-        for (achievementId, targetScore) in streakAchievements {
-            if score >= targetScore {
-                unlockAchievement(achievementId)
-            }
+        for (achievementId, targetScore) in streakAchievements where score >= targetScore {
+            unlockAchievement(achievementId)
         }
     }
 
@@ -477,7 +471,7 @@ class AchievementManager {
             "unlockedAchievements": unlockedCount,
             "completionRate": completionRate,
             "totalPoints": totalPoints,
-            "recentUnlocks": getRecentUnlocks(count: 5),
+            "recentUnlocks": getRecentUnlocks(count: 5)
         ]
     }
 

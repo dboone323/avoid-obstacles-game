@@ -9,7 +9,7 @@
 import CoreMotion
 import SpriteKit
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #endif
 
 /// Protocol for player-related events
@@ -50,7 +50,7 @@ class PlayerManager {
 
     /// Motion manager for tilt controls
     #if os(iOS)
-    private let motionManager = CMMotionManager()
+        private let motionManager = CMMotionManager()
     #endif
 
     /// Current tilt sensitivity
@@ -96,19 +96,19 @@ class PlayerManager {
     /// Creates a rounded rectangle player node
     private func createRoundedPlayerNode(size: CGSize, cornerRadius: CGFloat) -> SKShapeNode {
         #if canImport(UIKit)
-        let path = UIBezierPath(
-            roundedRect: CGRect(
-                origin: CGPoint(x: -size.width / 2, y: -size.height / 2),
-                size: size
-            ),
-            cornerRadius: cornerRadius
-        )
-        let shapeNode = SKShapeNode(path: path.cgPath)
+            let path = UIBezierPath(
+                roundedRect: CGRect(
+                    origin: CGPoint(x: -size.width / 2, y: -size.height / 2),
+                    size: size
+                ),
+                cornerRadius: cornerRadius
+            )
+            let shapeNode = SKShapeNode(path: path.cgPath)
         #else
-        // For macOS, create a simple rounded rect using CGPath
-        let rect = CGRect(origin: CGPoint(x: -size.width / 2, y: -size.height / 2), size: size)
-        let path = CGPath(roundedRect: rect, cornerWidth: cornerRadius, cornerHeight: cornerRadius, transform: nil)
-        let shapeNode = SKShapeNode(path: path)
+            // For macOS, create a simple rounded rect using CGPath
+            let rect = CGRect(origin: CGPoint(x: -size.width / 2, y: -size.height / 2), size: size)
+            let path = CGPath(roundedRect: rect, cornerWidth: cornerRadius, cornerHeight: cornerRadius, transform: nil)
+            let shapeNode = SKShapeNode(path: path)
         #endif
         shapeNode.fillColor = .blue
         shapeNode.strokeColor = .cyan
@@ -154,13 +154,13 @@ class PlayerManager {
 
         // Create simple particle texture
         #if canImport(UIKit)
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 4, height: 4))
-        let particleImage = renderer.image { context in
-            context.cgContext.setFillColor(UIColor.cyan.cgColor)
-            context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 4, height: 4)))
-        }
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: 4, height: 4))
+            let particleImage = renderer.image { context in
+                context.cgContext.setFillColor(UIColor.cyan.cgColor)
+                context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 4, height: 4)))
+            }
         #else
-        let particleImage = createMacOSImage(color: NSColor.cyan, size: CGSize(width: 4, height: 4))
+            let particleImage = createMacOSImage(color: NSColor.cyan, size: CGSize(width: 4, height: 4))
         #endif
 
         trailEffect.particleTexture = SKTexture(image: particleImage)
@@ -225,7 +225,7 @@ class PlayerManager {
         // Visual feedback for collision
         let flashAction = SKAction.sequence([
             SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.1),
-            SKAction.colorize(withColorBlendFactor: 0, duration: 0.1),
+            SKAction.colorize(withColorBlendFactor: 0, duration: 0.1)
         ])
         player.run(flashAction)
 
@@ -293,7 +293,7 @@ class PlayerManager {
         // Pulsing animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5),
+            SKAction.scale(to: 1.0, duration: 0.5)
         ])
         shield.run(SKAction.repeatForever(pulse))
 
@@ -332,7 +332,7 @@ class PlayerManager {
         // Pulsing and rotating animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.2, duration: 0.3),
-            SKAction.scale(to: 1.0, duration: 0.3),
+            SKAction.scale(to: 1.0, duration: 0.3)
         ])
         let rotate = SKAction.rotate(byAngle: .pi, duration: 0.6)
         let group = SKAction.group([pulse, rotate])
@@ -347,20 +347,20 @@ class PlayerManager {
     /// - Parameter sensitivity: Sensitivity multiplier for tilt controls (0.1 to 2.0)
     func enableTiltControls(sensitivity: CGFloat = 0.5) {
         #if os(iOS)
-        tiltSensitivity = max(0.1, min(sensitivity, 2.0))
-        tiltControlsEnabled = true
+            tiltSensitivity = max(0.1, min(sensitivity, 2.0))
+            tiltControlsEnabled = true
 
-        // Start motion updates
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 1.0 / 60.0 // 60 FPS
-            motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { [weak self] motion, error in
-                guard let self, let motion, error == nil, tiltControlsEnabled else { return }
-                handleMotionUpdate(motion)
+            // Start motion updates
+            if motionManager.isDeviceMotionAvailable {
+                motionManager.deviceMotionUpdateInterval = 1.0 / 60.0 // 60 FPS
+                motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { [weak self] motion, error in
+                    guard let self, let motion, error == nil, tiltControlsEnabled else { return }
+                    handleMotionUpdate(motion)
+                }
             }
-        }
         #else
-        // Tilt controls not available on macOS
-        print("Tilt controls are not available on macOS")
+            // Tilt controls not available on macOS
+            print("Tilt controls are not available on macOS")
         #endif
     }
 
@@ -368,7 +368,7 @@ class PlayerManager {
     func disableTiltControls() {
         tiltControlsEnabled = false
         #if os(iOS)
-        motionManager.stopDeviceMotionUpdates()
+            motionManager.stopDeviceMotionUpdates()
         #endif
     }
 
@@ -511,16 +511,15 @@ public enum PowerUpType: CaseIterable {
 
 #if !canImport(UIKit)
 
-
-/// Creates a simple colored image for macOS
-private func createMacOSImage(color: NSColor, size: CGSize) -> NSImage {
-    let image = NSImage(size: size)
-    image.lockFocus()
-    color.setFill()
-    NSRect(origin: .zero, size: size).fill()
-    image.unlockFocus()
-    return image
-}
+    /// Creates a simple colored image for macOS
+    private func createMacOSImage(color: NSColor, size: CGSize) -> NSImage {
+        let image = NSImage(size: size)
+        image.lockFocus()
+        color.setFill()
+        NSRect(origin: .zero, size: size).fill()
+        image.unlockFocus()
+        return image
+    }
 #endif
 
 // MARK: - Object Pooling

@@ -8,7 +8,7 @@
 import GameplayKit
 import SpriteKit
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #endif
 
 /// The main SpriteKit scene for AvoidObstaclesGame.
@@ -222,43 +222,43 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
     /// Handles touch input
     #if canImport(UIKit)
-    override public func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
+        override public func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
+            guard let touch = touches.first else { return }
+            let location = touch.location(in: self)
 
-        if gameStateManager.isGameOver() {
-            // Handle restart
-            uiManager.handleTouch(at: location)
-        } else {
-            // Handle player movement
+            if gameStateManager.isGameOver() {
+                // Handle restart
+                uiManager.handleTouch(at: location)
+            } else {
+                // Handle player movement
+                playerManager.moveTo(location)
+            }
+        }
+
+        /// Handles touch movement for player control
+        override public func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
+            guard !gameStateManager.isGameOver(), let touch = touches.first else { return }
+            let location = touch.location(in: self)
             playerManager.moveTo(location)
         }
-    }
-
-    /// Handles touch movement for player control
-    override public func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
-        guard !gameStateManager.isGameOver(), let touch = touches.first else { return }
-        let location = touch.location(in: self)
-        playerManager.moveTo(location)
-    }
     #else
-    override public func mouseDown(with event: NSEvent) {
-        let location = event.location(in: self)
+        override public func mouseDown(with event: NSEvent) {
+            let location = event.location(in: self)
 
-        if gameStateManager.isGameOver() {
-            // Handle restart
-            uiManager.handleTouch(at: location)
-        } else {
-            // Handle player movement
+            if gameStateManager.isGameOver() {
+                // Handle restart
+                uiManager.handleTouch(at: location)
+            } else {
+                // Handle player movement
+                playerManager.moveTo(location)
+            }
+        }
+
+        override public func mouseDragged(with event: NSEvent) {
+            guard !gameStateManager.isGameOver() else { return }
+            let location = event.location(in: self)
             playerManager.moveTo(location)
         }
-    }
-
-    override public func mouseDragged(with event: NSEvent) {
-        guard !gameStateManager.isGameOver() else { return }
-        let location = event.location(in: self)
-        playerManager.moveTo(location)
-    }
     #endif
 
     // MARK: - Physics Contact Delegate

@@ -10,14 +10,6 @@ import XCTest
 
 final class GeneratedAssetSymbolsTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-    }
-
-    override func tearDown() {
-        super.tearDown()
-    }
-
     func testInitialization() {
         XCTAssertTrue(true, "Initialization test for GeneratedAssetSymbols")
     }

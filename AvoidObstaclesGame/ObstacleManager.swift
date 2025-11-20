@@ -8,7 +8,7 @@
 
 import SpriteKit
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #endif
 
 /// Protocol for obstacle-related events
@@ -280,9 +280,9 @@ class ObstacleManager {
 
         for obstacle in activeObstacles {
             // Remove obstacles that have fallen off screen
-            if obstacle.position.y < -obstacle.size.height {
-                recycleObstacle(obstacle)
-            }
+        for obstacle in activeObstacles where obstacle.position.y < -obstacle.size.height {
+            recycleObstacle(obstacle)
+        }
         }
     }
 

@@ -27,7 +27,7 @@ public class AudioManager: NSObject {
 
     /// Audio session
     #if os(iOS)
-    private let audioSession = AVAudioSession.sharedInstance()
+        private let audioSession = AVAudioSession.sharedInstance()
     #endif
 
     /// Audio settings
@@ -69,12 +69,12 @@ public class AudioManager: NSObject {
     /// Sets up the audio session for the app
     private func setupAudioSession() {
         #if os(iOS)
-        do {
-            try audioSession.setCategory(.ambient, mode: .default, options: [.mixWithOthers])
-            try audioSession.setActive(true)
-        } catch {
-            print("Failed to setup audio session: \(error)")
-        }
+            do {
+                try audioSession.setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+                try audioSession.setActive(true)
+            } catch {
+                print("Failed to setup audio session: \(error)")
+            }
         #endif
     }
 
@@ -105,7 +105,7 @@ public class AudioManager: NSObject {
             "levelUp",
             "powerUp",
             "shield",
-            "explosion",
+            "explosion"
         ]
 
         for soundName in soundEffectNames {
@@ -281,7 +281,7 @@ public class AudioManager: NSObject {
             "audioEnabled": isAudioEnabled,
             "musicEnabled": isMusicEnabled,
             "soundEffectsVolume": soundEffectsVolume,
-            "musicVolume": musicVolume,
+            "musicVolume": musicVolume
         ]
     }
 
@@ -351,11 +351,11 @@ public class AudioManager: NSObject {
         stopBackgroundMusic()
         soundEffects.removeAll()
         #if os(iOS)
-        do {
-            try audioSession.setActive(false)
-        } catch {
-            print("Failed to deactivate audio session: \(error)")
-        }
+            do {
+                try audioSession.setActive(false)
+            } catch {
+                print("Failed to deactivate audio session: \(error)")
+            }
         #endif
     }
 }

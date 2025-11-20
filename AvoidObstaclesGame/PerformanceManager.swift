@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #endif
 
 /// Protocol for performance-related events
@@ -144,12 +144,12 @@ class PerformanceManager {
     /// Sets up performance monitoring
     private func setupPerformanceMonitoring() {
         #if os(iOS)
-        // Monitor frame rate using CADisplayLink
-        let displayLink = CADisplayLink(target: self, selector: #selector(self.frameUpdate))
-        displayLink.add(to: .main, forMode: .common)
+            // Monitor frame rate using CADisplayLink
+            let displayLink = CADisplayLink(target: self, selector: #selector(self.frameUpdate))
+            displayLink.add(to: .main, forMode: .common)
         #else
-        // For macOS, use NSTimer for frame rate monitoring
-        Timer.scheduledTimer(timeInterval: 1.0/60.0, target: self, selector: #selector(self.frameUpdate), userInfo: nil, repeats: true)
+            // For macOS, use NSTimer for frame rate monitoring
+            Timer.scheduledTimer(timeInterval: 1.0 / 60.0, target: self, selector: #selector(self.frameUpdate), userInfo: nil, repeats: true)
         #endif
     }
 
@@ -376,7 +376,7 @@ struct PerformanceStats {
             "currentMemoryUsage": self.currentMemoryUsage,
             "peakMemoryUsage": self.peakMemoryUsage,
             "cleanupCount": self.cleanupCount,
-            "qualityLevel": self.currentQualityLevel,
+            "qualityLevel": self.currentQualityLevel
         ]
     }
 }

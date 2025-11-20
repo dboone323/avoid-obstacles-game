@@ -4,15 +4,6 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 final class GameSceneTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        // Put setup code here
-    }
-
-    override func tearDown() {
-        // Put teardown code here
-        super.tearDown()
-    }
 
     // MARK: - PhysicsCategory Tests
 
