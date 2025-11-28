@@ -7,48 +7,112 @@
 
 @testable import AvoidObstaclesGame
 import XCTest
+import SpriteKit
 
 final class PhysicsManagerTests: XCTestCase {
+    
+    var scene: SKScene!
+    var manager: PhysicsManager!
+    
+    override func setUp() {
+        super.setUp()
+        scene = SKScene(size: CGSize(width: 800, height: 600))
+        manager = PhysicsManager(scene: scene)
+    }
+    
+    override func tearDown() {
+        manager = nil
+        scene = nil
+        super.tearDown()
+    }
 
     // MARK: - Initialization Tests
 
     func testInitialization() {
-        // Test basic initialization
-        XCTAssertTrue(true, "Initialization test placeholder")
+        XCTAssertNotNil(manager)
+        XCTAssertEqual(scene.physicsWorld.gravity, CGVector(dx: 0, dy: 0))
+    }
+    
+    func testPhysicsWorldSetup() {
+        XCTAssertNotNil(scene.physicsWorld.contactDelegate)
+        XCTAssertEqual(scene.physicsWorld.speed, 1.0)
     }
 
-    // MARK: - Property Tests
+    // MARK: - Physics Body Creation Tests
 
-    func testProperties() {
-        // Test property access and validation
-        XCTAssertTrue(true, "Property test placeholder")
+    func testCreatePlayerPhysicsBody() {
+        let body = manager.createPlayerPhysicsBody(size: CGSize(width: 30, height: 30))
+        
+        XCTAssertEqual(body.categoryBitMask, PhysicsCategory.player)
+        XCTAssertEqual(body.contactTestBitMask, PhysicsCategory.obstacle | PhysicsCategory.powerUp)
+        XCTAssertEqual(body.collisionBitMask, PhysicsCategory.none)
+        XCTAssertFalse(body.affectedByGravity)
+        XCTAssertFalse(body.isDynamic)
+    }
+    
+    func testCreateObstaclePhysicsBody() {
+        let body = manager.createObstaclePhysicsBody(size: CGSize(width: 30, height: 30))
+        
+        XCTAssertEqual(body.categoryBitMask, PhysicsCategory.obstacle)
+        XCTAssertEqual(body.contactTestBitMask, PhysicsCategory.player)
+        XCTAssertEqual(body.collisionBitMask, PhysicsCategory.none)
+        XCTAssertTrue(body.isDynamic)
+    }
+    
+    func testCreatePowerUpPhysicsBody() {
+        let body = manager.createPowerUpPhysicsBody(size: CGSize(width: 25, height: 25))
+        
+        XCTAssertEqual(body.categoryBitMask, PhysicsCategory.powerUp)
+        XCTAssertEqual(body.contactTestBitMask, PhysicsCategory.player)
+        XCTAssertTrue(body.isDynamic)
     }
 
-    // MARK: - Method Tests
+    // MARK: - Physics Utility Tests
 
-    func testPublicMethods() {
-        // Test public method functionality
-        XCTAssertTrue(true, "Method test placeholder")
+    func testApplyImpulse() {
+        let node = SKSpriteNode(color: .red, size: CGSize(width: 30, height: 30))
+        node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+        
+        let impulse = CGVector(dx: 100, dy: 0)
+        manager.applyImpulse(to: node.physicsBody!, impulse: impulse)
+        
+        // Impulse applied - velocity should change
+        XCTAssertNotEqual(node.physicsBody!.velocity, .zero)
+    }
+    
+    func testSetVelocity() {
+        let node = SKSpriteNode(color: .red, size: CGSize(width: 30, height: 30))
+        node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+        
+        let velocity = CGVector(dx: 50, dy: 50)
+        manager.setVelocity(of: node.physicsBody!, to: velocity)
+        
+        XCTAssertEqual(manager.getVelocity(of: node.physicsBody!), velocity)
     }
 
-    // MARK: - Edge Case Tests
+    // MARK: - Debug Visualization Tests
 
-    func testEdgeCases() {
-        // Test edge cases and boundary conditions
-        XCTAssertTrue(true, "Edge case test placeholder")
+    func testSetDebugVisualization() {
+        let view = SKView(frame: CGRect(x: 0, y: 0, width: 800, height: 600))
+        view.presentScene(scene)
+        
+        manager.setDebugVisualization(enabled: true)
+        XCTAssertTrue(view.showsPhysics)
+        
+        manager.setDebugVisualization(enabled: false)
+        XCTAssertFalse(view.showsPhysics)
     }
-
-    // MARK: - Error Handling Tests
-
-    func testErrorHandling() {
-        // Test error handling and validation
-        XCTAssertTrue(true, "Error handling test placeholder")
-    }
-
-    // MARK: - Integration Tests
-
-    func testIntegration() {
-        // Test integration with other components
-        XCTAssertTrue(true, "Integration test placeholder")
+    
+    // MARK: - Simulation Quality Tests
+    
+    func testSetSimulationQuality() {
+        manager.setSimulationQuality(.high)
+        XCTAssertEqual(scene.physicsWorld.speed, 1.0)
+        
+        manager.setSimulationQuality(.medium)
+        XCTAssertEqual(scene.physicsWorld.speed, 0.8)
+        
+        manager.setSimulationQuality(.low)
+        XCTAssertEqual(scene.physicsWorld.speed, 0.6)
     }
 }

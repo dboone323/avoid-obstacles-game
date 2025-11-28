@@ -1,54 +1,78 @@
-//
-//  PlayerManagerTests.swift
-//  AvoidObstaclesGameTests
-//
-//  Comprehensive test suite for PlayerManager
-//
-
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
+import SpriteKit
 
 final class PlayerManagerTests: XCTestCase {
-
-    // MARK: - Initialization Tests
-
-    func testInitialization() {
-        // Test basic initialization
-        XCTAssertTrue(true, "Initialization test placeholder")
+    
+    var scene: SKScene!
+    var manager: PlayerManager!
+    
+    override func setUp() {
+        super.setUp()
+        scene = SKScene(size: CGSize(width: 800, height: 600))
+        manager = PlayerManager(scene: scene)
     }
-
-    // MARK: - Property Tests
-
-    func testProperties() {
-        // Test property access and validation
-        XCTAssertTrue(true, "Property test placeholder")
+    
+    override func tearDown() {
+        manager = nil
+        scene = nil
+        super.tearDown()
     }
-
-    // MARK: - Method Tests
-
-    func testPublicMethods() {
-        // Test public method functionality
-        XCTAssertTrue(true, "Method test placeholder")
+    
+    func testPlayerCreation() {
+        let testPosition = CGPoint(x: 400, y: 300)
+        manager.createPlayer(at: testPosition)
+        
+        XCTAssertNotNil(manager.player)
+        XCTAssertEqual(manager.player?.name, "player")
+        XCTAssertEqual(manager.position, testPosition)
     }
-
-    // MARK: - Edge Case Tests
-
-    func testEdgeCases() {
-        // Test edge cases and boundary conditions
-        XCTAssertTrue(true, "Edge case test placeholder")
+    
+    func testPlayerMovement() {
+        manager.createPlayer(at: CGPoint(x: 400, y: 300))
+        
+        let targetPosition = CGPoint(x: 500, y: 300)
+        manager.moveTo(targetPosition)
+        
+        // Player should have movement action
+        XCTAssertTrue(manager.player?.action(forKey: "playerMovement") != nil)
     }
-
-    // MARK: - Error Handling Tests
-
-    func testErrorHandling() {
-        // Test error handling and validation
-        XCTAssertTrue(true, "Error handling test placeholder")
+    
+    func testPlayerPositionSetting() {
+        manager.createPlayer(at: CGPoint(x: 400, y: 300))
+        
+        let newPosition = CGPoint(x: 200, y: 300)
+        manager.setPosition(newPosition)
+        
+        XCTAssertEqual(manager.position, newPosition)
     }
-
-    // MARK: - Integration Tests
-
-    func testIntegration() {
-        // Test integration with other components
-        XCTAssertTrue(true, "Integration test placeholder")
+    
+    func testPlayerVisibility() {
+        manager.createPlayer(at: CGPoint(x: 400, y: 300))
+        
+        manager.hide()
+        XCTAssertTrue(manager.player?.isHidden == true)
+        
+        manager.show()
+        XCTAssertFalse(manager.player?.isHidden == true)
+    }
+    
+    func testPlayerReset() {
+        manager.createPlayer(at: CGPoint(x: 400, y: 300))
+        
+        manager.hide()
+        manager.reset()
+        
+        XCTAssertFalse(manager.player?.isHidden == true)
+    }
+    
+    func testPowerUpEffects() {
+        manager.createPlayer(at: CGPoint(x: 400, y: 300))
+        
+        manager.applyPowerUpEffect(.shield)
+        XCTAssertNotNil(manager.player?.childNode(withName: "shield"))
+        
+        manager.removePowerUpEffects()
+        XCTAssertNil(manager.player?.childNode(withName: "shield"))
     }
 }
