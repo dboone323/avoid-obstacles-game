@@ -25,7 +25,7 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     private weak var physicsWorld: SKPhysicsWorld?
 
     /// Reference to the game scene
-    private weak var scene: SKScene?
+    internal weak var scene: SKScene?
 
     // MARK: - Initialization
 

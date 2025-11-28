@@ -24,7 +24,7 @@ class UIManager {
     weak var delegate: UIManagerDelegate?
 
     /// Reference to the game scene
-    private weak var scene: SKScene?
+    internal weak var scene: SKScene?
 
     /// UI Elements
     private var scoreLabel: SKLabelNode?
@@ -91,6 +91,10 @@ class UIManager {
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: 20, y: scene.size.height - 40)
         scoreLabel.zPosition = 100
+        
+        // VoiceOver accessibility
+        scoreLabel.isAccessibilityElement = true
+        scoreLabel.accessibilityLabel = "Current Score: 0"
 
         scene.addChild(scoreLabel)
     }
@@ -109,6 +113,10 @@ class UIManager {
         highScoreLabel.horizontalAlignmentMode = .left
         highScoreLabel.position = CGPoint(x: 20, y: scene.size.height - 70)
         highScoreLabel.zPosition = 100
+        
+        // VoiceOver accessibility
+        highScoreLabel.isAccessibilityElement = true
+        highScoreLabel.accessibilityLabel = "High Score: \(highestScore)"
 
         scene.addChild(highScoreLabel)
     }
@@ -126,6 +134,10 @@ class UIManager {
         difficultyLabel.horizontalAlignmentMode = .right
         difficultyLabel.position = CGPoint(x: scene.size.width - 20, y: scene.size.height - 40)
         difficultyLabel.zPosition = 100
+        
+        // VoiceOver accessibility
+        difficultyLabel.isAccessibilityElement = true
+        difficultyLabel.accessibilityLabel = "Difficulty Level: 1"
 
         scene.addChild(difficultyLabel)
     }
@@ -136,6 +148,7 @@ class UIManager {
     /// - Parameter score: New score value
     func updateScore(_ score: Int) {
         scoreLabel?.text = "Score: \(score)"
+        scoreLabel?.accessibilityLabel = "Current Score: \(score)"
     }
 
     /// Updates the high score display
@@ -148,6 +161,7 @@ class UIManager {
     /// - Parameter level: New difficulty level
     func updateDifficultyLevel(_ level: Int) {
         difficultyLabel?.text = "Level: \(level)"
+        difficultyLabel?.accessibilityLabel = "Difficulty Level: \(level)"
     }
 
     // MARK: - Game Over Screen
@@ -169,6 +183,8 @@ class UIManager {
 
         if let gameOverLabel {
             gameOverLabel.alpha = 0
+            gameOverLabel.isAccessibilityElement = true
+            gameOverLabel.accessibilityLabel = "Game Over"
             scene.addChild(gameOverLabel)
             gameOverLabel.run(fadeInAction)
         }
@@ -183,6 +199,8 @@ class UIManager {
 
         if let finalScoreLabel {
             finalScoreLabel.alpha = 0
+            finalScoreLabel.isAccessibilityElement = true
+            finalScoreLabel.accessibilityLabel = "Final Score: \(finalScore)"
             scene.addChild(finalScoreLabel)
             finalScoreLabel.run(SKAction.sequence([
                 SKAction.wait(forDuration: 0.2),
@@ -220,6 +238,8 @@ class UIManager {
 
         if let restartLabel {
             restartLabel.alpha = 0
+            restartLabel.isAccessibilityElement = true
+            restartLabel.accessibilityLabel = "Tap to Restart Game"
             scene.addChild(restartLabel)
             restartLabel.run(SKAction.sequence([
                 SKAction.wait(forDuration: 0.6),

@@ -10,46 +10,51 @@
 
     @main
     public class AppDelegate: UIResponder, UIApplicationDelegate {
-        public var window: UIWindow?
-
+        
         public func application(
             _: UIApplication,
             didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
-            // Create the main window
-            let window = UIWindow()
+            // Scene-based lifecycle - window is managed by SceneDelegate
+            return true
+        }
+        
+        // MARK: UISceneSession Lifecycle
+        
+        public func application(
+            _ application: UIApplication,
+            configurationForConnecting connectingSceneSession: UISceneSession,
+            options: UIScene.ConnectionOptions
+        ) -> UISceneConfiguration {
+            // Called when a new scene session is being created.
+            return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        }
+    }
+    
+    // MARK: - Scene Delegate
+    
+    public class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+        public var window: UIWindow?
+        
+        public func scene(
+            _ scene: UIScene,
+            willConnectTo session: UISceneSession,
+            options connectionOptions: UIScene.ConnectionOptions
+        ) {
+            guard let windowScene = (scene as? UIWindowScene) else { return }
+            
+            let window = UIWindow(windowScene: windowScene)
             window.rootViewController = GameViewController()
             window.makeKeyAndVisible()
             self.window = window
-
-            // Override point for customization after application launch.
-            return true
         }
-
-        public func applicationWillResignActive(_: UIApplication) {
-            // Sent when the application is about to move from active to inactive state.
-            // This can occur for certain types of temporary interruptions (such as an
-            // incoming phone call or SMS message) or when the user quits the application
-            // and it begins the transition to the background state.
-            // Use this method to pause ongoing tasks, disable timers, and invalidate
-            // graphics rendering callbacks. Games should use this method to pause the game.
+        
+        public func sceneWillResignActive(_ scene: UIScene) {
+            // Pause the game when scene becomes inactive
         }
-
-        public func applicationDidEnterBackground(_: UIApplication) {
-            // Use this method to release shared resources, save user data, invalidate timers,
-            // and store enough application state information to restore your application to its
-            // current state in case it is terminated later.
-        }
-
-        public func applicationWillEnterForeground(_: UIApplication) {
-            // Called as part of the transition from the background to the active state;
-            // here you can undo many of the changes made on entering the background.
-        }
-
-        public func applicationDidBecomeActive(_: UIApplication) {
-            // Restart any tasks that were paused (or not yet started) while the application
-            // was inactive. If the application was previously in the background, optionally
-            // refresh the user interface.
+        
+        public func sceneDidBecomeActive(_ scene: UIScene) {
+            // Restart any paused tasks
         }
     }
 
@@ -61,7 +66,9 @@
     public class AppDelegate: NSObject, NSApplicationDelegate {
         public var window: NSWindow?
 
-        public func applicationDidFinishLaunching(_: Notification) {
+        public func applicationDidFinishLaunching(_ notification: Notification) {
+            print("🪟 AppDelegate.applicationDidFinishLaunching called")
+            
             // Create the main window
             let window = NSWindow(
                 contentRect: NSRect(x: 0, y: 0, width: 800, height: 600),
@@ -71,13 +78,25 @@
             )
             window.center()
             window.title = "Avoid Obstacles Game"
+            print("🪟 Window created - frame: \(window.frame)")
 
             // Create GameViewController
             let gameVC = GameViewController()
             window.contentViewController = gameVC
+            print("🪟 GameViewController set as contentViewController")
 
+            // Make window visible and activate app
             window.makeKeyAndOrderFront(nil)
+            print("🪟 makeKeyAndOrderFront called")
+            NSApp.activate(ignoringOtherApps: true)
+            print("🪟 NSApp activated")
+            
             self.window = window
+            print("🪟 Window assigned to self.window")
+        }
+
+        public func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+            return true
         }
 
         public func applicationWillTerminate(_: Notification) {

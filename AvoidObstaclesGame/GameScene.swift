@@ -54,28 +54,44 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: - Initialization
 
     override init(size: CGSize) {
-        // Initialize all service managers
-        playerManager = PlayerManager(scene: SKScene())
-        obstacleManager = ObstacleManager(scene: SKScene())
-        uiManager = UIManager(scene: SKScene())
-        physicsManager = PhysicsManager(scene: SKScene())
-        effectsManager = EffectsManager(scene: SKScene())
+        // Create temporary placeholder scenes for initialization
+        let tempScene = SKScene()
+        playerManager = PlayerManager(scene: tempScene)
+        obstacleManager = ObstacleManager(scene: tempScene)
+        uiManager = UIManager(scene: tempScene)
+        physicsManager = PhysicsManager(scene: tempScene)
+        effectsManager = EffectsManager(scene: tempScene)
 
         super.init(size: size)
+
+        // Now assign the actual scene to each manager
+        playerManager.scene = self
+        obstacleManager.scene = self
+        uiManager.scene = self
+        physicsManager.scene = self
+        effectsManager.scene = self
 
         // Setup service relationships
         setupServiceDelegates()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        // Initialize all service managers
-        playerManager = PlayerManager(scene: SKScene())
-        obstacleManager = ObstacleManager(scene: SKScene())
-        uiManager = UIManager(scene: SKScene())
-        physicsManager = PhysicsManager(scene: SKScene())
-        effectsManager = EffectsManager(scene: SKScene())
+        // Create temporary placeholder scenes for initialization
+        let tempScene = SKScene()
+        playerManager = PlayerManager(scene: tempScene)
+        obstacleManager = ObstacleManager(scene: tempScene)
+        uiManager = UIManager(scene: tempScene)
+        physicsManager = PhysicsManager(scene: tempScene)
+        effectsManager = EffectsManager(scene: tempScene)
 
         super.init(coder: aDecoder)
+
+        // Now assign the actual scene to each manager
+        playerManager.scene = self
+        obstacleManager.scene = self
+        uiManager.scene = self
+        physicsManager.scene = self
+        effectsManager.scene = self
 
         // Setup service relationships
         setupServiceDelegates()
@@ -108,7 +124,10 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: - Scene Lifecycle
 
     /// Called when the scene is first presented by the view.
-    override public func didMove(to _: SKView) {
+    override public func didMove(to view: SKView) {
+        print("🎮 GameScene.didMove(to:) called - Scene size: \(size)")
+        print("🎮 View bounds: \(view.bounds)")
+        
         // Setup the scene
         setupScene()
 
@@ -117,20 +136,26 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Start the game
         startGame()
+        
+        print("🎮 GameScene setup complete - children count: \(children.count)")
     }
 
     /// Sets up the basic scene configuration
     private func setupScene() {
+        print("🎮 setupScene() starting...")
+        
         // Configure physics world
         physicsWorld.contactDelegate = self
 
         // Setup background
         setupBackground()
 
-        // Setup UI
+        // Setup UI  
+        print("🎮 Setting up UI...")
         uiManager.setupUI()
 
         // Setup player
+        print("🎮 Creating player...")
         playerManager.createPlayer(at: CGPoint(x: size.width / 2, y: 100))
 
         // Enable tilt controls if available
@@ -138,6 +163,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Setup effects
         effectsManager.createExplosion(at: .zero) // Preload explosion effect
+        
+        print("🎮 setupScene() complete")
     }
 
     /// Sets up the animated background
@@ -380,17 +407,22 @@ extension GameScene: PhysicsManagerDelegate {
         effectsManager.createPowerUpCollectionEffect(at: powerUp.position)
         audioManager.playPowerUpSound()
 
-        // Determine power-up type from color (this is a simple approach)
-        let powerUpType: PowerUpType = if let sprite = powerUp as? SKSpriteNode {
-            if sprite.color == .blue {
-                .shield
-            } else if sprite.color == .green {
-                .speed
-            } else {
-                .magnet
+        // Determine power-up type from identifier (accessible - not color-based)
+        let powerUpType: PowerUpType
+        
+        if let nodeName = powerUp.name {
+            switch nodeName {
+            case PowerUpType.shield.identifier:
+                powerUpType = .shield
+            case PowerUpType.speed.identifier:
+                powerUpType = .speed
+            case PowerUpType.magnet.identifier:
+                powerUpType = .magnet
+            default:
+                powerUpType = .shield // Default fallback
             }
         } else {
-            .shield // Default fallback
+            powerUpType = .shield // Default fallback
         }
 
         playerManager.applyPowerUpEffect(powerUpType)

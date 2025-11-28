@@ -39,7 +39,7 @@ class PlayerManager {
     }
 
     /// Reference to the game scene
-    private weak var scene: SKScene?
+    internal weak var scene: SKScene?
 
     /// Player movement speed multiplier
     private let movementSpeed: CGFloat = 800.0 // points per second
@@ -507,6 +507,31 @@ public enum PowerUpType: CaseIterable {
         case .magnet: .yellow
         }
     }
+    
+    /// Shape identifier for accessibility (not relying on color alone)
+    var shape: PowerUpShape {
+        switch self {
+        case .shield: .circle
+        case .speed: .triangle
+        case .magnet: .square
+        }
+    }
+    
+    /// Unique identifier stored in node's name for reliable type detection
+    var identifier: String {
+        switch self {
+        case .shield: "powerUp_shield"
+        case .speed: "powerUp_speed"
+        case .magnet: "powerUp_magnet"
+        }
+    }
+}
+
+/// Shape types for power-ups (for accessibility)
+public enum PowerUpShape {
+    case circle
+    case triangle
+    case square
 }
 
 #if !canImport(UIKit)

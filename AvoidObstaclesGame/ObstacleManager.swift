@@ -25,7 +25,7 @@ class ObstacleManager {
     weak var delegate: ObstacleDelegate?
 
     /// Reference to the game scene
-    private weak var scene: SKScene?
+    internal weak var scene: SKScene?
 
     /// Object pool for obstacles
     private var obstaclePool: [SKSpriteNode] = []
@@ -269,6 +269,7 @@ class ObstacleManager {
 
     /// Removes all active obstacles
     func removeAllObstacles() {
+        // Return obstacles to pool
         for obstacle in activeObstacles {
             recycleObstacle(obstacle)
         }
@@ -324,8 +325,42 @@ class ObstacleManager {
     /// Creates a power-up node of the specified type
     private func createPowerUp(ofType type: PowerUpType) -> SKSpriteNode {
         let size = CGSize(width: 25, height: 25)
-        let powerUp = SKSpriteNode(color: type.color, size: size)
-        powerUp.name = "powerUp"
+        
+        // Create shape-based node for accessibility (not relying on color alone)
+        let powerUpNode: SKSpriteNode
+        
+        switch type.shape {
+        case .circle:
+            // Shield power-up - Circle shape
+            powerUpNode = SKSpriteNode(color: type.color, size: size)
+            let circle = SKShapeNode(circleOfRadius: size.width / 2)
+            circle.fillColor = type.color
+            circle.strokeColor = .white
+            circle.lineWidth = 2
+            powerUpNode.addChild(circle)
+            
+        case .triangle:
+            // Speed power-up - Triangle shape
+            powerUpNode = SKSpriteNode(color: .clear, size: size)
+            let trianglePath = createTrianglePath(size: size)
+            let triangle = SKShapeNode(path: trianglePath)
+            triangle.fillColor = type.color
+            triangle.strokeColor = .white
+            triangle.lineWidth = 2
+            powerUpNode.addChild(triangle)
+            
+        case .square:
+            // Magnet power-up - Square shape
+            powerUpNode = SKSpriteNode(color: type.color, size: size)
+            let square = SKShapeNode(rectOf: CGSize(width: size.width * 0.8, height: size.height * 0.8))
+            square.fillColor = type.color
+            square.strokeColor = .white
+            square.lineWidth = 2
+            powerUpNode.addChild(square)
+        }
+        
+        // Set identifier for reliable type detection (accessibility critical)
+        powerUpNode.name = type.identifier
 
         // Add visual enhancement
         let glowEffect = SKEffectNode()
@@ -335,15 +370,30 @@ class ObstacleManager {
         glowEffect.filter = glowFilter
         glowEffect.addChild(SKSpriteNode(color: type.color.withAlphaComponent(0.7), size: CGSize(width: 30, height: 30)))
         glowEffect.zPosition = -1
-        powerUp.addChild(glowEffect)
+        powerUpNode.addChild(glowEffect)
 
         // Add pulsing animation
         let scaleUp = SKAction.scale(to: 1.2, duration: 0.5)
         let scaleDown = SKAction.scale(to: 1.0, duration: 0.5)
         let pulse = SKAction.sequence([scaleUp, scaleDown])
-        powerUp.run(SKAction.repeatForever(pulse))
+        powerUpNode.run(SKAction.repeatForever(pulse))
 
-        return powerUp
+        return powerUpNode
+    }
+    
+    /// Creates a triangle path for the speed power-up
+    private func createTrianglePath(size: CGSize) -> CGPath {
+        let path = CGMutablePath()
+        let halfWidth = size.width / 2
+        let halfHeight = size.height / 2
+        
+        // Triangle pointing up
+        path.move(to: CGPoint(x: 0, y: halfHeight)) // Top
+        path.addLine(to: CGPoint(x: -halfWidth, y: -halfHeight)) // Bottom left
+        path.addLine(to: CGPoint(x: halfWidth, y: -halfHeight)) // Bottom right
+        path.closeSubpath()
+        
+        return path
     }
 
     // MARK: - Async Obstacle Management

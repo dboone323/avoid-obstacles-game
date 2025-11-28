@@ -15,7 +15,7 @@ class EffectsManager {
     // MARK: - Properties
 
     /// Reference to the game scene
-    private weak var scene: SKScene?
+    internal weak var scene: SKScene?
 
     /// Pre-loaded particle effects
     private var explosionEmitter: SKEmitterNode?
