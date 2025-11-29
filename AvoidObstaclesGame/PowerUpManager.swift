@@ -65,6 +65,12 @@ class PowerUpManager {
             activateSlowTime()
         case .speedBoost:
             activateSpeedBoost(for: player)
+        case .magnet:
+            // Implement magnet
+            break
+        case .doublePoints:
+            // Implement double points
+            break
         }
         
         // Post notification
@@ -165,22 +171,49 @@ class PowerUpManager {
     }
 }
 
-enum PowerUpType: String, CaseIterable {
+public enum PowerUpType: String, CaseIterable {
     case shield
     case slowTime
     case speedBoost
+    case magnet
+    case doublePoints
     
     var iconName: String {
         switch self {
         case .shield: return "shield"
         case .slowTime: return "clock"
         case .speedBoost: return "bolt"
+        case .magnet: return "magnet"
+        case .doublePoints: return "star"
+        }
+    }
+    
+    var identifier: String {
+        "powerup_\(rawValue)"
+    }
+    
+    var shape: PowerUpShape {
+        switch self {
+        case .shield: return .circle
+        case .slowTime: return .triangle
+        case .speedBoost: return .triangle
+        case .magnet: return .square
+        case .doublePoints: return .circle
+        }
+    }
+    
+    var color: SKColor {
+        switch self {
+        case .shield: return .cyan
+        case .slowTime: return .yellow
+        case .speedBoost: return .orange
+        case .magnet: return .purple
+        case .doublePoints: return .systemGreen
         }
     }
 }
 
 extension Notification.Name {
-    static let powerUpActivated = Notification.Name("powerUpActivated")
     static let speedBoostActivated = Notification.Name("speedBoostActivated")
     static let speedBoostDeactivated = Notification.Name("speedBoostDeactivated")
 }

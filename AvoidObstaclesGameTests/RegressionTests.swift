@@ -39,11 +39,11 @@ class RegressionTests: XCTestCase {
         let powerUp = PowerUpSystem.shared
         
         powerUp.activate(.shield)
-        powerUp.activate(.speed)
+        powerUp.activate(.speedBoost)
         powerUp.activate(.magnet)
         
         XCTAssertTrue(powerUp.isActive(.shield))
-        XCTAssertTrue(powerUp.isActive(.speed))
+        XCTAssertTrue(powerUp.isActive(.speedBoost))
         XCTAssertTrue(powerUp.isActive(.magnet))
     }
 }

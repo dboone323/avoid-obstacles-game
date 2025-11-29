@@ -52,5 +52,5 @@ enum PhysicsCategory {
     static let player: UInt32 = 0b1 // Binary 1 (decimal 1)
     static let obstacle: UInt32 = 0b10 // Binary 2 (decimal 2)
     static let powerUp: UInt32 = 0b100 // Binary 4 (decimal 4)
-    // Add more categories here if needed (e.g., ground: 0b1000)
+    static let boundary: UInt32 = 0b1000 // Binary 8 (decimal 8)
 }

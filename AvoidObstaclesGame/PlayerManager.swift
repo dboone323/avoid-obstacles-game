@@ -262,10 +262,16 @@ class PlayerManager {
         switch type {
         case .shield:
             addShieldEffect()
-        case .speed:
+        case .speedBoost:
             addSpeedEffect()
         case .magnet:
             addMagnetEffect()
+        case .slowTime:
+            // No player effect for slow time (handled by scene)
+            break
+        case .doublePoints:
+            // No player effect for double points (handled by scoring)
+            break
         }
     }
 
@@ -495,37 +501,7 @@ class PlayerManager {
 }
 
 /// Types of power-ups available
-public enum PowerUpType: CaseIterable {
-    case shield
-    case speed
-    case magnet
 
-    var color: SKColor {
-        switch self {
-        case .shield: .blue
-        case .speed: .green
-        case .magnet: .yellow
-        }
-    }
-    
-    /// Shape identifier for accessibility (not relying on color alone)
-    var shape: PowerUpShape {
-        switch self {
-        case .shield: .circle
-        case .speed: .triangle
-        case .magnet: .square
-        }
-    }
-    
-    /// Unique identifier stored in node's name for reliable type detection
-    var identifier: String {
-        switch self {
-        case .shield: "powerUp_shield"
-        case .speed: "powerUp_speed"
-        case .magnet: "powerUp_magnet"
-        }
-    }
-}
 
 /// Shape types for power-ups (for accessibility)
 public enum PowerUpShape {

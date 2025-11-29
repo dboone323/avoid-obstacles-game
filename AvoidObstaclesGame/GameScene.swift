@@ -132,7 +132,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         setupScene()
 
         // Start background music
-        audioManager.startBackgroundMusic()
+        audioManager.playBackgroundMusic()
 
         // Start the game
         startGame()
@@ -226,7 +226,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         obstacleManager.stopSpawning()
 
         // Play game over sound
-        audioManager.playGameOverSound()
+        audioManager.playCollision() // Use collision sound as game over for now
     }
 
     /// Restarts the game
@@ -356,7 +356,7 @@ extension GameScene: GameStateDelegate {
         uiManager.updateDifficultyLevel(level)
         uiManager.showLevelUpEffect()
         effectsManager.createLevelUpCelebration()
-        audioManager.playLevelUpSound()
+        audioManager.playLevelUp()
         achievementManager.updateProgress(for: .difficultyReached(level: level))
     }
 
@@ -376,7 +376,7 @@ extension GameScene: PlayerDelegate {
         // Handle collision through physics manager
         handleGameOver()
         effectsManager.createExplosion(at: playerManager.position)
-        audioManager.playCollisionSound()
+        audioManager.playCollision()
     }
 }
 
@@ -405,7 +405,7 @@ extension GameScene: PhysicsManagerDelegate {
         // Handle power-up collection
         powerUp.removeFromParent()
         effectsManager.createPowerUpCollectionEffect(at: powerUp.position)
-        audioManager.playPowerUpSound()
+        audioManager.playPowerUp()
 
         // Determine power-up type from identifier (accessible - not color-based)
         let powerUpType: PowerUpType
@@ -414,10 +414,14 @@ extension GameScene: PhysicsManagerDelegate {
             switch nodeName {
             case PowerUpType.shield.identifier:
                 powerUpType = .shield
-            case PowerUpType.speed.identifier:
-                powerUpType = .speed
+            case PowerUpType.speedBoost.identifier:
+                powerUpType = .speedBoost
             case PowerUpType.magnet.identifier:
                 powerUpType = .magnet
+            case PowerUpType.slowTime.identifier:
+                powerUpType = .slowTime
+            case PowerUpType.doublePoints.identifier:
+                powerUpType = .doublePoints
             default:
                 powerUpType = .shield // Default fallback
             }

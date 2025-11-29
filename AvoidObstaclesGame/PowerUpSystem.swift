@@ -5,9 +5,7 @@
 
 import Foundation
 
-enum PowerUpType: String, CaseIterable {
-    case shield, speed, magnet, slowMotion, doublePoints
-}
+
 
 class PowerUpSystem {
     static let shared = PowerUpSystem()
@@ -20,11 +18,11 @@ class PowerUpSystem {
         switch type {
         case .shield:
             NotificationCenter.default.post(name: .powerUpActivated, object: type)
-        case .speed:
+        case .speedBoost:
             NotificationCenter.default.post(name: .powerUpActivated, object: type)
         case .magnet:
             NotificationCenter.default.post(name: .powerUpActivated, object: type)
-        case .slowMotion:
+        case .slowTime:
             NotificationCenter.default.post(name: .powerUpActivated, object: type)
         case .doublePoints:
             NotificationCenter.default.post(name: .powerUpActivated, object: type)

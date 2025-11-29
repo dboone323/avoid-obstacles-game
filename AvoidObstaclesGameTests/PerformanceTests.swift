@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import SpriteKit
 @testable import AvoidObstaclesGame
 
 class PerformanceTests: XCTestCase {

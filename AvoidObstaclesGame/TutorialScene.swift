@@ -398,7 +398,7 @@ class TutorialScene: SKScene {
                 enableNextButton()
                 
                 // Visual feedback
-                let flash = SKSpriteNode(color: .systemBlue, size: player.size * 2)
+                let flash = SKSpriteNode(color: .systemBlue, size: CGSize(width: player.size.width * 2, height: player.size.height * 2))
                 flash.position = player.position
                 flash.zPosition = 49
                 flash.alpha = 0.5

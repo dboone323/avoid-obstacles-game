@@ -109,11 +109,11 @@ struct GameConfiguration: Codable {
     
     /// Audio configuration
     struct Audio: Codable {
-        let backgroundMusicEnabled: Bool
-        let soundEffectsEnabled: Bool
-        let backgroundMusicVolume: Float
-        let soundEffectsVolume: Float
-        let hapticsEnabled: Bool
+        var backgroundMusicEnabled: Bool
+        var soundEffectsEnabled: Bool
+        var backgroundMusicVolume: Float
+        var soundEffectsVolume: Float
+        var hapticsEnabled: Bool
         
         static let `default` = Audio(
             backgroundMusicEnabled: true,
@@ -126,11 +126,11 @@ struct GameConfiguration: Codable {
     
     /// Accessibility configuration
     struct Accessibility: Codable {
-        let reduceMotion: Bool
-        let increaseContrast: Bool
-        let largerTouchTargets: Bool
-        let voiceOverEnabled: Bool
-        let colorBlindMode: String // "none", "protanopia", "deuteranopia", "tritanopia"
+        var reduceMotion: Bool
+        var increaseContrast: Bool
+        var largerTouchTargets: Bool
+        var voiceOverEnabled: Bool
+        var colorBlindMode: String // "none", "protanopia", "deuteranopia", "tritanopia"
         
         static let `default` = Accessibility(
             reduceMotion: false,
@@ -143,10 +143,10 @@ struct GameConfiguration: Codable {
     
     /// Visual configuration
     struct Visual: Codable {
-        let theme: String // "light", "dark", "auto"
-        let particleQuality: String // "low", "medium", "high"
-        let frameRateCap: Int
-        let showFPS: Bool
+        var theme: String // "light", "dark", "auto"
+        var particleQuality: String // "low", "medium", "high"
+        var frameRateCap: Int
+        var showFPS: Bool
         
         static let `default` = Visual(
             theme: "auto",
@@ -158,12 +158,14 @@ struct GameConfiguration: Codable {
     
     // MARK: - Properties
     
-    let player: Player
-    let obstacle: Obstacle
-    let difficulty: Difficulty
-    let audio: Audio
-    let accessibility: Accessibility
-    let visual: Visual
+    // MARK: - Properties
+    
+    var player: Player
+    var obstacle: Obstacle
+    var difficulty: Difficulty
+    var audio: Audio
+    var accessibility: Accessibility
+    var visual: Visual
     
     // MARK: - Default Configuration
     

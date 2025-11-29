@@ -192,8 +192,10 @@ extension PowerUpType {
     var name: String {
         switch self {
         case .shield: return "Shield"
-        case .speed: return "Speed Boost"
+        case .speedBoost: return "Speed Boost"
         case .magnet: return "Magnet"
+        case .slowTime: return "Slow Time"
+        case .doublePoints: return "Double Points"
         }
     }
 }

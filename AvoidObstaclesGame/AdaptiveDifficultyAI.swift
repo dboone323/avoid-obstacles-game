@@ -49,8 +49,9 @@ class AdaptiveDifficultyAI {
         }
     }
     
-    func getAdjustedDifficulty(base: GameDifficulty) -> GameDifficulty {
-        GameDifficulty(
+    func getAdjustedDifficulty(base: GameConfiguration.Difficulty.DifficultyLevel) -> GameConfiguration.Difficulty.DifficultyLevel {
+        GameConfiguration.Difficulty.DifficultyLevel(
+            scoreThreshold: base.scoreThreshold,
             spawnInterval: base.spawnInterval / currentMultiplier,
             obstacleSpeed: base.obstacleSpeed * currentMultiplier,
             scoreMultiplier: base.scoreMultiplier * currentMultiplier,

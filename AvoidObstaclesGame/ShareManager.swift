@@ -5,6 +5,7 @@
 
 import UIKit
 import Social
+import SpriteKit
 
 class ShareManager {
     static let shared = ShareManager()

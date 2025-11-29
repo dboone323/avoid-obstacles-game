@@ -44,10 +44,6 @@ class LeaderboardManager: NSObject {
             return
         }
         
-        let scoreValue = GKLeaderboardScore(leaderboardID: highScoreLeaderboard)
-        scoreValue.value = score
-        scoreValue.context = 0
-        
         GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
                                  leaderboardIDs: [highScoreLeaderboard]) { error in
             if let error = error {

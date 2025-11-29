@@ -22,7 +22,7 @@ class HapticFeedbackManager {
     private let impactLight = UIImpactFeedbackGenerator(style: .light)
     private let impactMedium = UIImpactFeedbackGenerator(style: .medium)
     private let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-    private let selection = UISelectionFeedbackGenerator()
+    private let selectionGenerator = UISelectionFeedbackGenerator()
     private let notification = UINotificationFeedbackGenerator()
     
     private var isEnabled: Bool {
@@ -44,7 +44,7 @@ class HapticFeedbackManager {
         impactLight.prepare()
         impactMedium.prepare()
         impactHeavy.prepare()
-        selection.prepare()
+        selectionGenerator.prepare()
         notification.prepare()
     }
     
@@ -84,8 +84,8 @@ class HapticFeedbackManager {
     /// Selection change (menu navigation)
     func selection() {
         guard isEnabled else { return }
-        self.selection.selectionChanged()
-        self.selection.prepare()
+        self.selectionGenerator.selectionChanged()
+        self.selectionGenerator.prepare()
     }
     
     // MARK: - Notification Feedback

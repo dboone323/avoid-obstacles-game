@@ -10,7 +10,9 @@ class InputController {
     var keyboardSpeed: CGFloat = 300.0
     
     // Active keys (for keyboard)
+    #if os(macOS)
     private var activeKeys: Set<KeyCode> = []
+    #endif
     
     init(playerNode: SKNode) {
         self.playerNode = playerNode
