@@ -366,10 +366,10 @@ class AchievementManager {
         delegate?.achievementUnlocked(achievement)
 
         // Play achievement sound
-        AudioManager.shared.playLevelUpSound()
-
-        // Trigger haptic feedback
-        AudioManager.shared.triggerHapticFeedback(style: .success)
+        AudioManager.shared.playLevelUp()
+        
+        // Haptic feedback
+        HapticFeedbackManager.shared.success()
     }
 
     // MARK: - Data Persistence

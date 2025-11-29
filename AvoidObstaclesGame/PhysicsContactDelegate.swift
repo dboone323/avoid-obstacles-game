@@ -41,30 +41,37 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
     // MARK: - Collision Handlers
     
     private func handlePlayerObstacleCollision(_ contact: SKPhysicsContact) {
-        guard gameStateManager?.isGameActive == true else { return }
+        guard gameStateManager?.isGameActive() == true else { return }
         
         let obstacleNode: SKNode
         if contact.bodyA.categoryBitMask == PhysicsCategory.obstacle {
             obstacleNode = contact.bodyA.node!
+            playerNode = contact.bodyB.node!
         } else {
             obstacleNode = contact.bodyB.node!
+            playerNode = contact.bodyA.node!
         }
         
         // Create explosion effect
         effectsManager?.createExplosion(at: obstacleNode.position)
         
-        // Game over
-        gameStateManager?.endGame()
+        guard gameStateManager?.isGameActive() == true else { return }
+        
+        // Play sound
+        AudioManager.shared.playCollision()
         
         // Haptic feedback
-        HapticManager.shared.impact(style: .heavy)
+        HapticFeedbackManager.shared.heavy()
+        
+        // Game over
+        gameStateManager?.endGame()
         
         // Post notification
         NotificationCenter.default.post(name: .gameOver, object: nil)
     }
     
     private func handlePlayerPowerUpCollision(_ contact: SKPhysicsContact) {
-        guard gameStateManager?.isGameActive == true else { return }
+        guard gameStateManager?.isGameActive() == true else { return }
         
         let powerUpNode: SKNode
         if contact.bodyA.categoryBitMask == PhysicsCategory.powerUp {
@@ -72,6 +79,12 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
         } else {
             powerUpNode = contact.bodyB.node!
         }
+        
+        // Play sound
+        AudioManager.shared.playPowerUp()
+        
+        // Haptic feedback
+        HapticFeedbackManager.shared.medium()
         
         // Determine power-up type from node name
         if let powerUpType = getPowerUpType(from: powerUpNode.name) {
@@ -87,8 +100,7 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
             // Remove power-up
             powerUpNode.removeFromParent()
             
-            // Haptic feedback
-            HapticManager.shared.impact(style: .medium)
+            // Haptic feedback already handled above
             
             // Add score bonus
             gameStateManager?.addScore(50)
@@ -101,7 +113,7 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
             let point = contact.contactPoint
             
             // Determine which boundary
-            let scene Size = scene?.size ?? .zero
+            let sceneSize = scene?.size ?? .zero
             
             if point.x <= 50 || point.x >= sceneSize.width - 50 {
                 // Side boundary

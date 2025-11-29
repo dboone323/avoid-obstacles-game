@@ -68,7 +68,7 @@ class SkinManager {
         PlayerSkin.allSkins
     }
     
-    func getUnlockedSkins() -> [Player Skin] {
+    func getUnlockedSkins() -> [PlayerSkin] {
         Array(unlockedSkins)
     }
     
@@ -127,6 +127,7 @@ class SkinManager {
         case .gold: return 1000
         case .rainbow: return 5000
         case .cosmic: return 10000
+        default: return 100000 // Fallback for unknown skins
         }
     }
 }

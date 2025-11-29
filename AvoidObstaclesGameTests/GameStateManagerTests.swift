@@ -120,7 +120,7 @@ final class GameStateManagerTests: XCTestCase {
         
         let stats = manager.getStatistics()
         
-        XCT AssertNotNil(stats["gamesPlayed"])
+        XCTAssertNotNil(stats["gamesPlayed"])
         XCTAssertNotNil(stats["totalScore"])
         XCTAssertNotNil(stats["averageScore"])
     }
