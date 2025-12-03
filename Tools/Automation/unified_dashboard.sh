@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 
 # Unified Workflow Status Dashboard
-CODE_DIR="/Users/danielstevens/Desktop/Quantum-workspace"
+CODE_DIR="/Users/danielstevens/Desktop/github-projects/tools-automation"
 PROJECTS_DIR="${CODE_DIR}/Projects"
 
 # Colors
