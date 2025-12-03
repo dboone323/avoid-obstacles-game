@@ -5,8 +5,8 @@
 //  Comprehensive test suite for PhysicsCategory
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class PhysicsCategoryTests: XCTestCase {
 

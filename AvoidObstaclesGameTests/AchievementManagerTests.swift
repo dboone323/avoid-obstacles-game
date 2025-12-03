@@ -5,8 +5,8 @@
 //  Comprehensive test suite for AchievementManager
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class AchievementManagerTests: XCTestCase {
 

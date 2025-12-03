@@ -25,7 +25,7 @@ class ObstacleManager {
     weak var delegate: ObstacleDelegate?
 
     /// Reference to the game scene
-    internal weak var scene: SKScene?
+    weak var scene: SKScene?
 
     /// Object pool for obstacles
     private var obstaclePool: [SKSpriteNode] = []
@@ -56,7 +56,7 @@ class ObstacleManager {
 
     /// Preloads the obstacle pool with initial obstacles
     private func preloadObstaclePool() {
-        for _ in 0 ..< 10 {
+        for _ in 0..<10 {
             let obstacle = createNewObstacle(ofType: .normal)
             obstaclePool.append(obstacle)
         }
@@ -212,7 +212,7 @@ class ObstacleManager {
         guard let scene else { return }
 
         // Occasionally spawn a power-up instead of an obstacle
-        let shouldSpawnPowerUp = Double.random(in: 0 ... 1) < difficulty.powerUpSpawnChance
+        let shouldSpawnPowerUp = Double.random(in: 0...1) < difficulty.powerUpSpawnChance
 
         if shouldSpawnPowerUp {
             spawnPowerUp()
@@ -224,7 +224,7 @@ class ObstacleManager {
         let obstacle = getObstacle(ofType: obstacleType)
 
         // Random horizontal position
-        let randomX = CGFloat.random(in: obstacle.size.width / 2 ... (scene.size.width - obstacle.size.width / 2))
+        let randomX = CGFloat.random(in: obstacle.size.width / 2...(scene.size.width - obstacle.size.width / 2))
         obstacle.position = CGPoint(x: randomX, y: scene.size.height + obstacle.size.height)
 
         // Add to scene and active set
@@ -281,9 +281,9 @@ class ObstacleManager {
 
         for obstacle in activeObstacles {
             // Remove obstacles that have fallen off screen
-        for obstacle in activeObstacles where obstacle.position.y < -obstacle.size.height {
-            recycleObstacle(obstacle)
-        }
+            for obstacle in activeObstacles where obstacle.position.y < -obstacle.size.height {
+                recycleObstacle(obstacle)
+            }
         }
     }
 
@@ -303,7 +303,7 @@ class ObstacleManager {
         let powerUp = createPowerUp(ofType: powerUpType)
 
         // Random position across the screen width
-        let randomX = CGFloat.random(in: powerUp.size.width / 2 ... (scene.size.width - powerUp.size.width / 2))
+        let randomX = CGFloat.random(in: powerUp.size.width / 2...(scene.size.width - powerUp.size.width / 2))
         powerUp.position = CGPoint(x: randomX, y: scene.size.height + powerUp.size.height)
 
         // Add physics body
@@ -325,10 +325,10 @@ class ObstacleManager {
     /// Creates a power-up node of the specified type
     private func createPowerUp(ofType type: PowerUpType) -> SKSpriteNode {
         let size = CGSize(width: 25, height: 25)
-        
+
         // Create shape-based node for accessibility (not relying on color alone)
         let powerUpNode: SKSpriteNode
-        
+
         switch type.shape {
         case .circle:
             // Shield power-up - Circle shape
@@ -338,7 +338,7 @@ class ObstacleManager {
             circle.strokeColor = .white
             circle.lineWidth = 2
             powerUpNode.addChild(circle)
-            
+
         case .triangle:
             // Speed power-up - Triangle shape
             powerUpNode = SKSpriteNode(color: .clear, size: size)
@@ -348,7 +348,7 @@ class ObstacleManager {
             triangle.strokeColor = .white
             triangle.lineWidth = 2
             powerUpNode.addChild(triangle)
-            
+
         case .square:
             // Magnet power-up - Square shape
             powerUpNode = SKSpriteNode(color: type.color, size: size)
@@ -358,7 +358,7 @@ class ObstacleManager {
             square.lineWidth = 2
             powerUpNode.addChild(square)
         }
-        
+
         // Set identifier for reliable type detection (accessibility critical)
         powerUpNode.name = type.identifier
 
@@ -368,7 +368,10 @@ class ObstacleManager {
         let glowFilter = CIFilter(name: "CIGaussianBlur")
         glowFilter?.setValue(2.0, forKey: kCIInputRadiusKey)
         glowEffect.filter = glowFilter
-        glowEffect.addChild(SKSpriteNode(color: type.color.withAlphaComponent(0.7), size: CGSize(width: 30, height: 30)))
+        glowEffect.addChild(SKSpriteNode(
+            color: type.color.withAlphaComponent(0.7),
+            size: CGSize(width: 30, height: 30)
+        ))
         glowEffect.zPosition = -1
         powerUpNode.addChild(glowEffect)
 
@@ -380,19 +383,19 @@ class ObstacleManager {
 
         return powerUpNode
     }
-    
+
     /// Creates a triangle path for the speed power-up
     private func createTrianglePath(size: CGSize) -> CGPath {
         let path = CGMutablePath()
         let halfWidth = size.width / 2
         let halfHeight = size.height / 2
-        
+
         // Triangle pointing up
         path.move(to: CGPoint(x: 0, y: halfHeight)) // Top
         path.addLine(to: CGPoint(x: -halfWidth, y: -halfHeight)) // Bottom left
         path.addLine(to: CGPoint(x: halfWidth, y: -halfHeight)) // Bottom right
         path.closeSubpath()
-        
+
         return path
     }
 

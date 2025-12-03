@@ -15,7 +15,7 @@ class EffectsManager {
     // MARK: - Properties
 
     /// Reference to the game scene
-    internal weak var scene: SKScene?
+    weak var scene: SKScene?
 
     /// Pre-loaded particle effects
     private var explosionEmitter: SKEmitterNode?
@@ -174,7 +174,7 @@ class EffectsManager {
         // Auto-remove after animation
         let removeAction = SKAction.sequence([
             SKAction.wait(forDuration: 1.0),
-            SKAction.removeFromParent()
+            SKAction.removeFromParent(),
         ])
 
         explosion.run(removeAction)
@@ -229,7 +229,7 @@ class EffectsManager {
 
         let fadeAction = SKAction.sequence([
             SKAction.fadeOut(withDuration: duration),
-            SKAction.removeFromParent()
+            SKAction.removeFromParent(),
         ])
 
         flashNode.run(fadeAction)
@@ -242,7 +242,7 @@ class EffectsManager {
         // Create multiple sparkle effects around the screen
         let center = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
 
-        for i in 0 ..< 8 {
+        for i in 0..<8 {
             let angle = (CGFloat.pi * 2 / 8) * CGFloat(i)
             let distance: CGFloat = 100
             let position = CGPoint(
@@ -267,7 +267,7 @@ class EffectsManager {
 
         let removeAction = SKAction.sequence([
             SKAction.wait(forDuration: 1.0),
-            SKAction.removeFromParent()
+            SKAction.removeFromParent(),
         ])
 
         sparkle.run(removeAction)

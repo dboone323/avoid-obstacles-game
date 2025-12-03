@@ -127,7 +127,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     override public func didMove(to view: SKView) {
         print("🎮 GameScene.didMove(to:) called - Scene size: \(size)")
         print("🎮 View bounds: \(view.bounds)")
-        
+
         // Setup the scene
         setupScene()
 
@@ -136,21 +136,21 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Start the game
         startGame()
-        
+
         print("🎮 GameScene setup complete - children count: \(children.count)")
     }
 
     /// Sets up the basic scene configuration
     private func setupScene() {
         print("🎮 setupScene() starting...")
-        
+
         // Configure physics world
         physicsWorld.contactDelegate = self
 
         // Setup background
         setupBackground()
 
-        // Setup UI  
+        // Setup UI
         print("🎮 Setting up UI...")
         uiManager.setupUI()
 
@@ -163,7 +163,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Setup effects
         effectsManager.createExplosion(at: .zero) // Preload explosion effect
-        
+
         print("🎮 setupScene() complete")
     }
 
@@ -176,16 +176,16 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(backgroundNode)
 
         // Add animated clouds
-        for _ in 0 ..< 5 {
+        for _ in 0..<5 {
             let cloud = SKSpriteNode(color: .white.withAlphaComponent(0.3), size: CGSize(width: 60, height: 30))
             cloud.position = CGPoint(
-                x: CGFloat.random(in: 0 ... size.width),
-                y: CGFloat.random(in: size.height * 0.7 ... size.height)
+                x: CGFloat.random(in: 0...size.width),
+                y: CGFloat.random(in: size.height * 0.7...size.height)
             )
             cloud.zPosition = -50
 
             // Animate clouds
-            let moveAction = SKAction.moveBy(x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10 ... 20))
+            let moveAction = SKAction.moveBy(x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10...20))
             let resetAction = SKAction.moveTo(x: size.width + 60, duration: 0)
             let sequence = SKAction.sequence([moveAction, resetAction])
             cloud.run(SKAction.repeatForever(sequence))
@@ -409,7 +409,7 @@ extension GameScene: PhysicsManagerDelegate {
 
         // Determine power-up type from identifier (accessible - not color-based)
         let powerUpType: PowerUpType
-        
+
         if let nodeName = powerUp.name {
             switch nodeName {
             case PowerUpType.shield.identifier:

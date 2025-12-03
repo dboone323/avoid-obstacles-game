@@ -3,29 +3,29 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 import SpriteKit
+import XCTest
 @testable import AvoidObstaclesGame
 
 class PerformanceTests: XCTestCase {
-    
+
     func testNodePoolingPerformance() {
         let optimizer = PerformanceOptimizer.shared
-        
+
         measure {
             for _ in 0..<100 {
                 let node = optimizer.getNode(type: "test") {
-                    return SKNode()
+                    SKNode()
                 }
                 optimizer.returnNode(node, type: "test")
             }
         }
     }
-    
+
     func testAssetCachePerformance() {
         let cache = AssetCache.shared
         cache.preloadAssets()
-        
+
         measure {
             for _ in 0..<100 {
                 _ = cache.texture(named: "player")
@@ -33,10 +33,10 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
+
     func testComboCalculationPerformance() {
         let combo = ComboSystem.shared
-        
+
         measure {
             for i in 0..<1000 {
                 combo.recordDodge(currentTime: Double(i) * 0.1)

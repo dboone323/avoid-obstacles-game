@@ -39,7 +39,7 @@ class PlayerManager {
     }
 
     /// Reference to the game scene
-    internal weak var scene: SKScene?
+    weak var scene: SKScene?
 
     /// Player movement speed multiplier
     private let movementSpeed: CGFloat = 800.0 // points per second
@@ -225,7 +225,7 @@ class PlayerManager {
         // Visual feedback for collision
         let flashAction = SKAction.sequence([
             SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.1),
-            SKAction.colorize(withColorBlendFactor: 0, duration: 0.1)
+            SKAction.colorize(withColorBlendFactor: 0, duration: 0.1),
         ])
         player.run(flashAction)
 
@@ -299,7 +299,7 @@ class PlayerManager {
         // Pulsing animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5)
+            SKAction.scale(to: 1.0, duration: 0.5),
         ])
         shield.run(SKAction.repeatForever(pulse))
 
@@ -338,7 +338,7 @@ class PlayerManager {
         // Pulsing and rotating animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.2, duration: 0.3),
-            SKAction.scale(to: 1.0, duration: 0.3)
+            SKAction.scale(to: 1.0, duration: 0.3),
         ])
         let rotate = SKAction.rotate(byAngle: .pi, duration: 0.6)
         let group = SKAction.group([pulse, rotate])
@@ -501,7 +501,6 @@ class PlayerManager {
 }
 
 /// Types of power-ups available
-
 
 /// Shape types for power-ups (for accessibility)
 public enum PowerUpShape {

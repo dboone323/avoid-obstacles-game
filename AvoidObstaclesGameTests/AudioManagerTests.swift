@@ -5,8 +5,8 @@
 //  Comprehensive test suite for AudioManager
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class AudioManagerTests: XCTestCase {
 
