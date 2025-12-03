@@ -24,7 +24,7 @@ class UIManager {
     weak var delegate: UIManagerDelegate?
 
     /// Reference to the game scene
-    internal weak var scene: SKScene?
+    weak var scene: SKScene?
 
     /// UI Elements
     private var scoreLabel: SKLabelNode?
@@ -62,7 +62,7 @@ class UIManager {
         // Pre-create reusable actions
         pulseAction = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5)
+            SKAction.scale(to: 1.0, duration: 0.5),
         ])
 
         fadeInAction = SKAction.fadeIn(withDuration: 0.3)
@@ -91,7 +91,7 @@ class UIManager {
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: 20, y: scene.size.height - 40)
         scoreLabel.zPosition = 100
-        
+
         // VoiceOver accessibility
         scoreLabel.isAccessibilityElement = true
         scoreLabel.accessibilityLabel = "Current Score: 0"
@@ -113,7 +113,7 @@ class UIManager {
         highScoreLabel.horizontalAlignmentMode = .left
         highScoreLabel.position = CGPoint(x: 20, y: scene.size.height - 70)
         highScoreLabel.zPosition = 100
-        
+
         // VoiceOver accessibility
         highScoreLabel.isAccessibilityElement = true
         highScoreLabel.accessibilityLabel = "High Score: \(highestScore)"
@@ -134,7 +134,7 @@ class UIManager {
         difficultyLabel.horizontalAlignmentMode = .right
         difficultyLabel.position = CGPoint(x: scene.size.width - 20, y: scene.size.height - 40)
         difficultyLabel.zPosition = 100
-        
+
         // VoiceOver accessibility
         difficultyLabel.isAccessibilityElement = true
         difficultyLabel.accessibilityLabel = "Difficulty Level: 1"
@@ -204,7 +204,7 @@ class UIManager {
             scene.addChild(finalScoreLabel)
             finalScoreLabel.run(SKAction.sequence([
                 SKAction.wait(forDuration: 0.2),
-                fadeInAction
+                fadeInAction,
             ]))
         }
 
@@ -223,7 +223,7 @@ class UIManager {
                 highScoreAchievedLabel.run(SKAction.sequence([
                     SKAction.wait(forDuration: 0.4),
                     fadeInAction,
-                    SKAction.repeatForever(pulseAction)
+                    SKAction.repeatForever(pulseAction),
                 ]))
             }
         }
@@ -243,7 +243,7 @@ class UIManager {
             scene.addChild(restartLabel)
             restartLabel.run(SKAction.sequence([
                 SKAction.wait(forDuration: 0.6),
-                fadeInAction
+                fadeInAction,
             ]))
         }
     }
@@ -284,7 +284,7 @@ class UIManager {
                 SKAction.scale(to: 1.0, duration: 0.3),
                 SKAction.wait(forDuration: 0.5),
                 fadeOutAction,
-                SKAction.removeFromParent()
+                SKAction.removeFromParent(),
             ])
 
             levelUpLabel.run(animation) { [weak self] in
@@ -375,7 +375,8 @@ class UIManager {
     func handleTouch(at location: CGPoint) {
         // Check if restart label was tapped
         if let restartLabel,
-           restartLabel.contains(location) {
+           restartLabel.contains(location)
+        {
             delegate?.restartButtonTapped()
         }
     }
@@ -424,7 +425,7 @@ class UIManager {
             levelUpLabel,
             fpsLabel,
             memoryLabel,
-            qualityLabel
+            qualityLabel,
         ] + statisticsLabels
 
         for label in allLabels {

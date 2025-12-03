@@ -3,23 +3,23 @@ import GameKit
 /// Manages Game Center leaderboards and achievements
 class LeaderboardManager: NSObject {
     static let shared = LeaderboardManager()
-    
+
     private var isAuthenticated = false
-    
+
     // Leaderboard IDs
     private let highScoreLeaderboard = "com.momentumfinance.avoidobstacles.highscore"
     private let longestRunLeaderboard = "com.momentumfinance.avoidobstacles.longestrun"
-    
-    private override init() {
+
+    override private init() {
         super.init()
         authenticatePlayer()
     }
-    
+
     // MARK: - Authentication
-    
+
     func authenticatePlayer() {
         GKLocalPlayer.local.authenticateHandler = { [weak self] viewController, error in
-            if let viewController = viewController {
+            if let viewController {
                 // Present authentication view controller
                 if let rootVC = UIApplication.shared.windows.first?.rootViewController {
                     rootVC.present(viewController, animated: true)
@@ -28,78 +28,82 @@ class LeaderboardManager: NSObject {
                 self?.isAuthenticated = true
                 print("✅ Game Center authenticated")
             } else {
-                if let error = error {
+                if let error {
                     print("❌ Game Center authentication failed: \(error)")
                 }
                 self?.isAuthenticated = false
             }
         }
     }
-    
+
     // MARK: - Submit Score
-    
+
     func submitScore(_ score: Int) {
         guard isAuthenticated else {
             print("⚠️ Not authenticated with Game Center")
             return
         }
-        
+
         GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
-                                 leaderboardIDs: [highScoreLeaderboard]) { error in
-            if let error = error {
+                                  leaderboardIDs: [highScoreLeaderboard])
+        { error in
+            if let error {
                 print("❌ Failed to submit score: \(error)")
             } else {
                 print("✅ Score submitted: \(score)")
             }
         }
     }
-    
+
     // MARK: - Show Leaderboard
-    
+
     func showLeaderboard(from viewController: UIViewController) {
         guard isAuthenticated else {
             print("⚠️ Not authenticated with Game Center")
             return
         }
-        
+
         let gcVC = GKGameCenterViewController(state: .leaderboards)
         gcVC.gameCenterDelegate = self
         viewController.present(gcVC, animated: true)
     }
-    
+
     // MARK: - Achievements
-    
+
     func unlockAchievement(identifier: String, percentComplete: Double = 100.0) {
         guard isAuthenticated else { return }
-        
+
         let achievement = GKAchievement(identifier: identifier)
         achievement.percentComplete = percentComplete
         achievement.showsCompletionBanner = true
-        
+
         GKAchievement.report([achievement]) { error in
-            if let error = error {
+            if let error {
                 print("❌ Failed to report achievement: \(error)")
             } else {
                 print("✅ Achievement unlocked: \(identifier)")
             }
         }
     }
-    
+
     // MARK: - Load Leaderboard Data
-    
+
     func loadTopScores(completion: @escaping ([GKLeaderboard.Entry]) -> Void) {
         guard isAuthenticated else {
             completion([])
             return
         }
-        
-        GKLeaderboard.loadLeaderboards(IDs: [highScoreLeaderboard]) { leaderboards, error in
+
+        GKLeaderboard.loadLeaderboards(IDs: [highScoreLeaderboard]) { leaderboards, _ in
             guard let leaderboard = leaderboards?.first else {
                 completion([])
                 return
             }
-            
-            leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(location: 1, length: 10)) { local, entries, totalCount, error in
+
+            leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(
+                location: 1,
+                length: 10
+            )) { _, entries, _, _ in
                 completion(entries ?? [])
             }
         }

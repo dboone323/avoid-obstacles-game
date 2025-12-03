@@ -10,49 +10,49 @@
 
     @main
     public class AppDelegate: UIResponder, UIApplicationDelegate {
-        
+
         public func application(
             _: UIApplication,
             didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
             // Scene-based lifecycle - window is managed by SceneDelegate
-            return true
+            true
         }
-        
+
         // MARK: UISceneSession Lifecycle
-        
+
         public func application(
             _ application: UIApplication,
             configurationForConnecting connectingSceneSession: UISceneSession,
             options: UIScene.ConnectionOptions
         ) -> UISceneConfiguration {
             // Called when a new scene session is being created.
-            return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+            UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
         }
     }
-    
+
     // MARK: - Scene Delegate
-    
+
     public class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         public var window: UIWindow?
-        
+
         public func scene(
             _ scene: UIScene,
             willConnectTo session: UISceneSession,
             options connectionOptions: UIScene.ConnectionOptions
         ) {
             guard let windowScene = (scene as? UIWindowScene) else { return }
-            
+
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = GameViewController()
             window.makeKeyAndVisible()
             self.window = window
         }
-        
+
         public func sceneWillResignActive(_ scene: UIScene) {
             // Pause the game when scene becomes inactive
         }
-        
+
         public func sceneDidBecomeActive(_ scene: UIScene) {
             // Restart any paused tasks
         }
@@ -68,7 +68,7 @@
 
         public func applicationDidFinishLaunching(_ notification: Notification) {
             print("🪟 AppDelegate.applicationDidFinishLaunching called")
-            
+
             // Create the main window
             let window = NSWindow(
                 contentRect: NSRect(x: 0, y: 0, width: 800, height: 600),
@@ -90,13 +90,13 @@
             print("🪟 makeKeyAndOrderFront called")
             NSApp.activate(ignoringOtherApps: true)
             print("🪟 NSApp activated")
-            
+
             self.window = window
             print("🪟 Window assigned to self.window")
         }
 
         public func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-            return true
+            true
         }
 
         public func applicationWillTerminate(_: Notification) {

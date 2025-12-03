@@ -30,13 +30,13 @@ else
 	if [ -f Package.swift ]; then
 		swift test --parallel
 	else
-		proj=$(ls -1 *.xcodeproj 2>/dev/null | head -n1)
+		proj=$(ls -1d *.xcodeproj 2>/dev/null | head -n1)
 		if [ -n "$proj" ]; then
 			scheme=${proj%.xcodeproj}
 			if command -v xcpretty >/dev/null 2>&1; then
-				xcodebuild -scheme "$scheme" -destination 'platform=macOS' build | xcpretty || xcodebuild -scheme "$scheme" -destination 'platform=macOS' build || true
+				xcodebuild -scheme "$scheme" -destination "platform=macOS,variant=Mac Catalyst" build | xcpretty || xcodebuild -scheme "$scheme" -destination "platform=macOS,variant=Mac Catalyst" build || true
 			else
-				xcodebuild -scheme "$scheme" -destination 'platform=macOS' build || true
+				xcodebuild -scheme "$scheme" -destination "platform=macOS,variant=Mac Catalyst" build || true
 			fi
 		else
 			echo "No Package.swift or .xcodeproj found"

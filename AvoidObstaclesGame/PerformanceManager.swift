@@ -149,12 +149,19 @@ class PerformanceManager {
             displayLink.add(to: .main, forMode: .common)
         #else
             // For macOS, use NSTimer for frame rate monitoring
-            Timer.scheduledTimer(timeInterval: 1.0 / 60.0, target: self, selector: #selector(self.frameUpdate), userInfo: nil, repeats: true)
+            Timer.scheduledTimer(
+                timeInterval: 1.0 / 60.0,
+                target: self,
+                selector: #selector(self.frameUpdate),
+                userInfo: nil,
+                repeats: true
+            )
         #endif
     }
 
     /// Called on each frame update
-    @objc private func frameUpdate(_ sender: Any?) {
+    @objc
+    private func frameUpdate(_ sender: Any?) {
         self.frameCount += 1
         let currentTime = CACurrentMediaTime()
         let deltaTime = currentTime - self.lastFrameTime
@@ -240,7 +247,8 @@ class PerformanceManager {
     }
 
     /// Handles memory pressure warnings
-    @objc private func handleMemoryPressure() {
+    @objc
+    private func handleMemoryPressure() {
         self.delegate?.performanceWarningTriggered(.memoryPressure)
 
         // Aggressive cleanup
@@ -376,7 +384,7 @@ struct PerformanceStats {
             "currentMemoryUsage": self.currentMemoryUsage,
             "peakMemoryUsage": self.peakMemoryUsage,
             "cleanupCount": self.cleanupCount,
-            "qualityLevel": self.currentQualityLevel
+            "qualityLevel": self.currentQualityLevel,
         ]
     }
 }

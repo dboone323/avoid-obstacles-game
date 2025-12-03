@@ -77,17 +77,17 @@ import SpriteKit
         /// Sets up and presents the main game scene.
         override public func viewDidLoad() {
             super.viewDidLoad()
-            
+
             print("🎮 GameViewController.viewDidLoad() called")
 
             // Configure the view as an SKView and present the game scene.
             if let view = view as? SKView {
                 print("🎮 View bounds: \\(view.bounds)")
-                
+
                 // Use the frame size set in loadView (800x600) instead of bounds
                 let sceneSize = CGSize(width: 800, height: 600)
                 print("🎮 Creating GameScene with size: \\(sceneSize)")
-                
+
                 // Create and configure the scene
                 let scene = GameScene(size: sceneSize)
                 scene.scaleMode = .aspectFill

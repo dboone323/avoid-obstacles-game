@@ -5,8 +5,8 @@
 //  Comprehensive test suite for Dependencies
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class DependenciesTests: XCTestCase {
 
