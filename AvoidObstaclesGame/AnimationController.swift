@@ -34,7 +34,7 @@ class AnimationController {
     func animatePowerUpActivation(on node: SKNode) {
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.3, duration: 0.2),
-            SKAction.scale(to: 1.0, duration: 0.2),
+            SKAction.scale(to: 1.0, duration: 0.2)
         ])
         let rotate = SKAction.rotate(byAngle: .pi * 2, duration: 0.4)
         let group = SKAction.group([pulse, rotate])

@@ -394,7 +394,7 @@ import SpriteKit
                     addChild(flash)
                     flash.run(SKAction.sequence([
                         SKAction.fadeOut(withDuration: 0.3),
-                        SKAction.removeFromParent(),
+                        SKAction.removeFromParent()
                     ]))
                 }
             }

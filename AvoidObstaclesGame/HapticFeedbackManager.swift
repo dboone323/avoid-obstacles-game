@@ -215,21 +215,21 @@ import Foundation
             Event(type: .light, delay: 0.0),
             Event(type: .light, delay: 1.0),
             Event(type: .light, delay: 2.0),
-            Event(type: .heavy, delay: 3.0),
+            Event(type: .heavy, delay: 3.0)
         ])
 
         /// Combo pattern (increasing intensity)
         static let combo = HapticPattern(events: [
             Event(type: .light, delay: 0.0),
             Event(type: .medium, delay: 0.1),
-            Event(type: .heavy, delay: 0.2),
+            Event(type: .heavy, delay: 0.2)
         ])
 
         /// Achievement unlocked
         static let achievement = HapticPattern(events: [
             Event(type: .success, delay: 0.0),
             Event(type: .medium, delay: 0.1),
-            Event(type: .medium, delay: 0.2),
+            Event(type: .medium, delay: 0.2)
         ])
     }
 

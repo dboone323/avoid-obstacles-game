@@ -40,8 +40,7 @@ class GameCenterManager: NSObject {
         guard isAuthenticated else { return }
 
         GKLeaderboard.submitScore(score, context: 0, player: localPlayer!,
-                                  leaderboardIDs: [leaderboardID])
-        { error in
+                                  leaderboardIDs: [leaderboardID]) { error in
             if let error {
                 print("Score submit error: \(error)")
             }

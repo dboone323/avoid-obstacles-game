@@ -100,7 +100,7 @@ class SkinManager {
         glow.shouldRasterize = true
         glow.filter = CIFilter(name: "CIBloom", parameters: [
             "inputIntensity": 0.5,
-            "inputRadius": 10.0,
+            "inputRadius": 10.0
         ])
         node.parent?.addChild(glow)
         glow.addChild(node)
@@ -190,7 +190,7 @@ struct PlayerSkin: Hashable {
     )
 
     static let allSkins: [PlayerSkin] = [
-        .default, .blue, .red, .gold, .rainbow, .cosmic,
+        .default, .blue, .red, .gold, .rainbow, .cosmic
     ]
 
     static func fromId(_ id: String) -> PlayerSkin? {

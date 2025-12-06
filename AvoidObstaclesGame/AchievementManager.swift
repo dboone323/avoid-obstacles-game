@@ -244,7 +244,7 @@ class AchievementManager {
                 type: .timeBased,
                 targetValue: 30,
                 isHidden: true
-            ),
+            )
         ]
 
         for achievement in allAchievements {
@@ -301,7 +301,7 @@ class AchievementManager {
             ("survivor_30s", 30.0),
             ("survivor_60s", 60.0),
             ("survivor_120s", 120.0),
-            ("speedrunner", 30.0),
+            ("speedrunner", 30.0)
         ]
 
         for (achievementId, targetTime) in timeAchievements where survivalTime >= targetTime {
@@ -314,7 +314,7 @@ class AchievementManager {
         let difficultyAchievements = [
             ("level_3", 3),
             ("level_5", 5),
-            ("level_6", 6),
+            ("level_6", 6)
         ]
 
         for (achievementId, targetLevel) in difficultyAchievements where level >= targetLevel {
@@ -326,7 +326,7 @@ class AchievementManager {
     private func updateStreakAchievements(score: Int) {
         let streakAchievements = [
             ("perfect_start", 50),
-            ("no_hit_100", 100),
+            ("no_hit_100", 100)
         ]
 
         for (achievementId, targetScore) in streakAchievements where score >= targetScore {
@@ -471,7 +471,7 @@ class AchievementManager {
             "unlockedAchievements": unlockedCount,
             "completionRate": completionRate,
             "totalPoints": totalPoints,
-            "recentUnlocks": getRecentUnlocks(count: 5),
+            "recentUnlocks": getRecentUnlocks(count: 5)
         ]
     }
 

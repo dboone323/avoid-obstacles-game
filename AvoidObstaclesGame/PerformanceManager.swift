@@ -384,7 +384,7 @@ struct PerformanceStats {
             "currentMemoryUsage": self.currentMemoryUsage,
             "peakMemoryUsage": self.peakMemoryUsage,
             "cleanupCount": self.cleanupCount,
-            "qualityLevel": self.currentQualityLevel,
+            "qualityLevel": self.currentQualityLevel
         ]
     }
 }

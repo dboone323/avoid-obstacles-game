@@ -22,7 +22,7 @@ class AudioManager {
             "powerup": "powerup.wav",
             "levelup": "levelup.wav",
             "button": "button.wav",
-            "whoosh": "whoosh.wav",
+            "whoosh": "whoosh.wav"
         ]
 
         for (key, filename) in soundFiles {

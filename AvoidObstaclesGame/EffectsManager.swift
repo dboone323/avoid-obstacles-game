@@ -174,7 +174,7 @@ class EffectsManager {
         // Auto-remove after animation
         let removeAction = SKAction.sequence([
             SKAction.wait(forDuration: 1.0),
-            SKAction.removeFromParent(),
+            SKAction.removeFromParent()
         ])
 
         explosion.run(removeAction)
@@ -229,7 +229,7 @@ class EffectsManager {
 
         let fadeAction = SKAction.sequence([
             SKAction.fadeOut(withDuration: duration),
-            SKAction.removeFromParent(),
+            SKAction.removeFromParent()
         ])
 
         flashNode.run(fadeAction)
@@ -267,7 +267,7 @@ class EffectsManager {
 
         let removeAction = SKAction.sequence([
             SKAction.wait(forDuration: 1.0),
-            SKAction.removeFromParent(),
+            SKAction.removeFromParent()
         ])
 
         sparkle.run(removeAction)

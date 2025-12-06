@@ -43,7 +43,7 @@ class PowerUpManager {
         let rotate = SKAction.rotate(byAngle: .pi * 2, duration: 2.0)
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.2, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5),
+            SKAction.scale(to: 1.0, duration: 0.5)
         ])
         powerUp.run(SKAction.repeatForever(rotate), withKey: "rotate")
         powerUp.run(SKAction.repeatForever(pulse), withKey: "pulse")
@@ -90,7 +90,7 @@ class PowerUpManager {
         // Pulse animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5),
+            SKAction.scale(to: 1.0, duration: 0.5)
         ])
         shield.run(SKAction.repeatForever(pulse))
 

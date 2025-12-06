@@ -130,7 +130,7 @@ class LocalizationManagerTests: XCTestCase {
             .gameScore, .gameHighScore, .gamePaused, .gameOver,
             .tutorialWelcome, .tutorialControls,
             .achievementUnlocked, .achievementFirstGame,
-            .accessibilityPlayerLabel, .accessibilityObstacleLabel,
+            .accessibilityPlayerLabel, .accessibilityObstacleLabel
         ]
 
         for key in keys {

@@ -45,8 +45,7 @@ class LeaderboardManager: NSObject {
         }
 
         GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
-                                  leaderboardIDs: [highScoreLeaderboard])
-        { error in
+                                  leaderboardIDs: [highScoreLeaderboard]) { error in
             if let error {
                 print("❌ Failed to submit score: \(error)")
             } else {
