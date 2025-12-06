@@ -94,9 +94,7 @@ import SpriteKit
             startStep(currentStep)
 
             // Haptic feedback for tutorial start
-            if #available(iOS 10.0, *) {
-                haptics.gameStart()
-            }
+            haptics.gameStart()
         }
 
         // MARK: - Setup
@@ -289,9 +287,7 @@ import SpriteKit
 
         private func enableNextButton() {
             nextButton.alpha = 1.0
-            if #available(iOS 10.0, *) {
-                haptics.success()
-            }
+            haptics.success()
         }
 
         private func advanceToNextStep() {
@@ -300,10 +296,7 @@ import SpriteKit
                 return
             }
 
-            if #available(iOS 10.0, *) {
-                haptics.selection()
-            }
-
+            haptics.selection()
             startStep(nextStep)
         }
 
@@ -312,10 +305,7 @@ import SpriteKit
             UserDefaults.standard.set(true, forKey: "TutorialCompleted")
             UserDefaults.standard.synchronize()
 
-            if #available(iOS 10.0, *) {
-                haptics.playPattern(.achievement)
-            }
-
+            haptics.playPattern(.achievement)
             onComplete?()
         }
 
@@ -328,9 +318,7 @@ import SpriteKit
 
             // Handle button taps
             if tappedNode.name == "skipButton" {
-                if #available(iOS 10.0, *) {
-                    haptics.selection()
-                }
+                haptics.selection()
                 onSkip?()
                 return
             }
@@ -367,9 +355,7 @@ import SpriteKit
             if !movementDetected {
                 movementDetected = true
                 enableNextButton()
-                if #available(iOS 10.0, *) {
-                    haptics.light()
-                }
+                haptics.light()
             }
         }
 
