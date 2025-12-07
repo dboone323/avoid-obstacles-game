@@ -1,0 +1,122 @@
+/* 
+  Localizable.strings (English)
+  AvoidObstaclesGame
+  
+  Base localization file for AvoidObstaclesGame app
+  Add new languages by duplicating this file into {lang}.lproj directories
+*/
+
+/* App Title */
+"app.name" = "Avoid Obstacles";
+"app.tagline" = "How long can you survive?";
+
+/* Main Menu */
+"menu.title" = "Avoid Obstacles";
+"menu.play" = "Play";
+"menu.settings" = "Settings";
+"menu.leaderboard" = "Leaderboard";
+"menu.achievements" = "Achievements";
+"menu.howToPlay" = "How to Play";
+"menu.credits" = "Credits";
+
+/* Gameplay */
+"game.score" = "Score: %d";
+"game.highScore" = "High Score: %d";
+"game.lives" = "Lives: %d";
+"game.level" = "Level %d";
+"game.start" = "Tap to Start";
+"game.pause" = "Pause";
+"game.resume" = "Resume";
+"game.restart" = "Restart";
+"game.quit" = "Quit";
+
+/* Game Over */
+"gameover.title" = "Game Over";
+"gameover.score" = "Your Score: %d";
+"gameover.newHighScore" = "New High Score!";
+"gameover.playAgain" = "Play Again";
+"gameover.mainMenu" = "Main Menu";
+"gameover.share" = "Share Score";
+
+/* Power-ups */
+"powerup.shield" = "Shield";
+"powerup.slowmo" = "Slow Motion";
+"powerup.magnet" = "Coin Magnet";
+"powerup.doublePoints" = "Double Points";
+"powerup.extraLife" = "Extra Life";
+
+/* Obstacles */
+"obstacle.rock" = "Rock";
+"obstacle.spike" = "Spike";
+"obstacle.fire" = "Fire";
+"obstacle.ice" = "Ice";
+"obstacle.moving" = "Moving Obstacle";
+
+/* Tutorial */
+"tutorial.welcome" = "Welcome!";
+"tutorial.swipe" = "Swipe to move";
+"tutorial.avoid" = "Avoid the obstacles";
+"tutorial.collect" = "Collect power-ups";
+"tutorial.survive" = "Survive as long as you can!";
+"tutorial.gotIt" = "Got it!";
+"tutorial.skip" = "Skip Tutorial";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.sound" = "Sound Effects";
+"settings.music" = "Music";
+"settings.vibration" = "Haptic Feedback";
+"settings.controls" = "Controls";
+"settings.controls.swipe" = "Swipe";
+"settings.controls.tilt" = "Tilt";
+"settings.controls.tap" = "Tap";
+"settings.theme" = "Theme";
+"settings.theme.classic" = "Classic";
+"settings.theme.dark" = "Dark";
+"settings.theme.neon" = "Neon";
+"settings.theme.nature" = "Nature";
+"settings.difficulty" = "Difficulty";
+"settings.difficulty.easy" = "Easy";
+"settings.difficulty.normal" = "Normal";
+"settings.difficulty.hard" = "Hard";
+"settings.reset" = "Reset Progress";
+"settings.resetConfirm" = "Are you sure? This will erase all progress.";
+
+/* Achievements */
+"achievement.unlocked" = "Achievement Unlocked!";
+"achievement.firstGame" = "First Steps";
+"achievement.firstGame.desc" = "Complete your first game";
+"achievement.survivor" = "Survivor";
+"achievement.survivor.desc" = "Survive for 60 seconds";
+"achievement.scoreHunter" = "Score Hunter";
+"achievement.scoreHunter.desc" = "Reach 1000 points";
+"achievement.powerCollector" = "Power Collector";
+"achievement.powerCollector.desc" = "Collect 10 power-ups in one game";
+
+/* Leaderboard */
+"leaderboard.title" = "Leaderboard";
+"leaderboard.global" = "Global";
+"leaderboard.friends" = "Friends";
+"leaderboard.today" = "Today";
+"leaderboard.allTime" = "All Time";
+"leaderboard.rank" = "Rank #%d";
+"leaderboard.yourBest" = "Your Best: %d";
+
+/* Game Center */
+"gamecenter.signIn" = "Sign in to Game Center";
+"gamecenter.error" = "Could not connect to Game Center";
+
+/* Common Actions */
+"action.ok" = "OK";
+"action.cancel" = "Cancel";
+"action.yes" = "Yes";
+"action.no" = "No";
+"action.back" = "Back";
+"action.close" = "Close";
+
+/* Accessibility */
+"a11y.playButton" = "Start game";
+"a11y.pauseButton" = "Pause game";
+"a11y.scoreDisplay" = "Current score: %d";
+"a11y.obstacle" = "Obstacle ahead";
+"a11y.powerup" = "Power-up available";
