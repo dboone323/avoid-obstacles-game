@@ -15,8 +15,9 @@ final class AvoidObstaclesGameUITests: XCTestCase {
         app = XCUIApplication()
         app.launch()
         
-        // Wait for app to fully load
-        sleep(2)
+        // Wait for SpriteKit scene to fully render
+        // SpriteKit games need extra time for scene setup
+        sleep(5)
     }
 
     override func tearDownWithError() throws {
