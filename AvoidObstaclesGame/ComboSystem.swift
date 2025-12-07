@@ -26,7 +26,7 @@ class ComboSystem {
         let points = calculatePoints()
         onComboChanged?(currentCombo, points)
 
-        if #available(iOS 10.0, *), currentCombo % 5 == 0 {
+        if currentCombo % 5 == 0 {
             HapticFeedbackManager.shared.success()
         }
     }

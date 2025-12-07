@@ -11,7 +11,6 @@ import Foundation
     import UIKit
 
     /// Manages haptic feedback throughout the game
-    @available(iOS 10.0, *)
     class HapticFeedbackManager {
         // MARK: - Singleton
 
@@ -72,7 +71,6 @@ import Foundation
         }
 
         /// Custom intensity impact (0.0 - 1.0)
-        @available(iOS 13.0, *)
         func impact(intensity: CGFloat) {
             guard isEnabled else { return }
             let generator = UIImpactFeedbackGenerator(style: .medium)

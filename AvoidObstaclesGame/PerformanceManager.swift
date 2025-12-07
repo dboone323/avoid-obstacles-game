@@ -235,14 +235,12 @@ class PerformanceManager {
     /// Sets up memory pressure handling
     private func setupMemoryPressureHandling() {
         #if os(iOS)
-            if #available(iOS 13.0, *) {
-                NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(handleMemoryPressure),
-                    name: UIApplication.didReceiveMemoryWarningNotification,
-                    object: nil
-                )
-            }
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleMemoryPressure),
+                name: UIApplication.didReceiveMemoryWarningNotification,
+                object: nil
+            )
         #endif
     }
 

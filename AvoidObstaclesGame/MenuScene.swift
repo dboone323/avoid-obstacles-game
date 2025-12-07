@@ -62,9 +62,7 @@ class MenuScene: SKScene {
         let location = touch.location(in: self)
         let tapped = atPoint(location)
 
-        if #available(iOS 10.0, *) {
-            HapticFeedbackManager.shared.selection()
-        }
+        HapticFeedbackManager.shared.selection()
 
         switch tapped.name {
         case "play": onPlay?()

@@ -116,14 +116,10 @@ import SpriteKit
                 return ThemeManager.neonTheme
             case "retro":
                 return ThemeManager.retroTheme
-            case "auto":
+        case "auto":
                 // Follow system appearance
-                if #available(iOS 13.0, *) {
-                    let isDark = UITraitCollection.current.userInterfaceStyle == .dark
-                    return isDark ? ThemeManager.darkTheme : ThemeManager.lightTheme
-                } else {
-                    return ThemeManager.lightTheme
-                }
+                let isDark = UITraitCollection.current.userInterfaceStyle == .dark
+                return isDark ? ThemeManager.darkTheme : ThemeManager.lightTheme
             default:
                 return ThemeManager.lightTheme
             }
@@ -141,14 +137,12 @@ import SpriteKit
         }
 
         private func setupNotifications() {
-            if #available(iOS 13.0, *) {
-                NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(systemAppearanceChanged),
-                    name: UIApplication.didBecomeActiveNotification,
-                    object: nil
-                )
-            }
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(systemAppearanceChanged),
+                name: UIApplication.didBecomeActiveNotification,
+                object: nil
+            )
         }
 
         @objc

@@ -5,7 +5,6 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
 struct SettingsView: View {
     @State private var config = GameConfiguration.load()
     @State private var selectedLanguage = LocalizationManager.shared.getCurrentLanguage()
