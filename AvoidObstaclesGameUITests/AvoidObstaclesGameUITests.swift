@@ -15,9 +15,9 @@ final class AvoidObstaclesGameUITests: XCTestCase {
         app = XCUIApplication()
         app.launch()
         
-        // Wait for SpriteKit scene to fully render
-        // SpriteKit games need extra time for scene setup
-        sleep(5)
+        // Wait for app to catch up (SpriteKit needs extra time)
+        waitForAppToLaunch()
+        sleep(2) // Grace period for SpriteKit rendering
     }
 
     override func tearDownWithError() throws {
@@ -25,6 +25,12 @@ final class AvoidObstaclesGameUITests: XCTestCase {
     }
     
     // MARK: - Helper Functions
+    
+    /// Waits for app to be in running foreground state
+    private func waitForAppToLaunch() {
+        let launched = app.wait(for: .runningForeground, timeout: 60)
+        XCTAssertTrue(launched, "App failed to launch within 60 seconds")
+    }
     
     /// Captures a screenshot with a descriptive name
     private func captureScreenshot(named name: String) {
@@ -51,6 +57,37 @@ final class AvoidObstaclesGameUITests: XCTestCase {
         let center = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
         center.tap()
         sleep(1)
+    }
+    
+    /// Sets the app to light mode
+    private func setLightMode() {
+        // Force light mode by setting launch environment
+        app.terminate()
+        app.launchArguments = ["-AppleInterfaceStyle", "Light"]
+        app.launch()
+        waitForAppToLaunch()
+        sleep(2) // Grace period for theme change
+    }
+    
+    /// Sets the app to dark mode
+    private func setDarkMode() {
+        // Force dark mode by setting launch environment
+        app.terminate()
+        app.launchArguments = ["-AppleInterfaceStyle", "Dark"]
+        app.launch()
+        waitForAppToLaunch()
+        sleep(2) // Grace period for theme change
+    }
+    
+    /// Captures screenshots in both light and dark modes
+    private func captureInBothModes(named baseName: String) {
+        // Capture light mode
+        setLightMode()
+        captureScreenshot(named: "\(baseName)_Light")
+        
+        // Capture dark mode
+        setDarkMode()
+        captureScreenshot(named: "\(baseName)_Dark")
     }
     
     // MARK: - Launch Tests
@@ -272,6 +309,34 @@ final class AvoidObstaclesGameUITests: XCTestCase {
     func testLaunchPerformance() throws {
         measure(metrics: [XCTApplicationLaunchMetric()]) {
             XCUIApplication().launch()
+        }
+    }
+    
+    // MARK: - Appearance Mode Screenshots
+    
+    @MainActor
+    func testLightModeScreenshots() throws {
+        // Capture all main screens in light mode
+        setLightMode()
+        captureScreenshot(named: "Light_MainMenu")
+        
+        // Try to navigate to gameplay
+        if tapButton("Play") || tapButton("Start") || tapButton("play") || tapButton("start") {
+            sleep(2)
+            captureScreenshot(named: "Light_Gameplay")
+        }
+    }
+    
+    @MainActor
+    func testDarkModeScreenshots() throws {
+        // Capture all main screens in dark mode
+        setDarkMode()
+        captureScreenshot(named: "Dark_MainMenu")
+        
+        // Try to navigate to gameplay
+        if tapButton("Play") || tapButton("Start") || tapButton("play") || tapButton("start") {
+            sleep(2)
+            captureScreenshot(named: "Dark_Gameplay")
         }
     }
 }
