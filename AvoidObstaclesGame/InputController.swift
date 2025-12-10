@@ -18,8 +18,9 @@ class InputController {
         self.playerNode = playerNode
     }
 
-    // MARK: - Touch Input
+    // MARK: - Touch Input (iOS)
 
+    #if os(iOS)
     func handleTouchBegan(_ touch: UITouch, in scene: SKScene) {
         touchLocation = touch.location(in: scene)
     }
@@ -32,6 +33,7 @@ class InputController {
     func handleTouchEnded(_ touch: UITouch, in scene: SKScene) {
         touchLocation = nil
     }
+    #endif
 
     private func updatePlayerPosition() {
         guard let player = playerNode,

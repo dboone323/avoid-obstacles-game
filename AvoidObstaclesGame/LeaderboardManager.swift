@@ -1,4 +1,9 @@
 import GameKit
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 /// Manages Game Center leaderboards and achievements
 class LeaderboardManager: NSObject {
@@ -21,9 +26,17 @@ class LeaderboardManager: NSObject {
         GKLocalPlayer.local.authenticateHandler = { [weak self] viewController, error in
             if let viewController {
                 // Present authentication view controller
-                if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+                #if os(iOS)
+                if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let rootVC = scene.windows.first?.rootViewController {
                     rootVC.present(viewController, animated: true)
                 }
+                #elseif os(macOS)
+                // On macOS, present the view controller in a window
+                if let window = NSApplication.shared.windows.first {
+                    window.contentViewController?.presentAsSheet(viewController)
+                }
+                #endif
             } else if GKLocalPlayer.local.isAuthenticated {
                 self?.isAuthenticated = true
                 print("✅ Game Center authenticated")
@@ -56,6 +69,7 @@ class LeaderboardManager: NSObject {
 
     // MARK: - Show Leaderboard
 
+    #if os(iOS)
     func showLeaderboard(from viewController: UIViewController) {
         guard isAuthenticated else {
             print("⚠️ Not authenticated with Game Center")
@@ -66,6 +80,16 @@ class LeaderboardManager: NSObject {
         gcVC.gameCenterDelegate = self
         viewController.present(gcVC, animated: true)
     }
+    #elseif os(macOS)
+    func showLeaderboard() {
+        guard isAuthenticated else {
+            print("⚠️ Not authenticated with Game Center")
+            return
+        }
+        // On macOS, use GKDialogController or present modally
+        print("Leaderboard display not fully implemented for macOS")
+    }
+    #endif
 
     // MARK: - Achievements
 
@@ -113,7 +137,11 @@ class LeaderboardManager: NSObject {
 
 extension LeaderboardManager: GKGameCenterControllerDelegate {
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        #if os(iOS)
         gameCenterViewController.dismiss(animated: true)
+        #elseif os(macOS)
+        gameCenterViewController.dismiss(nil)
+        #endif
     }
 }
 

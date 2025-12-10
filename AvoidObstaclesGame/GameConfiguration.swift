@@ -9,6 +9,12 @@
 import Foundation
 import SpriteKit
 
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 /// Centralized game configuration
 struct GameConfiguration: Codable {
     /// Player configuration
@@ -250,24 +256,41 @@ struct GameConfiguration: Codable {
             return false
         } else {
             // Auto: follow system
-            return UITraitCollection.current.userInterfaceStyle == .dark
+            #if os(iOS)
+            if #available(iOS 13.0, *) {
+                return UITraitCollection.current.userInterfaceStyle == .dark
+            }
+            #elseif os(macOS)
+            if #available(macOS 10.14, *) {
+                return NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+            }
+            #endif
+            return false
         }
     }
 
     var shouldReduceMotion: Bool {
-        accessibility.reduceMotion || UIAccessibility.isReduceMotionEnabled
+        #if os(iOS)
+        return accessibility.reduceMotion || UIAccessibility.isReduceMotionEnabled
+        #else
+        return accessibility.reduceMotion
+        #endif
     }
 
     var shouldIncreaseContrast: Bool {
-        accessibility.increaseContrast || UIAccessibility.isDarkerSystemColorsEnabled
+        #if os(iOS)
+        return accessibility.increaseContrast || UIAccessibility.isDarkerSystemColorsEnabled
+        #else
+        return accessibility.increaseContrast
+        #endif
     }
 }
 
 // MARK: - Color Utilities
 
 extension GameConfiguration {
-    /// Converts hex string to UIColor
-    func color(from hex: String) -> UIColor {
+    /// Converts hex string to platform color
+    func color(from hex: String) -> PlatformColor {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
 
@@ -278,6 +301,10 @@ extension GameConfiguration {
         let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
         let blue = CGFloat(rgb & 0x0000FF) / 255.0
 
+        #if os(iOS)
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+        #elseif os(macOS)
+        return NSColor(red: red, green: green, blue: blue, alpha: 1.0)
+        #endif
     }
 }

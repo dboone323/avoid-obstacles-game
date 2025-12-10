@@ -11,6 +11,7 @@ import Foundation
     import UIKit
 
     /// Manages haptic feedback throughout the game
+    @available(iOS 10.0, *)
     class HapticFeedbackManager {
         // MARK: - Singleton
 
@@ -71,6 +72,7 @@ import Foundation
         }
 
         /// Custom intensity impact (0.0 - 1.0)
+        @available(iOS 13.0, *)
         func impact(intensity: CGFloat) {
             guard isEnabled else { return }
             let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -229,6 +231,49 @@ import Foundation
             Event(type: .medium, delay: 0.1),
             Event(type: .medium, delay: 0.2)
         ])
+    }
+
+#else
+
+    // macOS stub - haptics not available
+    class HapticFeedbackManager {
+        static let shared = HapticFeedbackManager()
+        private init() {}
+        
+        func prepare() {}
+        func light() {}
+        func medium() {}
+        func heavy() {}
+        func selection() {}
+        func success() {}
+        func warning() {}
+        func error() {}
+        func obstacleDodged() {}
+        func powerUpCollected() {}
+        func collision() {}
+        func scoreMilestone() {}
+        func difficultyIncrease() {}
+        func gameStart() {}
+        func gamePause() {}
+        func gameResume() {}
+        func playPattern(_ pattern: HapticPattern) {}
+    }
+    
+    struct HapticPattern {
+        struct Event {
+            enum EventType {
+                case light, medium, heavy
+                case selection
+                case success, warning, error
+            }
+            let type: EventType
+            let delay: TimeInterval
+        }
+        let events: [Event]
+        
+        static let countdown = HapticPattern(events: [])
+        static let combo = HapticPattern(events: [])
+        static let achievement = HapticPattern(events: [])
     }
 
 #endif

@@ -8,7 +8,6 @@
 #if os(iOS)
     import UIKit
 
-    @main
     public class AppDelegate: UIResponder, UIApplicationDelegate {
 
         public func application(
@@ -62,7 +61,6 @@
     import Cocoa
     import SpriteKit
 
-    @main
     public class AppDelegate: NSObject, NSApplicationDelegate {
         public var window: NSWindow?
 

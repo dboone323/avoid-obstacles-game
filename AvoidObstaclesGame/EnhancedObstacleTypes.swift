@@ -22,7 +22,7 @@ enum EnhancedObstacleType: CaseIterable {
         }
     }
 
-    func createObstacle(size: CGSize, color: UIColor) -> SKSpriteNode {
+    func createObstacle(size: CGSize, color: PlatformColor) -> SKSpriteNode {
         let obstacle = SKSpriteNode(color: color, size: size)
         obstacle.name = "obstacle"
 

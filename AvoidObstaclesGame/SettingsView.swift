@@ -5,6 +5,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 struct SettingsView: View {
     @State private var config = GameConfiguration.load()
     @State private var selectedLanguage = LocalizationManager.shared.getCurrentLanguage()
@@ -87,9 +88,16 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
-            .navigationBarItems(trailing: Button("Done") {
-                saveAndDismiss()
-            })
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        saveAndDismiss()
+                    }
+                }
+            }
         }
     }
 

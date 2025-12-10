@@ -3,6 +3,7 @@
 // AvoidObstaclesGame
 //
 
+#if os(iOS)
 import Social
 import SpriteKit
 import UIKit
@@ -56,3 +57,4 @@ class ShareManager {
         return image
     }
 }
+#endif

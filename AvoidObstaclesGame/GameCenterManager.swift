@@ -3,8 +3,10 @@
 // AvoidObstaclesGame
 //
 
+#if os(iOS)
 import Foundation
 import GameKit
+import UIKit
 
 class GameCenterManager: NSObject {
     static let shared = GameCenterManager()
@@ -83,3 +85,5 @@ extension GameCenterManager: GKGameCenterControllerDelegate {
         gameCenterViewController.dismiss(animated: true)
     }
 }
+#endif
+

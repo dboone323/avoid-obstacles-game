@@ -21,7 +21,7 @@ class InputManager {
 
     private var mode: ControlMode = .drag
 
-    #if canImport(CoreMotion)
+    #if os(iOS)
         private let motionManager = CMMotionManager()
     #endif
 
@@ -30,7 +30,7 @@ class InputManager {
     func setMode(_ mode: ControlMode) {
         self.mode = mode
 
-        #if canImport(CoreMotion)
+        #if os(iOS)
             if mode == .tilt {
                 startTiltMonitoring()
             } else {
@@ -55,7 +55,7 @@ class InputManager {
         }
     }
 
-    #if canImport(CoreMotion)
+    #if os(iOS)
         private func startTiltMonitoring() {
             guard motionManager.isAccelerometerAvailable else { return }
 

@@ -5,6 +5,12 @@
 
 import SpriteKit
 
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 class AssetCache {
     static let shared = AssetCache()
 
@@ -16,9 +22,9 @@ class AssetCache {
 
     func preloadAssets() {
         // Preload common textures
-        preloadTexture("player", color: .blue, size: CGSize(width: 50, height: 50))
-        preloadTexture("obstacle", color: .red, size: CGSize(width: 40, height: 40))
-        preloadTexture("powerup", color: .green, size: CGSize(width: 30, height: 30))
+        preloadTexture("player", color: PlatformColor.blue, size: CGSize(width: 50, height: 50))
+        preloadTexture("obstacle", color: PlatformColor.red, size: CGSize(width: 40, height: 40))
+        preloadTexture("powerup", color: PlatformColor.green, size: CGSize(width: 30, height: 30))
 
         // Preload sounds
         preloadSound("collision", filename: "collision.wav")
@@ -34,7 +40,8 @@ class AssetCache {
         sounds[name]
     }
 
-    private func preloadTexture(_ name: String, color: UIColor, size: CGSize) {
+    private func preloadTexture(_ name: String, color: PlatformColor, size: CGSize) {
+        #if os(iOS)
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
@@ -45,6 +52,14 @@ class AssetCache {
         if let image {
             textures[name] = SKTexture(image: image)
         }
+        #elseif os(macOS)
+        let image = NSImage(size: size)
+        image.lockFocus()
+        color.setFill()
+        NSRect(origin: .zero, size: size).fill()
+        image.unlockFocus()
+        textures[name] = SKTexture(image: image)
+        #endif
     }
 
     private func preloadSound(_ name: String, filename: String) {
@@ -57,3 +72,4 @@ class AssetCache {
         particles.removeAll()
     }
 }
+
