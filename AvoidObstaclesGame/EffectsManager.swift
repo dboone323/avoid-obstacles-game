@@ -235,6 +235,32 @@ class EffectsManager {
         flashNode.run(fadeAction)
     }
 
+    /// Creates a screen shake effect for collision feedback
+    /// - Parameters:
+    ///   - intensity: How strong the shake is (default 10)
+    ///   - duration: How long the shake lasts (default 0.3)
+    func createScreenShake(intensity: CGFloat = 10, duration: TimeInterval = 0.3) {
+        guard let scene else { return }
+        
+        let shakeCount = max(1, Int(duration / 0.05))
+        var actions: [SKAction] = []
+        
+        for i in 0..<shakeCount {
+            let dampingFactor = 1 - CGFloat(i) / CGFloat(shakeCount)
+            let offsetX = CGFloat.random(in: -intensity...intensity) * dampingFactor
+            let offsetY = CGFloat.random(in: -intensity...intensity) * dampingFactor
+            let moveAction = SKAction.moveBy(x: offsetX, y: offsetY, duration: 0.025)
+            let returnAction = SKAction.moveBy(x: -offsetX, y: -offsetY, duration: 0.025)
+            actions.append(contentsOf: [moveAction, returnAction])
+        }
+        
+        // Reset to original position
+        let originalPosition = scene.position
+        actions.append(SKAction.move(to: originalPosition, duration: 0.01))
+        
+        scene.run(SKAction.sequence(actions))
+    }
+
     /// Creates a level up celebration effect
     func createLevelUpCelebration() {
         guard let scene else { return }

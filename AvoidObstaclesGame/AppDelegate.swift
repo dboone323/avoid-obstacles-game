@@ -9,16 +9,20 @@
     import UIKit
 
     public class AppDelegate: UIResponder, UIApplicationDelegate {
+        public var window: UIWindow?
 
         public func application(
-            _: UIApplication,
-            didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
+            _ application: UIApplication,
+            didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
-            // Scene-based lifecycle - window is managed by SceneDelegate
-            true
+            // Traditional window creation (works with or without scenes)
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = GameViewController()
+            window?.makeKeyAndVisible()
+            return true
         }
 
-        // MARK: UISceneSession Lifecycle
+        // MARK: UISceneSession Lifecycle (optional, for future use)
 
         public func application(
             _ application: UIApplication,
@@ -26,11 +30,11 @@
             options: UIScene.ConnectionOptions
         ) -> UISceneConfiguration {
             // Called when a new scene session is being created.
-            UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+            return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
         }
     }
 
-    // MARK: - Scene Delegate
+    // MARK: - Scene Delegate (kept for future use if scene manifest is configured)
 
     public class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         public var window: UIWindow?
@@ -69,28 +73,30 @@
 
             // Create the main window
             let window = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 800, height: 600),
+                contentRect: NSRect(x: 100, y: 100, width: 800, height: 600),
                 styleMask: [.titled, .closable, .miniaturizable, .resizable],
                 backing: .buffered,
                 defer: false
             )
-            window.center()
+            window.isReleasedWhenClosed = false
             window.title = "Avoid Obstacles Game"
-            print("🪟 Window created - frame: \(window.frame)")
+            print("🪟 Window created")
 
             // Create GameViewController
             let gameVC = GameViewController()
+            gameVC.view.wantsLayer = true  // Required for proper rendering
             window.contentViewController = gameVC
-            print("🪟 GameViewController set as contentViewController")
+            print("🪟 GameViewController set")
 
-            // Make window visible and activate app
-            window.makeKeyAndOrderFront(nil)
-            print("🪟 makeKeyAndOrderFront called")
-            NSApp.activate(ignoringOtherApps: true)
-            print("🪟 NSApp activated")
-
+            // Store window reference BEFORE making visible
             self.window = window
-            print("🪟 Window assigned to self.window")
+            
+            // Make window visible
+            window.center()
+            window.makeKeyAndOrderFront(nil)
+            window.orderFrontRegardless()
+            NSApp.activate(ignoringOtherApps: true)
+            print("🪟 Window should now be visible - frame: \(window.frame)")
         }
 
         public func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

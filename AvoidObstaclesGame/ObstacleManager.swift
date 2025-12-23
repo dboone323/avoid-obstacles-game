@@ -209,6 +209,9 @@ class ObstacleManager {
     /// Spawns a single obstacle or power-up
     /// - Parameter difficulty: Current difficulty settings
     private func spawnObstacle(with difficulty: GameDifficulty) {
+        let level = GameDifficulty.getDifficultyLevel(for: Int(difficulty.scoreMultiplier * 10))
+        // print("☄️ Spawn check - Multiplier: \(difficulty.scoreMultiplier), Level: \(level)")
+        
         guard let scene else { return }
 
         // Occasionally spawn a power-up instead of an obstacle
@@ -223,8 +226,10 @@ class ObstacleManager {
         let obstacleType = selectObstacleType(for: difficulty)
         let obstacle = getObstacle(ofType: obstacleType)
 
-        // Random horizontal position
-        let randomX = CGFloat.random(in: obstacle.size.width / 2...(scene.size.width - obstacle.size.width / 2))
+        // Random horizontal position (ensure valid range)
+        let minX = obstacle.size.width / 2
+        let maxX = max(minX, scene.size.width - obstacle.size.width / 2)
+        let randomX = CGFloat.random(in: minX...maxX)
         obstacle.position = CGPoint(x: randomX, y: scene.size.height + obstacle.size.height)
 
         // Add to scene and active set
@@ -240,6 +245,8 @@ class ObstacleManager {
 
         obstacle.run(SKAction.sequence([moveAction, removeAction]))
 
+
+
         delegate?.obstacleDidSpawn(obstacle)
     }
 
@@ -247,8 +254,12 @@ class ObstacleManager {
     private func selectObstacleType(for difficulty: GameDifficulty) -> ObstacleType {
         let level = GameDifficulty.getDifficultyLevel(for: Int(difficulty.scoreMultiplier * 10))
 
-        // Higher levels introduce more variety
+        // Higher levels introduce more variety including boss obstacles
         if level >= 5 {
+            // Small chance for boss at high levels
+            if Double.random(in: 0...1) < 0.05 {
+                return .boss
+            }
             let types: [ObstacleType] = [.normal, .fast, .large, .small]
             return types.randomElement() ?? .normal
         } else if level >= 3 {
@@ -257,6 +268,46 @@ class ObstacleManager {
         } else {
             return .normal
         }
+    }
+    
+    /// Spawns a boss obstacle at score milestones (100, 250, 500, 1000)
+    /// - Parameter score: Current player score
+    func checkBossSpawn(for score: Int) {
+        let milestones = [100, 250, 500, 1000]
+        if milestones.contains(score) {
+            spawnBossObstacle()
+        }
+    }
+    
+    /// Spawns a boss obstacle
+    private func spawnBossObstacle() {
+        guard let scene else { return }
+        
+        let obstacle = getObstacle(ofType: .boss)
+        
+        // Center spawn for maximum threat
+        obstacle.position = CGPoint(x: scene.size.width / 2, y: scene.size.height + obstacle.size.height)
+        
+        scene.addChild(obstacle)
+        activeObstacles.insert(obstacle)
+        
+        // Boss moves slower and rotates
+        let fallDuration = 5.0  // Slow fall
+        let moveAction = SKAction.moveTo(y: -obstacle.size.height, duration: fallDuration)
+        let rotateAction = SKAction.rotate(byAngle: .pi * 2, duration: 2.0)
+        let rotateForever = SKAction.repeatForever(rotateAction)
+        
+        let removeAction = SKAction.run { [weak self] in
+            self?.recycleObstacle(obstacle)
+        }
+        
+        obstacle.run(rotateForever, withKey: "bossRotation")
+        obstacle.run(SKAction.sequence([moveAction, removeAction]))
+        
+        delegate?.obstacleDidSpawn(obstacle)
+        
+        // Haptic feedback for boss spawn
+        HapticFeedbackManager.shared.warning()
     }
 
     // MARK: - Management
@@ -302,8 +353,10 @@ class ObstacleManager {
         let powerUpType = PowerUpType.allCases.randomElement() ?? .shield
         let powerUp = createPowerUp(ofType: powerUpType)
 
-        // Random position across the screen width
-        let randomX = CGFloat.random(in: powerUp.size.width / 2...(scene.size.width - powerUp.size.width / 2))
+        // Random position across the screen width (ensure valid range)
+        let minX = powerUp.size.width / 2
+        let maxX = max(minX, scene.size.width - powerUp.size.width / 2)
+        let randomX = CGFloat.random(in: minX...maxX)
         powerUp.position = CGPoint(x: randomX, y: scene.size.height + powerUp.size.height)
 
         // Add physics body
@@ -468,6 +521,7 @@ enum ObstacleType {
     case fast
     case large
     case small
+    case boss  // New: Boss obstacle at milestone scores
 
     var configuration: ObstacleConfiguration {
         switch self {
@@ -504,6 +558,16 @@ enum ObstacleType {
                 color: .systemPink,
                 borderColor: SKColor(red: 0.8, green: 0.0, blue: 0.4, alpha: 1.0),
                 fallSpeed: 5.0,
+                canRotate: true,
+                hasGlow: true
+            )
+        case .boss:
+            // Boss obstacle: Extra large, slow, always glows
+            ObstacleConfiguration(
+                size: CGSize(width: 80, height: 80),
+                color: SKColor(red: 0.8, green: 0.1, blue: 0.1, alpha: 1.0),
+                borderColor: SKColor(red: 1.0, green: 0.3, blue: 0.0, alpha: 1.0),
+                fallSpeed: 2.0,
                 canRotate: true,
                 hasGlow: true
             )

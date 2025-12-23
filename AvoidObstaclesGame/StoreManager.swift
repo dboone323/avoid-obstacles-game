@@ -37,7 +37,7 @@ class StoreManager: ObservableObject {
     
     // MARK: - Purchases
     
-    func purchase(_ product: Product) async throws -> Transaction? {
+    func purchase(_ product: Product) async throws -> StoreKit.Transaction? {
         let result = try await product.purchase()
         
         switch result {
@@ -82,7 +82,7 @@ class StoreManager: ObservableObject {
     
     private func listenForTransactions() -> Task<Void, Never> {
         Task { @MainActor [weak self] in
-            for await result in Transaction.updates {
+            for await result in StoreKit.Transaction.updates {
                 guard let self = self else { return }
                 do {
                     let transaction = try self.checkVerified(result)
@@ -116,7 +116,7 @@ class StoreManager: ObservableObject {
     // MARK: - Check Purchase Status
     
     func isPurchased(_ productID: String) async -> Bool {
-        for await result in Transaction.currentEntitlements {
+        for await result in StoreKit.Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }
             if transaction.productID == productID && transaction.revocationDate == nil {
                 return true

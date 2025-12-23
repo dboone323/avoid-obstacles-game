@@ -64,15 +64,21 @@ final class AvoidObstaclesGameTests: XCTestCase {
     }
 
     func testCollisionDetection() throws {
-        // Test collision detection between player and obstacles
-        // let player = Player(position: CGPoint(x: 100, y: 200))
-        // let obstacle = Obstacle(type: .wall, position: CGPoint(x: 100, y: 200))
-
-        // let collision = player.collidesWith(obstacle)
-        // XCTAssertTrue(collision)
-
-        // Placeholder until collision system is defined
-        XCTAssertTrue(true, "Collision detection test framework ready")
+        // Test physics category bitmasks are properly configured
+        let playerCategory = PhysicsCategory.player
+        let obstacleCategory = PhysicsCategory.obstacle
+        let powerUpCategory = PhysicsCategory.powerUp
+        
+        // Verify categories are non-zero (valid)
+        XCTAssertNotEqual(playerCategory, 0, "Player category should be non-zero")
+        XCTAssertNotEqual(obstacleCategory, 0, "Obstacle category should be non-zero")
+        XCTAssertNotEqual(powerUpCategory, 0, "Power-up category should be non-zero")
+        
+        // Test that categories are properly defined and distinct
+        XCTAssertNotEqual(playerCategory, obstacleCategory, "Player and obstacle categories should differ")
+        XCTAssertNotEqual(obstacleCategory, powerUpCategory, "Obstacle and power-up categories should differ")
+        XCTAssertNotEqual(playerCategory, powerUpCategory, "Player and power-up categories should differ")
+        XCTAssertEqual(PhysicsCategory.none, 0, "None category should be zero")
     }
 
     // MARK: - Score System Tests
@@ -117,41 +123,51 @@ final class AvoidObstaclesGameTests: XCTestCase {
     // MARK: - Game State Tests
 
     func testGameStartState() throws {
-        // Test initial game state
-        // let game = Game()
-        // XCTAssertEqual(game.state, .ready)
-        // XCTAssertEqual(game.score, 0)
-        // XCTAssertEqual(game.lives, 3)
-
-        // Placeholder until Game model is defined
-        XCTAssertTrue(true, "Game start state test framework ready")
+        // Test initial game state using GameStateManager
+        let gameStateManager = GameStateManager()
+        
+        // Before starting, should be waiting
+        XCTAssertFalse(gameStateManager.isGameActive(), "Game should not be active before start")
+        
+        // Start the game
+        gameStateManager.startGame()
+        
+        // After starting, should be playing
+        XCTAssertTrue(gameStateManager.isGameActive(), "Game should be active after start")
+        XCTAssertEqual(gameStateManager.getCurrentScore(), 0, "Score should be 0 at start")
+        XCTAssertEqual(gameStateManager.getCurrentDifficultyLevel(), 1, "Difficulty should be 1 at start")
     }
 
     func testGameOverCondition() throws {
-        // Test game over conditions
-        // let game = Game()
-        // game.lives = 0
-
-        // XCTAssertTrue(game.isGameOver)
-        // XCTAssertEqual(game.state, .gameOver)
-
-        // Placeholder until Game model is defined
-        XCTAssertTrue(true, "Game over condition test framework ready")
+        // Test game over conditions using GameStateManager
+        let gameStateManager = GameStateManager()
+        
+        // Start and then end the game
+        gameStateManager.startGame()
+        XCTAssertFalse(gameStateManager.isGameOver(), "Game should not be over after start")
+        
+        gameStateManager.endGame()
+        XCTAssertTrue(gameStateManager.isGameOver(), "Game should be over after endGame()")
+        XCTAssertFalse(gameStateManager.isGameActive(), "Game should not be active after game over")
     }
 
     func testPauseResumeFunctionality() throws {
-        // Test pause and resume functionality
-        // let game = Game()
-        // game.state = .playing
-
-        // game.pause()
-        // XCTAssertEqual(game.state, .paused)
-
-        // game.resume()
-        // XCTAssertEqual(game.state, .playing)
-
-        // Placeholder until Game model is defined
-        XCTAssertTrue(true, "Pause/resume test framework ready")
+        // Test pause and resume functionality using GameStateManager
+        let gameStateManager = GameStateManager()
+        
+        // Start game
+        gameStateManager.startGame()
+        XCTAssertTrue(gameStateManager.isGameActive(), "Game should be active")
+        
+        // Pause the game
+        gameStateManager.pauseGame()
+        XCTAssertTrue(gameStateManager.isGamePaused(), "Game should be paused")
+        XCTAssertFalse(gameStateManager.isGameActive(), "Game should not be active while paused")
+        
+        // Resume the game
+        gameStateManager.resumeGame()
+        XCTAssertTrue(gameStateManager.isGameActive(), "Game should be active after resume")
+        XCTAssertFalse(gameStateManager.isGamePaused(), "Game should not be paused after resume")
     }
 
     // MARK: - Level System Tests

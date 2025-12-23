@@ -248,9 +248,23 @@ class PlayerManager {
     }
 
     /// Resets the player to initial state
+    /// Resets the player to initial state
     func reset() {
-        player?.removeAllActions()
-        player?.run(SKAction.colorize(withColorBlendFactor: 0, duration: 0.1))
+        guard let player else { return }
+        
+        // CRITICAL FIX: Ensure player is in the scene if it was removed (e.g. by explosion)
+        if player.parent == nil {
+            print("⚠️ Player was missing from scene. Re-adding.")
+            scene?.addChild(player)
+        }
+        
+        player.removeAllActions()
+        player.run(SKAction.colorize(withColorBlendFactor: 0, duration: 0.1))
+        
+        // Reset physics state
+        player.physicsBody?.velocity = .zero
+        player.physicsBody?.angularVelocity = 0
+        
         show()
     }
 

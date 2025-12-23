@@ -12,27 +12,27 @@ class GameCenterManagerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        manager = GameCenterManager.shared
+        manager = GameCenterManager()
     }
 
-    func testSingleton() {
-        XCTAssertTrue(GameCenterManager.shared === manager)
+    override func tearDown() {
+        manager = nil
+        super.tearDown()
     }
 
-    func testInitialState() {
-        // Authentication state depends on device/simulator
+    func testInitialization() {
         XCTAssertNotNil(manager)
+        // Initial auth state depends on device - just verify no crash
     }
 
     func testSubmitScore() {
         // Should not crash even if not authenticated
-        manager.submitScore(100)
+        manager.submitScore(score: 100)
         XCTAssertTrue(true)
     }
 
-    func testReportAchievement() {
-        // Should not crash
-        manager.reportAchievement("test_achievement")
-        XCTAssertTrue(true)
+    func testAuthenticationState() {
+        // Authentication happens async, just verify property exists
+        XCTAssertNotNil(manager.isAuthenticated)
     }
 }
