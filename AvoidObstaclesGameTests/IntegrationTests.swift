@@ -13,7 +13,9 @@ class IntegrationTests: XCTestCase {
         _ = GameConfiguration.load()
         _ = ThemeManager.shared
         _ = LocalizationManager.shared
+        #if canImport(UIKit)
         _ = AccessibilityManager.shared
+        #endif
 
         // Simulate game start
         AnalyticsManager.shared.trackGameStart()

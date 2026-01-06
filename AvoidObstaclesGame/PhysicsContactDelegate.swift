@@ -57,13 +57,19 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
         guard gameStateManager?.isGameActive() == true else { return }
 
         let obstacleNode: SKNode
+        let playerHitNode: SKNode
+        
         if contact.bodyA.categoryBitMask == PhysicsCategory.obstacle {
-            obstacleNode = contact.bodyA.node!
-            playerNode = contact.bodyB.node!
+            guard let obstacle = contact.bodyA.node, let player = contact.bodyB.node else { return }
+            obstacleNode = obstacle
+            playerHitNode = player
         } else {
-            obstacleNode = contact.bodyB.node!
-            playerNode = contact.bodyA.node!
+            guard let obstacle = contact.bodyB.node, let player = contact.bodyA.node else { return }
+            obstacleNode = obstacle
+            playerHitNode = player
         }
+        
+        playerNode = playerHitNode
 
         // Create explosion effect
         effectsManager?.createExplosion(at: obstacleNode.position)
@@ -88,9 +94,11 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
 
         let powerUpNode: SKNode
         if contact.bodyA.categoryBitMask == PhysicsCategory.powerUp {
-            powerUpNode = contact.bodyA.node!
+            guard let node = contact.bodyA.node else { return }
+            powerUpNode = node
         } else {
-            powerUpNode = contact.bodyB.node!
+            guard let node = contact.bodyB.node else { return }
+            powerUpNode = node
         }
 
         // Play sound

@@ -1,0 +1,47 @@
+{
+  "configurations" : [
+    {
+      "id" : "7A8B9C0D-1E2F-3G4H-5I6J-7K8L9M0N1O2P",
+      "name" : "Default Configuration",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "gatherCoverageData" : true,
+      "targets" : [
+        {
+          "containerPath" : "container:AvoidObstaclesGame.xcodeproj",
+          "identifier" : "680BFB192DD7B8FE0051D714",
+          "name" : "AvoidObstaclesGame"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AvoidObstaclesGame.xcodeproj",
+      "identifier" : "680BFB192DD7B8FE0051D714",
+      "name" : "AvoidObstaclesGame"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:AvoidObstaclesGame.xcodeproj",
+        "identifier" : "680BFB322DD7B9000051D714",
+        "name" : "AvoidObstaclesGameTests"
+      }
+    },
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:AvoidObstaclesGame.xcodeproj",
+        "identifier" : "680BFB3C2DD7B9000051D714",
+        "name" : "AvoidObstaclesGameUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

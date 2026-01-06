@@ -537,7 +537,9 @@ class UIManager {
         if let memoryLabel { performanceOverlay?.addChild(memoryLabel) }
         if let qualityLabel { performanceOverlay?.addChild(qualityLabel) }
 
-        scene.addChild(performanceOverlay!)
+        if let overlay = performanceOverlay {
+            scene.addChild(overlay)
+        }
     }
 
     /// Hides the performance monitoring overlay

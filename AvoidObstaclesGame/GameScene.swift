@@ -143,6 +143,9 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     /// Sets up the basic scene configuration
     private func setupScene() {
         print("🎮 setupScene() starting...")
+        
+        // Configure crash reporting
+        CrashReportingManager.shared.configure()
 
         // Configure physics world
         physicsWorld.contactDelegate = self
@@ -217,6 +220,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     private func startGame() {
         gameStateManager.startGame()
         currentGameStats = GameStats()
+        CrashReportingManager.shared.logGameStart()
     }
 
     // MARK: - Game Flow
@@ -241,6 +245,13 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Play game over sound
         audioManager.playCollision()
+        
+        // Log for crash reporting
+        CrashReportingManager.shared.logGameOver(
+            score: gameStateManager.score,
+            survivalTime: gameStateManager.survivalTime,
+            level: gameStateManager.getCurrentDifficultyLevel()
+        )
     }
 
     /// Restarts the game

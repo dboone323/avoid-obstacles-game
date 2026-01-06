@@ -40,16 +40,22 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		680BFB1C2DD7B8FE0051D714 /* AvoidObstaclesGame */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = AvoidObstaclesGame;
 			sourceTree = "<group>";
 		};
 		680BFB362DD7B9000051D714 /* AvoidObstaclesGameTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = AvoidObstaclesGameTests;
 			sourceTree = "<group>";
 		};
 		680BFB402DD7B9000051D714 /* AvoidObstaclesGameUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = AvoidObstaclesGameUITests;
 			sourceTree = "<group>";
 		};
@@ -132,8 +138,6 @@
 				680BFB1C2DD7B8FE0051D714 /* AvoidObstaclesGame */,
 			);
 			name = AvoidObstaclesGame;
-			packageProductDependencies = (
-			);
 			productName = AvoidObstaclesGame;
 			productReference = 680BFB1A2DD7B8FE0051D714 /* AvoidObstaclesGame.app */;
 			productType = "com.apple.product-type.application";
@@ -155,8 +159,6 @@
 				680BFB362DD7B9000051D714 /* AvoidObstaclesGameTests */,
 			);
 			name = AvoidObstaclesGameTests;
-			packageProductDependencies = (
-			);
 			productName = AvoidObstaclesGameTests;
 			productReference = 680BFB332DD7B9000051D714 /* AvoidObstaclesGameTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -178,8 +180,6 @@
 				680BFB402DD7B9000051D714 /* AvoidObstaclesGameUITests */,
 			);
 			name = AvoidObstaclesGameUITests;
-			packageProductDependencies = (
-			);
 			productName = AvoidObstaclesGameUITests;
 			productReference = 680BFB3D2DD7B9000051D714 /* AvoidObstaclesGameUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -429,8 +429,10 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_NSPrincipalClass[sdk=macosx*]" = NSApplication;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -440,7 +442,6 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-                                INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DanielStevens.AvoidObstaclesGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -466,8 +467,10 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_NSPrincipalClass[sdk=macosx*]" = NSApplication;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -477,7 +480,6 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-                                INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DanielStevens.AvoidObstaclesGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -499,11 +501,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3N5528D82R;
-				GENERATE_INFOPLIST_FILE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_NSPrincipalClass[sdk=macosx*]" = NSApplication;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-                                INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DanielStevens.AvoidObstaclesGameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -525,11 +526,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3N5528D82R;
-				GENERATE_INFOPLIST_FILE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_NSPrincipalClass[sdk=macosx*]" = NSApplication;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-                                INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DanielStevens.AvoidObstaclesGameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -550,7 +550,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3N5528D82R;
-				GENERATE_INFOPLIST_FILE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DanielStevens.AvoidObstaclesGameUITests;
@@ -572,7 +571,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3N5528D82R;
-				GENERATE_INFOPLIST_FILE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DanielStevens.AvoidObstaclesGameUITests;

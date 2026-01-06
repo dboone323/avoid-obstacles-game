@@ -15,22 +15,22 @@
             _ application: UIApplication,
             didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
-            // Traditional window creation (works with or without scenes)
-            window = UIWindow(frame: UIScreen.main.bounds)
-            window?.rootViewController = GameViewController()
-            window?.makeKeyAndVisible()
+            // Window creation is handled by SceneDelegate
+            // (configured via configurationForConnecting with delegateClass = SceneDelegate.self)
             return true
         }
 
-        // MARK: UISceneSession Lifecycle (optional, for future use)
+        // MARK: UISceneSession Lifecycle
 
         public func application(
             _ application: UIApplication,
             configurationForConnecting connectingSceneSession: UISceneSession,
             options: UIScene.ConnectionOptions
         ) -> UISceneConfiguration {
-            // Called when a new scene session is being created.
-            return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+            // Create scene configuration and specify our SceneDelegate
+            let config = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+            config.delegateClass = SceneDelegate.self
+            return config
         }
     }
 

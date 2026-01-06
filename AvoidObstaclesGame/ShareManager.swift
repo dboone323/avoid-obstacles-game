@@ -49,7 +49,7 @@ class ShareManager {
     func captureScreenshot(from scene: SKScene) -> UIImage? {
         guard let view = scene.view else { return nil }
 
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, view.traitCollection.displayScale)
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
