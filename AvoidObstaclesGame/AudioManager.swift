@@ -75,7 +75,7 @@ class AudioManager {
                 musicPlayer?.volume = 0.3
                 musicPlayer?.play()
             } catch {
-                print("Error playing music: \(error)")
+                GameLogger.shared.error("Error playing music: \(error)")
             }
         }
     }
