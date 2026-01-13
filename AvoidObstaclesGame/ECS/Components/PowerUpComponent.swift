@@ -170,7 +170,7 @@ class PowerUpManager {
     
     func activatePowerUp(_ type: PowerUpType) {
         activePowerUps[type] = type.duration
-        print("[PowerUp] Activated: \(type.rawValue) for \(type.duration)s")
+        GameLogger.shared.debug("[PowerUp] Activated: \(type.rawValue) for \(type.duration)s")
     }
     
     func update(deltaTime: TimeInterval) {
@@ -178,7 +178,7 @@ class PowerUpManager {
             let newRemaining = remaining - deltaTime
             if newRemaining <= 0 {
                 activePowerUps.removeValue(forKey: type)
-                print("[PowerUp] Expired: \(type.rawValue)")
+                GameLogger.shared.debug("[PowerUp] Expired: \(type.rawValue)")
             } else {
                 activePowerUps[type] = newRemaining
             }

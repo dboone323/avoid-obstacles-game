@@ -15,11 +15,11 @@ class GameCenterManager: NSObject, ObservableObject {
         GKLocalPlayer.local.authenticateHandler = { [weak self] vc, error in
             if vc != nil {
                 // Present vc if needed (usually handled by root VC)
-                print("Game Center auth required")
+                GameLogger.shared.debug("Game Center auth required")
             } else if GKLocalPlayer.local.isAuthenticated {
                 self?.isAuthenticated = true
             } else {
-                print("Game Center auth failed: \(error?.localizedDescription ?? "unknown")")
+                GameLogger.shared.debug("Game Center auth failed: \(error?.localizedDescription ?? "unknown")")
             }
         }
     }
@@ -28,7 +28,7 @@ class GameCenterManager: NSObject, ObservableObject {
         if isAuthenticated {
             GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: ["highscore_leaderboard"]) { error in
                 if let error = error {
-                    print("Error submitting score: \(error)")
+                    GameLogger.shared.debug("Error submitting score: \(error)")
                 }
             }
         }

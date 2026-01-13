@@ -22,8 +22,8 @@ public class TestScene: SKScene {
         circle.position = CGPoint(x: size.width / 2, y: size.height / 2 - 100)
         addChild(circle)
 
-        print("✅ TestScene.didMove called - Scene has \(children.count) children")
-        print("✅ Scene size: \(size)")
-        print("✅ View: \(view)")
+        GameLogger.shared.debug("✅ TestScene.didMove called - Scene has \(children.count) children")
+        GameLogger.shared.debug("✅ Scene size: \(size)")
+        GameLogger.shared.debug("✅ View: \(view)")
     }
 }

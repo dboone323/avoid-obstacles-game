@@ -15,7 +15,7 @@ class SkinManager {
 
     func applySkin(_ skin: PlayerSkin, to node: SKSpriteNode) {
         guard unlockedSkins.contains(skin) else {
-            print("Skin \(skin.name) is locked")
+            GameLogger.shared.debug("Skin \(skin.name) is locked")
             return
         }
 

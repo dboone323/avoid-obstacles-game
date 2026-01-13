@@ -31,7 +31,7 @@ class MultiplayerManager: NSObject, ObservableObject, GKMatchmakerViewController
     
     func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFailWithError error: any Error) {
         viewController.dismiss(animated: true)
-        print("Matchmaker failed with error: \(error.localizedDescription)")
+        GameLogger.shared.debug("Matchmaker failed with error: \(error.localizedDescription)")
     }
     
     func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
@@ -45,7 +45,7 @@ class MultiplayerManager: NSObject, ObservableObject {
     
     func findMatch() {
         // Multiplayer UI not available on macOS
-        print("Multiplayer matchmaking is only available on iOS")
+        GameLogger.shared.debug("Multiplayer matchmaking is only available on iOS")
     }
 }
 #endif

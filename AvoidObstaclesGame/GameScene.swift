@@ -125,8 +125,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
     /// Called when the scene is first presented by the view.
     override public func didMove(to view: SKView) {
-        print("🎮 GameScene.didMove(to:) called - Scene size: \(size)")
-        print("🎮 View bounds: \(view.bounds)")
+        GameLogger.shared.debug("🎮 GameScene.didMove(to:) called - Scene size: \(size)")
+        GameLogger.shared.debug("🎮 View bounds: \(view.bounds)")
 
         // Setup the scene
         setupScene()
@@ -137,12 +137,12 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         // Start the game
         startGame()
 
-        print("🎮 GameScene setup complete - children count: \(children.count)")
+        GameLogger.shared.debug("🎮 GameScene setup complete - children count: \(children.count)")
     }
 
     /// Sets up the basic scene configuration
     private func setupScene() {
-        print("🎮 setupScene() starting...")
+        GameLogger.shared.debug("🎮 setupScene() starting...")
         
         // Configure crash reporting
         CrashReportingManager.shared.configure()
@@ -154,11 +154,11 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         setupBackground()
 
         // Setup UI
-        print("🎮 Setting up UI...")
+        GameLogger.shared.debug("🎮 Setting up UI...")
         uiManager.setupUI()
 
         // Setup player
-        print("🎮 Creating player...")
+        GameLogger.shared.debug("🎮 Creating player...")
         playerManager.createPlayer(at: CGPoint(x: size.width / 2, y: 100))
 
         // Enable tilt controls if available
@@ -167,7 +167,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         // Setup effects
         effectsManager.createExplosion(at: .zero) // Preload explosion effect
 
-        print("🎮 setupScene() complete")
+        GameLogger.shared.debug("🎮 setupScene() complete")
         
         // Setup ComboSystem callbacks
         ComboSystem.shared.onComboChanged = { [weak self] count, points in
@@ -256,7 +256,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
     /// Restarts the game
     private func restartGame() {
-        print("🔄 Restarting game...")
+        GameLogger.shared.debug("🔄 Restarting game...")
         // Hide game over screen
         uiManager.hideGameOverScreen()
         
@@ -510,7 +510,7 @@ extension GameScene: PerformanceDelegate {
 
     func frameRateDropped(below targetFPS: Int) {
         // Handle frame rate drops
-        print("Frame rate dropped below \(targetFPS) FPS")
+        GameLogger.shared.debug("Frame rate dropped below \(targetFPS) FPS")
     }
 }
 

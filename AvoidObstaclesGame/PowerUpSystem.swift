@@ -47,7 +47,7 @@ class PowerUpSystem {
     
     /// Resets all active power-ups (called on game restart)
     func reset() {
-        print("⚡️ PowerUpSystem resetting...")
+        GameLogger.shared.debug("⚡️ PowerUpSystem resetting...")
         activePowerUps.removeAll()
     }
 }

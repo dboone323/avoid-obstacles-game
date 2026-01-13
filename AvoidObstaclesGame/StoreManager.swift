@@ -28,10 +28,10 @@ class StoreManager: ObservableObject {
         do {
             products = try await Product.products(for: productIDs)
             #if DEBUG
-            print("StoreManager: Fetched \(products.count) products")
+            GameLogger.shared.debug("StoreManager: Fetched \(products.count) products")
             #endif
         } catch {
-            print("StoreManager: Failed to fetch products: \(error.localizedDescription)")
+            GameLogger.shared.debug("StoreManager: Failed to fetch products: \(error.localizedDescription)")
         }
     }
     
@@ -46,19 +46,19 @@ class StoreManager: ObservableObject {
             await transaction.finish()
             purchasedProductIDs.insert(product.id)
             #if DEBUG
-            print("StoreManager: Successfully purchased \(product.id)")
+            GameLogger.shared.debug("StoreManager: Successfully purchased \(product.id)")
             #endif
             return transaction
             
         case .pending:
             #if DEBUG
-            print("StoreManager: Purchase pending for \(product.id)")
+            GameLogger.shared.debug("StoreManager: Purchase pending for \(product.id)")
             #endif
             return nil
             
         case .userCancelled:
             #if DEBUG
-            print("StoreManager: User cancelled purchase of \(product.id)")
+            GameLogger.shared.debug("StoreManager: User cancelled purchase of \(product.id)")
             #endif
             return nil
             
@@ -89,11 +89,11 @@ class StoreManager: ObservableObject {
                     await transaction.finish()
                     self.purchasedProductIDs.insert(transaction.productID)
                     #if DEBUG
-                    print("StoreManager: Transaction update processed for \(transaction.productID)")
+                    GameLogger.shared.debug("StoreManager: Transaction update processed for \(transaction.productID)")
                     #endif
                 } catch {
                     #if DEBUG
-                    print("StoreManager: Transaction verification failed: \(error.localizedDescription)")
+                    GameLogger.shared.debug("StoreManager: Transaction verification failed: \(error.localizedDescription)")
                     #endif
                 }
             }
@@ -106,10 +106,10 @@ class StoreManager: ObservableObject {
         do {
             try await AppStore.sync()
             #if DEBUG
-            print("StoreManager: Purchases restored successfully")
+            GameLogger.shared.debug("StoreManager: Purchases restored successfully")
             #endif
         } catch {
-            print("StoreManager: Failed to restore purchases: \(error.localizedDescription)")
+            GameLogger.shared.debug("StoreManager: Failed to restore purchases: \(error.localizedDescription)")
         }
     }
     

@@ -254,7 +254,7 @@ class PlayerManager {
         
         // CRITICAL FIX: Ensure player is in the scene if it was removed (e.g. by explosion)
         if player.parent == nil {
-            print("⚠️ Player was missing from scene. Re-adding.")
+            GameLogger.shared.debug("⚠️ Player was missing from scene. Re-adding.")
             scene?.addChild(player)
         }
         
@@ -380,7 +380,7 @@ class PlayerManager {
             }
         #else
             // Tilt controls not available on macOS
-            print("Tilt controls are not available on macOS")
+            GameLogger.shared.debug("Tilt controls are not available on macOS")
         #endif
     }
 

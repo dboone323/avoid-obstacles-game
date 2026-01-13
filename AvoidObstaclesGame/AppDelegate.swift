@@ -69,7 +69,7 @@
         public var window: NSWindow?
 
         public func applicationDidFinishLaunching(_ notification: Notification) {
-            print("🪟 AppDelegate.applicationDidFinishLaunching called")
+            GameLogger.shared.debug("🪟 AppDelegate.applicationDidFinishLaunching called")
 
             // Create the main window
             let window = NSWindow(
@@ -80,13 +80,13 @@
             )
             window.isReleasedWhenClosed = false
             window.title = "Avoid Obstacles Game"
-            print("🪟 Window created")
+            GameLogger.shared.debug("🪟 Window created")
 
             // Create GameViewController
             let gameVC = GameViewController()
             gameVC.view.wantsLayer = true  // Required for proper rendering
             window.contentViewController = gameVC
-            print("🪟 GameViewController set")
+            GameLogger.shared.debug("🪟 GameViewController set")
 
             // Store window reference BEFORE making visible
             self.window = window
@@ -96,7 +96,7 @@
             window.makeKeyAndOrderFront(nil)
             window.orderFrontRegardless()
             NSApp.activate(ignoringOtherApps: true)
-            print("🪟 Window should now be visible - frame: \(window.frame)")
+            GameLogger.shared.debug("🪟 Window should now be visible - frame: \(window.frame)")
         }
 
         public func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

@@ -28,7 +28,7 @@ class SpatialAudioManager {
             do {
                 try engine.start()
             } catch {
-                print("Audio engine failed: \(error)")
+                GameLogger.shared.debug("Audio engine failed: \(error)")
             }
         }
     }
@@ -43,7 +43,7 @@ class SpatialAudioManager {
 
         // In production, load actual audio files
         #if DEBUG
-            print("🔊 Spatial audio: \(name) at (\(x), \(y))")
+            GameLogger.shared.debug("🔊 Spatial audio: \(name) at (\(x), \(y))")
         #endif
     }
 }

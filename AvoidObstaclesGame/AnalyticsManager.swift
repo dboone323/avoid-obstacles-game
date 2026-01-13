@@ -12,7 +12,7 @@ class AnalyticsManager {
 
     func trackEvent(_ name: String, parameters: [String: Any]? = nil) {
         #if DEBUG
-            print("📊 Analytics: \(name) - \(parameters ?? [:])")
+            GameLogger.shared.debug("📊 Analytics: \(name) - \(parameters ?? [:])")
         #endif
 
         // In production, integrate with Firebase or similar

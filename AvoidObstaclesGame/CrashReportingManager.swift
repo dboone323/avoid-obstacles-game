@@ -33,9 +33,9 @@ class CrashReportingManager {
     /// Call this in AppDelegate or App init to enable crash reporting
     func configure() {
         #if DEBUG
-        print("💥 CrashReportingManager: Configured (Debug mode - local logging only)")
+        GameLogger.shared.debug("💥 CrashReportingManager: Configured (Debug mode - local logging only)")
         #else
-        print("💥 CrashReportingManager: Configured")
+        GameLogger.shared.debug("💥 CrashReportingManager: Configured")
         #endif
         
         isEnabled = true
@@ -62,7 +62,7 @@ class CrashReportingManager {
         log(event: "error", parameters: errorInfo)
         
         #if DEBUG
-        print("💥 Error recorded: \(error.localizedDescription)")
+        GameLogger.shared.debug("💥 Error recorded: \(error.localizedDescription)")
         #endif
     }
     
@@ -138,7 +138,7 @@ class CrashReportingManager {
             CrashReportingManager.shared.log(event: "uncaught_exception", parameters: info)
             
             #if DEBUG
-            print("💥 CRASH: \(exception.name.rawValue) - \(exception.reason ?? "Unknown")")
+            GameLogger.shared.debug("💥 CRASH: \(exception.name.rawValue) - \(exception.reason ?? "Unknown")")
             #endif
         }
     }

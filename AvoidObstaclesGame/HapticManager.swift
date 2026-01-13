@@ -20,7 +20,7 @@ class HapticManager {
             engine = try CHHapticEngine()
             try engine?.start()
         } catch {
-            print("Haptic error: \(error)")
+            GameLogger.shared.debug("Haptic error: \(error)")
         }
     }
     
@@ -38,7 +38,7 @@ class HapticManager {
             let player = try engine?.makePlayer(with: pattern)
             try player?.start(atTime: 0)
         } catch {
-            print("Failed to play haptic: \(error)")
+            GameLogger.shared.debug("Failed to play haptic: \(error)")
         }
     }
 }

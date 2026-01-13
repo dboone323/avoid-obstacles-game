@@ -42,7 +42,7 @@ import SpriteKit
                 let scene = GameScene(size: view.bounds.size)
                 scene.scaleMode = .aspectFill
                 
-                print("🎮 Presenting scene with size: \(view.bounds.size)")
+                GameLogger.shared.debug("🎮 Presenting scene with size: \(view.bounds.size)")
 
                 // Present the scene.
                 skView.presentScene(scene)
@@ -92,15 +92,15 @@ import SpriteKit
         override public func viewDidLoad() {
             super.viewDidLoad()
 
-            print("🎮 GameViewController.viewDidLoad() called")
+            GameLogger.shared.debug("🎮 GameViewController.viewDidLoad() called")
 
             // Configure the view as an SKView and present the game scene.
             if let view = view as? SKView {
-                print("🎮 View bounds: \\(view.bounds)")
+                GameLogger.shared.debug("🎮 View bounds: \\(view.bounds)")
 
                 // Use the frame size set in loadView (800x600) instead of bounds
                 let sceneSize = CGSize(width: 800, height: 600)
-                print("🎮 Creating GameScene with size: \\(sceneSize)")
+                GameLogger.shared.debug("🎮 Creating GameScene with size: \\(sceneSize)")
 
                 // Create and configure the scene
                 let scene = GameScene(size: sceneSize)
@@ -108,7 +108,7 @@ import SpriteKit
 
                 // Present the scene
                 view.presentScene(scene)
-                print("🎮 GameScene presented to view")
+                GameLogger.shared.debug("🎮 GameScene presented to view")
 
                 // Optional: For performance tuning
                 view.ignoresSiblingOrder = true

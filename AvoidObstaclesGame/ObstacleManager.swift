@@ -210,7 +210,7 @@ class ObstacleManager {
     /// - Parameter difficulty: Current difficulty settings
     private func spawnObstacle(with difficulty: GameDifficulty) {
         let level = GameDifficulty.getDifficultyLevel(for: Int(difficulty.scoreMultiplier * 10))
-        // print("☄️ Spawn check - Multiplier: \(difficulty.scoreMultiplier), Level: \(level)")
+        // GameLogger.shared.debug("☄️ Spawn check - Multiplier: \(difficulty.scoreMultiplier), Level: \(level)")
         
         guard let scene else { return }
 

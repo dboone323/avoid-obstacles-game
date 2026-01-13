@@ -27,7 +27,7 @@ class GameOverState: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        print("💀 Entered Game Over State")
+        GameLogger.shared.debug("💀 Entered Game Over State")
         
         guard let scene = scene else { return }
         
@@ -47,6 +47,6 @@ class GameOverState: GKState {
     }
     
     override func willExit(to nextState: GKState) {
-        print("💀 Exiting Game Over State -> \(type(of: nextState))")
+        GameLogger.shared.debug("💀 Exiting Game Over State -> \(type(of: nextState))")
     }
 }

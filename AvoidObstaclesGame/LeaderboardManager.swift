@@ -39,10 +39,10 @@ class LeaderboardManager: NSObject {
                 #endif
             } else if GKLocalPlayer.local.isAuthenticated {
                 self?.isAuthenticated = true
-                print("✅ Game Center authenticated")
+                GameLogger.shared.debug("✅ Game Center authenticated")
             } else {
                 if let error {
-                    print("❌ Game Center authentication failed: \(error)")
+                    GameLogger.shared.debug("❌ Game Center authentication failed: \(error)")
                 }
                 self?.isAuthenticated = false
             }
@@ -53,16 +53,16 @@ class LeaderboardManager: NSObject {
 
     func submitScore(_ score: Int) {
         guard isAuthenticated else {
-            print("⚠️ Not authenticated with Game Center")
+            GameLogger.shared.debug("⚠️ Not authenticated with Game Center")
             return
         }
 
         GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
                                   leaderboardIDs: [highScoreLeaderboard]) { error in
             if let error {
-                print("❌ Failed to submit score: \(error)")
+                GameLogger.shared.debug("❌ Failed to submit score: \(error)")
             } else {
-                print("✅ Score submitted: \(score)")
+                GameLogger.shared.debug("✅ Score submitted: \(score)")
             }
         }
     }
@@ -72,7 +72,7 @@ class LeaderboardManager: NSObject {
     #if os(iOS)
     func showLeaderboard(from viewController: UIViewController) {
         guard isAuthenticated else {
-            print("⚠️ Not authenticated with Game Center")
+            GameLogger.shared.debug("⚠️ Not authenticated with Game Center")
             return
         }
 
@@ -83,11 +83,11 @@ class LeaderboardManager: NSObject {
     #elseif os(macOS)
     func showLeaderboard() {
         guard isAuthenticated else {
-            print("⚠️ Not authenticated with Game Center")
+            GameLogger.shared.debug("⚠️ Not authenticated with Game Center")
             return
         }
         // On macOS, use GKDialogController or present modally
-        print("Leaderboard display not fully implemented for macOS")
+        GameLogger.shared.debug("Leaderboard display not fully implemented for macOS")
     }
     #endif
 
@@ -102,9 +102,9 @@ class LeaderboardManager: NSObject {
 
         GKAchievement.report([achievement]) { error in
             if let error {
-                print("❌ Failed to report achievement: \(error)")
+                GameLogger.shared.debug("❌ Failed to report achievement: \(error)")
             } else {
-                print("✅ Achievement unlocked: \(identifier)")
+                GameLogger.shared.debug("✅ Achievement unlocked: \(identifier)")
             }
         }
     }
