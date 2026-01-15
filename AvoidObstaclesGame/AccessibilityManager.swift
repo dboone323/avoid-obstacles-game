@@ -78,7 +78,8 @@ import SpriteKit
         /// Configures accessibility for a player node
         func configurePlayer(_ node: SKNode) {
             node.isAccessibilityElement = true
-            node.accessibilityLabel = LocalizationManager.shared.string(for: .accessibilityPlayerLabel)
+            node.accessibilityLabel = LocalizationManager.shared.string(
+                for: .accessibilityPlayerLabel)
             node.accessibilityTraits = .startsMediaSession
             node.accessibilityHint = "Your ship. Move to avoid obstacles."
         }
@@ -86,7 +87,8 @@ import SpriteKit
         /// Configures accessibility for an obstacle node
         func configureObstacle(_ node: SKNode, index: Int) {
             node.isAccessibilityElement = true
-            node.accessibilityLabel = "\(LocalizationManager.shared.string(for: .accessibilityObstacleLabel)) \(index)"
+            node.accessibilityLabel =
+                "\(LocalizationManager.shared.string(for: .accessibilityObstacleLabel)) \(index)"
             node.accessibilityTraits = .none
             node.accessibilityHint = "Obstacle to avoid"
         }
@@ -94,7 +96,8 @@ import SpriteKit
         /// Configures accessibility for a power-up node
         func configurePowerUp(_ node: SKNode, type: PowerUpType) {
             node.isAccessibilityElement = true
-            node.accessibilityLabel = "\(type.name) \(LocalizationManager.shared.string(for: .accessibilityPowerUpLabel))"
+            node.accessibilityLabel =
+                "\(type.name) \(LocalizationManager.shared.string(for: .accessibilityPowerUpLabel))"
             node.accessibilityTraits = .button
             node.accessibilityHint = "Tap to collect \(type.name)"
         }
@@ -134,34 +137,36 @@ import SpriteKit
             var brightness: CGFloat = 0
             var alpha: CGFloat = 0
 
-            color.getHue(&hue, saturation: &saturation,
-                         brightness: &brightness, alpha: &alpha)
+            color.getHue(
+                &hue, saturation: &saturation,
+                brightness: &brightness, alpha: &alpha)
 
             switch mode {
-            case "protanopia": // Red-blind
+            case "protanopia":  // Red-blind
                 // Shift reds toward blues
                 if hue < 0.1 || hue > 0.9 {
-                    hue = 0.6 // Blue
+                    hue = 0.6  // Blue
                 }
 
-            case "deuteranopia": // Green-blind
+            case "deuteranopia":  // Green-blind
                 // Enhance blues and yellows
                 if hue > 0.2 && hue < 0.4 {
-                    hue = 0.55 // Cyan
+                    hue = 0.55  // Cyan
                 }
 
-            case "tritanopia": // Blue-blind
+            case "tritanopia":  // Blue-blind
                 // Shift blues toward greens
                 if hue > 0.5 && hue < 0.7 {
-                    hue = 0.3 // Green
+                    hue = 0.3  // Green
                 }
 
             default:
                 break
             }
 
-            return UIColor(hue: hue, saturation: saturation,
-                           brightness: brightness, alpha: alpha)
+            return UIColor(
+                hue: hue, saturation: saturation,
+                brightness: brightness, alpha: alpha)
         }
 
         // MARK: - Announcements
@@ -174,19 +179,22 @@ import SpriteKit
 
         /// Announces score change
         func announceScore(_ score: Int) {
-            let message = String(format: LocalizationManager.shared.string(for: .accessibilityScoreLabel), score)
+            let message = String(
+                format: LocalizationManager.shared.string(for: .accessibilityScoreLabel), score)
             announce(message)
         }
 
         /// Announces game over
         func announceGameOver(finalScore: Int) {
-            let message = "\(LocalizationManager.shared.string(for: .gameOver)). Final score: \(finalScore)"
+            let message =
+                "\(LocalizationManager.shared.string(for: .gameOver)). Final score: \(finalScore)"
             announce(message, priority: .announcement)
         }
 
         /// Announces new high score
         func announceNewHighScore(_ score: Int) {
-            let message = "\(LocalizationManager.shared.string(for: .gameNewHighScore)) \(score) points!"
+            let message =
+                "\(LocalizationManager.shared.string(for: .gameNewHighScore)) \(score) points!"
             announce(message, priority: .announcement)
         }
     }

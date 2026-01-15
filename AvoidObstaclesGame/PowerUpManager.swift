@@ -43,7 +43,7 @@ class PowerUpManager {
         let rotate = SKAction.rotate(byAngle: .pi * 2, duration: 2.0)
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.2, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5)
+            SKAction.scale(to: 1.0, duration: 0.5),
         ])
         powerUp.run(SKAction.repeatForever(rotate), withKey: "rotate")
         powerUp.run(SKAction.repeatForever(pulse), withKey: "pulse")
@@ -90,12 +90,13 @@ class PowerUpManager {
         // Pulse animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5)
+            SKAction.scale(to: 1.0, duration: 0.5),
         ])
         shield.run(SKAction.repeatForever(pulse))
 
         // Remove after 10 seconds
-        shieldTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { [weak self] _ in
+        shieldTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) {
+            [weak self] _ in
             shield.removeFromParent()
             self?.activePowerUps.remove(.shield)
         }
@@ -112,7 +113,8 @@ class PowerUpManager {
         slowLabel.zPosition = 100
         scene?.addChild(slowLabel)
 
-        slowTimeTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { [weak self] _ in
+        slowTimeTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) {
+            [weak self] _ in
             self?.scene?.speed = 1.0
             slowLabel.removeFromParent()
             self?.activePowerUps.remove(.slowTime)
@@ -129,7 +131,8 @@ class PowerUpManager {
             player.addChild(emitter)
             emitter.name = "speedTrail"
 
-            speedBoostTimer = Timer.scheduledTimer(withTimeInterval: 8.0, repeats: false) { [weak self] _ in
+            speedBoostTimer = Timer.scheduledTimer(withTimeInterval: 8.0, repeats: false) {
+                [weak self] _ in
                 emitter.removeFromParent()
                 self?.activePowerUps.remove(.speedBoost)
                 NotificationCenter.default.post(name: .speedBoostDeactivated, object: nil)
@@ -209,6 +212,16 @@ public enum PowerUpType: String, CaseIterable {
         case .speedBoost: return .orange
         case .magnet: return .purple
         case .doublePoints: return .systemGreen
+        }
+    }
+
+    var duration: TimeInterval {
+        switch self {
+        case .shield: return 10.0
+        case .slowTime: return 5.0
+        case .speedBoost: return 8.0
+        case .magnet: return 6.0
+        case .doublePoints: return 10.0
         }
     }
 }
