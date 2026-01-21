@@ -21,18 +21,18 @@ class InputController {
     // MARK: - Touch Input (iOS)
 
     #if os(iOS)
-    func handleTouchBegan(_ touch: UITouch, in scene: SKScene) {
-        touchLocation = touch.location(in: scene)
-    }
+        func handleTouchBegan(_ touch: UITouch, in scene: SKScene) {
+            touchLocation = touch.location(in: scene)
+        }
 
-    func handleTouchMoved(_ touch: UITouch, in scene: SKScene) {
-        touchLocation = touch.location(in: scene)
-        updatePlayerPosition()
-    }
+        func handleTouchMoved(_ touch: UITouch, in scene: SKScene) {
+            touchLocation = touch.location(in: scene)
+            updatePlayerPosition()
+        }
 
-    func handleTouchEnded(_ touch: UITouch, in scene: SKScene) {
-        touchLocation = nil
-    }
+        func handleTouchEnded(_ touch: UITouch, in scene: SKScene) {
+            touchLocation = nil
+        }
     #endif
 
     private func updatePlayerPosition() {

@@ -3,9 +3,9 @@
 // AvoidObstaclesGameTests
 //
 
+@testable import AvoidObstaclesGame
 import GameKit
 import XCTest
-@testable import AvoidObstaclesGame
 
 class GameCenterManagerTests: XCTestCase {
     var manager: GameCenterManager!

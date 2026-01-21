@@ -3,8 +3,8 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 class ComboSystemTests: XCTestCase {
     var comboSystem: ComboSystem!
@@ -40,9 +40,9 @@ class ComboSystemTests: XCTestCase {
         // First point calculation at combo 1
         comboSystem.recordDodge(currentTime: 0)
         let points1 = comboSystem.calculatePoints() // combo=1: 1 + 1/10 = 1
-        
+
         // Do 9 more dodges to reach combo 10
-        for i in 1..<10 {
+        for i in 1 ..< 10 {
             comboSystem.recordDodge(currentTime: Double(i) * 0.5)
         }
         let points2 = comboSystem.calculatePoints() // combo=10: 1 + 10/10 = 2

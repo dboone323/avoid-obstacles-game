@@ -12,6 +12,8 @@ from pathlib import Path
 
 
 class AILearningTestGenerator:
+    """Generates diverse test scenarios for AI learning validation."""
+
     def __init__(self, base_dir="/Users/danielstevens/Desktop/Code"):
         self.base_dir = Path(base_dir)
         self.projects = ["CodingReviewer", "HabitQuest", "MomentumFinance"]
@@ -128,7 +130,7 @@ class AILearningTestGenerator:
 
             # Save fix history
             fix_file = learning_dir / f"fix_history_{scenario['test_id']}.json"
-            with open(fix_file, "w") as f:
+            with open(fix_file, "w", encoding="utf-8") as f:
                 json.dump(fix_history, f, indent=2)
 
             # Pattern correlation
@@ -146,7 +148,7 @@ class AILearningTestGenerator:
             pattern_file = (
                 learning_dir / f"pattern_correlation_{scenario['test_id']}.json"
             )
-            with open(pattern_file, "w") as f:
+            with open(pattern_file, "w", encoding="utf-8") as f:
                 json.dump(pattern_correlation, f, indent=2)
 
         print(f"✅ Generated {len(scenarios)} test scenarios for {project_name}")
@@ -171,7 +173,7 @@ class AILearningTestGenerator:
 
         # Sample analysis of learning data
         if fix_files:
-            with open(fix_files[0]) as f:
+            with open(fix_files[0], encoding="utf-8") as f:
                 sample_fix = json.load(f)
             print(f"   - Sample fix type: {sample_fix['error_pattern']['type']}")
             print(

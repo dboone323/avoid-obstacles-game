@@ -3,11 +3,10 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class AssetCacheTests: XCTestCase {
-    
     func testCacheInit() { XCTAssertTrue(true) }
     func testTextureCache() { XCTAssertTrue(true) }
     func testSoundCache() { XCTAssertTrue(true) }

@@ -6,9 +6,9 @@
 import SpriteKit
 
 #if os(iOS)
-import UIKit
+    import UIKit
 #elseif os(macOS)
-import AppKit
+    import AppKit
 #endif
 
 class AssetCache {
@@ -42,23 +42,23 @@ class AssetCache {
 
     private func preloadTexture(_ name: String, color: PlatformColor, size: CGSize) {
         #if os(iOS)
-        let rect = CGRect(origin: .zero, size: size)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+            let rect = CGRect(origin: .zero, size: size)
+            UIGraphicsBeginImageContextWithOptions(size, false, 0)
+            color.setFill()
+            UIRectFill(rect)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
 
-        if let image {
-            textures[name] = SKTexture(image: image)
-        }
+            if let image {
+                textures[name] = SKTexture(image: image)
+            }
         #elseif os(macOS)
-        let image = NSImage(size: size)
-        image.lockFocus()
-        color.setFill()
-        NSRect(origin: .zero, size: size).fill()
-        image.unlockFocus()
-        textures[name] = SKTexture(image: image)
+            let image = NSImage(size: size)
+            image.lockFocus()
+            color.setFill()
+            NSRect(origin: .zero, size: size).fill()
+            image.unlockFocus()
+            textures[name] = SKTexture(image: image)
         #endif
     }
 
@@ -72,4 +72,3 @@ class AssetCache {
         particles.removeAll()
     }
 }
-

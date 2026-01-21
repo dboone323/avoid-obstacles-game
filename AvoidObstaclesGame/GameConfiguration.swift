@@ -10,9 +10,9 @@ import Foundation
 import SpriteKit
 
 #if os(iOS)
-import UIKit
+    import UIKit
 #elseif os(macOS)
-import AppKit
+    import AppKit
 #endif
 
 /// Centralized game configuration
@@ -46,10 +46,11 @@ struct GameConfiguration: Codable {
             minSize: CGSize(width: 30, height: 30),
             maxSize: CGSize(width: 60, height: 60),
             poolSize: 20,
-            spawnIntervalRange: 0.4...1.2,
-            fallSpeedRange: 150...400
+            spawnIntervalRange: 0.4 ... 1.2,
+            fallSpeedRange: 150 ... 400
         )
 
+        // swiftlint:disable:next nesting
         enum CodingKeys: String, CodingKey {
             case minSize, maxSize, poolSize
             case spawnIntervalRange
@@ -83,11 +84,11 @@ struct GameConfiguration: Codable {
             // Decode ranges
             let spawnMin = try container.decode(TimeInterval.self, forKey: .spawnIntervalRange)
             let spawnMax = spawnMin * 3
-            spawnIntervalRange = spawnMin...spawnMax
+            spawnIntervalRange = spawnMin ... spawnMax
 
             let speedMin = try container.decode(CGFloat.self, forKey: .fallSpeedRange)
             let speedMax = speedMin * 2.5
-            fallSpeedRange = speedMin...speedMax
+            fallSpeedRange = speedMin ... speedMax
         }
     }
 
@@ -95,6 +96,7 @@ struct GameConfiguration: Codable {
     struct Difficulty: Codable {
         let levels: [DifficultyLevel]
 
+        // swiftlint:disable:next nesting
         struct DifficultyLevel: Codable {
             let scoreThreshold: Int
             let spawnInterval: TimeInterval
@@ -257,13 +259,13 @@ struct GameConfiguration: Codable {
         } else {
             // Auto: follow system
             #if os(iOS)
-            if #available(iOS 13.0, *) {
-                return UITraitCollection.current.userInterfaceStyle == .dark
-            }
+                if #available(iOS 13.0, *) {
+                    return UITraitCollection.current.userInterfaceStyle == .dark
+                }
             #elseif os(macOS)
-            if #available(macOS 10.14, *) {
-                return NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-            }
+                if #available(macOS 10.14, *) {
+                    return NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+                }
             #endif
             return false
         }
@@ -271,17 +273,17 @@ struct GameConfiguration: Codable {
 
     var shouldReduceMotion: Bool {
         #if os(iOS)
-        return accessibility.reduceMotion || UIAccessibility.isReduceMotionEnabled
+            return accessibility.reduceMotion || UIAccessibility.isReduceMotionEnabled
         #else
-        return accessibility.reduceMotion
+            return accessibility.reduceMotion
         #endif
     }
 
     var shouldIncreaseContrast: Bool {
         #if os(iOS)
-        return accessibility.increaseContrast || UIAccessibility.isDarkerSystemColorsEnabled
+            return accessibility.increaseContrast || UIAccessibility.isDarkerSystemColorsEnabled
         #else
-        return accessibility.increaseContrast
+            return accessibility.increaseContrast
         #endif
     }
 }
@@ -302,9 +304,9 @@ extension GameConfiguration {
         let blue = CGFloat(rgb & 0x0000FF) / 255.0
 
         #if os(iOS)
-        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+            return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
         #elseif os(macOS)
-        return NSColor(red: red, green: green, blue: blue, alpha: 1.0)
+            return NSColor(red: red, green: green, blue: blue, alpha: 1.0)
         #endif
     }
 }

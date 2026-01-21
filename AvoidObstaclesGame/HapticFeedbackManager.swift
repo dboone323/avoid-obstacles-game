@@ -196,6 +196,7 @@ import Foundation
     /// Represents a pattern of haptic events
     struct HapticPattern {
         struct Event {
+            // swiftlint:disable:next nesting
             enum EventType {
                 case light, medium, heavy
                 case selection
@@ -239,7 +240,7 @@ import Foundation
     class HapticFeedbackManager {
         static let shared = HapticFeedbackManager()
         private init() {}
-        
+
         func prepare() {}
         func light() {}
         func medium() {}
@@ -258,19 +259,22 @@ import Foundation
         func gameResume() {}
         func playPattern(_ pattern: HapticPattern) {}
     }
-    
+
     struct HapticPattern {
         struct Event {
+            // swiftlint:disable:next nesting
             enum EventType {
                 case light, medium, heavy
                 case selection
                 case success, warning, error
             }
+
             let type: EventType
             let delay: TimeInterval
         }
+
         let events: [Event]
-        
+
         static let countdown = HapticPattern(events: [])
         static let combo = HapticPattern(events: [])
         static let achievement = HapticPattern(events: [])

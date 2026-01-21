@@ -3,7 +3,6 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 final class AppDelegateTests: XCTestCase {
-
     // MARK: - AppDelegate Tests
 
     #if os(iOS)

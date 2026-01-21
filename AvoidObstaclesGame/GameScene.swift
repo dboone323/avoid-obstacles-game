@@ -143,7 +143,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     /// Sets up the basic scene configuration
     private func setupScene() {
         GameLogger.shared.debug("🎮 setupScene() starting...")
-        
+
         // Configure crash reporting
         CrashReportingManager.shared.configure()
 
@@ -168,9 +168,9 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         effectsManager.createExplosion(at: .zero) // Preload explosion effect
 
         GameLogger.shared.debug("🎮 setupScene() complete")
-        
+
         // Setup ComboSystem callbacks
-        ComboSystem.shared.onComboChanged = { [weak self] count, points in
+        ComboSystem.shared.onComboChanged = { [weak self] _, points in
             self?.gameStateManager.addScore(points)
         }
     }
@@ -185,20 +185,20 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Add animated clouds (only if scene has valid size)
         guard size.width > 60 && size.height > 0 else { return }
-        
+
         let minY = max(0, size.height * 0.7)
         let maxY = max(minY, size.height)
-        
-        for _ in 0..<5 {
+
+        for _ in 0 ..< 5 {
             let cloud = SKSpriteNode(color: .white.withAlphaComponent(0.3), size: CGSize(width: 60, height: 30))
             cloud.position = CGPoint(
-                x: CGFloat.random(in: 0...max(1, size.width)),
-                y: CGFloat.random(in: minY...maxY)
+                x: CGFloat.random(in: 0 ... max(1, size.width)),
+                y: CGFloat.random(in: minY ... maxY)
             )
             cloud.zPosition = -50
 
             // Animate clouds
-            let moveAction = SKAction.moveBy(x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10...20))
+            let moveAction = SKAction.moveBy(x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10 ... 20))
             let resetAction = SKAction.moveTo(x: size.width + 60, duration: 0)
             let sequence = SKAction.sequence([moveAction, resetAction])
             cloud.run(SKAction.repeatForever(sequence))
@@ -231,11 +231,11 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Stop physics simulation but don't pause entire scene (so UI can animate)
         physicsWorld.speed = 0
-        
+
         // Stop spawning obstacles and clear existing ones
         obstacleManager.stopSpawning()
         obstacleManager.removeAllObstacles()
-        
+
         // Update achievements
         achievementManager.updateProgress(for: .gameCompleted, value: Int(gameStateManager.survivalTime))
 
@@ -245,7 +245,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Play game over sound
         audioManager.playCollision()
-        
+
         // Log for crash reporting
         CrashReportingManager.shared.logGameOver(
             score: gameStateManager.score,
@@ -259,7 +259,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         GameLogger.shared.debug("🔄 Restarting game...")
         // Hide game over screen
         uiManager.hideGameOverScreen()
-        
+
         // Reset power-up system (CRITICAL FIX: prevents shields from persisting)
         PowerUpSystem.shared.reset()
 
@@ -269,7 +269,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Clear obstacles
         obstacleManager.removeAllObstacles()
-        
+
         // Ensure physics speed is restored
         physicsWorld.speed = 1.0
 
@@ -335,7 +335,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         if lastUpdateTime == 0 {
             lastUpdateTime = currentTime
         }
-        
+
         let dt = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
 
@@ -409,7 +409,7 @@ extension GameScene: PlayerDelegate {
     func playerDidCollide(with _: SKNode) {
         // Quick early exit if already handling game over
         guard gameStateManager.currentState != .gameOver else { return }
-        
+
         // Minimal collision handling - just call game over
         handleGameOver()
     }
@@ -425,7 +425,7 @@ extension GameScene: ObstacleDelegate {
         if gameStateManager.isGameActive() {
             ComboSystem.shared.recordDodge(currentTime: lastUpdateTime)
             currentGameStats.obstaclesAvoided += 1
-            
+
             // Show combo popup at milestones
             let combo = ComboSystem.shared.getCurrentCombo()
             if combo % 10 == 0 && combo > 0 {
@@ -445,7 +445,7 @@ extension GameScene: PhysicsManagerDelegate {
     func playerDidCollideWithObstacle(_: SKNode, obstacle: SKNode) {
         // Trigger screen shake (now that loop issues are fixed)
         effectsManager.createScreenShake()
-        
+
         playerManager.handleCollision(with: obstacle)
     }
 

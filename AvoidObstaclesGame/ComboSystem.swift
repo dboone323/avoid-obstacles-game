@@ -17,7 +17,7 @@ class ComboSystem {
 
     var onComboChanged: ((Int, Int) -> Void)? // combo, points
     var onComboLost: (() -> Void)?
-    var onComboMilestone: ((Int) -> Void)?  // Called at 5, 10, 25, 50 combo
+    var onComboMilestone: ((Int) -> Void)? // Called at 5, 10, 25, 50 combo
 
     private init() {
         loadBestCombo()
@@ -31,7 +31,7 @@ class ComboSystem {
         currentCombo += 1
         totalDodges += 1
         lastDodgeTime = currentTime
-        
+
         // Update best combo
         if currentCombo > bestCombo {
             bestCombo = currentCombo
@@ -71,28 +71,27 @@ class ComboSystem {
     func getCurrentCombo() -> Int {
         currentCombo
     }
-    
+
     func getBestCombo() -> Int {
         bestCombo
     }
-    
+
     func getTotalDodges() -> Int {
         totalDodges
     }
-    
+
     // MARK: - Persistence
-    
+
     private func loadBestCombo() {
         bestCombo = UserDefaults.standard.integer(forKey: "bestCombo")
     }
-    
+
     private func saveBestCombo() {
         UserDefaults.standard.set(bestCombo, forKey: "bestCombo")
     }
-    
+
     func resetStats() {
         currentCombo = 0
         totalDodges = 0
     }
 }
-

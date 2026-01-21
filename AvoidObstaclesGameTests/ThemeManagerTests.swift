@@ -3,8 +3,8 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 class ThemeManagerTests: XCTestCase {
     var manager: ThemeManager!

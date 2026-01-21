@@ -3,7 +3,6 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 final class HighScoreManagerTests: XCTestCase {
-
     // MARK: - HighScoreManager Tests
 
     func testHighScoreManagerInitialization() {

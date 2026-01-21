@@ -5,11 +5,10 @@
 //  Comprehensive test suite for PerformanceManager
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class PerformanceManagerTests: XCTestCase {
-
     // MARK: - Initialization Tests
 
     func testInitialization() {

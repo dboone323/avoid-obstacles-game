@@ -1,16 +1,15 @@
-
 import GameKit
 import SwiftUI
 
 // Enhancement #86: Game Center Leaderboards
 class GameCenterManager: NSObject, ObservableObject {
     @Published var isAuthenticated = false
-    
+
     override init() {
         super.init()
         authenticateUser()
     }
-    
+
     func authenticateUser() {
         GKLocalPlayer.local.authenticateHandler = { [weak self] vc, error in
             if vc != nil {
@@ -23,11 +22,11 @@ class GameCenterManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     func submitScore(score: Int) {
         if isAuthenticated {
             GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: ["highscore_leaderboard"]) { error in
-                if let error = error {
+                if let error {
                     GameLogger.shared.debug("Error submitting score: \(error)")
                 }
             }
@@ -36,9 +35,9 @@ class GameCenterManager: NSObject, ObservableObject {
 }
 
 #if os(iOS)
-extension GameCenterManager: GKGameCenterControllerDelegate {
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true)
+    extension GameCenterManager: GKGameCenterControllerDelegate {
+        func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+            gameCenterViewController.dismiss(animated: true)
+        }
     }
-}
 #endif

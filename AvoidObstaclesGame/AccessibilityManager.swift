@@ -139,25 +139,26 @@ import SpriteKit
 
             color.getHue(
                 &hue, saturation: &saturation,
-                brightness: &brightness, alpha: &alpha)
+                brightness: &brightness, alpha: &alpha
+            )
 
             switch mode {
-            case "protanopia":  // Red-blind
+            case "protanopia": // Red-blind
                 // Shift reds toward blues
                 if hue < 0.1 || hue > 0.9 {
-                    hue = 0.6  // Blue
+                    hue = 0.6 // Blue
                 }
 
-            case "deuteranopia":  // Green-blind
+            case "deuteranopia": // Green-blind
                 // Enhance blues and yellows
                 if hue > 0.2 && hue < 0.4 {
-                    hue = 0.55  // Cyan
+                    hue = 0.55 // Cyan
                 }
 
-            case "tritanopia":  // Blue-blind
+            case "tritanopia": // Blue-blind
                 // Shift blues toward greens
                 if hue > 0.5 && hue < 0.7 {
-                    hue = 0.3  // Green
+                    hue = 0.3 // Green
                 }
 
             default:
@@ -166,7 +167,8 @@ import SpriteKit
 
             return UIColor(
                 hue: hue, saturation: saturation,
-                brightness: brightness, alpha: alpha)
+                brightness: brightness, alpha: alpha
+            )
         }
 
         // MARK: - Announcements
@@ -180,7 +182,8 @@ import SpriteKit
         /// Announces score change
         func announceScore(_ score: Int) {
             let message = String(
-                format: LocalizationManager.shared.string(for: .accessibilityScoreLabel), score)
+                format: LocalizationManager.shared.string(for: .accessibilityScoreLabel), score
+            )
             announce(message)
         }
 

@@ -68,12 +68,12 @@ final class AvoidObstaclesGameTests: XCTestCase {
         let playerCategory = PhysicsCategory.player
         let obstacleCategory = PhysicsCategory.obstacle
         let powerUpCategory = PhysicsCategory.powerUp
-        
+
         // Verify categories are non-zero (valid)
         XCTAssertNotEqual(playerCategory, 0, "Player category should be non-zero")
         XCTAssertNotEqual(obstacleCategory, 0, "Obstacle category should be non-zero")
         XCTAssertNotEqual(powerUpCategory, 0, "Power-up category should be non-zero")
-        
+
         // Test that categories are properly defined and distinct
         XCTAssertNotEqual(playerCategory, obstacleCategory, "Player and obstacle categories should differ")
         XCTAssertNotEqual(obstacleCategory, powerUpCategory, "Obstacle and power-up categories should differ")
@@ -125,13 +125,13 @@ final class AvoidObstaclesGameTests: XCTestCase {
     func testGameStartState() throws {
         // Test initial game state using GameStateManager
         let gameStateManager = GameStateManager()
-        
+
         // Before starting, should be waiting
         XCTAssertFalse(gameStateManager.isGameActive(), "Game should not be active before start")
-        
+
         // Start the game
         gameStateManager.startGame()
-        
+
         // After starting, should be playing
         XCTAssertTrue(gameStateManager.isGameActive(), "Game should be active after start")
         XCTAssertEqual(gameStateManager.getCurrentScore(), 0, "Score should be 0 at start")
@@ -141,11 +141,11 @@ final class AvoidObstaclesGameTests: XCTestCase {
     func testGameOverCondition() throws {
         // Test game over conditions using GameStateManager
         let gameStateManager = GameStateManager()
-        
+
         // Start and then end the game
         gameStateManager.startGame()
         XCTAssertFalse(gameStateManager.isGameOver(), "Game should not be over after start")
-        
+
         gameStateManager.endGame()
         XCTAssertTrue(gameStateManager.isGameOver(), "Game should be over after endGame()")
         XCTAssertFalse(gameStateManager.isGameActive(), "Game should not be active after game over")
@@ -154,16 +154,16 @@ final class AvoidObstaclesGameTests: XCTestCase {
     func testPauseResumeFunctionality() throws {
         // Test pause and resume functionality using GameStateManager
         let gameStateManager = GameStateManager()
-        
+
         // Start game
         gameStateManager.startGame()
         XCTAssertTrue(gameStateManager.isGameActive(), "Game should be active")
-        
+
         // Pause the game
         gameStateManager.pauseGame()
         XCTAssertTrue(gameStateManager.isGamePaused(), "Game should be paused")
         XCTAssertFalse(gameStateManager.isGameActive(), "Game should not be active while paused")
-        
+
         // Resume the game
         gameStateManager.resumeGame()
         XCTAssertTrue(gameStateManager.isGameActive(), "Game should be active after resume")
@@ -244,7 +244,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         let startTime = Date()
 
         // Simulate game loop iterations
-        for _ in 1...1000 {
+        for _ in 1 ... 1000 {
             // Simulate game update logic
             let x = 1 + 1
             XCTAssertEqual(x, 2)
@@ -261,7 +261,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         let startTime = Date()
 
         // Simulate generating multiple obstacles
-        for i in 1...100 {
+        for i in 1 ... 100 {
             let obstacleData: [String: Any] = ["id": i, "type": "spike", "x": i * 50]
             XCTAssertEqual((obstacleData["id"] as? Int), i)
         }

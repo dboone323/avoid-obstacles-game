@@ -300,7 +300,9 @@ import SpriteKit
     }
 
 #else
+
     // MARK: - macOS Implementation
+
     import AppKit
 
     /// Manages visual themes and color schemes for macOS

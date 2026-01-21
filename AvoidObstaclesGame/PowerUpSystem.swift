@@ -44,7 +44,7 @@ class PowerUpSystem {
     func getScoreMultiplier() -> Double {
         isActive(.doublePoints) ? 2.0 : 1.0
     }
-    
+
     /// Resets all active power-ups (called on game restart)
     func reset() {
         GameLogger.shared.debug("⚡️ PowerUpSystem resetting...")

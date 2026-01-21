@@ -3,7 +3,6 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 final class GameViewControllerTests: XCTestCase {
-
     // MARK: - GameViewController Tests
 
     func testGameViewControllerInitialization() {

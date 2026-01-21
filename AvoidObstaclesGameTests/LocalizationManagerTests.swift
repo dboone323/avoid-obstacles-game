@@ -5,11 +5,10 @@
 // Unit tests for LocalizationManager
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 class LocalizationManagerTests: XCTestCase {
-
     var manager: LocalizationManager!
 
     override func setUp() {

@@ -3,11 +3,10 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class AnimationControllerTests: XCTestCase {
-    
     func testAnimationSetup() { XCTAssertTrue(true) }
     func testPlayerAnimation() { XCTAssertTrue(true) }
     func testObstacleAnimation() { XCTAssertTrue(true) }

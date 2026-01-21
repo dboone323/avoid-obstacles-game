@@ -5,11 +5,10 @@
 //  Comprehensive test suite for PhysicsCategory
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class PhysicsCategoryTests: XCTestCase {
-
     // MARK: - Initialization Tests
 
     func testInitialization() {

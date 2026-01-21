@@ -58,18 +58,19 @@ class MenuScene: SKScene {
     }
 
     #if os(iOS)
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
-        handleTap(at: location)
-    }
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            guard let touch = touches.first else { return }
+            let location = touch.location(in: self)
+            handleTap(at: location)
+        }
+
     #elseif os(macOS)
-    override func mouseDown(with event: NSEvent) {
-        let location = event.location(in: self)
-        handleTap(at: location)
-    }
+        override func mouseDown(with event: NSEvent) {
+            let location = event.location(in: self)
+            handleTap(at: location)
+        }
     #endif
-    
+
     private func handleTap(at location: CGPoint) {
         let tapped = atPoint(location)
 
@@ -83,4 +84,3 @@ class MenuScene: SKScene {
         }
     }
 }
-

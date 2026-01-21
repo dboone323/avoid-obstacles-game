@@ -5,11 +5,10 @@
 //  Comprehensive test suite for Dependencies
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class DependenciesTests: XCTestCase {
-
     // MARK: - Initialization Tests
 
     func testInitialization() {

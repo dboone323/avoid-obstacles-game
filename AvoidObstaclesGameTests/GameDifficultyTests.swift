@@ -3,7 +3,6 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 final class GameDifficultyTests: XCTestCase {
-
     // MARK: - GameDifficulty Tests
 
     func testGameDifficultyInitialization() {

@@ -1,9 +1,8 @@
+@testable import AvoidObstaclesGame
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGame
 
 final class GameSceneTests: XCTestCase {
-
     var gameScene: GameScene!
 
     override func setUp() {

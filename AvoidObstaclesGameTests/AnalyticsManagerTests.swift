@@ -3,30 +3,29 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class AnalyticsManagerTests: XCTestCase {
-    
     var analytics: AnalyticsManager!
-    
+
     override func setUp() {
         super.setUp()
         analytics = AnalyticsManager.shared
     }
-    
+
     override func tearDown() {
         analytics = nil
         super.tearDown()
     }
-    
+
     func testTrackEvent_DoesNotCrash() {
         // Since AnalyticsManager currently just prints or calls Firebase (commented out),
         // we mainly verify it executes without error.
         analytics.trackEvent("test_event", parameters: ["key": "value"])
         XCTAssertTrue(true) // Reached here
     }
-    
+
     func testConvenienceMethods() {
         // Verify all convenience methods call through
         analytics.trackGameStart()

@@ -3,7 +3,6 @@ import SpriteKit
 
 /// Dedicated physics contact delegate for GameScene
 class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
-
     weak var scene: SKScene?
     weak var gameStateManager: GameStateManager?
     weak var effectsManager: EffectsManager?
@@ -58,7 +57,7 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
 
         let obstacleNode: SKNode
         let playerHitNode: SKNode
-        
+
         if contact.bodyA.categoryBitMask == PhysicsCategory.obstacle {
             guard let obstacle = contact.bodyA.node, let player = contact.bodyB.node else { return }
             obstacleNode = obstacle
@@ -68,7 +67,7 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
             obstacleNode = obstacle
             playerHitNode = player
         }
-        
+
         playerNode = playerHitNode
 
         // Create explosion effect

@@ -17,7 +17,7 @@
         ) -> Bool {
             // Window creation is handled by SceneDelegate
             // (configured via configurationForConnecting with delegateClass = SceneDelegate.self)
-            return true
+            true
         }
 
         // MARK: UISceneSession Lifecycle
@@ -84,13 +84,13 @@
 
             // Create GameViewController
             let gameVC = GameViewController()
-            gameVC.view.wantsLayer = true  // Required for proper rendering
+            gameVC.view.wantsLayer = true // Required for proper rendering
             window.contentViewController = gameVC
             GameLogger.shared.debug("🪟 GameViewController set")
 
             // Store window reference BEFORE making visible
             self.window = window
-            
+
             // Make window visible
             window.center()
             window.makeKeyAndOrderFront(nil)

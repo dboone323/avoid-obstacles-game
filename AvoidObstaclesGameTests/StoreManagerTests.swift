@@ -3,11 +3,10 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class StoreManagerTests: XCTestCase {
-    
     func testStoreInit() { XCTAssertTrue(true) }
     func testProductRequest() { XCTAssertTrue(true) }
     func testPurchaseFlow() { XCTAssertTrue(true) }

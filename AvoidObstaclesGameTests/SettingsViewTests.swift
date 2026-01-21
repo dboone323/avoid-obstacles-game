@@ -3,11 +3,10 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class SettingsViewTests: XCTestCase {
-    
     func testSettingsInit() { XCTAssertTrue(true) }
     func testSoundToggle() { XCTAssertTrue(true) }
     func testMusicToggle() { XCTAssertTrue(true) }

@@ -5,11 +5,10 @@
 //  Comprehensive test suite for AchievementManager
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class AchievementManagerTests: XCTestCase {
-
     // MARK: - Initialization Tests
 
     func testInitialization() {

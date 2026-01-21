@@ -3,25 +3,24 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 class IntegrationTests: XCTestCase {
-
     func testFullGameFlow() {
         // Initialize all managers
         _ = GameConfiguration.load()
         _ = ThemeManager.shared
         _ = LocalizationManager.shared
         #if canImport(UIKit)
-        _ = AccessibilityManager.shared
+            _ = AccessibilityManager.shared
         #endif
 
         // Simulate game start
         AnalyticsManager.shared.trackGameStart()
 
         // Simulate gameplay
-        for i in 0..<10 {
+        for i in 0 ..< 10 {
             ComboSystem.shared.recordDodge(currentTime: Double(i) * 0.5)
         }
 

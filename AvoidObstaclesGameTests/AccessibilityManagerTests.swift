@@ -5,13 +5,12 @@
 // Unit tests for AccessibilityManager
 //
 
+@testable import AvoidObstaclesGame
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGame
 
 #if canImport(UIKit)
     class AccessibilityManagerTests: XCTestCase {
-
         var manager: AccessibilityManager!
         var testNode: SKSpriteNode!
 

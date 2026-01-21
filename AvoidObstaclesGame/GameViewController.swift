@@ -14,7 +14,7 @@ import SpriteKit
     /// Responsible for loading and presenting the SpriteKit game scene.
     public class GameViewController: UIViewController {
         private var hasSetupScene = false
-        
+
         /// Called to load the view.
         /// Sets up the SKView.
         override public func loadView() {
@@ -27,21 +27,21 @@ import SpriteKit
             super.viewDidLoad()
             view.backgroundColor = .systemCyan
         }
-        
+
         /// Called after the view's bounds change. Present scene here to ensure valid size.
         override public func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
-            
+
             // Only setup scene once after bounds are valid
             guard !hasSetupScene, view.bounds.size.width > 0, view.bounds.size.height > 0 else { return }
             hasSetupScene = true
-            
+
             // Configure the view as an SKView and present the game scene.
             if let skView = view as? SKView {
                 // Create and configure the scene to fill the screen.
                 let scene = GameScene(size: view.bounds.size)
                 scene.scaleMode = .aspectFill
-                
+
                 GameLogger.shared.debug("🎮 Presenting scene with size: \(view.bounds.size)")
 
                 // Present the scene.
@@ -49,11 +49,11 @@ import SpriteKit
 
                 // Optional: For performance tuning
                 skView.ignoresSiblingOrder = true
-                
+
                 // Debug helpers
                 #if DEBUG
-                skView.showsFPS = true
-                skView.showsNodeCount = true
+                    skView.showsFPS = true
+                    skView.showsNodeCount = true
                 #endif
             }
         }

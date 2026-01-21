@@ -5,11 +5,10 @@
 //  Comprehensive test suite for AudioManager
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class AudioManagerTests: XCTestCase {
-
     // MARK: - Initialization Tests
 
     func testInitialization() {

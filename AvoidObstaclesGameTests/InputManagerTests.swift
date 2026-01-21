@@ -3,11 +3,10 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class InputManagerTests: XCTestCase {
-    
     func testInputInit() { XCTAssertTrue(true) }
     func testTouchInput() { XCTAssertTrue(true) }
     func testKeyboardInput() { XCTAssertTrue(true) }

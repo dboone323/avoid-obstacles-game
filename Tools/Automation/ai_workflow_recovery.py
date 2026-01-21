@@ -6,6 +6,7 @@ import sys
 
 
 def main():
+    """Run the AI workflow recovery system and return exit code."""
     print("AI Workflow Recovery System - Basic Version")
     print("This is a placeholder for the actual AI recovery system")
 

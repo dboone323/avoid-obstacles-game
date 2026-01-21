@@ -23,6 +23,7 @@ class PowerUpComponent: GKComponent {
         super.init()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -41,7 +42,6 @@ class PowerUpComponent: GKComponent {
 // MARK: - Power-Up Entity
 
 class PowerUpEntity: GKEntity {
-
     let powerUpType: PowerUpType
 
     var node: SKSpriteNode? {
@@ -78,6 +78,7 @@ class PowerUpEntity: GKEntity {
         addGlowEffect()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -119,7 +120,7 @@ class PowerUpEntity: GKEntity {
         node.run(
             SKAction.sequence([
                 SKAction.group([fadeOut, scaleUp]),
-                remove,
+                remove
             ]))
     }
 }

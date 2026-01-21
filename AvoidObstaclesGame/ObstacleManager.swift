@@ -56,7 +56,7 @@ class ObstacleManager {
 
     /// Preloads the obstacle pool with initial obstacles
     private func preloadObstaclePool() {
-        for _ in 0..<10 {
+        for _ in 0 ..< 10 {
             let obstacle = createNewObstacle(ofType: .normal)
             obstaclePool.append(obstacle)
         }
@@ -211,11 +211,11 @@ class ObstacleManager {
     private func spawnObstacle(with difficulty: GameDifficulty) {
         let level = GameDifficulty.getDifficultyLevel(for: Int(difficulty.scoreMultiplier * 10))
         // GameLogger.shared.debug("☄️ Spawn check - Multiplier: \(difficulty.scoreMultiplier), Level: \(level)")
-        
+
         guard let scene else { return }
 
         // Occasionally spawn a power-up instead of an obstacle
-        let shouldSpawnPowerUp = Double.random(in: 0...1) < difficulty.powerUpSpawnChance
+        let shouldSpawnPowerUp = Double.random(in: 0 ... 1) < difficulty.powerUpSpawnChance
 
         if shouldSpawnPowerUp {
             spawnPowerUp()
@@ -229,7 +229,7 @@ class ObstacleManager {
         // Random horizontal position (ensure valid range)
         let minX = obstacle.size.width / 2
         let maxX = max(minX, scene.size.width - obstacle.size.width / 2)
-        let randomX = CGFloat.random(in: minX...maxX)
+        let randomX = CGFloat.random(in: minX ... maxX)
         obstacle.position = CGPoint(x: randomX, y: scene.size.height + obstacle.size.height)
 
         // Add to scene and active set
@@ -245,8 +245,6 @@ class ObstacleManager {
 
         obstacle.run(SKAction.sequence([moveAction, removeAction]))
 
-
-
         delegate?.obstacleDidSpawn(obstacle)
     }
 
@@ -257,7 +255,7 @@ class ObstacleManager {
         // Higher levels introduce more variety including boss obstacles
         if level >= 5 {
             // Small chance for boss at high levels
-            if Double.random(in: 0...1) < 0.05 {
+            if Double.random(in: 0 ... 1) < 0.05 {
                 return .boss
             }
             let types: [ObstacleType] = [.normal, .fast, .large, .small]
@@ -269,7 +267,7 @@ class ObstacleManager {
             return .normal
         }
     }
-    
+
     /// Spawns a boss obstacle at score milestones (100, 250, 500, 1000)
     /// - Parameter score: Current player score
     func checkBossSpawn(for score: Int) {
@@ -278,34 +276,34 @@ class ObstacleManager {
             spawnBossObstacle()
         }
     }
-    
+
     /// Spawns a boss obstacle
     private func spawnBossObstacle() {
         guard let scene else { return }
-        
+
         let obstacle = getObstacle(ofType: .boss)
-        
+
         // Center spawn for maximum threat
         obstacle.position = CGPoint(x: scene.size.width / 2, y: scene.size.height + obstacle.size.height)
-        
+
         scene.addChild(obstacle)
         activeObstacles.insert(obstacle)
-        
+
         // Boss moves slower and rotates
-        let fallDuration = 5.0  // Slow fall
+        let fallDuration = 5.0 // Slow fall
         let moveAction = SKAction.moveTo(y: -obstacle.size.height, duration: fallDuration)
         let rotateAction = SKAction.rotate(byAngle: .pi * 2, duration: 2.0)
         let rotateForever = SKAction.repeatForever(rotateAction)
-        
+
         let removeAction = SKAction.run { [weak self] in
             self?.recycleObstacle(obstacle)
         }
-        
+
         obstacle.run(rotateForever, withKey: "bossRotation")
         obstacle.run(SKAction.sequence([moveAction, removeAction]))
-        
+
         delegate?.obstacleDidSpawn(obstacle)
-        
+
         // Haptic feedback for boss spawn
         HapticFeedbackManager.shared.warning()
     }
@@ -356,7 +354,7 @@ class ObstacleManager {
         // Random position across the screen width (ensure valid range)
         let minX = powerUp.size.width / 2
         let maxX = max(minX, scene.size.width - powerUp.size.width / 2)
-        let randomX = CGFloat.random(in: minX...maxX)
+        let randomX = CGFloat.random(in: minX ... maxX)
         powerUp.position = CGPoint(x: randomX, y: scene.size.height + powerUp.size.height)
 
         // Add physics body
@@ -521,7 +519,7 @@ enum ObstacleType {
     case fast
     case large
     case small
-    case boss  // New: Boss obstacle at milestone scores
+    case boss // New: Boss obstacle at milestone scores
 
     var configuration: ObstacleConfiguration {
         switch self {

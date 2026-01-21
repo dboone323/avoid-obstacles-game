@@ -5,11 +5,10 @@
 //  Comprehensive test suite for GameStateManager
 //
 
-import XCTest
 @testable import AvoidObstaclesGame
+import XCTest
 
 final class GameStateManagerTests: XCTestCase {
-
     var manager: GameStateManager!
 
     override func setUp() {
