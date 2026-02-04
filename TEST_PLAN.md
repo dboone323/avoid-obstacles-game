@@ -43,9 +43,9 @@ An enhanced obstacle avoidance game with progressive difficulty, high score trac
 
 1. **First Play**: Verify initial score becomes first high score
 2. **High Score Persistence**:
-   - Play game, achieve score
-   - Close app completely
-   - Reopen app and verify score is saved
+    - Play game, achieve score
+    - Close app completely
+    - Reopen app and verify score is saved
 3. **Top 10 Tracking**: Play multiple games to fill up top 10 list
 4. **High Score Notification**: Achieve new high score and verify "NEW HIGH SCORE!" appears
 5. **Score Display**: Verify best score shows correctly on main screen

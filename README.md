@@ -1,4 +1,3 @@
-
 # AvoidObstaclesGame
 
 **AvoidObstaclesGame** is a fast‑paced, arcade‑style iOS game written in Swift that challenges players to steer a ship (or character) through an endless stream of dynamically generated obstacles. The project showcases a clean, modular architecture for game development, using SpriteKit and a suite of manager classes that encapsulate distinct responsibilities such as physics, audio, high‑scores, and visual effects.
@@ -59,30 +58,28 @@ AvoidObstaclesGame demonstrates how to build a maintainable, testable, and expan
 
 1. **Clone the repository**
 
-   ```bash
-   git clone https://github.com/your‑org/AvoidObstaclesGame.git
-   cd AvoidObstaclesGame
-   ```
+    ```bash
+    git clone https://github.com/your‑org/AvoidObstaclesGame.git
+    cd AvoidObstaclesGame
+    ```
 
 2. **Open the Xcode workspace**
 
-   ```bash
-   open AvoidObstaclesGame.xcodeproj
-   ```
+    ```bash
+    open AvoidObstaclesGame.xcodeproj
+    ```
 
-   The project contains a single target **AvoidObstaclesGame** with the default SpriteKit template.
+    The project contains a single target **AvoidObstaclesGame** with the default SpriteKit template.
 
 3. **Configure signing**
-
-   - In Xcode, select the project → **Signing & Capabilities**.
-   - Choose your personal/team Apple ID and a valid bundle identifier.
+    - In Xcode, select the project → **Signing & Capabilities**.
+    - Choose your personal/team Apple ID and a valid bundle identifier.
 
 4. **Build & Run**
+    - Select a simulator or a connected iOS device.
+    - Press **⌘ + R** (or click the Run button).
 
-   - Select a simulator or a connected iOS device.
-   - Press **⌘ + R** (or click the Run button).
-
-   The game will launch, displaying the main menu and then the gameplay screen.
+    The game will launch, displaying the main menu and then the gameplay screen.
 
 ### Optional: Swift Package Integration
 
@@ -241,29 +238,28 @@ We welcome contributions! Follow these steps to get started:
 1. **Fork the repository** and clone your fork.
 2. **Create a feature branch**:
 
-   ```bash
-   git checkout -b feature/awesome-ability
-   ```
+    ```bash
+    git checkout -b feature/awesome-ability
+    ```
 
 3. **Write code** adhering to the existing coding style:
-
-   - Use **SwiftLint** (the repo includes a `.swiftlint.yml`).
-   - Prefer **explicit access control** (`private`, `fileprivate`, etc.).
-   - Document public APIs with **MarkDoc** style comments.
+    - Use **SwiftLint** (the repo includes a `.swiftlint.yml`).
+    - Prefer **explicit access control** (`private`, `fileprivate`, etc.).
+    - Document public APIs with **MarkDoc** style comments.
 
 4. **Add unit tests** under `AvoidObstaclesGameTests/`. The project uses **XCTest**; aim for 80 %+ coverage for new logic.
 
 5. **Run the test suite** locally:
 
-   ```bash
-   xcodebuild test -scheme AvoidObstaclesGame -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest'
-   ```
+    ```bash
+    xcodebuild test -scheme AvoidObstaclesGame -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest'
+    ```
 
 6. **Commit with a clear message** (follow the conventional commits format).
 
-   ```bash
-   git commit -m "feat(obstacle): add rotating laser obstacle"
-   ```
+    ```bash
+    git commit -m "feat(obstacle): add rotating laser obstacle"
+    ```
 
 7. **Push** and open a **Pull Request**.
 
@@ -334,5 +330,6 @@ make validate
 ```
 
 Scripts:
+
 - `.ci/agent_validate.sh`: sets AI env and runs validation
 - `.ci/run_validation.sh`: performs lint/format, tests, and best‑effort remediation via Tools/Automation

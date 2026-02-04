@@ -824,27 +824,24 @@ class PerformanceTests: XCTestCase {
 ### Roadmap
 
 1. **Multiplayer Integration**
-
-   - Real-time competitive gameplay
-   - Leaderboards and tournaments
-   - Social sharing features
+    - Real-time competitive gameplay
+    - Leaderboards and tournaments
+    - Social sharing features
 
 2. **Power-ups and Special Items**
-
-   - Shield protection system
-   - Speed boosts and time dilation
-   - Magnet for score collection
+    - Shield protection system
+    - Speed boosts and time dilation
+    - Magnet for score collection
 
 3. **Advanced Graphics**
-
-   - Particle system enhancements
-   - Dynamic lighting effects
-   - 3D obstacle models
+    - Particle system enhancements
+    - Dynamic lighting effects
+    - 3D obstacle models
 
 4. **AI and Machine Learning**
-   - Adaptive difficulty based on player skill
-   - Personalized obstacle patterns
-   - Predictive player assistance
+    - Adaptive difficulty based on player skill
+    - Personalized obstacle patterns
+    - Predictive player assistance
 
 ### Scalability Considerations
 

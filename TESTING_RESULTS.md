@@ -27,9 +27,9 @@
 - **GameDifficulty.swift**: 6 difficulty levels implemented
 - **Dynamic Progression**: Difficulty increases based on score thresholds
 - **Scaling Parameters**:
-  - Spawn intervals: 1.2s → 0.4s (faster obstacles)
-  - Obstacle speeds: 3.5s → 1.2s (faster movement)
-  - Score multipliers: 1.0x → 3.0x (higher scoring)
+    - Spawn intervals: 1.2s → 0.4s (faster obstacles)
+    - Obstacle speeds: 3.5s → 1.2s (faster movement)
+    - Score multipliers: 1.0x → 3.0x (higher scoring)
 - **Visual Feedback**: Level-up notifications with animated text
 
 ### 3. Enhanced Visual Features ✅
@@ -74,11 +74,11 @@
 ### Difficulty Progression Testing:
 
 1. Play to reach different score thresholds:
-   - Level 2: 100 points
-   - Level 3: 250 points
-   - Level 4: 500 points
-   - Level 5: 1000 points
-   - Level 6: 2000 points
+    - Level 2: 100 points
+    - Level 3: 250 points
+    - Level 4: 500 points
+    - Level 5: 1000 points
+    - Level 6: 2000 points
 2. Verify level-up animations appear
 3. Confirm obstacles spawn faster and move quicker
 4. Check score multipliers are applied correctly

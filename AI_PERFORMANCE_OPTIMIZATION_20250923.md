@@ -215,7 +215,7 @@ Here's a detailed performance analysis of the `PerformanceManager.swift` code, w
 ### ❌ Current Implementation:
 
 - `recordFrame()` removes the first element using `removeFirst()` when `frameTimes.count > maxFrameHistory`.
-  - `removeFirst()` on an `Array` is **O(n)** because it shifts all elements down by one index.
+    - `removeFirst()` on an `Array` is **O(n)** because it shifts all elements down by one index.
 
 ### ✅ Optimization:
 

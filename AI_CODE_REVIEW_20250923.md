@@ -1865,34 +1865,34 @@ struct PhysicsCategory {
 
 1. **Consider namespacing:** If this grows, consider nesting categories:
 
-   ```swift
-   enum PhysicsCategory {
-       enum Character {
-           static let player: UInt32 = 0b1
-           static let enemy: UInt32 = 0b10
-       }
-       enum Environment {
-           static let obstacle: UInt32 = 0b100
-           static let ground: UInt32 = 0b1000
-       }
-       // etc.
-   }
-   ```
+    ```swift
+    enum PhysicsCategory {
+        enum Character {
+            static let player: UInt32 = 0b1
+            static let enemy: UInt32 = 0b10
+        }
+        enum Environment {
+            static let obstacle: UInt32 = 0b100
+            static let ground: UInt32 = 0b1000
+        }
+        // etc.
+    }
+    ```
 
 2. **Add validation:** Consider adding a method to ensure no duplicate values if categories are added dynamically.
 
 3. **Consider using OptionSet:** For more Swift-like bitmask handling:
 
-   ```swift
-   struct PhysicsCategory: OptionSet {
-       let rawValue: UInt32
+    ```swift
+    struct PhysicsCategory: OptionSet {
+        let rawValue: UInt32
 
-       static let none = PhysicsCategory(rawValue: 0)
-       static let player = PhysicsCategory(rawValue: 1 << 0)
-       static let obstacle = PhysicsCategory(rawValue: 1 << 1)
-       static let powerUp = PhysicsCategory(rawValue: 1 << 2)
-   }
-   ```
+        static let none = PhysicsCategory(rawValue: 0)
+        static let player = PhysicsCategory(rawValue: 1 << 0)
+        static let obstacle = PhysicsCategory(rawValue: 1 << 1)
+        static let powerUp = PhysicsCategory(rawValue: 1 << 2)
+    }
+    ```
 
 The current implementation is functional but could be improved for better Swift conventions, extensibility, and developer experience.
 
