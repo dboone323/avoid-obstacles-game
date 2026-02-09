@@ -88,11 +88,13 @@ class StoreManager: ObservableObject {
                     await transaction.finish()
                     self.purchasedProductIDs.insert(transaction.productID)
                     #if DEBUG
-                        GameLogger.shared.debug("StoreManager: Transaction update processed for \(transaction.productID)")
+                        GameLogger.shared
+                            .debug("StoreManager: Transaction update processed for \(transaction.productID)")
                     #endif
                 } catch {
                     #if DEBUG
-                        GameLogger.shared.debug("StoreManager: Transaction verification failed: \(error.localizedDescription)")
+                        GameLogger.shared
+                            .debug("StoreManager: Transaction verification failed: \(error.localizedDescription)")
                     #endif
                 }
             }

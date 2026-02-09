@@ -5,8 +5,8 @@
 //  Comprehensive test suite for GameStateManager
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class GameStateManagerTests: XCTestCase {
     var manager: GameStateManager!

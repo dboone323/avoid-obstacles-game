@@ -14,7 +14,8 @@ final class AvoidObstaclesGameUITests: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run.
+        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests
+        // before they run.
         // The setUp method is a good place to do this.
     }
 
@@ -35,13 +36,13 @@ final class AvoidObstaclesGameUITests: XCTestCase {
     func testScreenshot() throws {
         let app = XCUIApplication()
         app.launch()
-        
+
         // Take a screenshot
         let screenshot = XCUIScreen.main.screenshot()
         let attachment = XCTAttachment(screenshot: screenshot)
         attachment.lifetime = .keepAlways
         add(attachment)
-        
+
         XCTAssertNotNil(screenshot)
     }
 

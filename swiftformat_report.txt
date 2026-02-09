@@ -1,0 +1,224 @@
+Running SwiftFormat...
+(lint mode - no files will be changed.)
+Reading config file at /Users/danielstevens/github-projects/tools-automation/.swiftformat
+Reading config file at /Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/.swiftformat
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AnimationController.swift:25:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AnimationController.swift:37:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/SettingsView.swift:23:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PerformanceManager.swift:387:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameConfiguration.swift:49:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameConfiguration.swift:50:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameConfiguration.swift:62:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameConfiguration.swift:87:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameConfiguration.swift:91:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameConfiguration.swift:150:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ObstacleManager.swift:59:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ObstacleManager.swift:218:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ObstacleManager.swift:232:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ObstacleManager.swift:258:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ObstacleManager.swift:357:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AudioManager.swift:25:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/CrashReportingManager.swift:45:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/CrashReportingManager.swift:58:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/CrashReportingManager.swift:98:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/CrashReportingManager.swift:107:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/CrashReportingManager.swift:134:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/CrashReportingManager.swift:152:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PhysicsManager.swift:134:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PhysicsManager.swift:141:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameCenterManager.swift:28:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameCenterManager.swift:29:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AdaptiveDifficultyAI.swift:53:1: error: (indent) Indent code in accordance with the scope level.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ProceduralLevelGenerator.swift:26:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ProceduralLevelGenerator.swift:35:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ProceduralLevelGenerator.swift:37:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ProceduralLevelGenerator.swift:38:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ProceduralLevelGenerator.swift:43:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/TutorialScene.swift:108:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/TutorialScene.swift:397:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameStateManager.swift:169:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameStateManager.swift:182:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EffectsManager.swift:177:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EffectsManager.swift:232:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EffectsManager.swift:248:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EffectsManager.swift:250:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EffectsManager.swift:251:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EffectsManager.swift:271:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EffectsManager.swift:296:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EnhancedObstacleTypes.swift:69:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/EnhancedObstacleTypes.swift:83:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/LeaderboardManager.swift:31:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/LeaderboardManager.swift:61:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PlayerManager.swift:228:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PlayerManager.swift:316:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PlayerManager.swift:355:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PowerUpManager.swift:46:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PowerUpManager.swift:93:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/PowerUpManager.swift:143:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/SkinManager.swift:103:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/SkinManager.swift:193:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/HapticFeedbackManager.swift:219:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/HapticFeedbackManager.swift:226:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/HapticFeedbackManager.swift:233:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:27:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:28:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:29:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:29:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:30:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:31:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:31:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:32:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:33:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:33:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:34:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:35:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:35:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:36:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:37:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:38:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:39:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:47:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:48:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:49:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:50:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameDifficulty.swift:51:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/IntegrationTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/IntegrationTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/IntegrationTests.swift:23:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameScene.swift:192:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameScene.swift:195:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameScene.swift:196:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameScene.swift:201:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameScene.swift:432:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/GameScene.swift:433:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/StoreManager.swift:91:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/StoreManager.swift:95:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AnalyticsManager.swift:29:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AchievementManager.swift:247:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AchievementManager.swift:304:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AchievementManager.swift:317:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AchievementManager.swift:329:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/AchievementManager.swift:474:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/DependenciesTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/DependenciesTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameSceneTests.swift:1:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameSceneTests.swift:3:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ThemeManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ThemeManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ECSComponentTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ECSComponentTests.swift:11:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/UIManager.swift:65:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/UIManager.swift:207:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/UIManager.swift:226:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/UIManager.swift:246:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/UIManager.swift:287:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/UIManager.swift:378:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/UIManager.swift:427:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AssetCacheTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AssetCacheTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PerformanceManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PerformanceManagerTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ComboSystemTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ComboSystemTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ComboSystemTests.swift:45:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/EffectsManagerTests.swift:1:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/EffectsManagerTests.swift:3:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/EffectsManagerTests.swift:130:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AnimationControllerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AnimationControllerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/StoreManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/StoreManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AchievementManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AchievementManagerTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/HapticFeedbackManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/HapticFeedbackManagerTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/TutorialSceneTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/TutorialSceneTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ObstacleManagerTests.swift:1:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ObstacleManagerTests.swift:3:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AnalyticsManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AnalyticsManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AudioManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AudioManagerTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PhysicsCategoryTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PhysicsCategoryTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/MenuSceneTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/MenuSceneTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/UIManagerTests.swift:1:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/UIManagerTests.swift:3:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ShareManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ShareManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/SettingsViewTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/SettingsViewTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PlayerManagerTests.swift:1:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PlayerManagerTests.swift:3:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/RegressionTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/RegressionTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/RegressionTests.swift:18:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/RegressionTests.swift:28:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PerformanceTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PerformanceTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PerformanceTests.swift:15:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PerformanceTests.swift:29:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PerformanceTests.swift:40:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ProceduralLevelGeneratorTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/ProceduralLevelGeneratorTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/HapticManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/HapticManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AvoidObstaclesGameTests.swift:247:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AvoidObstaclesGameTests.swift:264:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AvoidObstaclesGameTests.swift:284:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AvoidObstaclesGameTests.swift:299:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/CollisionEngineTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/CollisionEngineTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/CollisionEngineTests.swift:105:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/CollisionEngineTests.swift:106:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PowerUpManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PowerUpManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/CrashReportingManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/CrashReportingManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/CrashReportingManagerTests.swift:45:1: error: (wrapMultilineStatementBraces) Wrap the opening brace of multiline statements.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GeneratedAssetSymbolsTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GeneratedAssetSymbolsTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AccessibilityManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AccessibilityManagerTests.swift:10:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameConfigurationTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameConfigurationTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameConfigurationTests.swift:224:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/SpatialAudioManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/SpatialAudioManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AdaptiveDifficultyAITests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AdaptiveDifficultyAITests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AdaptiveDifficultyAITests.swift:46:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AdaptiveDifficultyAITests.swift:59:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AdaptiveDifficultyAITests.swift:70:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AdaptiveDifficultyAITests.swift:80:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/AdaptiveDifficultyAITests.swift:89:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/LocalizationManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/LocalizationManagerTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/LocalizationManagerTests.swift:132:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/InputManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/InputManagerTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PowerUpTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PowerUpTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameCenterManagerTests.swift:6:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameCenterManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/MovementCollisionTests.swift:7:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/MovementCollisionTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/MovementCollisionTests.swift:116:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/MovementCollisionTests.swift:117:1: error: (wrap) Wrap lines that exceed the specified maximum width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/MovementCollisionTests.swift:182:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/SkinManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/SkinManagerTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameUITests/AvoidObstaclesGameUITests.swift:17:1: error: (wrapSingleLineComments) Wrap single line // comments that exceed the specified --max-width.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameUITests/AvoidObstaclesGameUITests.swift:38:1: error: (trailingSpace) Remove trailing space at end of a line.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameUITests/AvoidObstaclesGameUITests.swift:44:1: error: (trailingSpace) Remove trailing space at end of a line.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PhysicsManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/PhysicsManagerTests.swift:10:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameStateManagerTests.swift:8:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameTests/GameStateManagerTests.swift:9:1: error: (sortImports) Sort import statements alphabetically.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ECS/EntityManager.swift:40:1: error: (spaceAroundOperators) Add or remove space around operators or delimiters.
+/Users/danielstevens/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/ECS/Components/PowerUpComponent.swift:123:1: error: (trailingCommas) Add or remove trailing commas in comma-separated lists.
+SwiftFormat completed in 3.6s.
+Source input did not pass lint check.
+73/118 files require formatting, 36 files skipped.

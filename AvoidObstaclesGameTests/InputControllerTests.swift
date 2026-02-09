@@ -3,19 +3,24 @@
 // AvoidObstaclesGameTests
 //
 
-@testable import AvoidObstaclesGame
+import SpriteKit
 import XCTest
+
+@testable import AvoidObstaclesGame
 
 final class InputControllerTests: XCTestCase {
     var sut: InputController!
+    var testPlayer: SKNode!
 
     override func setUp() {
         super.setUp()
-        sut = InputController()
+        testPlayer = SKNode()
+        sut = InputController(playerNode: testPlayer)
     }
 
     override func tearDown() {
         sut = nil
+        testPlayer = nil
         super.tearDown()
     }
 
@@ -59,11 +64,11 @@ final class InputControllerTests: XCTestCase {
 
     // MARK: - Input Sensitivity Tests
 
-    func testInputSensitivity() {
-        XCTAssertGreaterThan(sut.sensitivity, 0)
+    func testTouchSensitivity() {
+        XCTAssertGreaterThan(sut.touchSensitivity, 0)
     }
 
-    func testDeadzone() {
-        XCTAssertGreaterThanOrEqual(sut.deadzone, 0)
+    func testKeyboardSpeed() {
+        XCTAssertGreaterThan(sut.keyboardSpeed, 0)
     }
 }

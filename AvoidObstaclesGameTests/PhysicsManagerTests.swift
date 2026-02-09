@@ -5,9 +5,9 @@
 //  Comprehensive test suite for PhysicsManager
 //
 
-@testable import AvoidObstaclesGame
 import SpriteKit
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class PhysicsManagerTests: XCTestCase {
     var scene: SKScene!

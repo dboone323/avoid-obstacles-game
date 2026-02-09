@@ -5,8 +5,8 @@
 // Tests for player skin management and unlocking
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class SkinManagerTests: XCTestCase {
     var manager: SkinManager!

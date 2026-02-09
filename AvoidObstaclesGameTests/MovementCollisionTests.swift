@@ -4,9 +4,9 @@
 //
 // Tests for player movement (left/right) and collision detection
 
-@testable import AvoidObstaclesGame
 import SpriteKit
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class MovementCollisionTests: XCTestCase {
     var scene: SKScene!
@@ -113,7 +113,11 @@ final class MovementCollisionTests: XCTestCase {
         let collisionMask = playerManager.player?.physicsBody?.collisionBitMask ?? 0
 
         // Player collision mask should be none (player movement is handled manually, not by physics)
-        XCTAssertEqual(collisionMask, PhysicsCategory.none, "Player should have no collision mask (uses contact detection)")
+        XCTAssertEqual(
+            collisionMask,
+            PhysicsCategory.none,
+            "Player should have no collision mask (uses contact detection)"
+        )
     }
 
     func testPlayerCollisionResponse() {

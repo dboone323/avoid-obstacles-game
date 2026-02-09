@@ -3,9 +3,9 @@
 // AvoidObstaclesGameTests
 //
 
-@testable import AvoidObstaclesGame
 import SpriteKit
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class CollisionEngineTests: XCTestCase {
     var collisionEngine: CollisionEngine!
@@ -102,7 +102,10 @@ final class CollisionEngineTests: XCTestCase {
         // But true in standard mode check first?
         // "guard sprite1.frame.intersects(sprite2.frame) else { return false }"
 
-        XCTAssertFalse(collisionEngine.checkCollision(between: nodeA, and: nodeB), "Small overlap should be ignored in pixel perfect")
+        XCTAssertFalse(
+            collisionEngine.checkCollision(between: nodeA, and: nodeB),
+            "Small overlap should be ignored in pixel perfect"
+        )
     }
 
     func testPixelPerfect_LargeOverlap_ReturnsTrue() {

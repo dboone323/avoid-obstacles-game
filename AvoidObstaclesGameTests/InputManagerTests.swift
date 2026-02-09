@@ -3,8 +3,8 @@
 // AvoidObstaclesGameTests
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class InputManagerTests: XCTestCase {
     func testInputInit() { XCTAssertTrue(true) }

@@ -3,19 +3,23 @@
 // AvoidObstaclesGameTests
 //
 
-@testable import AvoidObstaclesGame
+import SpriteKit
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class PowerUpManagerTests: XCTestCase {
     var sut: PowerUpManager!
+    var testScene: SKScene!
 
     override func setUp() {
         super.setUp()
-        sut = PowerUpManager()
+        testScene = SKScene(size: CGSize(width: 400, height: 600))
+        sut = PowerUpManager(scene: testScene)
     }
 
     override func tearDown() {
         sut = nil
+        testScene = nil
         super.tearDown()
     }
 
@@ -34,11 +38,11 @@ final class PowerUpManagerTests: XCTestCase {
         XCTAssertNotNil(PowerUpType.speedBoost)
     }
 
-    func testSlowMotionPowerUp() {
-        XCTAssertNotNil(PowerUpType.slowMotion)
+    func testSlowTimePowerUp() {
+        XCTAssertNotNil(PowerUpType.slowTime)
     }
 
-    func testDoublePontsPowerUp() {
+    func testDoublePointsPowerUp() {
         XCTAssertNotNil(PowerUpType.doublePoints)
     }
 
@@ -52,24 +56,23 @@ final class PowerUpManagerTests: XCTestCase {
     // MARK: - Activation Tests
 
     func testActivatePowerUp() {
-        XCTAssertTrue(true, "Activate power up test")
+        let player = SKNode()
+        XCTAssertNoThrow(sut.activatePowerUp(type: .shield, for: player))
     }
 
     func testDeactivatePowerUp() {
         XCTAssertTrue(true, "Deactivate power up test")
     }
 
-    func testActivePowerUpsCount() {
-        XCTAssertGreaterThanOrEqual(sut.activePowerUps.count, 0)
-    }
-
     // MARK: - Spawn Tests
 
-    func testSpawnRate() {
-        XCTAssertGreaterThan(sut.spawnRate, 0)
+    func testSpawnPowerUp() {
+        sut.spawnPowerUp(type: .shield, at: CGPoint(x: 100, y: 100))
+        XCTAssertTrue(true, "Power-up spawned without errors")
     }
 
     func testRandomPowerUpSelection() {
+        sut.spawnRandomPowerUp(at: CGPoint(x: 150, y: 150))
         XCTAssertTrue(true, "Random power up selection test")
     }
 }

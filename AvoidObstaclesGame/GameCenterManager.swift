@@ -25,7 +25,12 @@ class GameCenterManager: NSObject, ObservableObject {
 
     func submitScore(score: Int) {
         if isAuthenticated {
-            GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: ["highscore_leaderboard"]) { error in
+            GKLeaderboard.submitScore(
+                score,
+                context: 0,
+                player: GKLocalPlayer.local,
+                leaderboardIDs: ["highscore_leaderboard"]
+            ) { error in
                 if let error {
                     GameLogger.shared.debug("Error submitting score: \(error)")
                 }

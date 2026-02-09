@@ -1,6 +1,6 @@
-@testable import AvoidObstaclesGame
 import SpriteKit
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class PlayerManagerTests: XCTestCase {
     var scene: SKScene!

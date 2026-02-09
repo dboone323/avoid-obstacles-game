@@ -3,8 +3,8 @@
 // AvoidObstaclesGameTests
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 class IntegrationTests: XCTestCase {
     func testFullGameFlow() {
@@ -20,7 +20,7 @@ class IntegrationTests: XCTestCase {
         AnalyticsManager.shared.trackGameStart()
 
         // Simulate gameplay
-        for i in 0 ..< 10 {
+        for i in 0..<10 {
             ComboSystem.shared.recordDodge(currentTime: Double(i) * 0.5)
         }
 

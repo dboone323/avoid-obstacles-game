@@ -5,8 +5,8 @@
 // Unit tests for LocalizationManager
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 class LocalizationManagerTests: XCTestCase {
     var manager: LocalizationManager!

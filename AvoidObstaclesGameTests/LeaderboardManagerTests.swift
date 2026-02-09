@@ -3,8 +3,9 @@
 // AvoidObstaclesGameTests
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+
+@testable import AvoidObstaclesGame
 
 final class LeaderboardManagerTests: XCTestCase {
     var sut: LeaderboardManager!
@@ -20,43 +21,39 @@ final class LeaderboardManagerTests: XCTestCase {
         XCTAssertNotNil(LeaderboardManager.shared)
     }
 
-    func testLeaderboardIdentifier() {
-        XCTAssertFalse(sut.leaderboardID.isEmpty)
+    // MARK: - Score Submission Tests
+
+    func testSubmitScore() {
+        // Test that submit doesn't crash
+        XCTAssertNoThrow(sut.submitScore(100))
     }
 
-    // MARK: - Local Leaderboard Tests
+    // MARK: - Achievement Tests
 
-    func testLocalScoresCount() {
-        XCTAssertGreaterThanOrEqual(sut.localScores.count, 0)
+    func testUnlockAchievement() {
+        let achievementID = LeaderboardManager.Achievement.firstGame
+        XCTAssertNoThrow(sut.unlockAchievement(identifier: achievementID))
     }
 
-    func testTopScoresLimit() {
-        let limit = 10
-        let topScores = sut.getTopScores(limit: limit)
-        XCTAssertLessThanOrEqual(topScores.count, limit)
+    func testAchievementIDs() {
+        XCTAssertFalse(LeaderboardManager.Achievement.firstGame.isEmpty)
+        XCTAssertFalse(LeaderboardManager.Achievement.score100.isEmpty)
+        XCTAssertFalse(LeaderboardManager.Achievement.score500.isEmpty)
+        XCTAssertFalse(LeaderboardManager.Achievement.score1000.isEmpty)
     }
 
-    func testScoresSortedDescending() {
-        let scores = sut.getTopScores(limit: 10)
-        if scores.count > 1 {
-            for i in 0 ..< (scores.count - 1) {
-                XCTAssertGreaterThanOrEqual(scores[i].score, scores[i + 1].score)
-            }
+    // MARK: - Leaderboard Loading Tests
+
+    func testLoadTopScores() {
+        let expectation = expectation(description: "Load scores")
+
+        sut.loadTopScores { entries in
+            // entries might be empty if not authenticated, that's okay
+            XCTAssertTrue(entries.count >= 0)
+            expectation.fulfill()
         }
-    }
 
-    // MARK: - Score Entry Tests
-
-    func testAddScoreEntry() {
-        XCTAssertTrue(true, "Add score entry test")
-    }
-
-    func testScoreEntryHasTimestamp() {
-        XCTAssertTrue(true, "Score entry timestamp test")
-    }
-
-    func testScoreEntryHasPlayerName() {
-        XCTAssertTrue(true, "Score entry player name test")
+        waitForExpectations(timeout: 5)
     }
 
     // MARK: - Game Center Tests

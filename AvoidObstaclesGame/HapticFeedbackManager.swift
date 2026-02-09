@@ -5,6 +5,7 @@
 // Manages haptic feedback for enhanced tactile experience.
 //
 
+import CoreHaptics
 import Foundation
 
 #if canImport(UIKit)
@@ -25,6 +26,9 @@ import Foundation
         private let selectionGenerator = UISelectionFeedbackGenerator()
         private let notification = UINotificationFeedbackGenerator()
 
+        // CHHapticEngine for advanced haptics
+        private var hapticEngine: CHHapticEngine?
+
         private var isEnabled: Bool {
             GameConfiguration.load().audio.hapticsEnabled
         }
@@ -33,6 +37,7 @@ import Foundation
 
         private init() {
             prepare()
+            prepareAdvancedHaptics()
         }
 
         // MARK: - Preparation
@@ -46,6 +51,18 @@ import Foundation
             impactHeavy.prepare()
             selectionGenerator.prepare()
             notification.prepare()
+        }
+
+        /// Prepares CHHapticEngine for advanced haptic patterns
+        private func prepareAdvancedHaptics() {
+            guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+
+            do {
+                hapticEngine = try CHHapticEngine()
+                try hapticEngine?.start()
+            } catch {
+                GameLogger.shared.debug("Failed to initialize CHHapticEngine: \(error)")
+            }
         }
 
         // MARK: - Impact Feedback
@@ -123,12 +140,41 @@ import Foundation
             success()
         }
 
-        /// Player collided with obstacle
+        /// Player collided with obstacle (uses advanced CHHapticEngine if available)
         func collision() {
-            heavy()
-            // Add delayed second impact for emphasis
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.medium()
+            guard isEnabled else { return }
+
+            // Try advanced haptics first
+            if CHHapticEngine.capabilitiesForHardware().supportsHaptics {
+                playAdvancedCollisionHaptic()
+            } else {
+                // Fallback to UIFeedbackGenerator
+                heavy()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                    self?.medium()
+                }
+            }
+        }
+
+        /// Advanced collision haptic using CHHapticEngine
+        private func playAdvancedCollisionHaptic() {
+            guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+
+            var events = [CHHapticEvent]()
+            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
+            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
+            let event = CHHapticEvent(
+                eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
+            events.append(event)
+
+            do {
+                let pattern = try CHHapticPattern(events: events, parameters: [])
+                let player = try hapticEngine?.makePlayer(with: pattern)
+                try player?.start(atTime: 0)
+            } catch {
+                GameLogger.shared.debug("Failed to play advanced collision haptic: \(error)")
+                // Fallback to standard heavy impact
+                heavy()
             }
         }
 
@@ -216,21 +262,21 @@ import Foundation
             Event(type: .light, delay: 0.0),
             Event(type: .light, delay: 1.0),
             Event(type: .light, delay: 2.0),
-            Event(type: .heavy, delay: 3.0)
+            Event(type: .heavy, delay: 3.0),
         ])
 
         /// Combo pattern (increasing intensity)
         static let combo = HapticPattern(events: [
             Event(type: .light, delay: 0.0),
             Event(type: .medium, delay: 0.1),
-            Event(type: .heavy, delay: 0.2)
+            Event(type: .heavy, delay: 0.2),
         ])
 
         /// Achievement unlocked
         static let achievement = HapticPattern(events: [
             Event(type: .success, delay: 0.0),
             Event(type: .medium, delay: 0.1),
-            Event(type: .medium, delay: 0.2)
+            Event(type: .medium, delay: 0.2),
         ])
     }
 

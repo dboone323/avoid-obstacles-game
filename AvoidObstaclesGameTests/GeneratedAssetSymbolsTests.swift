@@ -5,8 +5,8 @@
 //  Comprehensive test suite for GeneratedAssetSymbols
 //
 
-@testable import AvoidObstaclesGame
 import XCTest
+@testable import AvoidObstaclesGame
 
 final class GeneratedAssetSymbolsTests: XCTestCase {
     func testInitialization() {
