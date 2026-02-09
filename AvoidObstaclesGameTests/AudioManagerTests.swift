@@ -87,13 +87,13 @@ final class AudioManagerTests: XCTestCase {
 
     func testToggleSound() {
         XCTAssertNoThrow(sut.toggleSound())
-        XCTAssertNoThrow(sut.toggleSound())  // Toggle back
+        XCTAssertNoThrow(sut.toggleSound()) // Toggle back
     }
 
     func testToggleMusic() {
         XCTAssertNoThrow(sut.toggleMusic())
-        sut.stopBackgroundMusic()  // Clean up
-        XCTAssertNoThrow(sut.toggleMusic())  // Toggle back
+        sut.stopBackgroundMusic() // Clean up
+        XCTAssertNoThrow(sut.toggleMusic()) // Toggle back
         sut.stopBackgroundMusic()
     }
 
@@ -133,8 +133,8 @@ final class AudioManagerTests: XCTestCase {
 
     func testVolumeEdgeCases() {
         // Test volume at boundaries
-        XCTAssertNoThrow(sut.setSoundVolume(-0.1))  // Below minimum
-        XCTAssertNoThrow(sut.setSoundVolume(1.5))  // Above maximum
+        XCTAssertNoThrow(sut.setSoundVolume(-0.1)) // Below minimum
+        XCTAssertNoThrow(sut.setSoundVolume(1.5)) // Above maximum
         XCTAssertNoThrow(sut.setMusicVolume(-0.1))
         XCTAssertNoThrow(sut.setMusicVolume(1.5))
     }
@@ -189,14 +189,14 @@ final class AudioManagerTests: XCTestCase {
     // MARK: - State Management Tests
 
     func testSoundEnabledDisabledFlow() {
-        sut.toggleSound()  // Disable
-        XCTAssertNoThrow(sut.playCollision())  // Should not crash when disabled
-        sut.toggleSound()  // Re-enable
+        sut.toggleSound() // Disable
+        XCTAssertNoThrow(sut.playCollision()) // Should not crash when disabled
+        sut.toggleSound() // Re-enable
         XCTAssertNoThrow(sut.playCollision())
     }
 
     func testMusicEnabledDisabledFlow() {
-        sut.toggleMusic()  // May enable or disable depending on initial state
+        sut.toggleMusic() // May enable or disable depending on initial state
         XCTAssertNoThrow(sut.playBackgroundMusic())
         sut.toggleMusic()
         sut.stopBackgroundMusic()
@@ -205,14 +205,14 @@ final class AudioManagerTests: XCTestCase {
     // MARK: - Error Handling Tests
 
     func testPlayingSoundWhenDisabled() {
-        sut.toggleSound()  // Disable sounds
-        XCTAssertNoThrow(sut.playCollision())  // Should handle gracefully
-        sut.toggleSound()  // Re-enable
+        sut.toggleSound() // Disable sounds
+        XCTAssertNoThrow(sut.playCollision()) // Should handle gracefully
+        sut.toggleSound() // Re-enable
     }
 
     func testPlayingMusicWhenDisabled() {
-        sut.toggleMusic()  // May disable music
-        XCTAssertNoThrow(sut.playBackgroundMusic())  // Should handle gracefully
+        sut.toggleMusic() // May disable music
+        XCTAssertNoThrow(sut.playBackgroundMusic()) // Should handle gracefully
         sut.toggleMusic()
         sut.stopBackgroundMusic()
     }
@@ -222,6 +222,6 @@ final class AudioManagerTests: XCTestCase {
     func testStopMusicMultipleTimes() {
         sut.playBackgroundMusic()
         XCTAssertNoThrow(sut.stopBackgroundMusic())
-        XCTAssertNoThrow(sut.stopBackgroundMusic())  // Should not crash
+        XCTAssertNoThrow(sut.stopBackgroundMusic()) // Should not crash
     }
 }

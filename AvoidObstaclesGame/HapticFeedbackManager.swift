@@ -16,7 +16,7 @@ import Foundation
     class HapticFeedbackManager {
         // MARK: - Singleton
 
-        static let shared = HapticFeedbackManager()
+        @MainActor static let shared = HapticFeedbackManager()
 
         // MARK: - Properties
 
@@ -164,7 +164,8 @@ import Foundation
             let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
             let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
             let event = CHHapticEvent(
-                eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
+                eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0
+            )
             events.append(event)
 
             do {
@@ -284,7 +285,7 @@ import Foundation
 
     // macOS stub - haptics not available
     class HapticFeedbackManager {
-        static let shared = HapticFeedbackManager()
+        @MainActor static let shared = HapticFeedbackManager()
         private init() {}
 
         func prepare() {}

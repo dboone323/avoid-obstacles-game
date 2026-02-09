@@ -15,7 +15,7 @@ import SpriteKit
     class ThemeManager {
         // MARK: - Singleton
 
-        static let shared = ThemeManager()
+        @MainActor static let shared = ThemeManager()
 
         // MARK: - Theme Definition
 
@@ -309,7 +309,7 @@ import SpriteKit
     class ThemeManager {
         // MARK: - Singleton
 
-        static let shared = ThemeManager()
+        @MainActor static let shared = ThemeManager()
 
         // MARK: - Theme Definition
 

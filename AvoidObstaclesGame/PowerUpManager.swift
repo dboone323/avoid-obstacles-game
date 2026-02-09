@@ -43,7 +43,7 @@ class PowerUpManager {
         let rotate = SKAction.rotate(byAngle: .pi * 2, duration: 2.0)
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.2, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5)
+            SKAction.scale(to: 1.0, duration: 0.5),
         ])
         powerUp.run(SKAction.repeatForever(rotate), withKey: "rotate")
         powerUp.run(SKAction.repeatForever(pulse), withKey: "pulse")
@@ -90,7 +90,7 @@ class PowerUpManager {
         // Pulse animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5)
+            SKAction.scale(to: 1.0, duration: 0.5),
         ])
         shield.run(SKAction.repeatForever(pulse))
 
@@ -180,11 +180,11 @@ public enum PowerUpType: String, CaseIterable {
 
     var iconName: String {
         switch self {
-        case .shield: return "shield"
-        case .slowTime: return "clock"
-        case .speedBoost: return "bolt"
-        case .magnet: return "magnet"
-        case .doublePoints: return "star"
+        case .shield: "shield"
+        case .slowTime: "clock"
+        case .speedBoost: "bolt"
+        case .magnet: "magnet"
+        case .doublePoints: "star"
         }
     }
 
@@ -194,31 +194,31 @@ public enum PowerUpType: String, CaseIterable {
 
     var shape: PowerUpShape {
         switch self {
-        case .shield: return .circle
-        case .slowTime: return .triangle
-        case .speedBoost: return .triangle
-        case .magnet: return .square
-        case .doublePoints: return .circle
+        case .shield: .circle
+        case .slowTime: .triangle
+        case .speedBoost: .triangle
+        case .magnet: .square
+        case .doublePoints: .circle
         }
     }
 
     var color: SKColor {
         switch self {
-        case .shield: return .cyan
-        case .slowTime: return .yellow
-        case .speedBoost: return .orange
-        case .magnet: return .purple
-        case .doublePoints: return .systemGreen
+        case .shield: .cyan
+        case .slowTime: .yellow
+        case .speedBoost: .orange
+        case .magnet: .purple
+        case .doublePoints: .systemGreen
         }
     }
 
     var duration: TimeInterval {
         switch self {
-        case .shield: return 10.0
-        case .slowTime: return 5.0
-        case .speedBoost: return 8.0
-        case .magnet: return 6.0
-        case .doublePoints: return 10.0
+        case .shield: 10.0
+        case .slowTime: 5.0
+        case .speedBoost: 8.0
+        case .magnet: 6.0
+        case .doublePoints: 10.0
         }
     }
 }

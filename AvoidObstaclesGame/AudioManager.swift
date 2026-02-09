@@ -2,7 +2,7 @@ import AVFoundation
 
 /// Manages sound effects for the game
 class AudioManager {
-    static let shared = AudioManager()
+    @MainActor static let shared = AudioManager()
 
     private var soundPlayers: [String: AVAudioPlayer] = [:]
     private var musicPlayer: AVAudioPlayer?
@@ -22,7 +22,7 @@ class AudioManager {
             "powerup": "powerup.wav",
             "levelup": "levelup.wav",
             "button": "button.wav",
-            "whoosh": "whoosh.wav"
+            "whoosh": "whoosh.wav",
         ]
 
         for (key, filename) in soundFiles {

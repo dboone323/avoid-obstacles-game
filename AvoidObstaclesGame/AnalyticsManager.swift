@@ -6,7 +6,7 @@
 import Foundation
 
 class AnalyticsManager {
-    static let shared = AnalyticsManager()
+    @MainActor static let shared = AnalyticsManager()
 
     private init() {}
 
@@ -26,7 +26,7 @@ class AnalyticsManager {
     func trackGameOver(score: Int, survivalTime: TimeInterval) {
         trackEvent("game_over", parameters: [
             "score": score,
-            "survival_time": survivalTime
+            "survival_time": survivalTime,
         ])
     }
 

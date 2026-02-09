@@ -25,42 +25,42 @@ struct GameDifficulty {
     static func getDifficulty(for score: Int) -> GameDifficulty {
         switch score {
         case 0..<10:
-            return GameDifficulty(
+            GameDifficulty(
                 spawnInterval: 1.2,
                 obstacleSpeed: 3.5,
                 scoreMultiplier: 1.0,
                 powerUpSpawnChance: 0.02
             )
         case 10..<25:
-            return GameDifficulty(
+            GameDifficulty(
                 spawnInterval: 1.0,
                 obstacleSpeed: 3.0,
                 scoreMultiplier: 1.2,
                 powerUpSpawnChance: 0.03
             )
         case 25..<50:
-            return GameDifficulty(
+            GameDifficulty(
                 spawnInterval: 0.8,
                 obstacleSpeed: 2.5,
                 scoreMultiplier: 1.5,
                 powerUpSpawnChance: 0.04
             )
         case 50..<100:
-            return GameDifficulty(
+            GameDifficulty(
                 spawnInterval: 0.6,
                 obstacleSpeed: 2.0,
                 scoreMultiplier: 2.0,
                 powerUpSpawnChance: 0.05
             )
         case 100..<200:
-            return GameDifficulty(
+            GameDifficulty(
                 spawnInterval: 0.5,
                 obstacleSpeed: 1.5,
                 scoreMultiplier: 2.5,
                 powerUpSpawnChance: 0.06
             )
         default:
-            return GameDifficulty(
+            GameDifficulty(
                 spawnInterval: 0.4,
                 obstacleSpeed: 1.2,
                 scoreMultiplier: 3.0,

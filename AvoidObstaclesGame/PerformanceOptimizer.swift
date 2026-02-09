@@ -6,7 +6,7 @@
 import SpriteKit
 
 class PerformanceOptimizer {
-    static let shared = PerformanceOptimizer()
+    @MainActor static let shared = PerformanceOptimizer()
 
     private var nodePool: [String: [SKNode]] = [:]
     private let maxPoolSize = 50

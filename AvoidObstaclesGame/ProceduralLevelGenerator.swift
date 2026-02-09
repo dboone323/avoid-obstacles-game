@@ -7,7 +7,7 @@ import Foundation
 import SpriteKit
 
 class ProceduralLevelGenerator {
-    static let shared = ProceduralLevelGenerator()
+    @MainActor static let shared = ProceduralLevelGenerator()
 
     struct Level {
         let duration: TimeInterval

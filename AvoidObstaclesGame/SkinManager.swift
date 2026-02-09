@@ -2,7 +2,7 @@ import SpriteKit
 
 /// Manages player appearance customization
 class SkinManager {
-    static let shared = SkinManager()
+    @MainActor static let shared = SkinManager()
 
     private var currentSkin: PlayerSkin = .default
     private var unlockedSkins: Set<PlayerSkin> = [.default]
@@ -100,7 +100,7 @@ class SkinManager {
         glow.shouldRasterize = true
         glow.filter = CIFilter(name: "CIBloom", parameters: [
             "inputIntensity": 0.5,
-            "inputRadius": 10.0
+            "inputRadius": 10.0,
         ])
         node.parent?.addChild(glow)
         glow.addChild(node)
@@ -121,13 +121,13 @@ class SkinManager {
 
     private func getScoreRequired(for skin: PlayerSkin) -> Int {
         switch skin {
-        case .default: return 0
-        case .blue: return 100
-        case .red: return 500
-        case .gold: return 1000
-        case .rainbow: return 5000
-        case .cosmic: return 10000
-        default: return 100_000 // Fallback for unknown skins
+        case .default: 0
+        case .blue: 100
+        case .red: 500
+        case .gold: 1000
+        case .rainbow: 5000
+        case .cosmic: 10000
+        default: 100_000 // Fallback for unknown skins
         }
     }
 }
@@ -190,7 +190,7 @@ struct PlayerSkin: Hashable {
     )
 
     static let allSkins: [PlayerSkin] = [
-        .default, .blue, .red, .gold, .rainbow, .cosmic
+        .default, .blue, .red, .gold, .rainbow, .cosmic,
     ]
 
     static func fromId(_ id: String) -> PlayerSkin? {

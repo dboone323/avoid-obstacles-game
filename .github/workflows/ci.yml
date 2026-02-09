@@ -23,6 +23,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.2'
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v4
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Install SwiftLint
+        run: |
+          brew install swiftlint
+
+      - name: Lint Code
+        run: |
+          swiftlint --strict --reporter github-actions-logging
+
       - name: Build (${{ matrix.platform.name }})
         run: |
           xcodebuild build \
@@ -30,13 +51,64 @@ jobs:
             -destination '${{ matrix.platform.destination }}' \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_REQUIRED=NO \
+            OTHER_SWIFT_FLAGS="-Xfrontend -debug-time-function-bodies"
 
-      - name: Test (${{ matrix.platform.name }})
+      - name: Test with Coverage (${{ matrix.platform.name }})
         run: |
           xcodebuild test \
             -scheme AvoidObstaclesGame \
             -destination '${{ matrix.platform.destination }}' \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            -enableCodeCoverage YES \
+            -resultBundlePath TestResults
+
+      - name: Generate Coverage Report
+        if: matrix.platform.name == 'iOS'
+        run: |
+          xcrun xccov view --report --json TestResults.xcresult > coverage_report.json
+          xcrun xccov view --report TestResults.xcresult
+
+      - name: Upload Coverage to Codecov
+        if: matrix.platform.name == 'iOS'
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage_report.json
+          flags: ios
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: Check Code Coverage Threshold
+        if: matrix.platform.name == 'iOS'
+        run: |
+          COVERAGE=$(jq '.lineCoverage' coverage_report.json)
+          THRESHOLD=0.60
+          if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+            echo "Code coverage $COVERAGE is below threshold $THRESHOLD"
+            exit 1
+          else
+            echo "Code coverage $COVERAGE meets threshold $THRESHOLD"
+          fi
+
+      - name: Run Performance Tests
+        if: matrix.platform.name == 'iOS'
+        run: |
+          xcodebuild test \
+            -scheme AvoidObstaclesGame \
+            -destination '${{ matrix.platform.destination }}' \
+            -configuration Debug \
+            -only-testing:AvoidObstaclesGameTests/PerformanceTests \
+            CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO
+
+      - name: Archive Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.platform.name }}
+          path: |
+            TestResults.xcresult
+            coverage_report.json
+          retention-days: 30

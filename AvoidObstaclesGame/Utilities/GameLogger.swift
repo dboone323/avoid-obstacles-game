@@ -11,7 +11,7 @@ import os.log
 /// Centralized logger for AvoidObstaclesGame.
 /// Replaces print() statements with structured logging.
 final class GameLogger {
-    static let shared = GameLogger()
+    @MainActor static let shared = GameLogger()
 
     // MARK: - Log Categories
 

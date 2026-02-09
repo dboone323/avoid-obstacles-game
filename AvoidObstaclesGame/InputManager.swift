@@ -10,7 +10,7 @@ import SpriteKit
 #endif
 
 class InputManager {
-    static let shared = InputManager()
+    @MainActor static let shared = InputManager()
 
     enum ControlMode {
         case tap

@@ -225,7 +225,7 @@ class PlayerManager {
         // Visual feedback for collision
         let flashAction = SKAction.sequence([
             SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.1),
-            SKAction.colorize(withColorBlendFactor: 0, duration: 0.1)
+            SKAction.colorize(withColorBlendFactor: 0, duration: 0.1),
         ])
         player.run(flashAction)
 
@@ -313,7 +313,7 @@ class PlayerManager {
         // Pulsing animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.5),
-            SKAction.scale(to: 1.0, duration: 0.5)
+            SKAction.scale(to: 1.0, duration: 0.5),
         ])
         shield.run(SKAction.repeatForever(pulse))
 
@@ -352,7 +352,7 @@ class PlayerManager {
         // Pulsing and rotating animation
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.2, duration: 0.3),
-            SKAction.scale(to: 1.0, duration: 0.3)
+            SKAction.scale(to: 1.0, duration: 0.3),
         ])
         let rotate = SKAction.rotate(byAngle: .pi, duration: 0.6)
         let group = SKAction.group([pulse, rotate])
@@ -539,7 +539,7 @@ public enum PowerUpShape {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-private var objectPool: [Any] = []
+nonisolated(unsafe) private var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

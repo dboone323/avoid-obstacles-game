@@ -9,7 +9,7 @@
     import UIKit
 
     class ShareManager {
-        static let shared = ShareManager()
+        @MainActor static let shared = ShareManager()
 
         private init() {}
 

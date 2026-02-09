@@ -7,7 +7,7 @@
 import Foundation
 
 class ComboSystem {
-    static let shared = ComboSystem()
+    @MainActor static let shared = ComboSystem()
 
     private var currentCombo = 0
     private var bestCombo = 0

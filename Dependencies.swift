@@ -24,7 +24,7 @@ public struct Dependencies {
 
 /// Logger for debugging and analytics
 public final class Logger {
-    public static let shared = Logger()
+    public @MainActor static let shared = Logger()
 
     private static let defaultOutputHandler: @Sendable (String) -> Void = { message in
         print(message)

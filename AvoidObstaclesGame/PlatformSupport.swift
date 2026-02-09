@@ -18,7 +18,7 @@ import Foundation
 #endif
 
 class PlatformSupport {
-    static let shared = PlatformSupport()
+    @MainActor static let shared = PlatformSupport()
 
     var isTouch: Bool {
         #if os(iOS)

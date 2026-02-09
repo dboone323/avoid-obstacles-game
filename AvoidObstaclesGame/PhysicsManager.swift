@@ -131,14 +131,16 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
         case PhysicsCategory.player | PhysicsCategory.obstacle:
             // Player collided with obstacle
             if let playerNode = getNode(from: firstBody, secondBody),
-               let obstacleNode = getNode(from: secondBody, firstBody) {
+               let obstacleNode = getNode(from: secondBody, firstBody)
+            {
                 delegate?.playerDidCollideWithObstacle(playerNode, obstacle: obstacleNode)
             }
 
         case PhysicsCategory.player | PhysicsCategory.powerUp:
             // Player collided with power-up
             if let playerNode = getNode(from: firstBody, secondBody),
-               let powerUpNode = getNode(from: secondBody, firstBody) {
+               let powerUpNode = getNode(from: secondBody, firstBody)
+            {
                 delegate?.playerDidCollideWithPowerUp(playerNode, powerUp: powerUpNode)
             }
 
@@ -435,7 +437,7 @@ enum PhysicsQuality {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-private var objectPool: [Any] = []
+nonisolated(unsafe) private var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

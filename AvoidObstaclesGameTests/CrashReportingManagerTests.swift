@@ -42,7 +42,8 @@ final class CrashReportingManagerTests: XCTestCase {
 
         // Verify parameters
         if let entry = logs.first(where: { $0.event == "error" }),
-           let params = entry.parameters {
+           let params = entry.parameters
+        {
             // Params contain 'error': description
             // Accessing AnyCodable dict... depends on implementation.
             // The implementation maps [String: Any] to [String: AnyCodable].

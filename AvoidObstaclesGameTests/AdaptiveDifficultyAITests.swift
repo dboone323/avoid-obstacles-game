@@ -13,7 +13,7 @@ final class AdaptiveDifficultyAITests: XCTestCase {
         super.setUp()
         ai = AdaptiveDifficultyAI() // Use new instance if possible, but it's a singleton 'shared'.
         // If shared, state might persist.
-        // The class definition: `static let shared = AdaptiveDifficultyAI()`.
+        // The class definition: `@MainActor static let shared = AdaptiveDifficultyAI()`.
         // And `private var playerPerformance`.
         // We cannot easily reset the singleton without a reset method or creating a new instance if init is accessible.
         // The class has implicit internal init? `class AdaptiveDifficultyAI { ... }` (no private init).

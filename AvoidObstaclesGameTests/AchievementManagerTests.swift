@@ -15,7 +15,7 @@ final class AchievementManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         sut = AchievementManager.shared
-        sut.resetAllAchievements()  // Start with clean state
+        sut.resetAllAchievements() // Start with clean state
     }
 
     override func tearDown() {
@@ -34,7 +34,8 @@ final class AchievementManagerTests: XCTestCase {
     func testInitialization() {
         XCTAssertNoThrow(AchievementManager.shared)
         XCTAssertGreaterThan(
-            sut.getAllAchievements().count, 0, "Should have achievements configured")
+            sut.getAllAchievements().count, 0, "Should have achievements configured"
+        )
     }
 
     // MARK: - Achievement Query Tests
@@ -43,7 +44,8 @@ final class AchievementManagerTests: XCTestCase {
         let allAchievements = sut.getAllAchievements()
         XCTAssertFalse(allAchievements.isEmpty, "Should have at least one achievement")
         XCTAssertGreaterThanOrEqual(
-            allAchievements.count, 10, "Should have multiple achievements configured")
+            allAchievements.count, 10, "Should have multiple achievements configured"
+        )
     }
 
     func testGetUnlockedAchievements() {
@@ -73,7 +75,8 @@ final class AchievementManagerTests: XCTestCase {
         sut.updateProgress(for: .scoreReached(score: 100))
         XCTAssertTrue(
             sut.isAchievementUnlocked("score_100"),
-            "Score 100 achievement should unlock at score 100")
+            "Score 100 achievement should unlock at score 100"
+        )
     }
 
     func testMultipleScoreAchievements() {
@@ -206,7 +209,8 @@ final class AchievementManagerTests: XCTestCase {
 
         sut.updateProgress(for: .scoreReached(score: 100))
         XCTAssertEqual(
-            sut.totalPoints, pointsAfterFirst, "Points should not increase on duplicate unlock")
+            sut.totalPoints, pointsAfterFirst, "Points should not increase on duplicate unlock"
+        )
     }
 
     func testNegativeScoreHandling() {
@@ -242,17 +246,18 @@ final class AchievementManagerTests: XCTestCase {
 
     func testHiddenAchievements() {
         let achievements = sut.getAllAchievements()
-        let hiddenAchievements = achievements.filter { $0.isHidden }
+        let hiddenAchievements = achievements.filter(\.isHidden)
 
         XCTAssertGreaterThan(
-            hiddenAchievements.count, 0, "Should have at least one hidden achievement")
+            hiddenAchievements.count, 0, "Should have at least one hidden achievement"
+        )
     }
 
     // MARK: - Integration Tests
 
     func testFullGameFlow() {
         // Simulate a game session
-        sut.updateProgress(for: .gameCompleted, value: 30)  // 30 seconds survived
+        sut.updateProgress(for: .gameCompleted, value: 30) // 30 seconds survived
         sut.updateProgress(for: .scoreReached(score: 500))
         sut.updateProgress(for: .difficultyReached(level: 3))
         sut.updateProgress(for: .powerUpCollected)

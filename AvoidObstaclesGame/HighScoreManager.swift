@@ -11,7 +11,7 @@ import Foundation
 /// Provides methods to add, retrieve, and clear high scores for the AvoidObstaclesGame.
 class HighScoreManager {
     /// Shared singleton instance for global access.
-    static let shared = HighScoreManager()
+    @MainActor static let shared = HighScoreManager()
 
     /// UserDefaults key for storing high scores.
     private let highScoresKey = "AvoidObstaclesHighScores"
@@ -126,7 +126,7 @@ class HighScoreManager {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-private var objectPool: [Any] = []
+nonisolated(unsafe) private var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

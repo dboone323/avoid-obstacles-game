@@ -7,7 +7,7 @@ import GameKit
 
 /// Manages Game Center leaderboards and achievements
 class LeaderboardManager: NSObject {
-    static let shared = LeaderboardManager()
+    @MainActor static let shared = LeaderboardManager()
 
     private var isAuthenticated = false
 
@@ -28,7 +28,8 @@ class LeaderboardManager: NSObject {
                 // Present authentication view controller
                 #if os(iOS)
                     if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                       let rootVC = scene.windows.first?.rootViewController {
+                       let rootVC = scene.windows.first?.rootViewController
+                    {
                         rootVC.present(viewController, animated: true)
                     }
                 #elseif os(macOS)
@@ -58,7 +59,8 @@ class LeaderboardManager: NSObject {
         }
 
         GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
-                                  leaderboardIDs: [highScoreLeaderboard]) { error in
+                                  leaderboardIDs: [highScoreLeaderboard])
+        { error in
             if let error {
                 GameLogger.shared.debug("❌ Failed to submit score: \(error)")
             } else {

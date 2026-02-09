@@ -8,7 +8,7 @@ import QuartzCore
 
 /// Monitors application performance metrics with caching and thread safety
 public final class PerformanceManager {
-    public static let shared = PerformanceManager()
+    public @MainActor static let shared = PerformanceManager()
 
     private let frameQueue = DispatchQueue(
         label: "com.quantumworkspace.performance.frames",

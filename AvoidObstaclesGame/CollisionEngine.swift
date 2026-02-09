@@ -6,7 +6,7 @@
 import SpriteKit
 
 class CollisionEngine {
-    static let shared = CollisionEngine()
+    @MainActor static let shared = CollisionEngine()
 
     enum CollisionMode {
         case standard
@@ -22,9 +22,9 @@ class CollisionEngine {
     func checkCollision(between node1: SKNode, and node2: SKNode) -> Bool {
         switch mode {
         case .standard:
-            return standardCollision(node1, node2)
+            standardCollision(node1, node2)
         case .pixelPerfect:
-            return pixelPerfectCollision(node1, node2)
+            pixelPerfectCollision(node1, node2)
         }
     }
 

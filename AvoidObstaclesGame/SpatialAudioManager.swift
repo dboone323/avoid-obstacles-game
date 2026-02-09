@@ -7,7 +7,7 @@ import AVFoundation
 import SpriteKit
 
 class SpatialAudioManager {
-    static let shared = SpatialAudioManager()
+    @MainActor static let shared = SpatialAudioManager()
 
     private var audioEngine: AVAudioEngine?
     private var players: [String: AVAudioPlayerNode] = [:]

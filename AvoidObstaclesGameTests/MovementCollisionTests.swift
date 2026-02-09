@@ -183,7 +183,7 @@ final class MovementCollisionTests: XCTestCase {
             PhysicsCategory.player,
             PhysicsCategory.obstacle,
             PhysicsCategory.powerUp,
-            PhysicsCategory.boundary
+            PhysicsCategory.boundary,
         ]
 
         let uniqueCategories = Set(categories)

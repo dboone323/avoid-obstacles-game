@@ -460,25 +460,23 @@ extension GameScene: PhysicsManagerDelegate {
         audioManager.playPowerUp()
 
         // Determine power-up type from identifier (accessible - not color-based)
-        let powerUpType: PowerUpType
-
-        if let nodeName = powerUp.name {
+        let powerUpType: PowerUpType = if let nodeName = powerUp.name {
             switch nodeName {
             case PowerUpType.shield.identifier:
-                powerUpType = .shield
+                .shield
             case PowerUpType.speedBoost.identifier:
-                powerUpType = .speedBoost
+                .speedBoost
             case PowerUpType.magnet.identifier:
-                powerUpType = .magnet
+                .magnet
             case PowerUpType.slowTime.identifier:
-                powerUpType = .slowTime
+                .slowTime
             case PowerUpType.doublePoints.identifier:
-                powerUpType = .doublePoints
+                .doublePoints
             default:
-                powerUpType = .shield // Default fallback
+                .shield // Default fallback
             }
         } else {
-            powerUpType = .shield // Default fallback
+            .shield // Default fallback
         }
 
         playerManager.applyPowerUpEffect(powerUpType)

@@ -6,7 +6,7 @@
 import Foundation
 
 class AdaptiveDifficultyAI {
-    static let shared = AdaptiveDifficultyAI()
+    @MainActor static let shared = AdaptiveDifficultyAI()
 
     private var playerPerformance: [PerformanceData] = []
     private var currentMultiplier: Double = 1.0
@@ -50,7 +50,8 @@ class AdaptiveDifficultyAI {
     }
 
     func getAdjustedDifficulty(base: GameConfiguration.Difficulty.DifficultyLevel) -> GameConfiguration.Difficulty
-    .DifficultyLevel {
+        .DifficultyLevel
+    {
         GameConfiguration.Difficulty.DifficultyLevel(
             scoreThreshold: base.scoreThreshold,
             spawnInterval: base.spawnInterval / currentMultiplier,

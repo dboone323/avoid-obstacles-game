@@ -166,7 +166,7 @@ class GameStateManager {
             "totalScore": totalScore,
             "averageScore": gamesPlayed > 0 ? Double(totalScore) / Double(gamesPlayed) : 0,
             "bestSurvivalTime": bestSurvivalTime,
-            "highestScore": HighScoreManager.shared.getHighestScore()
+            "highestScore": HighScoreManager.shared.getHighestScore(),
         ]
     }
 
@@ -179,7 +179,7 @@ class GameStateManager {
             "totalScore": totalScore,
             "averageScore": gamesPlayed > 0 ? Double(totalScore) / Double(gamesPlayed) : 0,
             "bestSurvivalTime": bestSurvivalTime,
-            "highestScore": highestScore
+            "highestScore": highestScore,
         ]
     }
 
@@ -263,7 +263,7 @@ class GameStateManager {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-private var objectPool: [Any] = []
+nonisolated(unsafe) private var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

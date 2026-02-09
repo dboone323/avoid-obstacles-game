@@ -14,11 +14,11 @@ enum EnhancedObstacleType: CaseIterable {
 
     var points: Int {
         switch self {
-        case .basic: return 1
-        case .spinning: return 2
-        case .zigzag: return 3
-        case .splitting: return 4
-        case .phasing: return 5
+        case .basic: 1
+        case .spinning: 2
+        case .zigzag: 3
+        case .splitting: 4
+        case .phasing: 5
         }
     }
 
@@ -80,7 +80,7 @@ extension ObstacleManager {
 
         obstacle.run(SKAction.sequence([
             moveAction,
-            SKAction.removeFromParent()
+            SKAction.removeFromParent(),
         ]))
     }
 }

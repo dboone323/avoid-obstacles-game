@@ -13,7 +13,7 @@ import Foundation
 class CrashReportingManager {
     // MARK: - Singleton
 
-    static let shared = CrashReportingManager()
+    @MainActor static let shared = CrashReportingManager()
 
     // MARK: - Properties
 
@@ -42,7 +42,7 @@ class CrashReportingManager {
         // Log app launch
         log(event: "app_launch", parameters: [
             "timestamp": ISO8601DateFormatter().string(from: Date()),
-            "system_version": ProcessInfo.processInfo.operatingSystemVersionString
+            "system_version": ProcessInfo.processInfo.operatingSystemVersionString,
         ])
     }
 
@@ -55,7 +55,7 @@ class CrashReportingManager {
         let errorInfo: [String: Any] = [
             "error": error.localizedDescription,
             "timestamp": ISO8601DateFormatter().string(from: Date()),
-            "additional_info": additionalInfo ?? [:]
+            "additional_info": additionalInfo ?? [:],
         ]
 
         log(event: "error", parameters: errorInfo)
@@ -95,7 +95,7 @@ class CrashReportingManager {
     /// Log game session start
     func logGameStart() {
         log(event: "game_start", parameters: [
-            "session_id": UUID().uuidString
+            "session_id": UUID().uuidString,
         ])
     }
 
@@ -104,7 +104,7 @@ class CrashReportingManager {
         log(event: "game_over", parameters: [
             "score": score,
             "survival_time": survivalTime,
-            "level": level
+            "level": level,
         ])
     }
 
@@ -131,7 +131,7 @@ class CrashReportingManager {
                 "name": exception.name.rawValue,
                 "reason": exception.reason ?? "Unknown",
                 "stack": exception.callStackSymbols.prefix(10).joined(separator: "\n"),
-                "timestamp": ISO8601DateFormatter().string(from: Date())
+                "timestamp": ISO8601DateFormatter().string(from: Date()),
             ]
 
             CrashReportingManager.shared.log(event: "uncaught_exception", parameters: info)
@@ -149,7 +149,8 @@ class CrashReportingManager {
 
         // Read existing entries
         if let data = try? Data(contentsOf: logPath),
-           let existing = try? JSONDecoder().decode([CrashLogEntry].self, from: data) {
+           let existing = try? JSONDecoder().decode([CrashLogEntry].self, from: data)
+        {
             entries = existing.suffix(99) // Keep last 99 entries
         }
 

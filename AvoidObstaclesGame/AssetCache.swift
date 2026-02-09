@@ -12,7 +12,7 @@ import SpriteKit
 #endif
 
 class AssetCache {
-    static let shared = AssetCache()
+    @MainActor static let shared = AssetCache()
 
     private var textures: [String: SKTexture] = [:]
     private var sounds: [String: SKAction] = [:]

@@ -15,7 +15,7 @@ import SpriteKit
     class AccessibilityManager {
         // MARK: - Singleton
 
-        static let shared = AccessibilityManager()
+        @MainActor static let shared = AccessibilityManager()
 
         // MARK: - Properties
 
@@ -207,11 +207,11 @@ import SpriteKit
     extension PowerUpType {
         var name: String {
             switch self {
-            case .shield: return "Shield"
-            case .speedBoost: return "Speed Boost"
-            case .magnet: return "Magnet"
-            case .slowTime: return "Slow Time"
-            case .doublePoints: return "Double Points"
+            case .shield: "Shield"
+            case .speedBoost: "Speed Boost"
+            case .magnet: "Magnet"
+            case .slowTime: "Slow Time"
+            case .doublePoints: "Double Points"
             }
         }
     }

@@ -59,7 +59,8 @@ struct GameConfiguration: Codable {
 
         init(minSize: CGSize, maxSize: CGSize, poolSize: Int,
              spawnIntervalRange: ClosedRange<TimeInterval>,
-             fallSpeedRange: ClosedRange<CGFloat>) {
+             fallSpeedRange: ClosedRange<CGFloat>)
+        {
             self.minSize = minSize
             self.maxSize = maxSize
             self.poolSize = poolSize
@@ -147,7 +148,7 @@ struct GameConfiguration: Codable {
                 obstacleSpeed: 450,
                 scoreMultiplier: 3.0,
                 obstacleCount: 6
-            )
+            ),
         ])
     }
 

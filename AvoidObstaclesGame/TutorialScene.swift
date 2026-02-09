@@ -25,34 +25,34 @@ import SpriteKit
             var title: String {
                 switch self {
                 case .welcome:
-                    return LocalizationManager.shared.string(for: .tutorialWelcome)
+                    LocalizationManager.shared.string(for: .tutorialWelcome)
                 case .movement:
-                    return "Movement Controls"
+                    "Movement Controls"
                 case .obstacles:
-                    return "Avoid Obstacles"
+                    "Avoid Obstacles"
                 case .powerUps:
-                    return "Collect Power-Ups"
+                    "Collect Power-Ups"
                 case .scoring:
-                    return "Score Points"
+                    "Score Points"
                 case .complete:
-                    return "You're Ready!"
+                    "You're Ready!"
                 }
             }
 
             var instruction: String {
                 switch self {
                 case .welcome:
-                    return "Welcome to Avoid Obstacles! Let's learn how to play."
+                    "Welcome to Avoid Obstacles! Let's learn how to play."
                 case .movement:
-                    return "Tap or drag to move your ship. Try moving left and right."
+                    "Tap or drag to move your ship. Try moving left and right."
                 case .obstacles:
-                    return "Red blocks are obstacles. Avoid them! Try dodging this one."
+                    "Red blocks are obstacles. Avoid them! Try dodging this one."
                 case .powerUps:
-                    return "Blue items are power-ups. Collect them for bonuses!"
+                    "Blue items are power-ups. Collect them for bonuses!"
                 case .scoring:
-                    return "Dodge obstacles and collect power-ups to score points."
+                    "Dodge obstacles and collect power-ups to score points."
                 case .complete:
-                    return "Great job! You're ready to play. Tap to start!"
+                    "Great job! You're ready to play. Tap to start!"
                 }
             }
         }
@@ -394,7 +394,7 @@ import SpriteKit
                     addChild(flash)
                     flash.run(SKAction.sequence([
                         SKAction.fadeOut(withDuration: 0.3),
-                        SKAction.removeFromParent()
+                        SKAction.removeFromParent(),
                     ]))
                 }
             }

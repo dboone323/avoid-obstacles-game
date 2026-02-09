@@ -11,7 +11,7 @@ import Foundation
 class LocalizationManager {
     // MARK: - Singleton
 
-    static let shared = LocalizationManager()
+    @MainActor static let shared = LocalizationManager()
 
     // MARK: - Properties
 
@@ -26,12 +26,12 @@ class LocalizationManager {
 
         var displayName: String {
             switch self {
-            case .english: return "English"
-            case .spanish: return "Español"
-            case .french: return "Français"
-            case .german: return "Deutsch"
-            case .japanese: return "日本語"
-            case .chinese: return "简体中文"
+            case .english: "English"
+            case .spanish: "Español"
+            case .french: "Français"
+            case .german: "Deutsch"
+            case .japanese: "日本語"
+            case .chinese: "简体中文"
             }
         }
     }
@@ -127,39 +127,39 @@ enum LocalizationKey {
     var defaultValue: String {
         switch self {
         // Menu
-        case .menuPlay: return "Play"
-        case .menuSettings: return "Settings"
-        case .menuLeaderboard: return "Leaderboard"
-        case .menuQuit: return "Quit"
+        case .menuPlay: "Play"
+        case .menuSettings: "Settings"
+        case .menuLeaderboard: "Leaderboard"
+        case .menuQuit: "Quit"
         // Game
-        case .gameScore: return "Score"
-        case .gameHighScore: return "High Score"
-        case .gamePaused: return "Paused"
-        case .gameOver: return "Game Over"
-        case .gameNewHighScore: return "New High Score!"
+        case .gameScore: "Score"
+        case .gameHighScore: "High Score"
+        case .gamePaused: "Paused"
+        case .gameOver: "Game Over"
+        case .gameNewHighScore: "New High Score!"
         // Settings
-        case .settingsTitle: return "Settings"
-        case .settingsAudio: return "Audio"
-        case .settingsGraphics: return "Graphics"
-        case .settingsControls: return "Controls"
-        case .settingsAccessibility: return "Accessibility"
-        case .settingsLanguage: return "Language"
+        case .settingsTitle: "Settings"
+        case .settingsAudio: "Audio"
+        case .settingsGraphics: "Graphics"
+        case .settingsControls: "Controls"
+        case .settingsAccessibility: "Accessibility"
+        case .settingsLanguage: "Language"
         // Tutorial
-        case .tutorialWelcome: return "Welcome to Avoid Obstacles!"
-        case .tutorialControls: return "Tap or tilt to move your ship"
-        case .tutorialObjective: return "Dodge falling obstacles to score points"
-        case .tutorialStart: return "Tap to Start"
+        case .tutorialWelcome: "Welcome to Avoid Obstacles!"
+        case .tutorialControls: "Tap or tilt to move your ship"
+        case .tutorialObjective: "Dodge falling obstacles to score points"
+        case .tutorialStart: "Tap to Start"
         // Achievements
-        case .achievementUnlocked: return "Achievement Unlocked!"
-        case .achievementFirstGame: return "First Steps"
-        case .achievementScore100: return "Century"
-        case .achievementScore500: return "High Flyer"
-        case .achievementScore1000: return "Legend"
+        case .achievementUnlocked: "Achievement Unlocked!"
+        case .achievementFirstGame: "First Steps"
+        case .achievementScore100: "Century"
+        case .achievementScore500: "High Flyer"
+        case .achievementScore1000: "Legend"
         // Accessibility
-        case .accessibilityPlayerLabel: return "Player ship"
-        case .accessibilityObstacleLabel: return "Obstacle"
-        case .accessibilityPowerUpLabel: return "Power-up"
-        case .accessibilityScoreLabel: return "Score: %d points"
+        case .accessibilityPlayerLabel: "Player ship"
+        case .accessibilityObstacleLabel: "Obstacle"
+        case .accessibilityPowerUpLabel: "Power-up"
+        case .accessibilityScoreLabel: "Score: %d points"
         }
     }
 }

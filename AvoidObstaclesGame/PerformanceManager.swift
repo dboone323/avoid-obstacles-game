@@ -69,7 +69,7 @@ class PerformanceManager {
     // MARK: - Properties
 
     /// Shared singleton instance
-    static let shared = PerformanceManager()
+    @MainActor static let shared = PerformanceManager()
 
     /// Delegate for performance events
     weak var delegate: PerformanceDelegate?
@@ -384,7 +384,7 @@ struct PerformanceStats {
             "currentMemoryUsage": self.currentMemoryUsage,
             "peakMemoryUsage": self.peakMemoryUsage,
             "cleanupCount": self.cleanupCount,
-            "qualityLevel": self.currentQualityLevel
+            "qualityLevel": self.currentQualityLevel,
         ]
     }
 }
@@ -392,7 +392,7 @@ struct PerformanceStats {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-private var objectPool: [Any] = []
+nonisolated(unsafe) private var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one
