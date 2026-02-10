@@ -161,7 +161,6 @@ import SpriteKit
         }
 
         // MARK: - Theme Application
-        // Note: applyTheme(to scene:) moved to common extension to avoid duplication
 
         /// Applies theme to a specific node based on its role
         @MainActor
@@ -431,7 +430,6 @@ import SpriteKit
         }
 
         // MARK: - Theme Application
-        // Note: applyTheme(to scene:) moved to common extension to avoid duplication
 
         /// Applies theme to a specific node based on its role
         @MainActor
