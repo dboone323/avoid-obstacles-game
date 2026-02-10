@@ -11,6 +11,7 @@ import SpriteKit
 #endif
 
 /// Manages visual effects and animations
+@MainActor
 class EffectsManager {
     // MARK: - Properties
 

@@ -160,7 +160,9 @@ import SpriteKit
 
         // MARK: - Theme Application
 
-        /// Applies current theme to a scene
+        /// Applies the current theme to a scene
+        /// - Parameter scene: The scene to apply the theme to
+        @MainActor
         func applyTheme(to scene: SKScene) {
             let theme = currentTheme
 
@@ -191,6 +193,7 @@ import SpriteKit
         }
 
         /// Applies theme to a specific node based on its role
+        @MainActor
         func applyTheme(to node: SKNode, role: NodeRole) {
             let theme = currentTheme
 
@@ -225,6 +228,7 @@ import SpriteKit
         }
 
         /// Adjusts color for accessibility if needed
+        @MainActor
         func accessibleColor(for role: NodeRole) -> UIColor {
             var color = self.color(for: role)
 
@@ -454,7 +458,9 @@ import SpriteKit
 
         // MARK: - Theme Application
 
-        /// Applies current theme to a scene
+        /// Applies the current theme to a scene
+        /// - Parameter scene: The scene to apply the theme to
+        @MainActor
         func applyTheme(to scene: SKScene) {
             let theme = currentTheme
 
@@ -485,6 +491,7 @@ import SpriteKit
         }
 
         /// Applies theme to a specific node based on its role
+        @MainActor
         func applyTheme(to node: SKNode, role: NodeRole) {
             let theme = currentTheme
 

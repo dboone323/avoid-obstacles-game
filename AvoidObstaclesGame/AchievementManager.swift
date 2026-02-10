@@ -14,7 +14,7 @@ protocol AchievementDelegate: AnyObject {
 }
 
 /// Represents an achievement in the game
-public struct Achievement: Codable, Identifiable {
+public struct Achievement: Codable, Identifiable, Sendable {
     public let id: String
     let title: String
     let description: String
@@ -257,6 +257,7 @@ class AchievementManager {
     /// Updates achievement progress based on game events
     /// - Parameter event: The game event that occurred
     /// - Parameter value: The value associated with the event
+    @MainActor
     func updateProgress(for event: AchievementEvent, value: Int = 1) {
         switch event {
         case .gameCompleted:
@@ -350,6 +351,7 @@ class AchievementManager {
     }
 
     /// Unlocks an achievement
+    @MainActor
     private func unlockAchievement(_ id: String) {
         guard var achievement = achievements[id], !achievement.isUnlocked else { return }
 
@@ -544,9 +546,25 @@ class AchievementManager {
 
     /// Gets achievement statistics asynchronously
     /// - Returns: Dictionary of statistics
-    func getAchievementStatisticsAsync() async -> [String: Any] {
+    func getAchievementStatisticsAsync() async -> [String: Sendable] {
         await Task.detached {
-            self.getAchievementStatistics()
+            let stats = self.getAchievementStatistics()
+            // Convert to Sendable types
+            return stats.mapValues { value in
+                if let intValue = value as? Int {
+                    return intValue
+                } else if let doubleValue = value as? Double {
+                    return doubleValue
+                } else if let stringValue = value as? String {
+                    return stringValue
+                } else if let boolValue = value as? Bool {
+                    return boolValue
+                } else if let arrayValue = value as? [Achievement] {
+                    return arrayValue // Achievement is Sendable
+                } else {
+                    return String(describing: value) // Fallback to string
+                }
+            }
         }.value
     }
 

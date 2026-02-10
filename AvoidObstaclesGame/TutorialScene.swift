@@ -22,20 +22,20 @@ import SpriteKit
             case scoring
             case complete
 
-            var title: String {
+            func getTitle() async -> String {
                 switch self {
                 case .welcome:
-                    LocalizationManager.shared.string(for: .tutorialWelcome)
+                    return await LocalizationManager.shared.string(for: .tutorialWelcome)
                 case .movement:
-                    "Movement Controls"
+                    return "Movement Controls"
                 case .obstacles:
-                    "Avoid Obstacles"
+                    return "Avoid Obstacles"
                 case .powerUps:
-                    "Collect Power-Ups"
+                    return "Collect Power-Ups"
                 case .scoring:
-                    "Score Points"
+                    return "Score Points"
                 case .complete:
-                    "You're Ready!"
+                    return "You're Ready!"
                 }
             }
 
@@ -191,7 +191,7 @@ import SpriteKit
             currentStep = step
 
             // Update UI
-            titleLabel.text = step.title
+            titleLabel.text = step.getTitle()
             instructionLabel.text = step.instruction
             updateProgressBar()
 
@@ -233,7 +233,7 @@ import SpriteKit
             }
 
             // Announce to VoiceOver
-            accessibility.announce("\(step.title). \(step.instruction)")
+            accessibility.announce("\(step.getTitle()). \(step.instruction)")
         }
 
         private func updateProgressBar() {

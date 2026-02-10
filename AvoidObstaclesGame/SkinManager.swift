@@ -13,7 +13,7 @@ class SkinManager {
 
     // MARK: - Skin Application
 
-    func applySkin(_ skin: PlayerSkin, to node: SKSpriteNode) {
+    @MainActor func applySkin(_ skin: PlayerSkin, to node: SKSpriteNode) {
         guard unlockedSkins.contains(skin) else {
             GameLogger.shared.debug("Skin \(skin.name) is locked")
             return
@@ -95,7 +95,7 @@ class SkinManager {
         node.addChild(trail)
     }
 
-    private func addGlowEffect(to node: SKNode) {
+    @MainActor private func addGlowEffect(to node: SKNode) {
         let glow = SKEffectNode()
         glow.shouldRasterize = true
         glow.filter = CIFilter(name: "CIBloom", parameters: [

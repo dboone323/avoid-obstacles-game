@@ -6,8 +6,9 @@ import GameKit
 #endif
 
 /// Manages Game Center leaderboards and achievements
+@MainActor
 class LeaderboardManager: NSObject {
-    @MainActor static let shared = LeaderboardManager()
+    static let shared = LeaderboardManager()
 
     private var isAuthenticated = false
 

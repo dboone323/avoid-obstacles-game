@@ -30,7 +30,7 @@ class CrashReportingManager {
     // MARK: - Configuration
 
     /// Call this in AppDelegate or App init to enable crash reporting
-    func configure() {
+    @MainActor func configure() {
         #if DEBUG
             GameLogger.shared.debug("💥 CrashReportingManager: Configured (Debug mode - local logging only)")
         #else
@@ -49,7 +49,7 @@ class CrashReportingManager {
     // MARK: - Logging
 
     /// Log a non-fatal error
-    func recordError(_ error: Error, additionalInfo: [String: Any]? = nil) {
+    @MainActor func recordError(_ error: Error, additionalInfo: [String: Any]? = nil) {
         guard isEnabled else { return }
 
         let errorInfo: [String: Any] = [
@@ -137,7 +137,8 @@ class CrashReportingManager {
             CrashReportingManager.shared.log(event: "uncaught_exception", parameters: info)
 
             #if DEBUG
-                GameLogger.shared.debug("💥 CRASH: \(exception.name.rawValue) - \(exception.reason ?? "Unknown")")
+                // Use non-isolated logging for crash handler
+                print("💥 CRASH: \(exception.name.rawValue) - \(exception.reason ?? "Unknown")")
             #endif
         }
     }

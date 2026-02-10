@@ -5,8 +5,9 @@
 
 import Foundation
 
+@MainActor
 class PowerUpSystem {
-    @MainActor static let shared = PowerUpSystem()
+    static let shared = PowerUpSystem()
 
     private var activePowerUps: [String: Date] = [:]
 

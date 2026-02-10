@@ -21,10 +21,12 @@ class InputController {
     // MARK: - Touch Input (iOS)
 
     #if os(iOS)
+        @MainActor
         func handleTouchBegan(_ touch: UITouch, in scene: SKScene) {
             touchLocation = touch.location(in: scene)
         }
 
+        @MainActor
         func handleTouchMoved(_ touch: UITouch, in scene: SKScene) {
             touchLocation = touch.location(in: scene)
             updatePlayerPosition()
@@ -35,6 +37,7 @@ class InputController {
         }
     #endif
 
+    @MainActor
     private func updatePlayerPosition() {
         guard let player = playerNode,
               let target = touchLocation else { return }
@@ -86,6 +89,7 @@ class InputController {
 
     // MARK: - Gestures
 
+    @MainActor
     func handleSwipe(direction: SwipeDirection, velocity: CGFloat) {
         guard let player = playerNode else { return }
 

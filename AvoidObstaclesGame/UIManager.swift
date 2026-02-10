@@ -72,6 +72,7 @@ class UIManager {
     // MARK: - Setup
 
     /// Sets up all initial UI elements
+    @MainActor
     func setupUI() {
         setupScoreLabel()
         setupHighScoreLabel()
@@ -79,6 +80,7 @@ class UIManager {
     }
 
     /// Sets up the score label
+    @MainActor
     private func setupScoreLabel() {
         guard let scene else { return }
 
@@ -100,6 +102,7 @@ class UIManager {
     }
 
     /// Sets up the high score label
+    @MainActor
     private func setupHighScoreLabel() {
         guard let scene else { return }
 
@@ -122,6 +125,7 @@ class UIManager {
     }
 
     /// Sets up the difficulty label
+    @MainActor
     private func setupDifficultyLabel() {
         guard let scene else { return }
 
@@ -170,6 +174,7 @@ class UIManager {
     /// - Parameters:
     ///   - finalScore: The player's final score
     ///   - isNewHighScore: Whether this is a new high score
+    @MainActor
     func showGameOverScreen(finalScore: Int, isNewHighScore: Bool) {
         guard let scene else { return }
 
@@ -264,6 +269,7 @@ class UIManager {
     // MARK: - Level Up Effects
 
     /// Shows a level up effect
+    @MainActor
     func showLevelUpEffect() {
         guard let scene else { return }
 
@@ -299,6 +305,7 @@ class UIManager {
     /// - Parameters:
     ///   - score: The score value to display
     ///   - position: Where to show the popup
+    @MainActor
     func showScorePopup(score: Int, at position: CGPoint) {
         guard let scene else { return }
 
@@ -326,6 +333,7 @@ class UIManager {
 
     /// Shows game statistics overlay
     /// - Parameter statistics: Dictionary of statistics to display
+    @MainActor
     func showStatistics(_ statistics: [String: Any]) {
         guard let scene else { return }
 
@@ -361,6 +369,7 @@ class UIManager {
     }
 
     /// Hides the statistics display
+    @MainActor
     func hideStatistics() {
         for label in statisticsLabels {
             label.run(SKAction.sequence([fadeOutAction, SKAction.removeFromParent()]))
@@ -372,6 +381,7 @@ class UIManager {
 
     /// Handles touch events for UI interactions
     /// - Parameter location: Touch location in scene coordinates
+    @MainActor
     func handleTouch(at location: CGPoint) {
         // Check if restart label was tapped
         if let restartLabel,
@@ -413,6 +423,7 @@ class UIManager {
     // MARK: - Cleanup
 
     /// Removes all UI elements from the scene
+    @MainActor
     func removeAllUI() {
         let allLabels = [
             scoreLabel,
@@ -476,6 +487,7 @@ class UIManager {
 
     /// Enables or disables performance monitoring overlay
     /// - Parameter enabled: Whether to show performance stats
+    @MainActor
     func setPerformanceMonitoring(enabled: Bool) {
         performanceMonitoringEnabled = enabled
 

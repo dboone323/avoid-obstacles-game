@@ -138,6 +138,15 @@ final class GameLogger {
         #endif
     }
 
+    /// Non-isolated debug method that can be called from any context
+    static func debugNonIsolated(_ message: String) {
+        #if DEBUG
+            Task { @MainActor in
+                shared.debug(message)
+            }
+        #endif
+    }
+
     func error(_ message: String) {
         gameLog.error("❌ \(message)")
     }
@@ -150,6 +159,7 @@ final class GameLogger {
 // MARK: - Convenience Global Function
 
 /// Drop-in replacement for print() that uses structured logging
+@MainActor
 func gameLog(_ message: String, category: LogCategory = .game) {
     #if DEBUG
         switch category {
