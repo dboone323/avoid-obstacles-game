@@ -118,7 +118,6 @@ struct IntelligentGameView: View {
                         }
                     }
                     .padding(.top, 300)
-
                 } else {
                     VStack(spacing: 20) {
                         Text("🚀 Ready to Play")

@@ -8,7 +8,6 @@
 import XCTest
 
 final class GamePlayTests: XCTestCase {
-
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
