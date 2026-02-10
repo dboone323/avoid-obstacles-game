@@ -73,7 +73,7 @@ jobs:
 
       - name: Upload Coverage to Codecov
         if: matrix.platform.name == 'iOS'
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage_report.json
           flags: ios
