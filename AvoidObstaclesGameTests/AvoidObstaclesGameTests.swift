@@ -22,7 +22,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Game Mechanics Tests
 
-    func testPlayerMovement() throws {
+    func testPlayerMovement() {
         // Test basic player movement mechanics with GameScene
         let scene = GameScene(size: CGSize(width: 375, height: 667))
         let view = SKView(frame: CGRect(x: 0, y: 0, width: 375, height: 667))
@@ -41,7 +41,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertEqual(scene.physicsWorld.contactDelegate as? GameScene, scene)
     }
 
-    func testObstacleGeneration() throws {
+    func testObstacleGeneration() {
         // Test obstacle node creation
         let scene = GameScene(size: CGSize(width: 375, height: 667))
         let view = SKView(frame: CGRect(x: 0, y: 0, width: 375, height: 667))
@@ -63,7 +63,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertEqual(obstacleNode.size.height, 50)
     }
 
-    func testCollisionDetection() throws {
+    func testCollisionDetection() {
         // Test physics category bitmasks are properly configured
         let playerCategory = PhysicsCategory.player
         let obstacleCategory = PhysicsCategory.obstacle
@@ -83,7 +83,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Score System Tests
 
-    func testScoreCalculation() throws {
+    func testScoreCalculation() {
         // Test score calculation based on game progress
         let baseScore = 100
         let timeBonus = 50
@@ -95,7 +95,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertGreaterThan(totalScore, baseScore, "Total score should be greater than base score")
     }
 
-    func testHighScoreTracking() throws {
+    func testHighScoreTracking() {
         // Test high score tracking and updating
         var currentHighScore = 1000
         let newScore = 1200
@@ -108,7 +108,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(currentHighScore, 1000, "High score should never decrease")
     }
 
-    func testScoreMultiplier() throws {
+    func testScoreMultiplier() {
         // Test score multipliers for combo systems
         let basePoints = 10
         let multiplier = 2.5
@@ -122,7 +122,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Game State Tests
 
-    func testGameStartState() throws {
+    func testGameStartState() {
         // Test initial game state using GameStateManager
         let gameStateManager = GameStateManager()
 
@@ -138,7 +138,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertEqual(gameStateManager.getCurrentDifficultyLevel(), 1, "Difficulty should be 1 at start")
     }
 
-    func testGameOverCondition() throws {
+    func testGameOverCondition() {
         // Test game over conditions using GameStateManager
         let gameStateManager = GameStateManager()
 
@@ -151,7 +151,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertFalse(gameStateManager.isGameActive(), "Game should not be active after game over")
     }
 
-    func testPauseResumeFunctionality() throws {
+    func testPauseResumeFunctionality() {
         // Test pause and resume functionality using GameStateManager
         let gameStateManager = GameStateManager()
 
@@ -172,7 +172,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Level System Tests
 
-    func testLevelProgression() throws {
+    func testLevelProgression() {
         // Test level progression logic
         var currentLevel = 1
         let scoreThreshold = 1000
@@ -185,7 +185,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertEqual(currentLevel, 2, "Level should progress when score threshold is met")
     }
 
-    func testDifficultyScaling() throws {
+    func testDifficultyScaling() {
         // Test difficulty scaling with level
         let level = 5
         let baseSpeed = 100.0
@@ -199,7 +199,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         )
     }
 
-    func testLevelCompletion() throws {
+    func testLevelCompletion() {
         // Test level completion detection
         let levelDistance = 1000.0
         let playerDistance = 1050.0
@@ -213,7 +213,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Power-up Tests
 
-    func testPowerUpActivation() throws {
+    func testPowerUpActivation() {
         // Test power-up activation and effects
         // let player = Player()
         // let shieldPowerUp = PowerUp(type: .shield, duration: 10.0)
@@ -226,7 +226,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertTrue(true, "Power-up activation test framework ready")
     }
 
-    func testPowerUpExpiration() throws {
+    func testPowerUpExpiration() {
         // Test power-up expiration
         // let powerUp = PowerUp(type: .speedBoost, duration: 5.0)
         // powerUp.startTime = Date().addingTimeInterval(-6.0) // 6 seconds ago
@@ -239,7 +239,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Performance Tests
 
-    func testGameLoopPerformance() throws {
+    func testGameLoopPerformance() {
         // Test game loop performance
         let startTime = Date()
 
@@ -256,7 +256,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertLessThan(duration, 1.0, "Game loop should process 1000 iterations quickly")
     }
 
-    func testObstacleGenerationPerformance() throws {
+    func testObstacleGenerationPerformance() {
         // Test obstacle generation performance
         let startTime = Date()
 
@@ -274,7 +274,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Save/Load Tests
 
-    func testGameSaveFunctionality() throws {
+    func testGameSaveFunctionality() {
         // Test game save functionality
         let gameData: [String: Any] = [
             "score": 1500,
@@ -291,7 +291,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertEqual(gameData["playerY"] as? Double, 200.0)
     }
 
-    func testGameLoadFunctionality() throws {
+    func testGameLoadFunctionality() {
         // Test game load functionality
         let savedData = [
             "score": 2500,
@@ -308,7 +308,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
 
     // MARK: - Edge Cases Tests
 
-    func testZeroScore() throws {
+    func testZeroScore() {
         // Test handling of zero score
         let score = 0
         let isHighScore = score > 1000
@@ -317,7 +317,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertFalse(isHighScore, "Zero score should not be considered high score")
     }
 
-    func testNegativeValues() throws {
+    func testNegativeValues() {
         // Test handling of negative values (shouldn't happen in normal gameplay)
         let negativeScore = -100
         let clampedScore = max(0, negativeScore)
@@ -326,7 +326,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         XCTAssertEqual(clampedScore, 0, "Negative score should be clamped to zero")
     }
 
-    func testMaximumValues() throws {
+    func testMaximumValues() {
         // Test handling of maximum values
         let maxScore = Int.max
         let isValidScore = maxScore > 0

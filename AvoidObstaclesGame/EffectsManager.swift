@@ -189,8 +189,7 @@ class EffectsManager {
             return explosion
         } else {
             // Create new explosion
-            let explosion = explosionEmitter?.copy() as? SKEmitterNode ?? SKEmitterNode()
-            return explosion
+            return explosionEmitter?.copy() as? SKEmitterNode ?? SKEmitterNode()
         }
     }
 
