@@ -73,10 +73,10 @@ import SpriteKit
         static let neonTheme = Theme(
             name: "neon",
             backgroundColor: .black,
-            playerColor: UIColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0), // Magenta
-            obstacleColor: UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0), // Cyan
-            powerUpColor: UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0), // Yellow
-            uiTextColor: UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0), // Bright green
+            playerColor: UIColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0),  // Magenta
+            obstacleColor: UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0),  // Cyan
+            powerUpColor: UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0),  // Yellow
+            uiTextColor: UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0),  // Bright green
             uiBackgroundColor: UIColor(white: 0.05, alpha: 0.95),
             accentColor: UIColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0),
             particleColor: UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0),
@@ -88,9 +88,9 @@ import SpriteKit
         static let retroTheme = Theme(
             name: "retro",
             backgroundColor: UIColor(red: 0.2, green: 0.1, blue: 0.05, alpha: 1.0),
-            playerColor: UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0), // Gold
-            obstacleColor: UIColor(red: 0.6, green: 0.2, blue: 0.1, alpha: 1.0), // Brown
-            powerUpColor: UIColor(red: 0.9, green: 0.9, blue: 0.7, alpha: 1.0), // Cream
+            playerColor: UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0),  // Gold
+            obstacleColor: UIColor(red: 0.6, green: 0.2, blue: 0.1, alpha: 1.0),  // Brown
+            powerUpColor: UIColor(red: 0.9, green: 0.9, blue: 0.7, alpha: 1.0),  // Cream
             uiTextColor: UIColor(red: 0.9, green: 0.8, blue: 0.5, alpha: 1.0),
             uiBackgroundColor: UIColor(red: 0.3, green: 0.2, blue: 0.1, alpha: 0.9),
             accentColor: UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0),
@@ -130,8 +130,10 @@ import SpriteKit
         }
 
         var allThemes: [Theme] {
-            [ThemeManager.lightTheme, ThemeManager.darkTheme,
-             ThemeManager.neonTheme, ThemeManager.retroTheme]
+            [
+                ThemeManager.lightTheme, ThemeManager.darkTheme,
+                ThemeManager.neonTheme, ThemeManager.retroTheme,
+            ]
         }
 
         // MARK: - Initialization
@@ -159,38 +161,7 @@ import SpriteKit
         }
 
         // MARK: - Theme Application
-
-        /// Applies the current theme to a scene
-        /// - Parameter scene: The scene to apply the theme to
-        @MainActor
-        func applyTheme(to scene: SKScene) {
-            let theme = currentTheme
-
-            // Background
-            scene.backgroundColor = theme.backgroundColor
-
-            // Find and update player
-            if let player = scene.childNode(withName: "//player") as? SKSpriteNode {
-                player.color = theme.playerColor
-            }
-
-            // Find and update obstacles
-            scene.enumerateChildNodes(withName: "//obstacle") { node, _ in
-                if let obstacle = node as? SKSpriteNode {
-                    obstacle.color = theme.obstacleColor
-                }
-            }
-
-            // Find and update UI labels
-            scene.enumerateChildNodes(withName: "//label") { node, _ in
-                if let label = node as? SKLabelNode {
-                    label.fontColor = theme.uiTextColor
-                }
-            }
-
-            // Notify observers
-            NotificationCenter.default.post(name: .themeDidChange, object: theme)
-        }
+        // Note: applyTheme(to scene:) moved to common extension to avoid duplication
 
         /// Applies theme to a specific node based on its role
         @MainActor
@@ -417,7 +388,8 @@ import SpriteKit
             case "auto":
                 // Follow system appearance
                 if #available(macOS 10.14, *) {
-                    let isDark = NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+                    let isDark =
+                        NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
                     return isDark ? ThemeManager.darkTheme : ThemeManager.lightTheme
                 } else {
                     return ThemeManager.lightTheme
@@ -428,8 +400,10 @@ import SpriteKit
         }
 
         var allThemes: [Theme] {
-            [ThemeManager.lightTheme, ThemeManager.darkTheme,
-             ThemeManager.neonTheme, ThemeManager.retroTheme]
+            [
+                ThemeManager.lightTheme, ThemeManager.darkTheme,
+                ThemeManager.neonTheme, ThemeManager.retroTheme,
+            ]
         }
 
         // MARK: - Initialization
@@ -457,38 +431,7 @@ import SpriteKit
         }
 
         // MARK: - Theme Application
-
-        /// Applies the current theme to a scene
-        /// - Parameter scene: The scene to apply the theme to
-        @MainActor
-        func applyTheme(to scene: SKScene) {
-            let theme = currentTheme
-
-            // Background
-            scene.backgroundColor = theme.backgroundColor
-
-            // Find and update player
-            if let player = scene.childNode(withName: "//player") as? SKSpriteNode {
-                player.color = theme.playerColor
-            }
-
-            // Find and update obstacles
-            scene.enumerateChildNodes(withName: "//obstacle") { node, _ in
-                if let obstacle = node as? SKSpriteNode {
-                    obstacle.color = theme.obstacleColor
-                }
-            }
-
-            // Find and update UI labels
-            scene.enumerateChildNodes(withName: "//label") { node, _ in
-                if let label = node as? SKLabelNode {
-                    label.fontColor = theme.uiTextColor
-                }
-            }
-
-            // Notify observers
-            NotificationCenter.default.post(name: .themeDidChange, object: theme)
-        }
+        // Note: applyTheme(to scene:) moved to common extension to avoid duplication
 
         /// Applies theme to a specific node based on its role
         @MainActor
@@ -595,3 +538,41 @@ import SpriteKit
     }
 
 #endif
+
+// MARK: - Common Theme Application Extension
+// Extracted to avoid 9.3% code duplication between iOS and macOS implementations
+
+extension ThemeManager {
+    /// Applies the current theme to a scene
+    /// - Parameter scene: The scene to apply the theme to
+    /// Works on both iOS and macOS since SKScene is platform-agnostic
+    @MainActor
+    func applyTheme(to scene: SKScene) {
+        let theme = currentTheme
+
+        // Background
+        scene.backgroundColor = theme.backgroundColor
+
+        // Find and update player
+        if let player = scene.childNode(withName: "//player") as? SKSpriteNode {
+            player.color = theme.playerColor
+        }
+
+        // Find and update obstacles
+        scene.enumerateChildNodes(withName: "//obstacle") { node, _ in
+            if let obstacle = node as? SKSpriteNode {
+                obstacle.color = theme.obstacleColor
+            }
+        }
+
+        // Find and update UI labels
+        scene.enumerateChildNodes(withName: "//label") { node, _ in
+            if let label = node as? SKLabelNode {
+                label.fontColor = theme.uiTextColor
+            }
+        }
+
+        // Notify observers
+        NotificationCenter.default.post(name: .themeDidChange, object: theme)
+    }
+}
