@@ -23,7 +23,8 @@ class ComboSystem {
         loadBestCombo()
     }
 
-    @MainActor func recordDodge(currentTime: TimeInterval) {
+    @MainActor
+    func recordDodge(currentTime: TimeInterval) {
         if currentTime - lastDodgeTime > comboTimeout {
             currentCombo = 0
         }

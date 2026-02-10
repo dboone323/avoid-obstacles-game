@@ -9,8 +9,8 @@
 //  advanced analytics, and intelligent features into the game UI.
 //
 
-import SwiftUI
 import Shared_Kit
+import SwiftUI
 
 struct IntelligentGameView: View {
     @State private var viewModel = IntelligentGameViewModel()
@@ -252,9 +252,9 @@ struct IntelligentGameView: View {
 
     private func priorityColor(for priority: GameRecommendation.Priority) -> Color {
         switch priority {
-        case .high: return .red
-        case .medium: return .yellow
-        case .low: return .green
+        case .high: .red
+        case .medium: .yellow
+        case .low: .green
         }
     }
 
@@ -381,7 +381,9 @@ struct IntelligentGameView: View {
                 Image(systemName: viewModel.isBiometricEnabled ? "checkmark.shield.fill" : "xmark.shield")
                     .foregroundColor(viewModel.isBiometricEnabled ? .green : .red)
 
-                Text(viewModel.isBiometricEnabled ? "Biometric authentication available" : "Biometric authentication not available")
+                Text(viewModel.isBiometricEnabled
+                    ? "Biometric authentication available"
+                    : "Biometric authentication not available")
                     .foregroundColor(.white)
             }
         }
@@ -396,9 +398,9 @@ struct IntelligentGameView: View {
 extension Difficulty {
     var rawValue: String {
         switch self {
-        case .easy: return "easy"
-        case .normal: return "normal"
-        case .hard: return "hard"
+        case .easy: "easy"
+        case .normal: "normal"
+        case .hard: "hard"
         }
     }
 }
@@ -406,10 +408,10 @@ extension Difficulty {
 extension BehaviorPattern.PatternType {
     var description: String {
         switch self {
-        case .timeBased: return "Time-based activity"
-        case .locationBased: return "Location-based activity"
-        case .activityBased: return "Activity patterns"
-        case .socialBased: return "Social interactions"
+        case .timeBased: "Time-based activity"
+        case .locationBased: "Location-based activity"
+        case .activityBased: "Activity patterns"
+        case .socialBased: "Social interactions"
         }
     }
 }

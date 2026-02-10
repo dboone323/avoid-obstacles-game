@@ -552,17 +552,17 @@ class AchievementManager {
             // Convert to Sendable types
             return stats.mapValues { value in
                 if let intValue = value as? Int {
-                    return intValue
+                    intValue
                 } else if let doubleValue = value as? Double {
-                    return doubleValue
+                    doubleValue
                 } else if let stringValue = value as? String {
-                    return stringValue
+                    stringValue
                 } else if let boolValue = value as? Bool {
-                    return boolValue
+                    boolValue
                 } else if let arrayValue = value as? [Achievement] {
-                    return arrayValue // Achievement is Sendable
+                    arrayValue // Achievement is Sendable
                 } else {
-                    return String(describing: value) // Fallback to string
+                    String(describing: value) // Fallback to string
                 }
             }
         }.value
@@ -608,7 +608,7 @@ enum AchievementEvent {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-nonisolated(unsafe) private var objectPool: [Any] = []
+private nonisolated(unsafe) var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

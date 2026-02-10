@@ -38,7 +38,7 @@ import GameKit
         }
     }
 #else
-    // macOS stub - multiplayer UI requires iOS
+    /// macOS stub - multiplayer UI requires iOS
     class MultiplayerManager: NSObject, ObservableObject {
         @Published var match: GKMatch?
 

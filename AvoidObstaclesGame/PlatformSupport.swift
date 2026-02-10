@@ -40,7 +40,7 @@ class PlatformSupport {
         var config = GameConfiguration.load()
 
         #if os(macOS)
-            // macOS optimizations
+            /// macOS optimizations
             var visual = config.visual
             visual = GameConfiguration.Visual(
                 theme: visual.theme,

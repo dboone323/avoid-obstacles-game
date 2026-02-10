@@ -165,7 +165,7 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
     }
 }
 
-// Notification extensions
+/// Notification extensions
 extension Notification.Name {
     static let gameOver = Notification.Name("gameOver")
     static let powerUpCollected = Notification.Name("powerUpCollected")

@@ -48,7 +48,7 @@ class PlayerManager {
     private var glowEffect: SKEffectNode?
     private var trailEffect: SKEmitterNode?
 
-    /// Motion manager for tilt controls
+    // Motion manager for tilt controls
     #if os(iOS)
         private let motionManager = CMMotionManager()
     #endif
@@ -514,7 +514,7 @@ class PlayerManager {
     }
 }
 
-/// Types of power-ups available
+// Types of power-ups available
 
 /// Shape types for power-ups (for accessibility)
 public enum PowerUpShape {
@@ -539,7 +539,7 @@ public enum PowerUpShape {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-nonisolated(unsafe) private var objectPool: [Any] = []
+private nonisolated(unsafe) var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

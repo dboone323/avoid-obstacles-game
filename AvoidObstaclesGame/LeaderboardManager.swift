@@ -149,7 +149,7 @@ extension LeaderboardManager: GKGameCenterControllerDelegate {
     }
 }
 
-// Achievement IDs
+/// Achievement IDs
 extension LeaderboardManager {
     enum Achievement {
         static let firstGame = "com.momentumfinance.avoidobstacles.firstgame"

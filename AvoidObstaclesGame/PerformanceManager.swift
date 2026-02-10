@@ -123,7 +123,7 @@ class PerformanceManager {
                 // Simulator - assume high capability
                 return .high
             #else
-                // Physical iOS device
+                /// Physical iOS device
                 let device = UIDevice.current
                 if device.userInterfaceIdiom == .pad {
                     return .high
@@ -144,7 +144,7 @@ class PerformanceManager {
     /// Sets up performance monitoring
     private func setupPerformanceMonitoring() {
         #if os(iOS)
-            // Monitor frame rate using CADisplayLink
+            /// Monitor frame rate using CADisplayLink
             let displayLink = CADisplayLink(target: self, selector: #selector(self.frameUpdate))
             displayLink.add(to: .main, forMode: .common)
         #else
@@ -392,7 +392,7 @@ struct PerformanceStats {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-nonisolated(unsafe) private var objectPool: [Any] = []
+private nonisolated(unsafe) var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

@@ -1,7 +1,7 @@
 import GameKit
 import SwiftUI
 
-// Enhancement #86: Game Center Leaderboards
+/// Enhancement #86: Game Center Leaderboards
 class GameCenterManager: NSObject, ObservableObject {
     @Published var isAuthenticated = false
 

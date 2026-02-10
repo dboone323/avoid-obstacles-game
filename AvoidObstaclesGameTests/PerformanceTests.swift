@@ -67,7 +67,7 @@ class PerformanceTests: XCTestCase {
 
         measure {
             for _ in 0..<1000 {
-                gameScene.update(1.0/60.0)
+                gameScene.update(1.0 / 60.0)
             }
         }
     }
@@ -77,7 +77,7 @@ class PerformanceTests: XCTestCase {
 
         measure {
             for _ in 0..<200 {
-                let _ = obstacleManager.generateObstacle()
+                _ = obstacleManager.generateObstacle()
             }
         }
     }
@@ -100,7 +100,7 @@ class PerformanceTests: XCTestCase {
         // When: Check collisions
         measure {
             for obstacleBody in obstacleBodies {
-                let _ = playerBody.allContactedBodies().contains(obstacleBody)
+                _ = playerBody.allContactedBodies().contains(obstacleBody)
             }
         }
     }
@@ -113,7 +113,7 @@ class PerformanceTests: XCTestCase {
         measure {
             for _ in 0..<300 {
                 scene.createParticleEffect(at: CGPoint(x: 187, y: 333))
-                scene.update(1.0/60.0)
+                scene.update(1.0 / 60.0)
             }
         }
     }
@@ -125,7 +125,7 @@ class PerformanceTests: XCTestCase {
             for frame in 0..<500 {
                 playerNode.run(SKAction.animate(with: [
                     SKTexture(imageNamed: "player_frame_1"),
-                    SKTexture(imageNamed: "player_frame_2")
+                    SKTexture(imageNamed: "player_frame_2"),
                 ], timePerFrame: 0.1))
                 playerNode.position.x += 1
             }
@@ -140,8 +140,8 @@ class PerformanceTests: XCTestCase {
         measure {
             for score in stride(from: 0, to: 10000, by: 10) {
                 ai.updateDifficulty(playerScore: Double(score))
-                let _ = ai.getCurrentDifficulty()
-                let _ = ai.shouldSpawnPowerUp()
+                _ = ai.getCurrentDifficulty()
+                _ = ai.shouldSpawnPowerUp()
             }
         }
     }
@@ -151,7 +151,7 @@ class PerformanceTests: XCTestCase {
 
         measure {
             for difficulty in 0..<50 {
-                let _ = levelGenerator.generateLevel(difficulty: Float(difficulty) / 50.0)
+                _ = levelGenerator.generateLevel(difficulty: Float(difficulty) / 50.0)
             }
         }
     }
@@ -220,7 +220,7 @@ class PerformanceTests: XCTestCase {
 
         measure {
             for _ in 0..<300 {
-                menuScene.update(1.0/60.0)
+                menuScene.update(1.0 / 60.0)
             }
         }
     }
@@ -252,7 +252,7 @@ class PerformanceTests: XCTestCase {
             DispatchQueue.global(qos: .userInteractive).async {
                 let gameScene = GameScene(size: CGSize(width: 375, height: 667))
                 for _ in 0..<200 {
-                    gameScene.update(1.0/60.0)
+                    gameScene.update(1.0 / 60.0)
                 }
                 group.leave()
             }
@@ -293,7 +293,7 @@ class PerformanceTests: XCTestCase {
             // Simulate gameplay loop with high load
             for frame in 0..<500 {
                 // Update game state
-                gameScene.update(1.0/60.0)
+                gameScene.update(1.0 / 60.0)
 
                 // Simulate player input
                 if frame % 5 == 0 {
@@ -323,8 +323,8 @@ class PerformanceTests: XCTestCase {
 
         measure {
             for _ in 0..<100 {
-                gameScene.update(1.0/60.0)
-                let _ = performanceMonitor.getMetrics()
+                gameScene.update(1.0 / 60.0)
+                _ = performanceMonitor.getMetrics()
             }
         }
 
@@ -337,7 +337,7 @@ class PerformanceTests: XCTestCase {
 class PerformanceMonitor {
     private var startTime: Date?
     private var frameCount = 0
-    private var metrics: PerformanceMetrics = PerformanceMetrics()
+    private var metrics: PerformanceMetrics = .init()
 
     func startMonitoring() {
         startTime = Date()
@@ -352,7 +352,7 @@ class PerformanceMonitor {
     func getMetrics() -> PerformanceMetrics {
         frameCount += 1
 
-        if let startTime = startTime {
+        if let startTime {
             let elapsed = Date().timeIntervalSince(startTime)
             metrics.fps = Double(frameCount) / elapsed
         }
@@ -409,13 +409,13 @@ extension AudioManager {
 
 extension AdaptiveDifficultyAI {
     func shouldSpawnPowerUp() -> Bool {
-        return Bool.random()
+        Bool.random()
     }
 }
 
 extension ProceduralLevelGenerator {
     func generateLevel(difficulty: Float) -> Level {
-        return Level(difficulty: difficulty, segments: [])
+        Level(difficulty: difficulty, segments: [])
     }
 }
 

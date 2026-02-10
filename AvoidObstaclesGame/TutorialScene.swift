@@ -25,17 +25,17 @@ import SpriteKit
             func getTitle() async -> String {
                 switch self {
                 case .welcome:
-                    return await LocalizationManager.shared.string(for: .tutorialWelcome)
+                    await LocalizationManager.shared.string(for: .tutorialWelcome)
                 case .movement:
-                    return "Movement Controls"
+                    "Movement Controls"
                 case .obstacles:
-                    return "Avoid Obstacles"
+                    "Avoid Obstacles"
                 case .powerUps:
-                    return "Collect Power-Ups"
+                    "Collect Power-Ups"
                 case .scoring:
-                    return "Score Points"
+                    "Score Points"
                 case .complete:
-                    return "You're Ready!"
+                    "You're Ready!"
                 }
             }
 

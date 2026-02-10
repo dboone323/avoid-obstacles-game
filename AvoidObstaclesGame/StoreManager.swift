@@ -1,7 +1,7 @@
 import StoreKit
 import SwiftUI
 
-// Enhancement #87: In-App Purchases - StoreKit 2 Migration
+/// Enhancement #87: In-App Purchases - StoreKit 2 Migration
 @MainActor
 class StoreManager: ObservableObject {
     @Published var products: [Product] = []

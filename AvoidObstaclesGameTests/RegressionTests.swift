@@ -7,13 +7,13 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 class RegressionTests: XCTestCase {
-    // Test that old saved games still load
+    /// Test that old saved games still load
     func testBackwardsCompatibility() {
         let config = GameConfiguration.load()
         XCTAssertNotNil(config)
     }
 
-    // Test that theme switching doesn't crash
+    /// Test that theme switching doesn't crash
     func testThemeSwitchingStability() {
         for _ in 0..<10 {
             ThemeManager.shared.setTheme("light")
@@ -23,7 +23,7 @@ class RegressionTests: XCTestCase {
         XCTAssertTrue(true)
     }
 
-    // Test memory doesn't leak with repeated gameplay
+    /// Test memory doesn't leak with repeated gameplay
     func testMemoryStability() {
         for _ in 0..<100 {
             let combo = ComboSystem.shared
@@ -33,7 +33,7 @@ class RegressionTests: XCTestCase {
         XCTAssertTrue(true)
     }
 
-    // Test power-up activation doesn't interfere
+    /// Test power-up activation doesn't interfere
     func testPowerUpIsolation() {
         let powerUp = PowerUpSystem.shared
 

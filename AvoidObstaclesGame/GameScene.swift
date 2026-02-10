@@ -279,7 +279,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
     // MARK: - Touch Handling
 
-    /// Handles touch input
+    // Handles touch input
     #if canImport(UIKit)
         override public func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
             guard let touch = touches.first else { return }
