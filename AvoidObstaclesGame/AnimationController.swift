@@ -22,7 +22,7 @@ class AnimationController {
         let steps = 10
         let increment = (newScore - oldScore) / steps
 
-        for i in 0...steps {
+        for i in 0 ... steps {
             let delay = duration * Double(i) / Double(steps)
             let action = SKAction.run {
                 label.text = "Score: \(oldScore + increment * i)"

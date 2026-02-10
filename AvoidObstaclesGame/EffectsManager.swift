@@ -246,10 +246,10 @@ class EffectsManager {
         let shakeCount = max(1, Int(duration / 0.05))
         var actions: [SKAction] = []
 
-        for i in 0..<shakeCount {
+        for i in 0 ..< shakeCount {
             let dampingFactor = 1 - CGFloat(i) / CGFloat(shakeCount)
-            let offsetX = CGFloat.random(in: -intensity...intensity) * dampingFactor
-            let offsetY = CGFloat.random(in: -intensity...intensity) * dampingFactor
+            let offsetX = CGFloat.random(in: -intensity ... intensity) * dampingFactor
+            let offsetY = CGFloat.random(in: -intensity ... intensity) * dampingFactor
             let moveAction = SKAction.moveBy(x: offsetX, y: offsetY, duration: 0.025)
             let returnAction = SKAction.moveBy(x: -offsetX, y: -offsetY, duration: 0.025)
             actions.append(contentsOf: [moveAction, returnAction])
@@ -269,7 +269,7 @@ class EffectsManager {
         // Create multiple sparkle effects around the screen
         let center = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
 
-        for i in 0..<8 {
+        for i in 0 ..< 8 {
             let angle = (CGFloat.pi * 2 / 8) * CGFloat(i)
             let distance: CGFloat = 100
             let position = CGPoint(

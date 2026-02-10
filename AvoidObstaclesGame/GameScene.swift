@@ -189,16 +189,16 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         let minY = max(0, size.height * 0.7)
         let maxY = max(minY, size.height)
 
-        for _ in 0..<5 {
+        for _ in 0 ..< 5 {
             let cloud = SKSpriteNode(color: .white.withAlphaComponent(0.3), size: CGSize(width: 60, height: 30))
             cloud.position = CGPoint(
-                x: CGFloat.random(in: 0...max(1, size.width)),
-                y: CGFloat.random(in: minY...maxY)
+                x: CGFloat.random(in: 0 ... max(1, size.width)),
+                y: CGFloat.random(in: minY ... maxY)
             )
             cloud.zPosition = -50
 
             // Animate clouds
-            let moveAction = SKAction.moveBy(x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10...20))
+            let moveAction = SKAction.moveBy(x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10 ... 20))
             let resetAction = SKAction.moveTo(x: size.width + 60, duration: 0)
             let sequence = SKAction.sequence([moveAction, resetAction])
             cloud.run(SKAction.repeatForever(sequence))

@@ -105,7 +105,7 @@ import SpriteKit
             backgroundColor = isDark ? .black : UIColor(white: 0.95, alpha: 1.0)
 
             // Add subtle pattern
-            for i in 0..<5 {
+            for i in 0 ..< 5 {
                 let line = SKShapeNode(rectOf: CGSize(width: size.width, height: 1))
                 line.fillColor = isDark ? UIColor(white: 0.2, alpha: 0.3) : UIColor(white: 0.8, alpha: 0.3)
                 line.position = CGPoint(x: size.width / 2, y: CGFloat(i) * size.height / 5)

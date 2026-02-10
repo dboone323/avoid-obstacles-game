@@ -144,7 +144,7 @@ final class HapticFeedbackManagerTests: XCTestCase {
     }
 
     func testRapidFireHaptics() {
-        for _ in 0..<10 {
+        for _ in 0 ..< 10 {
             XCTAssertNoThrow(sut.light())
         }
     }

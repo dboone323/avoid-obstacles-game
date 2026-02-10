@@ -46,8 +46,8 @@ struct GameConfiguration: Codable {
             minSize: CGSize(width: 30, height: 30),
             maxSize: CGSize(width: 60, height: 60),
             poolSize: 20,
-            spawnIntervalRange: 0.4...1.2,
-            fallSpeedRange: 150...400
+            spawnIntervalRange: 0.4 ... 1.2,
+            fallSpeedRange: 150 ... 400
         )
 
         // swiftlint:disable:next nesting
@@ -85,11 +85,11 @@ struct GameConfiguration: Codable {
             // Decode ranges
             let spawnMin = try container.decode(TimeInterval.self, forKey: .spawnIntervalRange)
             let spawnMax = spawnMin * 3
-            spawnIntervalRange = spawnMin...spawnMax
+            spawnIntervalRange = spawnMin ... spawnMax
 
             let speedMin = try container.decode(CGFloat.self, forKey: .fallSpeedRange)
             let speedMax = speedMin * 2.5
-            fallSpeedRange = speedMin...speedMax
+            fallSpeedRange = speedMin ... speedMax
         }
     }
 
