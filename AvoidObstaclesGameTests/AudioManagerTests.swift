@@ -166,7 +166,8 @@ final class AudioManagerTests: XCTestCase {
                 sut.playLevelUp()
                 sut.playButton()
                 sut.playWhoosh()
-            }())
+            }()
+        )
     }
 
     func testRapidFireSounds() {
@@ -181,7 +182,8 @@ final class AudioManagerTests: XCTestCase {
             {
                 sut.playCollision()
                 sut.playPowerUp()
-            }())
+            }()
+        )
         sut.stopBackgroundMusic()
     }
 

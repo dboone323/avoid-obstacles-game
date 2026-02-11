@@ -121,6 +121,7 @@ class PowerUpEntity: GKEntity {
             SKAction.sequence([
                 SKAction.group([fadeOut, scaleUp]),
                 remove,
-            ]))
+            ])
+        )
     }
 }

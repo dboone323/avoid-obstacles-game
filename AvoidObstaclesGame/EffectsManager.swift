@@ -60,7 +60,7 @@ class EffectsManager {
                 context.cgContext.fill(CGRect(origin: .zero, size: CGSize(width: 8, height: 8)))
             }
         #else
-            /// For macOS, create a simple colored image
+            // For macOS, create a simple colored image
             let sparkImage = createMacOSImage(color: SKColor.white, size: CGSize(width: 8, height: 8))
         #endif
 

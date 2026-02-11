@@ -139,7 +139,8 @@ final class HapticFeedbackManagerTests: XCTestCase {
                 sut.heavy()
                 sut.selection()
                 sut.success()
-            }())
+            }()
+        )
     }
 
     func testRapidFireHaptics() {

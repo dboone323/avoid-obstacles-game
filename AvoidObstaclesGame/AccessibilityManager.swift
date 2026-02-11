@@ -79,7 +79,8 @@ import SpriteKit
         func configurePlayer(_ node: SKNode) {
             node.isAccessibilityElement = true
             node.accessibilityLabel = LocalizationManager.shared.string(
-                for: .accessibilityPlayerLabel)
+                for: .accessibilityPlayerLabel
+            )
             node.accessibilityTraits = .startsMediaSession
             node.accessibilityHint = "Your ship. Move to avoid obstacles."
         }
