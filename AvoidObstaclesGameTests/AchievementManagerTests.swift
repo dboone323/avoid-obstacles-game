@@ -91,14 +91,14 @@ final class AchievementManagerTests: XCTestCase {
     }
 
     func testPowerUpCollectionAchievement() {
-        for _ in 0 ..< 10 {
+        for _ in 0..<10 {
             sut.updateProgress(for: .powerUpCollected)
         }
         XCTAssertTrue(sut.isAchievementUnlocked("power_up_collector"))
     }
 
     func testShieldMasterAchievement() {
-        for _ in 0 ..< 5 {
+        for _ in 0..<5 {
             sut.updateProgress(for: .shieldUsed)
         }
         XCTAssertTrue(sut.isAchievementUnlocked("shield_master"))
@@ -268,12 +268,12 @@ final class AchievementManagerTests: XCTestCase {
 
     func testMultipleSessionProgress() {
         // Session 1
-        for _ in 0 ..< 5 {
+        for _ in 0..<5 {
             sut.updateProgress(for: .powerUpCollected)
         }
 
         // Session 2
-        for _ in 0 ..< 5 {
+        for _ in 0..<5 {
             sut.updateProgress(for: .powerUpCollected)
         }
 

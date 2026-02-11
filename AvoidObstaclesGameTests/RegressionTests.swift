@@ -15,7 +15,7 @@ class RegressionTests: XCTestCase {
 
     /// Test that theme switching doesn't crash
     func testThemeSwitchingStability() {
-        for _ in 0 ..< 10 {
+        for _ in 0..<10 {
             ThemeManager.shared.setTheme("light")
             ThemeManager.shared.setTheme("dark")
             ThemeManager.shared.setTheme("neon")
@@ -25,7 +25,7 @@ class RegressionTests: XCTestCase {
 
     /// Test memory doesn't leak with repeated gameplay
     func testMemoryStability() {
-        for _ in 0 ..< 100 {
+        for _ in 0..<100 {
             let combo = ComboSystem.shared
             combo.recordDodge(currentTime: 0)
             combo.resetCombo()

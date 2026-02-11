@@ -141,7 +141,7 @@ class PowerUpManager {
     // MARK: - Object Pooling
 
     private func preloadPowerUps() {
-        for _ in 0 ..< maxPoolSize {
+        for _ in 0..<maxPoolSize {
             let powerUp = SKSpriteNode()
             powerUp.isHidden = true
             powerUpPool.append(powerUp)

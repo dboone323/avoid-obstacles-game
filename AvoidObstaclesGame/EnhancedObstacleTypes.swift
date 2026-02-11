@@ -66,7 +66,7 @@ extension ObstacleManager {
             color: theme.obstacleColor
         )
 
-        let randomX = CGFloat.random(in: 50 ... (scene.size.width - 50))
+        let randomX = CGFloat.random(in: 50...(scene.size.width - 50))
         obstacle.position = CGPoint(x: randomX, y: scene.size.height + 50)
         obstacle.zPosition = 50
 

@@ -37,7 +37,7 @@ class EntityManager {
 
     /// Pre-creates obstacle entities for object pooling.
     private func initializeObstaclePool() {
-        for _ in 0 ..< 20 {
+        for _ in 0..<20 {
             let obstacle = ObstacleEntity(type: .normal, at: .zero)
             obstaclePool.append(obstacle)
         }

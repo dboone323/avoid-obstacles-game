@@ -56,7 +56,7 @@ class ObstacleManager {
 
     /// Preloads the obstacle pool with initial obstacles
     private func preloadObstaclePool() {
-        for _ in 0 ..< 10 {
+        for _ in 0..<10 {
             let obstacle = createNewObstacle(ofType: .normal)
             obstaclePool.append(obstacle)
         }
@@ -215,7 +215,7 @@ class ObstacleManager {
         guard let scene else { return }
 
         // Occasionally spawn a power-up instead of an obstacle
-        let shouldSpawnPowerUp = Double.random(in: 0 ... 1) < difficulty.powerUpSpawnChance
+        let shouldSpawnPowerUp = Double.random(in: 0...1) < difficulty.powerUpSpawnChance
 
         if shouldSpawnPowerUp {
             spawnPowerUp()
@@ -229,7 +229,7 @@ class ObstacleManager {
         // Random horizontal position (ensure valid range)
         let minX = obstacle.size.width / 2
         let maxX = max(minX, scene.size.width - obstacle.size.width / 2)
-        let randomX = CGFloat.random(in: minX ... maxX)
+        let randomX = CGFloat.random(in: minX...maxX)
         obstacle.position = CGPoint(x: randomX, y: scene.size.height + obstacle.size.height)
 
         // Add to scene and active set
@@ -255,7 +255,7 @@ class ObstacleManager {
         // Higher levels introduce more variety including boss obstacles
         if level >= 5 {
             // Small chance for boss at high levels
-            if Double.random(in: 0 ... 1) < 0.05 {
+            if Double.random(in: 0...1) < 0.05 {
                 return .boss
             }
             let types: [ObstacleType] = [.normal, .fast, .large, .small]
@@ -354,7 +354,7 @@ class ObstacleManager {
         // Random position across the screen width (ensure valid range)
         let minX = powerUp.size.width / 2
         let maxX = max(minX, scene.size.width - powerUp.size.width / 2)
-        let randomX = CGFloat.random(in: minX ... maxX)
+        let randomX = CGFloat.random(in: minX...maxX)
         powerUp.position = CGPoint(x: randomX, y: scene.size.height + powerUp.size.height)
 
         // Add physics body

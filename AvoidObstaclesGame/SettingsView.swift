@@ -20,7 +20,7 @@ struct SettingsView: View {
                     if config.audio.backgroundMusicEnabled {
                         HStack {
                             Text("Volume")
-                            Slider(value: binding(for: \.audio.backgroundMusicVolume), in: 0 ... 1)
+                            Slider(value: binding(for: \.audio.backgroundMusicVolume), in: 0...1)
                             Text("\(Int(config.audio.backgroundMusicVolume * 100))%")
                                 .frame(width: 50)
                         }

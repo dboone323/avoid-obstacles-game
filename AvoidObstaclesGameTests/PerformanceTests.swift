@@ -26,7 +26,7 @@ class PerformanceTests: XCTestCase {
         let optimizer = PerformanceOptimizer.shared
 
         measure {
-            for _ in 0 ..< 1000 {
+            for _ in 0..<1000 {
                 let node = optimizer.getNode(type: "test") {
                     SKNode()
                 }
@@ -40,7 +40,7 @@ class PerformanceTests: XCTestCase {
         cache.preloadAssets()
 
         measure {
-            for _ in 0 ..< 500 {
+            for _ in 0..<500 {
                 _ = cache.texture(named: "player")
                 _ = cache.sound(named: "collision")
                 _ = cache.particleEffect(named: "explosion")
@@ -52,7 +52,7 @@ class PerformanceTests: XCTestCase {
         let combo = ComboSystem.shared
 
         measure {
-            for i in 0 ..< 2000 {
+            for i in 0..<2000 {
                 combo.recordDodge(currentTime: Double(i) * 0.1)
                 _ = combo.calculatePoints()
                 _ = combo.getMultiplier()
@@ -66,7 +66,7 @@ class PerformanceTests: XCTestCase {
         let gameScene = GameScene(size: CGSize(width: 375, height: 667))
 
         measure {
-            for _ in 0 ..< 1000 {
+            for _ in 0..<1000 {
                 gameScene.update(1.0 / 60.0)
             }
         }
@@ -76,7 +76,7 @@ class PerformanceTests: XCTestCase {
         let obstacleManager = ObstacleManager()
 
         measure {
-            for _ in 0 ..< 200 {
+            for _ in 0..<200 {
                 _ = obstacleManager.generateObstacle()
             }
         }
@@ -90,7 +90,7 @@ class PerformanceTests: XCTestCase {
         autoreleasepool {
             playerBody = SKPhysicsBody(circleOfRadius: 15)
 
-            for i in 0 ..< 100 {
+            for i in 0..<100 {
                 let obstacleBody = SKPhysicsBody(rectangleOf: CGSize(width: 30, height: 60))
                 obstacleBody.position = CGPoint(x: i * 40, y: 300)
                 obstacleBodies.append(obstacleBody)
@@ -111,7 +111,7 @@ class PerformanceTests: XCTestCase {
         let scene = GameScene(size: CGSize(width: 375, height: 667))
 
         measure {
-            for _ in 0 ..< 300 {
+            for _ in 0..<300 {
                 scene.createParticleEffect(at: CGPoint(x: 187, y: 333))
                 scene.update(1.0 / 60.0)
             }
@@ -122,7 +122,7 @@ class PerformanceTests: XCTestCase {
         let playerNode = SKSpriteNode(imageNamed: "player")
 
         measure {
-            for frame in 0 ..< 500 {
+            for frame in 0..<500 {
                 playerNode.run(SKAction.animate(with: [
                     SKTexture(imageNamed: "player_frame_1"),
                     SKTexture(imageNamed: "player_frame_2"),
@@ -150,7 +150,7 @@ class PerformanceTests: XCTestCase {
         let levelGenerator = ProceduralLevelGenerator()
 
         measure {
-            for difficulty in 0 ..< 50 {
+            for difficulty in 0..<50 {
                 _ = levelGenerator.generateLevel(difficulty: Float(difficulty) / 50.0)
             }
         }
@@ -162,7 +162,7 @@ class PerformanceTests: XCTestCase {
         let highScoreManager = HighScoreManager()
 
         measure {
-            for i in 0 ..< 500 {
+            for i in 0..<500 {
                 highScoreManager.saveScore(Score(value: i * 100, date: Date(), playerName: "TestPlayer"))
             }
         }
@@ -172,7 +172,7 @@ class PerformanceTests: XCTestCase {
         let achievementManager = AchievementManager()
 
         measure {
-            for i in 0 ..< 200 {
+            for i in 0..<200 {
                 achievementManager.checkAchievements(
                     score: i * 50,
                     obstaclesAvoided: i * 2,
@@ -189,7 +189,7 @@ class PerformanceTests: XCTestCase {
         let audioManager = AudioManager()
 
         measure {
-            for _ in 0 ..< 200 {
+            for _ in 0..<200 {
                 audioManager.playSoundEffect(.jump)
                 audioManager.playSoundEffect(.collision)
                 audioManager.playSoundEffect(.powerUp)
@@ -203,9 +203,9 @@ class PerformanceTests: XCTestCase {
         measure {
             autoreleasepool {
                 var nodes: [SKNode] = []
-                for _ in 0 ..< 1000 {
+                for _ in 0..<1000 {
                     let node = SKSpriteNode(color: .red, size: CGSize(width: 20, height: 20))
-                    node.position = CGPoint(x: .random(in: 0 ... 375), y: .random(in: 0 ... 667))
+                    node.position = CGPoint(x: .random(in: 0...375), y: .random(in: 0...667))
                     nodes.append(node)
                 }
                 nodes.removeAll()
@@ -219,7 +219,7 @@ class PerformanceTests: XCTestCase {
         let menuScene = MenuScene(size: CGSize(width: 375, height: 667))
 
         measure {
-            for _ in 0 ..< 300 {
+            for _ in 0..<300 {
                 menuScene.update(1.0 / 60.0)
             }
         }
@@ -231,7 +231,7 @@ class PerformanceTests: XCTestCase {
         let gameCenterManager = GameCenterManager()
 
         measure {
-            for _ in 0 ..< 30 {
+            for _ in 0..<30 {
                 gameCenterManager.submitScore(Int64(1000 + i))
                 gameCenterManager.loadAchievements()
                 gameCenterManager.loadLeaderboards()
@@ -251,7 +251,7 @@ class PerformanceTests: XCTestCase {
             group.enter()
             DispatchQueue.global(qos: .userInteractive).async {
                 let gameScene = GameScene(size: CGSize(width: 375, height: 667))
-                for _ in 0 ..< 200 {
+                for _ in 0..<200 {
                     gameScene.update(1.0 / 60.0)
                 }
                 group.leave()
@@ -260,7 +260,7 @@ class PerformanceTests: XCTestCase {
             group.enter()
             DispatchQueue.global(qos: .userInteractive).async {
                 let audioManager = AudioManager()
-                for _ in 0 ..< 200 {
+                for _ in 0..<200 {
                     audioManager.updateAudioEngine()
                 }
                 group.leave()
@@ -269,7 +269,7 @@ class PerformanceTests: XCTestCase {
             group.enter()
             DispatchQueue.global(qos: .userInteractive).async {
                 let ai = AdaptiveDifficultyAI()
-                for score in 0 ..< 200 {
+                for score in 0..<200 {
                     ai.updateDifficulty(playerScore: Double(score * 10))
                 }
                 group.leave()
@@ -291,7 +291,7 @@ class PerformanceTests: XCTestCase {
             let gameScene = GameScene(size: CGSize(width: 375, height: 667))
 
             // Simulate gameplay loop with high load
-            for frame in 0 ..< 500 {
+            for frame in 0..<500 {
                 // Update game state
                 gameScene.update(1.0 / 60.0)
 
@@ -322,7 +322,7 @@ class PerformanceTests: XCTestCase {
         let gameScene = GameScene(size: CGSize(width: 375, height: 667))
 
         measure {
-            for _ in 0 ..< 100 {
+            for _ in 0..<100 {
                 gameScene.update(1.0 / 60.0)
                 _ = performanceMonitor.getMetrics()
             }
@@ -358,8 +358,8 @@ class PerformanceMonitor {
         }
 
         // Simulate memory and CPU monitoring
-        metrics.memoryUsage = Double.random(in: 40 ... 80)
-        metrics.cpuUsage = Double.random(in: 20 ... 60)
+        metrics.memoryUsage = Double.random(in: 40...80)
+        metrics.cpuUsage = Double.random(in: 20...60)
 
         return metrics
     }
@@ -396,7 +396,7 @@ extension GameScene {
     func spawnObstacle() {
         // Simulate obstacle spawning
         let obstacle = SKSpriteNode(color: .red, size: CGSize(width: 30, height: 60))
-        obstacle.position = CGPoint(x: .random(in: 0 ... 375), y: 667)
+        obstacle.position = CGPoint(x: .random(in: 0...375), y: 667)
         addChild(obstacle)
     }
 }
