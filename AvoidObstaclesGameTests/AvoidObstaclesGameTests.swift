@@ -8,7 +8,6 @@
 import Foundation
 import SpriteKit
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 final class AvoidObstaclesGameTests: XCTestCase {

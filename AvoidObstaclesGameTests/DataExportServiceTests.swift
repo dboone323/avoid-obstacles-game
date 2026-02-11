@@ -1,6 +1,5 @@
 import SwiftData
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 final class DataExportServiceTests: XCTestCase {

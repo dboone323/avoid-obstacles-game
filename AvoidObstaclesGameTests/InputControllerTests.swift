@@ -5,7 +5,6 @@
 
 import SpriteKit
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 final class InputControllerTests: XCTestCase {

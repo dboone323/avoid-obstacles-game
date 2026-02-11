@@ -1,7 +1,6 @@
 import Foundation
 import SwiftData
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 /// Unit tests for AvoidObstaclesGame model functionality

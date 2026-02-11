@@ -81,9 +81,9 @@ final class SkinManagerTests: XCTestCase {
 
     // MARK: - Skin Hashable Conformance
 
-    func testSkinEquality() {
+    func testSkinEquality() throws {
         let skin1 = PlayerSkin.blue
-        let skin2 = PlayerSkin.fromId("blue")!
+        let skin2 = try XCTUnwrap(PlayerSkin.fromId("blue"))
         XCTAssertEqual(skin1, skin2)
     }
 

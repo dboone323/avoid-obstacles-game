@@ -68,28 +68,28 @@ final class PhysicsManagerTests: XCTestCase {
 
     // MARK: - Physics Utility Tests
 
-    func testApplyImpulse() {
+    func testApplyImpulse() throws {
         let node = SKSpriteNode(color: .red, size: CGSize(width: 30, height: 30))
         node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
 
         let impulse = CGVector(dx: 100, dy: 0)
-        manager.applyImpulse(to: node.physicsBody!, impulse: impulse)
+        try manager.applyImpulse(to: XCTUnwrap(node.physicsBody), impulse: impulse)
 
         // Impulse applied - velocity should change (add to scene for physics to work)
         scene.addChild(node)
-        manager.applyImpulse(to: node.physicsBody!, impulse: impulse)
+        try manager.applyImpulse(to: XCTUnwrap(node.physicsBody), impulse: impulse)
         // Velocity may not change immediately without scene update
         XCTAssertTrue(true, "Impulse method executed successfully")
     }
 
-    func testSetVelocity() {
+    func testSetVelocity() throws {
         let node = SKSpriteNode(color: .red, size: CGSize(width: 30, height: 30))
         node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
 
         let velocity = CGVector(dx: 50, dy: 50)
-        manager.setVelocity(of: node.physicsBody!, to: velocity)
+        try manager.setVelocity(of: XCTUnwrap(node.physicsBody), to: velocity)
 
-        XCTAssertEqual(manager.getVelocity(of: node.physicsBody!), velocity)
+        XCTAssertEqual(try manager.getVelocity(of: XCTUnwrap(node.physicsBody)), velocity)
     }
 
     // MARK: - Debug Visualization Tests
