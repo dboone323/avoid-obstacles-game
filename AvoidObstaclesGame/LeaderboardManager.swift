@@ -59,9 +59,12 @@ class LeaderboardManager: NSObject {
             return
         }
 
-        GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
-                                  leaderboardIDs: [highScoreLeaderboard])
-        { error in
+        GKLeaderboard.submitScore(
+            score,
+            context: 0,
+            player: GKLocalPlayer.local,
+            leaderboardIDs: [highScoreLeaderboard]
+        ) { error in
             if let error {
                 GameLogger.shared.debug("❌ Failed to submit score: \(error)")
             } else {

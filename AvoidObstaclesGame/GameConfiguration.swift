@@ -57,10 +57,13 @@ struct GameConfiguration: Codable {
             case fallSpeedRange
         }
 
-        init(minSize: CGSize, maxSize: CGSize, poolSize: Int,
-             spawnIntervalRange: ClosedRange<TimeInterval>,
-             fallSpeedRange: ClosedRange<CGFloat>)
-        {
+        init(
+            minSize: CGSize,
+            maxSize: CGSize,
+            poolSize: Int,
+            spawnIntervalRange: ClosedRange<TimeInterval>,
+            fallSpeedRange: ClosedRange<CGFloat>
+        ) {
             self.minSize = minSize
             self.maxSize = maxSize
             self.poolSize = poolSize
