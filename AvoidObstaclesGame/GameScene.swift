@@ -13,7 +13,8 @@ import SpriteKit
 
 /// The main SpriteKit scene for AvoidObstaclesGame.
 /// Coordinates all game services and manages the high-level game flow.
-public class GameScene: SKScene, SKPhysicsContactDelegate {
+@MainActor
+public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
     // MARK: - Service Managers
 
     /// Game state management
@@ -279,7 +280,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
     // MARK: - Touch Handling
 
-    /// Handles touch input
+    // Handles touch input
     #if canImport(UIKit)
         override public func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
             guard let touch = touches.first else { return }
@@ -366,6 +367,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
 
 // MARK: - Service Delegates
 
+@MainActor
 extension GameScene: GameStateDelegate {
     func gameStateDidChange(from _: GameState, to newState: GameState) {
         switch newState {
@@ -401,6 +403,7 @@ extension GameScene: GameStateDelegate {
     }
 }
 
+@MainActor
 extension GameScene: PlayerDelegate {
     func playerDidMove(to _: CGPoint) {
         // Handle player movement feedback if needed
@@ -415,6 +418,7 @@ extension GameScene: PlayerDelegate {
     }
 }
 
+@MainActor
 extension GameScene: ObstacleDelegate {
     func obstacleDidSpawn(_: SKSpriteNode) {
         // Obstacle spawned successfully
@@ -439,12 +443,14 @@ extension GameScene: ObstacleDelegate {
     }
 }
 
-extension GameScene: UIManagerDelegate {
+@MainActor
+extension GameScene: @preconcurrency UIManagerDelegate {
     func restartButtonTapped() {
         restartGame()
     }
 }
 
+@MainActor
 extension GameScene: PhysicsManagerDelegate {
     func playerDidCollideWithObstacle(_: SKNode, obstacle: SKNode) {
         // Trigger screen shake (now that loop issues are fixed)
@@ -485,6 +491,7 @@ extension GameScene: PhysicsManagerDelegate {
     }
 }
 
+@MainActor
 extension GameScene: AchievementDelegate {
     func achievementUnlocked(_ achievement: Achievement) {
         // Show achievement notification
@@ -496,6 +503,7 @@ extension GameScene: AchievementDelegate {
     }
 }
 
+@MainActor
 extension GameScene: PerformanceDelegate {
     func performanceWarningTriggered(_ warning: PerformanceWarning) {
         switch warning {

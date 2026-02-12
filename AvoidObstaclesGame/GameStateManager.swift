@@ -9,6 +9,7 @@
 import Foundation
 
 /// Protocol for game state change notifications
+@MainActor
 protocol GameStateDelegate: AnyObject {
     func gameStateDidChange(from oldState: GameState, to newState: GameState)
     func scoreDidChange(to newScore: Int)
@@ -25,6 +26,7 @@ enum GameState {
 }
 
 /// Manages the core game state and logic
+@MainActor
 class GameStateManager {
     // MARK: - Properties
 
@@ -34,14 +36,14 @@ class GameStateManager {
     /// Current game state
     private(set) var currentState: GameState = .waitingToStart {
         didSet {
-            delegate?.gameStateDidChange(from: oldValue, to: currentState)
+            notifyGameStateChanged(from: oldValue, to: currentState)
         }
     }
 
     /// Current score
     private(set) var score: Int = 0 {
         didSet {
-            delegate?.scoreDidChange(to: score)
+            notifyScoreChanged(to: score)
             updateDifficultyIfNeeded()
         }
     }
@@ -140,8 +142,23 @@ class GameStateManager {
         if newLevel > currentDifficultyLevel {
             currentDifficultyLevel = newLevel
             currentDifficulty = newDifficulty
-            delegate?.difficultyDidIncrease(to: newLevel)
+            notifyDifficultyIncreased(to: newLevel)
         }
+    }
+
+    /// Notifies delegate of game state change
+    private func notifyGameStateChanged(from oldState: GameState, to newState: GameState) {
+        delegate?.gameStateDidChange(from: oldState, to: newState)
+    }
+
+    /// Notifies delegate of score change
+    private func notifyScoreChanged(to newScore: Int) {
+        delegate?.scoreDidChange(to: newScore)
+    }
+
+    /// Notifies delegate of difficulty increase
+    private func notifyDifficultyIncreased(to level: Int) {
+        delegate?.difficultyDidIncrease(to: level)
     }
 
     /// Gets current difficulty settings
@@ -160,6 +177,7 @@ class GameStateManager {
 
     /// Gets game statistics
     /// - Returns: Dictionary of statistics
+    @MainActor
     func getStatistics() -> [String: Any] {
         [
             "gamesPlayed": gamesPlayed,
@@ -192,17 +210,6 @@ class GameStateManager {
         UserDefaults.standard.synchronize()
     }
 
-    /// Resets all statistics (async version)
-    func resetStatisticsAsync() async {
-        await Task.detached {
-            self.gamesPlayed = 0
-            self.totalScore = 0
-            self.bestSurvivalTime = 0
-            UserDefaults.standard.removeObject(forKey: "gameStatistics")
-            UserDefaults.standard.synchronize()
-        }.value
-    }
-
     // MARK: - Persistence
 
     private func loadStatistics() {
@@ -212,31 +219,12 @@ class GameStateManager {
         bestSurvivalTime = defaults.double(forKey: "bestSurvivalTime")
     }
 
-    private func loadStatisticsAsync() async {
-        await Task.detached {
-            let defaults = UserDefaults.standard
-            self.gamesPlayed = defaults.integer(forKey: "gamesPlayed")
-            self.totalScore = defaults.integer(forKey: "totalScore")
-            self.bestSurvivalTime = defaults.double(forKey: "bestSurvivalTime")
-        }.value
-    }
-
     private func saveStatistics() {
         let defaults = UserDefaults.standard
         defaults.set(gamesPlayed, forKey: "gamesPlayed")
         defaults.set(totalScore, forKey: "totalScore")
         defaults.set(bestSurvivalTime, forKey: "bestSurvivalTime")
         defaults.synchronize()
-    }
-
-    private func saveStatisticsAsync() async {
-        await Task.detached {
-            let defaults = UserDefaults.standard
-            defaults.set(self.gamesPlayed, forKey: "gamesPlayed")
-            defaults.set(self.totalScore, forKey: "totalScore")
-            defaults.set(self.bestSurvivalTime, forKey: "bestSurvivalTime")
-            defaults.synchronize()
-        }.value
     }
 
     // MARK: - State Queries
@@ -263,7 +251,7 @@ class GameStateManager {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-nonisolated(unsafe) private var objectPool: [Any] = []
+private nonisolated(unsafe) var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

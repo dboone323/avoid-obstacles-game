@@ -39,6 +39,7 @@ class InputManager {
         #endif
     }
 
+    @MainActor
     func handleTouch(_ location: CGPoint, in scene: SKScene) {
         switch mode {
         case .tap, .drag:

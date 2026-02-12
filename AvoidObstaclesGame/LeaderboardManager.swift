@@ -6,8 +6,9 @@ import GameKit
 #endif
 
 /// Manages Game Center leaderboards and achievements
+@MainActor
 class LeaderboardManager: NSObject {
-    @MainActor static let shared = LeaderboardManager()
+    static let shared = LeaderboardManager()
 
     private var isAuthenticated = false
 
@@ -58,13 +59,16 @@ class LeaderboardManager: NSObject {
             return
         }
 
-        GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
-                                  leaderboardIDs: [highScoreLeaderboard])
-        { error in
+        GKLeaderboard.submitScore(
+            score,
+            context: 0,
+            player: GKLocalPlayer.local,
+            leaderboardIDs: [highScoreLeaderboard]
+        ) { error in
             if let error {
-                GameLogger.shared.debug("❌ Failed to submit score: \(error)")
+                GameLogger.debugNonIsolated("❌ Failed to submit score: \(error)")
             } else {
-                GameLogger.shared.debug("✅ Score submitted: \(score)")
+                GameLogger.debugNonIsolated("✅ Score submitted: \(score)")
             }
         }
     }
@@ -105,16 +109,16 @@ class LeaderboardManager: NSObject {
 
         GKAchievement.report([achievement]) { error in
             if let error {
-                GameLogger.shared.debug("❌ Failed to report achievement: \(error)")
+                GameLogger.debugNonIsolated("❌ Failed to report achievement: \(error)")
             } else {
-                GameLogger.shared.debug("✅ Achievement unlocked: \(identifier)")
+                GameLogger.debugNonIsolated("✅ Achievement unlocked: \(identifier)")
             }
         }
     }
 
     // MARK: - Load Leaderboard Data
 
-    func loadTopScores(completion: @escaping ([GKLeaderboard.Entry]) -> Void) {
+    func loadTopScores(completion: @escaping @Sendable ([GKLeaderboard.Entry]) -> Void) {
         guard isAuthenticated else {
             completion([])
             return
@@ -138,8 +142,10 @@ class LeaderboardManager: NSObject {
 
 // MARK: - Game Center Delegate
 
+@available(*, deprecated)
+@MainActor
 extension LeaderboardManager: GKGameCenterControllerDelegate {
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+    nonisolated func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         #if os(iOS)
             gameCenterViewController.dismiss(animated: true)
         #elseif os(macOS)
@@ -148,7 +154,7 @@ extension LeaderboardManager: GKGameCenterControllerDelegate {
     }
 }
 
-// Achievement IDs
+/// Achievement IDs
 extension LeaderboardManager {
     enum Achievement {
         static let firstGame = "com.momentumfinance.avoidobstacles.firstgame"

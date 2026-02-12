@@ -13,10 +13,12 @@ class SpatialAudioManager {
     private var players: [String: AVAudioPlayerNode] = [:]
     private var environment: AVAudioEnvironmentNode?
 
+    @MainActor
     private init() {
         setupAudioEngine()
     }
 
+    @MainActor
     private func setupAudioEngine() {
         audioEngine = AVAudioEngine()
         environment = AVAudioEnvironmentNode()
@@ -33,6 +35,7 @@ class SpatialAudioManager {
         }
     }
 
+    @MainActor
     func playSound(_ name: String, at position: CGPoint, in scene: SKScene) {
         guard GameConfiguration.load().audio.soundEffectsEnabled else { return }
 

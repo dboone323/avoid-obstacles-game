@@ -1,5 +1,4 @@
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 /// Comprehensive tests for HapticFeedbackManager
@@ -140,7 +139,8 @@ final class HapticFeedbackManagerTests: XCTestCase {
                 sut.heavy()
                 sut.selection()
                 sut.success()
-            }())
+            }()
+        )
     }
 
     func testRapidFireHaptics() {

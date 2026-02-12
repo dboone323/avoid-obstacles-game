@@ -74,6 +74,7 @@ class EntityManager {
     }
 
     /// Resets the player to initial position.
+    @MainActor
     func resetPlayer(to position: CGPoint) {
         guard let player = playerEntity, let scene else { return }
 

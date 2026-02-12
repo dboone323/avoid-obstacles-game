@@ -9,6 +9,7 @@ import GameplayKit
 import SpriteKit
 
 /// State representing game over.
+@MainActor
 class GameOverState: GKState {
     /// Reference to the game scene.
     weak var scene: GameScene?

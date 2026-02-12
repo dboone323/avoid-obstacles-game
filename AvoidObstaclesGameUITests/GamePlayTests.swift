@@ -8,12 +8,11 @@
 import XCTest
 
 final class GamePlayTests: XCTestCase {
-
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
 
-    func testGameHUDlaunch() throws {
+    func testGameHUDlaunch() {
         let app = XCUIApplication()
         app.launch()
 
@@ -42,7 +41,7 @@ final class GamePlayTests: XCTestCase {
         XCTAssertTrue(difficultyLabel.exists, "Difficulty label should be visible")
     }
 
-    func testGameOverState() throws {
+    func testGameOverState() {
         let app = XCUIApplication()
         app.launch()
 

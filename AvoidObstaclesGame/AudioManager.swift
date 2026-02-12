@@ -65,6 +65,7 @@ class AudioManager {
 
     // MARK: - Music Playback
 
+    @MainActor
     func playBackgroundMusic() {
         guard isMusicEnabled else { return }
 
@@ -91,12 +92,12 @@ class AudioManager {
         UserDefaults.standard.set(isSoundEnabled, forKey: "soundEnabled")
     }
 
-    func toggleMusic() {
+    func toggleMusic() async {
         isMusicEnabled.toggle()
         UserDefaults.standard.set(isMusicEnabled, forKey: "musicEnabled")
 
         if isMusicEnabled {
-            playBackgroundMusic()
+            await playBackgroundMusic()
         } else {
             stopBackgroundMusic()
         }

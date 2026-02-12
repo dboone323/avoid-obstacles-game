@@ -4,7 +4,6 @@
 //
 
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 final class LeaderboardManagerTests: XCTestCase {

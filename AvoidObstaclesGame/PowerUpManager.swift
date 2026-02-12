@@ -1,6 +1,7 @@
 import SpriteKit
 
 /// Manages power-ups in the game
+@MainActor
 class PowerUpManager {
     weak var scene: SKScene?
     private var activePowerUps: Set<PowerUpType> = []

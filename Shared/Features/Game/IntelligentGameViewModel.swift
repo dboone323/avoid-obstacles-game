@@ -9,10 +9,10 @@
 //  advanced analytics, and intelligent features into the game.
 //
 
-import Foundation
-import SwiftUI
 import Combine
+import Foundation
 import Shared_Kit
+import SwiftUI
 
 @MainActor
 @Observable
@@ -166,7 +166,7 @@ final class IntelligentGameViewModel {
         adaptiveElements = [
             AdaptiveElement(type: .dynamicObstacles, intensity: 0.5),
             AdaptiveElement(type: .powerUpPlacement, intensity: 0.7),
-            AdaptiveElement(type: .speedVariation, intensity: 0.3)
+            AdaptiveElement(type: .speedVariation, intensity: 0.3),
         ]
     }
 
@@ -254,10 +254,10 @@ final class IntelligentGameViewModel {
 
     private func generatePlayerInsights() async {
         do {
-            let timeRange = DateInterval(start: Date().addingTimeInterval(-7*24*60*60), end: Date())
+            let timeRange = DateInterval(start: Date().addingTimeInterval(-7 * 24 * 60 * 60), end: Date())
             let insights = try await analyticsEngine.getInsights(for: "current_user", timeRange: timeRange)
 
-            self.playerInsights = insights.summary.recommendations.map { $0.title }
+            self.playerInsights = insights.summary.recommendations.map(\.title)
         } catch {
             print("Failed to generate player insights: \(error)")
         }
@@ -376,7 +376,7 @@ struct GameRecommendation {
 struct AdaptiveElement {
     var type: AdaptiveType
     var intensity: Double
-    var lastUpdate: Date = Date()
+    var lastUpdate: Date = .init()
 
     enum AdaptiveType {
         case dynamicObstacles, powerUpPlacement, speedVariation
@@ -418,8 +418,8 @@ enum SecurityStatus {
 extension BiometricAvailability {
     var isAvailable: Bool {
         switch self {
-        case .available: return true
-        case .unavailable: return false
+        case .available: true
+        case .unavailable: false
         }
     }
 }

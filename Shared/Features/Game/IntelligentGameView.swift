@@ -9,8 +9,8 @@
 //  advanced analytics, and intelligent features into the game UI.
 //
 
-import SwiftUI
 import Shared_Kit
+import SwiftUI
 
 struct IntelligentGameView: View {
     @State private var viewModel = IntelligentGameViewModel()
@@ -73,10 +73,10 @@ struct IntelligentGameView: View {
 
                     Spacer()
 
-                    Button(action: { showInsights.toggle() }) {
+                    Button(action: { showInsights.toggle() }, label: {
                         Image(systemName: "brain.head.profile")
                             .foregroundColor(.blue)
-                    }
+                    })
                 }
             }
         }
@@ -118,7 +118,6 @@ struct IntelligentGameView: View {
                         }
                     }
                     .padding(.top, 300)
-
                 } else {
                     VStack(spacing: 20) {
                         Text("🚀 Ready to Play")
@@ -129,14 +128,14 @@ struct IntelligentGameView: View {
                             Task {
                                 await viewModel.startGame()
                             }
-                        }) {
+                        }, label: {
                             Text("Start Intelligent Game")
                                 .font(.title)
                                 .foregroundColor(.white)
                                 .padding()
                                 .background(Color.blue)
                                 .cornerRadius(10)
-                        }
+                        })
                     }
                 }
             }
@@ -149,7 +148,7 @@ struct IntelligentGameView: View {
     private var intelligentControls: some View {
         HStack(spacing: 20) {
             // Recommendations button
-            Button(action: { showRecommendations.toggle() }) {
+            Button(action: { showRecommendations.toggle() }, label: {
                 VStack {
                     Image(systemName: "lightbulb.fill")
                         .font(.title)
@@ -160,10 +159,10 @@ struct IntelligentGameView: View {
                 .padding()
                 .background(Color.yellow.opacity(0.2))
                 .cornerRadius(10)
-            }
+            })
 
             // Analytics button
-            Button(action: { showInsights.toggle() }) {
+            Button(action: { showInsights.toggle() }, label: {
                 VStack {
                     Image(systemName: "chart.bar.fill")
                         .font(.title)
@@ -174,7 +173,7 @@ struct IntelligentGameView: View {
                 .padding()
                 .background(Color.green.opacity(0.2))
                 .cornerRadius(10)
-            }
+            })
 
             // Security status
             VStack {
@@ -208,13 +207,13 @@ struct IntelligentGameView: View {
                 .padding()
             }
 
-            Button(action: { showRecommendations = false }) {
+            Button(action: { showRecommendations = false }, label: {
                 Text("Dismiss")
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.blue)
                     .cornerRadius(10)
-            }
+            })
             .padding(.bottom)
         }
         .background(Color.black.opacity(0.8))
@@ -253,9 +252,9 @@ struct IntelligentGameView: View {
 
     private func priorityColor(for priority: GameRecommendation.Priority) -> Color {
         switch priority {
-        case .high: return .red
-        case .medium: return .yellow
-        case .low: return .green
+        case .high: .red
+        case .medium: .yellow
+        case .low: .green
         }
     }
 
@@ -286,9 +285,9 @@ struct IntelligentGameView: View {
                 .padding()
             }
             .background(Color.black.edgesIgnoringSafeArea(.all))
-            .navigationBarItems(trailing: Button("Done") {
-                showInsights = false
-            })
+            .navigationBarItems(trailing: Button(action: { showInsights = false }, label: {
+                Text("Done")
+            }))
         }
     }
 
@@ -382,7 +381,9 @@ struct IntelligentGameView: View {
                 Image(systemName: viewModel.isBiometricEnabled ? "checkmark.shield.fill" : "xmark.shield")
                     .foregroundColor(viewModel.isBiometricEnabled ? .green : .red)
 
-                Text(viewModel.isBiometricEnabled ? "Biometric authentication available" : "Biometric authentication not available")
+                Text(viewModel.isBiometricEnabled
+                    ? "Biometric authentication available"
+                    : "Biometric authentication not available")
                     .foregroundColor(.white)
             }
         }
@@ -397,9 +398,9 @@ struct IntelligentGameView: View {
 extension Difficulty {
     var rawValue: String {
         switch self {
-        case .easy: return "easy"
-        case .normal: return "normal"
-        case .hard: return "hard"
+        case .easy: "easy"
+        case .normal: "normal"
+        case .hard: "hard"
         }
     }
 }
@@ -407,10 +408,10 @@ extension Difficulty {
 extension BehaviorPattern.PatternType {
     var description: String {
         switch self {
-        case .timeBased: return "Time-based activity"
-        case .locationBased: return "Location-based activity"
-        case .activityBased: return "Activity patterns"
-        case .socialBased: return "Social interactions"
+        case .timeBased: "Time-based activity"
+        case .locationBased: "Location-based activity"
+        case .activityBased: "Activity patterns"
+        case .socialBased: "Social interactions"
         }
     }
 }

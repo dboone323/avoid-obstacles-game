@@ -6,7 +6,6 @@
 //
 
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 final class AudioManagerTests: XCTestCase {
@@ -90,10 +89,10 @@ final class AudioManagerTests: XCTestCase {
         XCTAssertNoThrow(sut.toggleSound()) // Toggle back
     }
 
-    func testToggleMusic() {
-        XCTAssertNoThrow(sut.toggleMusic())
+    func testToggleMusic() async {
+        await XCTAssertNoThrow(sut.toggleMusic())
         sut.stopBackgroundMusic() // Clean up
-        XCTAssertNoThrow(sut.toggleMusic()) // Toggle back
+        await XCTAssertNoThrow(sut.toggleMusic()) // Toggle back
         sut.stopBackgroundMusic()
     }
 
@@ -101,13 +100,13 @@ final class AudioManagerTests: XCTestCase {
         XCTAssertNoThrow(sut.loadSettings())
     }
 
-    func testSettingsPersistence() {
+    func testSettingsPersistence() async {
         // Test that settings are saved to UserDefaults
         sut.toggleSound()
         let soundEnabled = UserDefaults.standard.bool(forKey: "soundEnabled")
         XCTAssertNotNil(soundEnabled)
 
-        sut.toggleMusic()
+        await sut.toggleMusic()
         let musicEnabled = UserDefaults.standard.bool(forKey: "musicEnabled")
         XCTAssertNotNil(musicEnabled)
 
@@ -167,7 +166,8 @@ final class AudioManagerTests: XCTestCase {
                 sut.playLevelUp()
                 sut.playButton()
                 sut.playWhoosh()
-            }())
+            }()
+        )
     }
 
     func testRapidFireSounds() {
@@ -182,7 +182,8 @@ final class AudioManagerTests: XCTestCase {
             {
                 sut.playCollision()
                 sut.playPowerUp()
-            }())
+            }()
+        )
         sut.stopBackgroundMusic()
     }
 
@@ -195,10 +196,10 @@ final class AudioManagerTests: XCTestCase {
         XCTAssertNoThrow(sut.playCollision())
     }
 
-    func testMusicEnabledDisabledFlow() {
-        sut.toggleMusic() // May enable or disable depending on initial state
+    func testMusicEnabledDisabledFlow() async {
+        await sut.toggleMusic() // May enable or disable depending on initial state
         XCTAssertNoThrow(sut.playBackgroundMusic())
-        sut.toggleMusic()
+        await sut.toggleMusic()
         sut.stopBackgroundMusic()
     }
 
@@ -210,10 +211,10 @@ final class AudioManagerTests: XCTestCase {
         sut.toggleSound() // Re-enable
     }
 
-    func testPlayingMusicWhenDisabled() {
-        sut.toggleMusic() // May disable music
+    func testPlayingMusicWhenDisabled() async {
+        await sut.toggleMusic() // May disable music
         XCTAssertNoThrow(sut.playBackgroundMusic()) // Should handle gracefully
-        sut.toggleMusic()
+        await sut.toggleMusic()
         sut.stopBackgroundMusic()
     }
 

@@ -9,17 +9,19 @@
 import SpriteKit
 
 /// Protocol for physics-related events
+@MainActor
 protocol PhysicsManagerDelegate: AnyObject {
     func playerDidCollideWithObstacle(_ player: SKNode, obstacle: SKNode)
     func playerDidCollideWithPowerUp(_ player: SKNode, powerUp: SKNode)
 }
 
 /// Manages physics world and collision detection
-public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
+@MainActor
+public class PhysicsManager: NSObject, @preconcurrency SKPhysicsContactDelegate {
     // MARK: - Properties
 
     /// Delegate for physics events
-    weak var delegate: PhysicsManagerDelegate?
+    @MainActor weak var delegate: PhysicsManagerDelegate?
 
     /// Reference to the physics world
     private weak var physicsWorld: SKPhysicsWorld?
@@ -106,7 +108,7 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     // MARK: - Collision Detection (SKPhysicsContactDelegate)
 
     /// Called when two physics bodies begin contact
-    public func didBegin(_ contact: SKPhysicsContact) {
+    public nonisolated func didBegin(_ contact: SKPhysicsContact) {
         // Order bodies by category for consistent processing
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
@@ -119,29 +121,64 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
 
-        // Handle different collision types
-        handleCollision(firstBody: firstBody, secondBody: secondBody)
-    }
+        // Extract nodes in nonisolated context
+        let playerNode: SKNode?
+        let obstacleNode: SKNode?
+        let powerUpNode: SKNode?
 
-    /// Processes collision based on body categories
-    private func handleCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody) {
         let collision = firstBody.categoryBitMask | secondBody.categoryBitMask
 
         switch collision {
         case PhysicsCategory.player | PhysicsCategory.obstacle:
+            playerNode = getNode(from: firstBody, secondBody)
+            obstacleNode = getNode(from: secondBody, firstBody)
+            powerUpNode = nil
+        case PhysicsCategory.player | PhysicsCategory.powerUp:
+            playerNode = getNode(from: firstBody, secondBody)
+            obstacleNode = nil
+            powerUpNode = getNode(from: secondBody, firstBody)
+        default:
+            playerNode = nil
+            obstacleNode = nil
+            powerUpNode = nil
+        }
+
+        // Handle collision on main actor with extracted nodes
+        Task { @MainActor in
+            await self.handleCollision(
+                collision: collision,
+                playerNode: playerNode,
+                obstacleNode: obstacleNode,
+                powerUpNode: powerUpNode
+            )
+        }
+    }
+
+    /// Processes collision based on body categories
+    @MainActor
+    private func handleCollision(
+        collision: UInt32,
+        playerNode: SKNode?,
+        obstacleNode: SKNode?,
+        powerUpNode: SKNode?
+    ) async {
+        switch collision {
+        case PhysicsCategory.player | PhysicsCategory.obstacle:
             // Player collided with obstacle
-            if let playerNode = getNode(from: firstBody, secondBody),
-               let obstacleNode = getNode(from: secondBody, firstBody)
-            {
-                delegate?.playerDidCollideWithObstacle(playerNode, obstacle: obstacleNode)
+            if let playerNode, let obstacleNode {
+                Task {
+                    guard let delegate = self.delegate else { return }
+                    await delegate.playerDidCollideWithObstacle(playerNode, obstacle: obstacleNode)
+                }
             }
 
         case PhysicsCategory.player | PhysicsCategory.powerUp:
             // Player collided with power-up
-            if let playerNode = getNode(from: firstBody, secondBody),
-               let powerUpNode = getNode(from: secondBody, firstBody)
-            {
-                delegate?.playerDidCollideWithPowerUp(playerNode, powerUp: powerUpNode)
+            if let playerNode, let powerUpNode {
+                Task {
+                    guard let delegate = self.delegate else { return }
+                    await delegate.playerDidCollideWithPowerUp(playerNode, powerUp: powerUpNode)
+                }
             }
 
         default:
@@ -151,7 +188,7 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     }
 
     /// Helper method to get the correct node from physics bodies
-    private func getNode(from bodyA: SKPhysicsBody, _ bodyB: SKPhysicsBody) -> SKNode? {
+    private nonisolated func getNode(from bodyA: SKPhysicsBody, _ bodyB: SKPhysicsBody) -> SKNode? {
         if bodyA.categoryBitMask == PhysicsCategory.player {
             return bodyA.node
         } else if bodyB.categoryBitMask == PhysicsCategory.player {
@@ -296,27 +333,21 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     /// - Parameter size: Size of the player
     /// - Returns: Configured physics body
     func createPlayerPhysicsBodyAsync(size: CGSize) async -> SKPhysicsBody {
-        await Task.detached {
-            self.createPlayerPhysicsBody(size: size)
-        }.value
+        await createPlayerPhysicsBody(size: size)
     }
 
     /// Creates a physics body for an obstacle asynchronously
     /// - Parameter size: Size of the obstacle
     /// - Returns: Configured physics body
     func createObstaclePhysicsBodyAsync(size: CGSize) async -> SKPhysicsBody {
-        await Task.detached {
-            self.createObstaclePhysicsBody(size: size)
-        }.value
+        await createObstaclePhysicsBody(size: size)
     }
 
     /// Creates a physics body for a power-up asynchronously
     /// - Parameter size: Size of the power-up
     /// - Returns: Configured physics body
     func createPowerUpPhysicsBodyAsync(size: CGSize) async -> SKPhysicsBody {
-        await Task.detached {
-            self.createPowerUpPhysicsBody(size: size)
-        }.value
+        await createPowerUpPhysicsBody(size: size)
     }
 
     /// Applies an impulse to a physics body asynchronously
@@ -324,9 +355,7 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     ///   - body: The physics body to apply impulse to
     ///   - impulse: The impulse vector
     func applyImpulseAsync(to body: SKPhysicsBody, impulse: CGVector) async {
-        await Task.detached {
-            self.applyImpulse(to: body, impulse: impulse)
-        }.value
+        await applyImpulse(to: body, impulse: impulse)
     }
 
     /// Applies a force to a physics body asynchronously
@@ -334,9 +363,7 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     ///   - body: The physics body to apply force to
     ///   - force: The force vector
     func applyForceAsync(to body: SKPhysicsBody, force: CGVector) async {
-        await Task.detached {
-            self.applyForce(to: body, force: force)
-        }.value
+        await applyForce(to: body, force: force)
     }
 
     /// Sets the velocity of a physics body asynchronously
@@ -344,18 +371,14 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     ///   - body: The physics body to modify
     ///   - velocity: The new velocity
     func setVelocityAsync(of body: SKPhysicsBody, to velocity: CGVector) async {
-        await Task.detached {
-            self.setVelocity(of: body, to: velocity)
-        }.value
+        await setVelocity(of: body, to: velocity)
     }
 
     /// Gets the velocity of a physics body asynchronously
     /// - Parameter body: The physics body to query
     /// - Returns: Current velocity
     func getVelocityAsync(of body: SKPhysicsBody) async -> CGVector {
-        await Task.detached {
-            self.getVelocity(of: body)
-        }.value
+        await getVelocity(of: body)
     }
 
     /// Performs a ray cast from a point in a direction asynchronously
@@ -364,66 +387,50 @@ public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     ///   - endPoint: Ending point of the ray
     /// - Returns: Array of physics bodies hit by the ray
     func rayCastAsync(from startPoint: CGPoint, to endPoint: CGPoint) async -> [SKPhysicsBody] {
-        await Task.detached {
-            self.rayCast(from: startPoint, to: endPoint)
-        }.value
+        await rayCast(from: startPoint, to: endPoint)
     }
 
     /// Performs a point query to find bodies at a specific point asynchronously
     /// - Parameter point: The point to query
     /// - Returns: Array of physics bodies at the point
     func bodiesAsync(at point: CGPoint) async -> [SKPhysicsBody] {
-        await Task.detached {
-            self.bodies(at: point)
-        }.value
+        await bodies(at: point)
     }
 
     /// Performs an area query to find bodies within a rectangle asynchronously
     /// - Parameter rect: The rectangle to query
     /// - Returns: Array of physics bodies in the rectangle
     func bodiesAsync(in rect: CGRect) async -> [SKPhysicsBody] {
-        await Task.detached {
-            self.bodies(in: rect)
-        }.value
+        await bodies(in: rect)
     }
 
     /// Enables or disables physics debugging visualization asynchronously
     /// - Parameter enabled: Whether to show physics bodies
     func setDebugVisualizationAsync(enabled: Bool) async {
-        await Task.detached {
-            self.setDebugVisualization(enabled: enabled)
-        }.value
+        await setDebugVisualization(enabled: enabled)
     }
 
     /// Enables or disables FPS display asynchronously
     /// - Parameter enabled: Whether to show FPS
     func setFPSDisplayAsync(enabled: Bool) async {
-        await Task.detached {
-            self.setFPSDisplay(enabled: enabled)
-        }.value
+        await setFPSDisplay(enabled: enabled)
     }
 
     /// Enables or disables node count display asynchronously
     /// - Parameter enabled: Whether to show node count
     func setNodeCountDisplayAsync(enabled: Bool) async {
-        await Task.detached {
-            self.setNodeCountDisplay(enabled: enabled)
-        }.value
+        await setNodeCountDisplay(enabled: enabled)
     }
 
     /// Updates physics simulation quality asynchronously
     /// - Parameter quality: The desired quality level
     func setSimulationQualityAsync(_ quality: PhysicsQuality) async {
-        await Task.detached {
-            self.setSimulationQuality(quality)
-        }.value
+        await setSimulationQuality(quality)
     }
 
     /// Cleans up physics-related resources asynchronously
     func cleanupAsync() async {
-        await Task.detached {
-            self.cleanup()
-        }.value
+        await cleanup()
     }
 }
 
@@ -437,7 +444,7 @@ enum PhysicsQuality {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-nonisolated(unsafe) private var objectPool: [Any] = []
+private nonisolated(unsafe) var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

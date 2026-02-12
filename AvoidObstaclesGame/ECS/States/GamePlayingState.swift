@@ -9,6 +9,7 @@ import GameplayKit
 import SpriteKit
 
 /// State representing active gameplay.
+@MainActor
 class GamePlayingState: GKState {
     /// Reference to the game scene.
     weak var scene: GameScene?
@@ -23,7 +24,7 @@ class GamePlayingState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        GameLogger.shared.debug("🎮 Entered Playing State")
+        GameLogger.debugNonIsolated("🎮 Entered Playing State")
 
         guard let scene else { return }
 
@@ -43,6 +44,6 @@ class GamePlayingState: GKState {
     }
 
     override func willExit(to nextState: GKState) {
-        GameLogger.shared.debug("🎮 Exiting Playing State -> \(type(of: nextState))")
+        GameLogger.debugNonIsolated("🎮 Exiting Playing State -> \(type(of: nextState))")
     }
 }

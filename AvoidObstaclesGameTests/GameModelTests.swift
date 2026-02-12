@@ -1,7 +1,6 @@
 import Foundation
 import SwiftData
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 /// Unit tests for AvoidObstaclesGame model functionality
@@ -27,7 +26,7 @@ final class GameModelTests: XCTestCase {
 
     // MARK: - Game Score Tests
 
-    func testGameScoreCreation() throws {
+    func testGameScoreCreation() {
         // Example test for GameScore model
         // let gameScore = GameScore(
         //     playerName: "TestPlayer",
@@ -46,7 +45,7 @@ final class GameModelTests: XCTestCase {
         XCTAssertTrue(true, "GameScore creation test framework ready")
     }
 
-    func testGameScorePersistence() throws {
+    func testGameScorePersistence() {
         // Example test for persistence
         // let gameScore = GameScore(
         //     playerName: "PersistentPlayer",
@@ -72,7 +71,7 @@ final class GameModelTests: XCTestCase {
 
     // MARK: - Score Calculations Tests
 
-    func testHighScoreTracking() throws {
+    func testHighScoreTracking() {
         // Example test for high score calculations
         // let score1 = GameScore(playerName: "Player1", score: 1000, level: 3, date: Date(), duration: 90.0)
         // let score2 = GameScore(playerName: "Player2", score: 1500, level: 5, date: Date(), duration: 120.0)
@@ -98,7 +97,7 @@ final class GameModelTests: XCTestCase {
 
     // MARK: - Player Statistics Tests
 
-    func testPlayerStatistics() throws {
+    func testPlayerStatistics() {
         // Example test for player statistics
         // let player1Score1 = GameScore(playerName: "Player1", score: 1000, level: 3, date: Date(), duration: 90.0)
         // let player1Score2 = GameScore(playerName: "Player1", score: 1200, level: 4, date: Date(), duration: 100.0)
@@ -124,7 +123,7 @@ final class GameModelTests: XCTestCase {
 
     // MARK: - Date Range Tests
 
-    func testScoresByDateRange() throws {
+    func testScoresByDateRange() {
         // Example test for date range queries
         // let today = Date()
         // let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
@@ -154,7 +153,7 @@ final class GameModelTests: XCTestCase {
 
     // MARK: - Level Tests
 
-    func testScoresByLevel() throws {
+    func testScoresByLevel() {
         // Example test for level filtering
         // let level1Score = GameScore(playerName: "Player", score: 500, level: 1, date: Date(), duration: 45.0)
         // let level2Score1 = GameScore(playerName: "Player", score: 800, level: 2, date: Date(), duration: 70.0)
@@ -181,7 +180,7 @@ final class GameModelTests: XCTestCase {
 
     // MARK: - Performance Tests
 
-    func testLargeDatasetPerformance() throws {
+    func testLargeDatasetPerformance() {
         let startTime = Date()
 
         // Insert multiple game scores for performance testing

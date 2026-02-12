@@ -19,8 +19,12 @@ class AdaptiveDifficultyAI {
     }
 
     func recordPerformance(score: Int, survivalTime: TimeInterval, collisions: Int) {
-        let data = PerformanceData(score: score, survivalTime: survivalTime,
-                                   collisions: collisions, timestamp: Date())
+        let data = PerformanceData(
+            score: score,
+            survivalTime: survivalTime,
+            collisions: collisions,
+            timestamp: Date()
+        )
         playerPerformance.append(data)
 
         if playerPerformance.count > 10 {

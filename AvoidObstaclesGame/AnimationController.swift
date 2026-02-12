@@ -10,6 +10,7 @@ class AnimationController {
 
     private init() {}
 
+    @MainActor
     func animateScoreIncrease(on label: SKLabelNode, from oldScore: Int, to newScore: Int) {
         let scaleUp = SKAction.scale(to: 1.2, duration: 0.15)
         let scaleDown = SKAction.scale(to: 1.0, duration: 0.15)
@@ -31,6 +32,7 @@ class AnimationController {
         }
     }
 
+    @MainActor
     func animatePowerUpActivation(on node: SKNode) {
         let pulse = SKAction.sequence([
             SKAction.scale(to: 1.3, duration: 0.2),
@@ -42,6 +44,7 @@ class AnimationController {
         node.run(group)
     }
 
+    @MainActor
     func animateComboPopup(score: Int, at position: CGPoint, in scene: SKScene) {
         let label = SKLabelNode(fontNamed: "AvenirNext-Bold")
         label.text = "+\(score) COMBO!"
@@ -60,6 +63,7 @@ class AnimationController {
         label.run(SKAction.sequence([group, SKAction.removeFromParent()]))
     }
 
+    @MainActor
     func animateObstacleDestruction(obstacle: SKNode) {
         let shrink = SKAction.scale(to: 0, duration: 0.3)
         let rotate = SKAction.rotate(byAngle: .pi * 4, duration: 0.3)

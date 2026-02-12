@@ -13,6 +13,7 @@ import QuartzCore
 #endif
 
 /// Protocol for performance-related events
+@MainActor
 protocol PerformanceDelegate: AnyObject {
     func performanceWarningTriggered(_ warning: PerformanceWarning)
     func frameRateDropped(below targetFPS: Int)
@@ -65,6 +66,7 @@ enum TextureQuality {
 }
 
 /// Manages performance optimization and monitoring
+@MainActor
 class PerformanceManager {
     // MARK: - Properties
 
@@ -392,7 +394,7 @@ struct PerformanceStats {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-nonisolated(unsafe) private var objectPool: [Any] = []
+private nonisolated(unsafe) var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

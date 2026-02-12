@@ -22,10 +22,10 @@ import SpriteKit
             case scoring
             case complete
 
-            var title: String {
+            func getTitle() -> String {
                 switch self {
                 case .welcome:
-                    LocalizationManager.shared.string(for: .tutorialWelcome)
+                    "Welcome to Avoid Obstacles!"
                 case .movement:
                     "Movement Controls"
                 case .obstacles:
@@ -174,8 +174,10 @@ import SpriteKit
         }
 
         private func setupPlayer() {
-            player = SKSpriteNode(color: config.color(from: config.player.color),
-                                  size: config.player.size)
+            player = SKSpriteNode(
+                color: config.color(from: config.player.color),
+                size: config.player.size
+            )
             player?.position = CGPoint(x: size.width / 2, y: 200)
             player?.zPosition = 50
 
@@ -191,7 +193,7 @@ import SpriteKit
             currentStep = step
 
             // Update UI
-            titleLabel.text = step.title
+            titleLabel.text = step.getTitle()
             instructionLabel.text = step.instruction
             updateProgressBar()
 
@@ -233,15 +235,17 @@ import SpriteKit
             }
 
             // Announce to VoiceOver
-            accessibility.announce("\(step.title). \(step.instruction)")
+            accessibility.announce("\(step.getTitle()). \(step.instruction)")
         }
 
         private func updateProgressBar() {
             let progress = CGFloat(currentStep.rawValue) / CGFloat(TutorialStep.allCases.count - 1)
             let progressWidth: CGFloat = (size.width - 80) * progress
 
-            let progressFill = SKShapeNode(rect: CGRect(x: 40, y: 60, width: progressWidth, height: 8),
-                                           cornerRadius: 4)
+            let progressFill = SKShapeNode(
+                rect: CGRect(x: 40, y: 60, width: progressWidth, height: 8),
+                cornerRadius: 4
+            )
             progressFill.fillColor = .systemGreen
             progressFill.strokeColor = .clear
             progressFill.zPosition = 101
@@ -364,8 +368,10 @@ import SpriteKit
         override func update(_ currentTime: TimeInterval) {
             // Check for obstacle avoidance
             if currentStep == .obstacles, let player, let obstacle = testObstacle {
-                let distance = hypot(player.position.x - obstacle.position.x,
-                                     player.position.y - obstacle.position.y)
+                let distance = hypot(
+                    player.position.x - obstacle.position.x,
+                    player.position.y - obstacle.position.y
+                )
 
                 if obstacle.position.y < 0 && !obstacleAvoided {
                     obstacleAvoided = true
@@ -375,8 +381,10 @@ import SpriteKit
 
             // Check for power-up collection
             if currentStep == .powerUps, let player, let powerUp = testPowerUp {
-                let distance = hypot(player.position.x - powerUp.position.x,
-                                     player.position.y - powerUp.position.y)
+                let distance = hypot(
+                    player.position.x - powerUp.position.x,
+                    player.position.y - powerUp.position.y
+                )
 
                 if distance < 40 && !powerUpCollected {
                     powerUpCollected = true

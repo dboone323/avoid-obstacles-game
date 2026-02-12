@@ -13,6 +13,7 @@ import Foundation
 
     /// Manages haptic feedback throughout the game
     @available(iOS 10.0, *)
+    @MainActor
     class HapticFeedbackManager {
         // MARK: - Singleton
 
@@ -26,7 +27,7 @@ import Foundation
         private let selectionGenerator = UISelectionFeedbackGenerator()
         private let notification = UINotificationFeedbackGenerator()
 
-        // CHHapticEngine for advanced haptics
+        /// CHHapticEngine for advanced haptics
         private var hapticEngine: CHHapticEngine?
 
         private var isEnabled: Bool {
@@ -283,7 +284,7 @@ import Foundation
 
 #else
 
-    // macOS stub - haptics not available
+    /// macOS stub - haptics not available
     class HapticFeedbackManager {
         @MainActor static let shared = HapticFeedbackManager()
         private init() {}

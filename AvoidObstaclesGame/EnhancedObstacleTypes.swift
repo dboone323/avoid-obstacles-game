@@ -55,6 +55,7 @@ enum EnhancedObstacleType: CaseIterable {
 }
 
 extension ObstacleManager {
+    @MainActor
     func spawnEnhancedObstacle(type: EnhancedObstacleType, difficulty: GameDifficulty) {
         guard let scene else { return }
 

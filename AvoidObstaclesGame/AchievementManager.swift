@@ -8,13 +8,14 @@
 import Foundation
 
 /// Protocol for achievement-related events
+@MainActor
 protocol AchievementDelegate: AnyObject {
     func achievementUnlocked(_ achievement: Achievement)
     func achievementProgressUpdated(_ achievement: Achievement, progress: Float)
 }
 
 /// Represents an achievement in the game
-public struct Achievement: Codable, Identifiable {
+public struct Achievement: Codable, Identifiable, Sendable {
     public let id: String
     let title: String
     let description: String
@@ -257,6 +258,7 @@ class AchievementManager {
     /// Updates achievement progress based on game events
     /// - Parameter event: The game event that occurred
     /// - Parameter value: The value associated with the event
+    @MainActor
     func updateProgress(for event: AchievementEvent, value: Int = 1) {
         switch event {
         case .gameCompleted:
@@ -286,6 +288,7 @@ class AchievementManager {
     }
 
     /// Updates score-based achievements
+    @MainActor
     private func updateScoreBasedAchievements(score: Int) {
         let scoreAchievements = ["score_100", "score_500", "score_1000", "score_2500"]
         for achievementId in scoreAchievements {
@@ -296,6 +299,7 @@ class AchievementManager {
     }
 
     /// Updates time-based achievements
+    @MainActor
     private func checkTimeBasedAchievements(survivalTime: TimeInterval) {
         let timeAchievements = [
             ("survivor_30s", 30.0),
@@ -310,6 +314,7 @@ class AchievementManager {
     }
 
     /// Updates difficulty-based achievements
+    @MainActor
     private func updateDifficultyAchievements(level: Int) {
         let difficultyAchievements = [
             ("level_3", 3),
@@ -323,6 +328,7 @@ class AchievementManager {
     }
 
     /// Updates streak-based achievements
+    @MainActor
     private func updateStreakAchievements(score: Int) {
         let streakAchievements = [
             ("perfect_start", 50),
@@ -335,6 +341,7 @@ class AchievementManager {
     }
 
     /// Updates a specific achievement's progress
+    @MainActor
     private func updateAchievement(_ id: String, increment: Int = 1) {
         guard var achievement = achievements[id], !achievement.isUnlocked else { return }
 
@@ -350,6 +357,7 @@ class AchievementManager {
     }
 
     /// Unlocks an achievement
+    @MainActor
     private func unlockAchievement(_ id: String) {
         guard var achievement = achievements[id], !achievement.isUnlocked else { return }
 
@@ -504,75 +512,74 @@ class AchievementManager {
     /// Gets all achievements asynchronously
     /// - Returns: Array of all achievements
     func getAllAchievementsAsync() async -> [Achievement] {
-        await Task.detached {
-            self.getAllAchievements()
-        }.value
+        getAllAchievements()
     }
 
     /// Gets only unlocked achievements asynchronously
     /// - Returns: Array of unlocked achievements
     func getUnlockedAchievementsAsync() async -> [Achievement] {
-        await Task.detached {
-            self.getUnlockedAchievements()
-        }.value
+        getUnlockedAchievements()
     }
 
     /// Gets achievements that are in progress asynchronously
     /// - Returns: Array of achievements with progress > 0 and < 100%
     func getInProgressAchievementsAsync() async -> [Achievement] {
-        await Task.detached {
-            self.getInProgressAchievements()
-        }.value
+        getInProgressAchievements()
     }
 
     /// Gets locked achievements asynchronously
     /// - Returns: Array of locked achievements
     func getLockedAchievementsAsync() async -> [Achievement] {
-        await Task.detached {
-            self.getLockedAchievements()
-        }.value
+        getLockedAchievements()
     }
 
     /// Checks if an achievement is unlocked asynchronously
     /// - Parameter id: The achievement ID
     /// - Returns: True if unlocked
     func isAchievementUnlockedAsync(_ id: String) async -> Bool {
-        await Task.detached {
-            self.isAchievementUnlocked(id)
-        }.value
+        isAchievementUnlocked(id)
     }
 
     /// Gets achievement statistics asynchronously
     /// - Returns: Dictionary of statistics
-    func getAchievementStatisticsAsync() async -> [String: Any] {
-        await Task.detached {
-            self.getAchievementStatistics()
-        }.value
+    func getAchievementStatisticsAsync() async -> [String: Sendable] {
+        let stats = getAchievementStatistics()
+        // Convert to Sendable types
+        return stats.mapValues { value in
+            if let intValue = value as? Int {
+                intValue
+            } else if let doubleValue = value as? Double {
+                doubleValue
+            } else if let stringValue = value as? String {
+                stringValue
+            } else if let boolValue = value as? Bool {
+                boolValue
+            } else if let arrayValue = value as? [Achievement] {
+                arrayValue // Achievement is Sendable
+            } else {
+                String(describing: value) // Fallback to string
+            }
+        }
     }
 
     /// Gets recently unlocked achievements asynchronously
     /// - Parameter count: Number of recent achievements to return
     /// - Returns: Array of recently unlocked achievements
     func getRecentUnlocksAsync(count: Int = 5) async -> [Achievement] {
-        await Task.detached {
-            self.getRecentUnlocks(count: count)
-        }.value
+        getRecentUnlocks(count: count)
     }
 
     /// Updates achievement progress based on game events asynchronously
     /// - Parameter event: The game event that occurred
     /// - Parameter value: The value associated with the event
+    @MainActor
     func updateProgressAsync(for event: AchievementEvent, value: Int = 1) async {
-        await Task.detached {
-            self.updateProgress(for: event, value: value)
-        }.value
+        updateProgress(for: event, value: value)
     }
 
     /// Resets all achievements asynchronously (for testing or user request)
     func resetAllAchievementsAsync() async {
-        await Task.detached {
-            self.resetAllAchievements()
-        }.value
+        resetAllAchievements()
     }
 }
 
@@ -590,7 +597,7 @@ enum AchievementEvent {
 // MARK: - Object Pooling
 
 /// Object pool for performance optimization
-nonisolated(unsafe) private var objectPool: [Any] = []
+private nonisolated(unsafe) var objectPool: [Any] = []
 private let maxPoolSize = 50
 
 /// Get an object from the pool or create new one

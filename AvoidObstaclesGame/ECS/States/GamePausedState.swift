@@ -9,6 +9,7 @@ import GameplayKit
 import SpriteKit
 
 /// State representing paused gameplay.
+@MainActor
 class GamePausedState: GKState {
     /// Reference to the game scene.
     weak var scene: GameScene?
@@ -23,7 +24,7 @@ class GamePausedState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        GameLogger.shared.debug("⏸️ Entered Paused State")
+        GameLogger.debugNonIsolated("⏸️ Entered Paused State")
 
         guard let scene else { return }
 
@@ -34,7 +35,7 @@ class GamePausedState: GKState {
     }
 
     override func willExit(to nextState: GKState) {
-        GameLogger.shared.debug("⏸️ Exiting Paused State -> \(type(of: nextState))")
+        GameLogger.debugNonIsolated("⏸️ Exiting Paused State -> \(type(of: nextState))")
 
         guard let scene else { return }
 
