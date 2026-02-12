@@ -76,6 +76,7 @@ import SpriteKit
         // MARK: - Node Configuration
 
         /// Configures accessibility for a player node
+        @MainActor
         func configurePlayer(_ node: SKNode) {
             node.isAccessibilityElement = true
             node.accessibilityLabel = LocalizationManager.shared.string(
@@ -86,6 +87,7 @@ import SpriteKit
         }
 
         /// Configures accessibility for an obstacle node
+        @MainActor
         func configureObstacle(_ node: SKNode, index: Int) {
             node.isAccessibilityElement = true
             node.accessibilityLabel =
@@ -95,6 +97,7 @@ import SpriteKit
         }
 
         /// Configures accessibility for a power-up node
+        @MainActor
         func configurePowerUp(_ node: SKNode, type: PowerUpType) {
             node.isAccessibilityElement = true
             node.accessibilityLabel =
@@ -104,6 +107,7 @@ import SpriteKit
         }
 
         /// Configures accessibility for score label
+        @MainActor
         func configureScoreLabel(_ node: SKLabelNode, score: Int) {
             node.isAccessibilityElement = true
             node.accessibilityLabel = String(
@@ -175,12 +179,14 @@ import SpriteKit
         // MARK: - Announcements
 
         /// Announces message to VoiceOver
+        @MainActor
         func announce(_ message: String, priority: UIAccessibility.Notification = .announcement) {
             guard isVoiceOverEnabled else { return }
             UIAccessibility.post(notification: priority, argument: message)
         }
 
         /// Announces score change
+        @MainActor
         func announceScore(_ score: Int) {
             let message = String(
                 format: LocalizationManager.shared.string(for: .accessibilityScoreLabel), score
@@ -189,6 +195,7 @@ import SpriteKit
         }
 
         /// Announces game over
+        @MainActor
         func announceGameOver(finalScore: Int) {
             let message =
                 "\(LocalizationManager.shared.string(for: .gameOver)). Final score: \(finalScore)"
@@ -196,6 +203,7 @@ import SpriteKit
         }
 
         /// Announces new high score
+        @MainActor
         func announceNewHighScore(_ score: Int) {
             let message =
                 "\(LocalizationManager.shared.string(for: .gameNewHighScore)) \(score) points!"

@@ -2,6 +2,7 @@ import GameKit
 import SpriteKit
 
 /// Dedicated physics contact delegate for GameScene
+@MainActor
 class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
     weak var scene: SKScene?
     weak var gameStateManager: GameStateManager?
@@ -17,7 +18,7 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
 
     // MARK: - SKPhysicsContactDelegate
 
-    func didBegin(_ contact: SKPhysicsContact) {
+    nonisolated func didBegin(_ contact: SKPhysicsContact) {
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
 
@@ -32,43 +33,66 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
             category1: PhysicsCategory.player,
             category2: PhysicsCategory.obstacle
         ) {
-            handlePlayerObstacleCollision(contact)
+            // Extract contact data before sending to main actor
+            let contactPoint = contact.contactPoint
+            let obstacleNode: SKNode?
+            let playerHitNode: SKNode?
+
+            if contact.bodyA.categoryBitMask == PhysicsCategory.obstacle {
+                obstacleNode = contact.bodyA.node
+                playerHitNode = contact.bodyB.node
+            } else {
+                obstacleNode = contact.bodyB.node
+                playerHitNode = contact.bodyA.node
+            }
+
+            Task { @MainActor in
+                self.handlePlayerObstacleCollision(
+                    contactPoint: contactPoint,
+                    obstacleNode: obstacleNode,
+                    playerNode: playerHitNode
+                )
+            }
         } else if hasContact(
             mask1: maskA,
             mask2: maskB,
             category1: PhysicsCategory.player,
             category2: PhysicsCategory.powerUp
         ) {
-            handlePlayerPowerUpCollision(contact)
+            // Extract contact data before sending to main actor
+            let contactPoint = contact.contactPoint
+            let powerUpNode: SKNode? = if contact.bodyA.categoryBitMask == PhysicsCategory.powerUp {
+                contact.bodyA.node
+            } else {
+                contact.bodyB.node
+            }
+
+            Task { @MainActor in
+                self.handlePlayerPowerUpCollision(contactPoint: contactPoint, powerUpNode: powerUpNode)
+            }
         } else if hasContact(
             mask1: maskA,
             mask2: maskB,
             category1: PhysicsCategory.player,
             category2: PhysicsCategory.boundary
         ) {
-            handlePlayerBoundaryCollision(contact)
+            // Extract contact data before sending to main actor
+            let contactPoint = contact.contactPoint
+
+            Task { @MainActor in
+                self.handlePlayerBoundaryCollision(contactPoint: contactPoint)
+            }
         }
     }
 
     // MARK: - Collision Handlers
 
-    private func handlePlayerObstacleCollision(_ contact: SKPhysicsContact) {
+    @MainActor
+    private func handlePlayerObstacleCollision(contactPoint: CGPoint, obstacleNode: SKNode?, playerNode: SKNode?) {
         guard gameStateManager?.isGameActive() == true else { return }
+        guard let obstacleNode, let playerNode else { return }
 
-        let obstacleNode: SKNode
-        let playerHitNode: SKNode
-
-        if contact.bodyA.categoryBitMask == PhysicsCategory.obstacle {
-            guard let obstacle = contact.bodyA.node, let player = contact.bodyB.node else { return }
-            obstacleNode = obstacle
-            playerHitNode = player
-        } else {
-            guard let obstacle = contact.bodyB.node, let player = contact.bodyA.node else { return }
-            obstacleNode = obstacle
-            playerHitNode = player
-        }
-
-        playerNode = playerHitNode
+        self.playerNode = playerNode
 
         // Create explosion effect
         effectsManager?.createExplosion(at: obstacleNode.position)
@@ -88,17 +112,10 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
         NotificationCenter.default.post(name: .gameOver, object: nil)
     }
 
-    private func handlePlayerPowerUpCollision(_ contact: SKPhysicsContact) {
+    @MainActor
+    private func handlePlayerPowerUpCollision(contactPoint: CGPoint, powerUpNode: SKNode?) {
         guard gameStateManager?.isGameActive() == true else { return }
-
-        let powerUpNode: SKNode
-        if contact.bodyA.categoryBitMask == PhysicsCategory.powerUp {
-            guard let node = contact.bodyA.node else { return }
-            powerUpNode = node
-        } else {
-            guard let node = contact.bodyB.node else { return }
-            powerUpNode = node
-        }
+        guard let powerUpNode else { return }
 
         // Play sound
         AudioManager.shared.playPowerUp()
@@ -127,20 +144,19 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
         }
     }
 
-    private func handlePlayerBoundaryCollision(_ contact: SKPhysicsContact) {
+    @MainActor
+    private func handlePlayerBoundaryCollision(contactPoint: CGPoint) {
         // Keep player in bounds
         if let player = playerNode {
-            let point = contact.contactPoint
-
             // Determine which boundary
             let sceneSize = scene?.size ?? .zero
 
-            if point.x <= 50 || point.x >= sceneSize.width - 50 {
+            if contactPoint.x <= 50 || contactPoint.x >= sceneSize.width - 50 {
                 // Side boundary
                 player.physicsBody?.velocity.dx = 0
             }
 
-            if point.y <= 50 || point.y >= sceneSize.height - 50 {
+            if contactPoint.y <= 50 || contactPoint.y >= sceneSize.height - 50 {
                 // Top/bottom boundary
                 player.physicsBody?.velocity.dy = 0
             }
@@ -149,7 +165,7 @@ class PhysicsContactDelegate: NSObject, SKPhysicsContactDelegate {
 
     // MARK: - Helpers
 
-    private func hasContact(mask1: UInt32, mask2: UInt32, category1: UInt32, category2: UInt32) -> Bool {
+    private nonisolated func hasContact(mask1: UInt32, mask2: UInt32, category1: UInt32, category2: UInt32) -> Bool {
         (mask1 == category1 && mask2 == category2) ||
             (mask1 == category2 && mask2 == category1)
     }

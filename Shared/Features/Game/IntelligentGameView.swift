@@ -73,10 +73,10 @@ struct IntelligentGameView: View {
 
                     Spacer()
 
-                    Button(action: { showInsights.toggle() }) {
+                    Button(action: { showInsights.toggle() }, label: {
                         Image(systemName: "brain.head.profile")
                             .foregroundColor(.blue)
-                    }
+                    })
                 }
             }
         }
@@ -128,14 +128,14 @@ struct IntelligentGameView: View {
                             Task {
                                 await viewModel.startGame()
                             }
-                        }) {
+                        }, label: {
                             Text("Start Intelligent Game")
                                 .font(.title)
                                 .foregroundColor(.white)
                                 .padding()
                                 .background(Color.blue)
                                 .cornerRadius(10)
-                        }
+                        })
                     }
                 }
             }
@@ -148,7 +148,7 @@ struct IntelligentGameView: View {
     private var intelligentControls: some View {
         HStack(spacing: 20) {
             // Recommendations button
-            Button(action: { showRecommendations.toggle() }) {
+            Button(action: { showRecommendations.toggle() }, label: {
                 VStack {
                     Image(systemName: "lightbulb.fill")
                         .font(.title)
@@ -159,10 +159,10 @@ struct IntelligentGameView: View {
                 .padding()
                 .background(Color.yellow.opacity(0.2))
                 .cornerRadius(10)
-            }
+            })
 
             // Analytics button
-            Button(action: { showInsights.toggle() }) {
+            Button(action: { showInsights.toggle() }, label: {
                 VStack {
                     Image(systemName: "chart.bar.fill")
                         .font(.title)
@@ -173,7 +173,7 @@ struct IntelligentGameView: View {
                 .padding()
                 .background(Color.green.opacity(0.2))
                 .cornerRadius(10)
-            }
+            })
 
             // Security status
             VStack {
@@ -207,13 +207,13 @@ struct IntelligentGameView: View {
                 .padding()
             }
 
-            Button(action: { showRecommendations = false }) {
+            Button(action: { showRecommendations = false }, label: {
                 Text("Dismiss")
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.blue)
                     .cornerRadius(10)
-            }
+            })
             .padding(.bottom)
         }
         .background(Color.black.opacity(0.8))
@@ -285,9 +285,9 @@ struct IntelligentGameView: View {
                 .padding()
             }
             .background(Color.black.edgesIgnoringSafeArea(.all))
-            .navigationBarItems(trailing: Button("Done") {
-                showInsights = false
-            })
+            .navigationBarItems(trailing: Button(action: { showInsights = false }, label: {
+                Text("Done")
+            }))
         }
     }
 

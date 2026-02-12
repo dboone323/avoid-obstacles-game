@@ -13,6 +13,7 @@ class SpatialAudioManager {
     private var players: [String: AVAudioPlayerNode] = [:]
     private var environment: AVAudioEnvironmentNode?
 
+    @MainActor
     private init() {
         setupAudioEngine()
     }

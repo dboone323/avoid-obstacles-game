@@ -22,10 +22,10 @@ import SpriteKit
             case scoring
             case complete
 
-            func getTitle() async -> String {
+            func getTitle() -> String {
                 switch self {
                 case .welcome:
-                    await LocalizationManager.shared.string(for: .tutorialWelcome)
+                    "Welcome to Avoid Obstacles!"
                 case .movement:
                     "Movement Controls"
                 case .obstacles:

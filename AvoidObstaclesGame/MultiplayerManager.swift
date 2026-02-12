@@ -5,7 +5,10 @@ import GameKit
 
 // Enhancement #88: Multiplayer Mode
 #if os(iOS)
-    class MultiplayerManager: NSObject, ObservableObject, GKMatchmakerViewControllerDelegate, GKMatchDelegate {
+    @MainActor
+    class MultiplayerManager: NSObject, ObservableObject, @preconcurrency GKMatchmakerViewControllerDelegate,
+        @preconcurrency GKMatchDelegate
+    {
         @Published var match: GKMatch?
 
         func findMatch(vc: UIViewController) {
@@ -28,6 +31,7 @@ import GameKit
             viewController.dismiss(animated: true)
         }
 
+        @MainActor
         func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFailWithError error: any Error) {
             viewController.dismiss(animated: true)
             GameLogger.shared.debug("Matchmaker failed with error: \(error.localizedDescription)")
@@ -42,6 +46,7 @@ import GameKit
     class MultiplayerManager: NSObject, ObservableObject {
         @Published var match: GKMatch?
 
+        @MainActor
         func findMatch() {
             // Multiplayer UI not available on macOS
             GameLogger.shared.debug("Multiplayer matchmaking is only available on iOS")

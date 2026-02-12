@@ -2,6 +2,7 @@ import GameKit
 import SwiftUI
 
 /// Enhancement #86: Game Center Leaderboards
+@MainActor
 class GameCenterManager: NSObject, ObservableObject {
     @Published var isAuthenticated = false
 
@@ -40,8 +41,10 @@ class GameCenterManager: NSObject, ObservableObject {
 }
 
 #if os(iOS)
+    @available(*, deprecated)
+    @MainActor
     extension GameCenterManager: GKGameCenterControllerDelegate {
-        func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        nonisolated func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
             gameCenterViewController.dismiss(animated: true)
         }
     }

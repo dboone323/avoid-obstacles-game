@@ -13,6 +13,7 @@ import Foundation
 
     /// Manages haptic feedback throughout the game
     @available(iOS 10.0, *)
+    @MainActor
     class HapticFeedbackManager {
         // MARK: - Singleton
 

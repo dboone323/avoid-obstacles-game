@@ -13,6 +13,7 @@ import QuartzCore
 #endif
 
 /// Protocol for performance-related events
+@MainActor
 protocol PerformanceDelegate: AnyObject {
     func performanceWarningTriggered(_ warning: PerformanceWarning)
     func frameRateDropped(below targetFPS: Int)
@@ -65,6 +66,7 @@ enum TextureQuality {
 }
 
 /// Manages performance optimization and monitoring
+@MainActor
 class PerformanceManager {
     // MARK: - Properties
 

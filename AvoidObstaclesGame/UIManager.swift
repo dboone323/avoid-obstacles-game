@@ -17,6 +17,7 @@ protocol UIManagerDelegate: AnyObject {
 }
 
 /// Manages all UI elements and visual feedback
+@MainActor
 class UIManager {
     // MARK: - Properties
 
@@ -609,16 +610,12 @@ class UIManager {
     /// Updates the high score display asynchronously
     /// - Parameter highScore: New high score value
     func updateHighScoreAsync(_ highScore: Int) async {
-        await Task.detached {
-            self.updateHighScore(highScore)
-        }.value
+        updateHighScore(highScore)
     }
 
     /// Shows game statistics overlay asynchronously
     /// - Parameter statistics: Dictionary of statistics to display
     func showStatisticsAsync(_ statistics: [String: Any]) async {
-        await Task.detached {
-            self.showStatistics(statistics)
-        }.value
+        showStatistics(statistics)
     }
 }

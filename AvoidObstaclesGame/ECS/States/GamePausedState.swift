@@ -9,6 +9,7 @@ import GameplayKit
 import SpriteKit
 
 /// State representing paused gameplay.
+@MainActor
 class GamePausedState: GKState {
     /// Reference to the game scene.
     weak var scene: GameScene?
