@@ -6,6 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 class IntegrationTests: XCTestCase {
     func testFullGameFlow() {
         // Initialize all managers

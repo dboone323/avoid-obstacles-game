@@ -373,7 +373,7 @@ import SpriteKit
                     player.position.y - obstacle.position.y
                 )
 
-                if obstacle.position.y < 0 && !obstacleAvoided {
+                if obstacle.position.y < 0, distance > player.size.width / 2, !obstacleAvoided {
                     obstacleAvoided = true
                     enableNextButton()
                 }

@@ -234,7 +234,7 @@ import SpriteKit
         // MARK: - Theme Selection
 
         func setTheme(_ themeName: String) {
-            var modifiedConfig = config
+            let modifiedConfig = config
             var visual = modifiedConfig.visual
             visual = GameConfiguration.Visual(
                 theme: themeName,

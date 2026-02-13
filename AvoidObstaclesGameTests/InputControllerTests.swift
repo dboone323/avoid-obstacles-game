@@ -7,15 +7,23 @@ import SpriteKit
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class InputControllerTests: XCTestCase {
     var sut: InputController!
     var testPlayer: SKNode!
+
+    
 
     override func setUp() {
         super.setUp()
         testPlayer = SKNode()
         sut = InputController(playerNode: testPlayer)
     }
+
+    
 
     override func tearDown() {
         sut = nil

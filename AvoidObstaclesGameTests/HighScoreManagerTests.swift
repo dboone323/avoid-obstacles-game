@@ -1,6 +1,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class HighScoreManagerTests: XCTestCase {
     // MARK: - HighScoreManager Tests
 
@@ -21,9 +25,9 @@ final class HighScoreManagerTests: XCTestCase {
     func testHighScoreManagerMethods() {
         // Test method functionality
         let manager = HighScoreManager.shared
+        manager.clearHighScores()
 
         // Test adding a score
-        let initialCount = manager.getHighScores().count
         let wasAdded = manager.addScore(100)
         XCTAssertTrue(wasAdded, "Score should be added successfully")
 
@@ -34,6 +38,9 @@ final class HighScoreManagerTests: XCTestCase {
         // Test isHighScore method
         let isHighScore = manager.isHighScore(50)
         XCTAssertTrue(isHighScore || !isHighScore, "isHighScore should return a boolean")
+
+        // Clean up
+        manager.clearHighScores()
     }
 
     func testHighScoreManagerScoreOperations() {

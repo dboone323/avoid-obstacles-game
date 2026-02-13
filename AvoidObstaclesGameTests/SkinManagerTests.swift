@@ -8,11 +8,11 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-final class SkinManagerTests: XCTestCase {
-    var manager: SkinManager!
+@MainActor
 
-    override func setUpWithError() throws {
-        manager = SkinManager.shared
+final class SkinManagerTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
         // Reset to default state
         UserDefaults.standard.removeObject(forKey: "unlockedSkins")
         UserDefaults.standard.removeObject(forKey: "selectedSkin")
@@ -60,21 +60,25 @@ final class SkinManagerTests: XCTestCase {
     // MARK: - SkinManager Tests
 
     func testDefaultSkinIsUnlocked() {
+        let manager = SkinManager.shared
         XCTAssertTrue(manager.isUnlocked(.default))
     }
 
     func testGetAvailableSkins() {
+        let manager = SkinManager.shared
         let available = manager.getAvailableSkins()
         XCTAssertEqual(available.count, 6)
     }
 
     func testUnlockProgressForDefault() {
+        let manager = SkinManager.shared
         let progress = manager.unlockProgress(for: .default)
         // Default requires 0 score, so always complete
         XCTAssertEqual(progress, 1.0)
     }
 
     func testGetUnlockedSkinsIncludesDefault() {
+        let manager = SkinManager.shared
         let unlocked = manager.getUnlockedSkins()
         XCTAssertTrue(unlocked.contains(.default))
     }

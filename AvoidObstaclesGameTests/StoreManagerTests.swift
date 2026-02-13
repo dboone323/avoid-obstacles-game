@@ -6,6 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class StoreManagerTests: XCTestCase {
     func testStoreInit() {
         XCTAssertTrue(true)

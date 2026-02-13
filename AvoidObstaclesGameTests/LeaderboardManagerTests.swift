@@ -6,8 +6,14 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class LeaderboardManagerTests: XCTestCase {
     var sut: LeaderboardManager!
+
+    
 
     override func setUp() {
         super.setUp()

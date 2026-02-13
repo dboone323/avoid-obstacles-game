@@ -6,6 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class TutorialSceneTests: XCTestCase {
     // MARK: - Tutorial Step Tests
 

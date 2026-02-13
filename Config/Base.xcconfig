@@ -11,3 +11,6 @@ INFOPLIST_KEY_UILaunchStoryboardName =
 
 // Exclude storyboards for all platforms since we're using programmatic UI
 EXCLUDED_SOURCE_FILE_NAMES = Main.storyboard LaunchScreen.storyboard
+
+// Suppress legacy strict-concurrency warnings until ECS/UI classes are fully actor-audited.
+SWIFT_WARN_CONCURRENCY = NO

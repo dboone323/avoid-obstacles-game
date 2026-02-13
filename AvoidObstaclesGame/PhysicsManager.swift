@@ -17,7 +17,7 @@ protocol PhysicsManagerDelegate: AnyObject {
 
 /// Manages physics world and collision detection
 @MainActor
-public class PhysicsManager: NSObject, @preconcurrency SKPhysicsContactDelegate {
+public class PhysicsManager: NSObject, SKPhysicsContactDelegate {
     // MARK: - Properties
 
     /// Delegate for physics events

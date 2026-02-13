@@ -10,22 +10,25 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 #if canImport(UIKit)
+    @MainActor
     class AccessibilityManagerTests: XCTestCase {
         var manager: AccessibilityManager!
         var testNode: SKSpriteNode!
 
-        override func setUp() {
+override func setUp() {
             super.setUp()
             manager = AccessibilityManager.shared
             testNode = SKSpriteNode(color: .blue, size: CGSize(width: 50, height: 50))
         }
 
-        override func tearDown() {
+override func tearDown() {
             testNode = nil
             super.tearDown()
         }
 
         // MARK: - Node Configuration Tests
+
+        @MainActor
 
         func testPlayerConfiguration() {
             manager.configurePlayer(testNode)
@@ -35,6 +38,8 @@ import XCTest
             XCTAssertTrue(testNode.accessibilityTraits.contains(.startsMediaSession))
         }
 
+        @MainActor
+
         func testObstacleConfiguration() {
             manager.configureObstacle(testNode, index: 1)
 
@@ -43,6 +48,8 @@ import XCTest
             XCTAssertTrue(testNode.accessibilityLabel?.contains("1") ?? false)
         }
 
+        @MainActor
+
         func testPowerUpConfiguration() {
             manager.configurePowerUp(testNode, type: .shield)
 
@@ -50,6 +57,8 @@ import XCTest
             XCTAssertTrue(testNode.accessibilityTraits.contains(.button))
             XCTAssertTrue(testNode.accessibilityLabel?.contains("Shield") ?? false)
         }
+
+        @MainActor
 
         func testScoreLabelConfiguration() {
             let scoreLabel = SKLabelNode(text: "Score: 100")
@@ -62,6 +71,8 @@ import XCTest
 
         // MARK: - Touch Target Tests
 
+        @MainActor
+
         func testStandardTouchTargetSize() {
             // Mock configuration with standard touch targets
             let baseSize = CGSize(width: 30, height: 30)
@@ -72,6 +83,8 @@ import XCTest
             XCTAssertGreaterThan(enhancedSize.width, 0)
             XCTAssertGreaterThan(enhancedSize.height, 0)
         }
+
+        @MainActor
 
         func testMinimumTouchTargetSize() {
             // Even with larger targets enabled, should be at least 44x44
@@ -85,6 +98,8 @@ import XCTest
 
         // MARK: - Color Adjustment Tests
 
+        @MainActor
+
         func testColorAdjustmentNoneMode() {
             let originalColor = UIColor.red
             let adjustedColor = manager.adjustColor(originalColor, for: "none")
@@ -92,6 +107,8 @@ import XCTest
             // Should return original color
             XCTAssertEqual(originalColor, adjustedColor)
         }
+
+        @MainActor
 
         func testColorAdjustmentProtanopia() {
             let redColor = UIColor.red
@@ -101,6 +118,8 @@ import XCTest
             XCTAssertNotEqual(redColor, adjustedColor)
         }
 
+        @MainActor
+
         func testColorAdjustmentDeuteranopia() {
             let greenColor = UIColor.green
             let adjustedColor = manager.adjustColor(greenColor, for: "deuteranopia")
@@ -108,6 +127,8 @@ import XCTest
             // Should adjust green colors
             XCTAssertNotEqual(greenColor, adjustedColor)
         }
+
+        @MainActor
 
         func testColorAdjustmentTritanopia() {
             let blueColor = UIColor.blue
@@ -119,6 +140,8 @@ import XCTest
 
         // MARK: - System Accessibility Tests
 
+        @MainActor
+
         func testVoiceOverDetection() {
             // This will vary based on system state
             // Just verify the property is accessible
@@ -126,11 +149,15 @@ import XCTest
             XCTAssertTrue(true, "VoiceOver detection should be accessible")
         }
 
+        @MainActor
+
         func testReduceMotionDetection() {
             // Verify property is accessible
             _ = manager.shouldReduceMotion
             XCTAssertTrue(true, "Reduce motion detection should be accessible")
         }
+
+        @MainActor
 
         func testIncreaseContrastDetection() {
             // Verify property is accessible
@@ -140,11 +167,15 @@ import XCTest
 
         // MARK: - Announcement Tests
 
+        @MainActor
+
         func testAnnounceScore() {
             // Should not crash
             manager.announceScore(100)
             XCTAssertTrue(true, "Score announcement should not crash")
         }
+
+        @MainActor
 
         func testAnnounceGameOver() {
             // Should not crash
@@ -152,11 +183,15 @@ import XCTest
             XCTAssertTrue(true, "Game over announcement should not crash")
         }
 
+        @MainActor
+
         func testAnnounceNewHighScore() {
             // Should not crash
             manager.announceNewHighScore(1000)
             XCTAssertTrue(true, "High score announcement should not crash")
         }
+
+        @MainActor
 
         func testGenericAnnouncement() {
             // Should not crash

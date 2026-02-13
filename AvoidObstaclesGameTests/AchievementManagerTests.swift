@@ -8,14 +8,22 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class AchievementManagerTests: XCTestCase {
     var sut: AchievementManager!
+
+    
 
     override func setUp() {
         super.setUp()
         sut = AchievementManager.shared
         sut.resetAllAchievements() // Start with clean state
     }
+
+    
 
     override func tearDown() {
         sut.resetAllAchievements()

@@ -2,6 +2,8 @@ import SwiftData
 import XCTest
 @testable import AvoidObstaclesGame
 
+@MainActor
+
 final class DataExportServiceTests: XCTestCase {
     private func makeInMemoryContainer() throws -> ModelContainer {
         let schema = Schema([

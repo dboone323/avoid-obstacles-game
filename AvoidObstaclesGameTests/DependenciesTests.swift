@@ -8,6 +8,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class DependenciesTests: XCTestCase {
     // MARK: - Initialization Tests
 

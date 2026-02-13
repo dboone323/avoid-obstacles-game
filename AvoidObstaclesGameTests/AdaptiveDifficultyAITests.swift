@@ -6,8 +6,12 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+@MainActor
+
 final class AdaptiveDifficultyAITests: XCTestCase {
     var ai: AdaptiveDifficultyAI!
+
+    
 
     override func setUp() {
         super.setUp()
@@ -20,6 +24,8 @@ final class AdaptiveDifficultyAITests: XCTestCase {
         // Yes, internal init.
         ai = AdaptiveDifficultyAI()
     }
+
+    
 
     override func tearDown() {
         ai = nil

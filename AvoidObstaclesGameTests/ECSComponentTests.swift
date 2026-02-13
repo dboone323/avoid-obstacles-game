@@ -10,6 +10,10 @@ import SpriteKit
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class ECSComponentTests: XCTestCase {
     // MARK: - SpriteComponent Tests
 

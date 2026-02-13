@@ -1,6 +1,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class GameDifficultyTests: XCTestCase {
     // MARK: - GameDifficulty Tests
 

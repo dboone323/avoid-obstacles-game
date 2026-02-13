@@ -568,7 +568,9 @@ class UIManager {
     /// Starts periodic performance updates
     private func startPerformanceUpdates() {
         performanceUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-            self?.updatePerformanceDisplay()
+            Task { @MainActor [weak self] in
+                self?.updatePerformanceDisplay()
+            }
         }
     }
 

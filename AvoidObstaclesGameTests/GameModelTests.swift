@@ -4,9 +4,14 @@ import XCTest
 @testable import AvoidObstaclesGame
 
 /// Unit tests for AvoidObstaclesGame model functionality
+
+@MainActor
+
 final class GameModelTests: XCTestCase {
     var modelContainer: ModelContainer!
     var modelContext: ModelContext!
+
+    
 
     override func setUpWithError() throws {
         // Create in-memory model container for testing
@@ -18,6 +23,8 @@ final class GameModelTests: XCTestCase {
         self.modelContainer = try ModelContainer(for: schema, configurations: [configuration])
         self.modelContext = ModelContext(self.modelContainer)
     }
+
+    
 
     override func tearDownWithError() throws {
         self.modelContainer = nil

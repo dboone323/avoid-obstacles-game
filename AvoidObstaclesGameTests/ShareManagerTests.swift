@@ -6,6 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class ShareManagerTests: XCTestCase {
     func testShareInit() {
         XCTAssertTrue(true)

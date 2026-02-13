@@ -211,9 +211,6 @@ class ObstacleManager {
     /// Spawns a single obstacle or power-up
     /// - Parameter difficulty: Current difficulty settings
     private func spawnObstacle(with difficulty: GameDifficulty) {
-        let level = GameDifficulty.getDifficultyLevel(for: Int(difficulty.scoreMultiplier * 10))
-        // GameLogger.shared.debug("☄️ Spawn check - Multiplier: \(difficulty.scoreMultiplier), Level: \(level)")
-
         guard let scene else { return }
 
         // Occasionally spawn a power-up instead of an obstacle
@@ -330,11 +327,8 @@ class ObstacleManager {
     func updateObstacles() {
         guard scene != nil else { return }
 
-        for obstacle in activeObstacles {
-            // Remove obstacles that have fallen off screen
-            for obstacle in activeObstacles where obstacle.position.y < -obstacle.size.height {
-                recycleObstacle(obstacle)
-            }
+        for obstacle in activeObstacles where obstacle.position.y < -obstacle.size.height {
+            recycleObstacle(obstacle)
         }
     }
 

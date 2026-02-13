@@ -2,15 +2,23 @@ import SpriteKit
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class PlayerManagerTests: XCTestCase {
     var scene: SKScene!
     var manager: PlayerManager!
+
+    
 
     override func setUp() {
         super.setUp()
         scene = SKScene(size: CGSize(width: 800, height: 600))
         manager = PlayerManager(scene: scene)
     }
+
+    
 
     override func tearDown() {
         manager = nil

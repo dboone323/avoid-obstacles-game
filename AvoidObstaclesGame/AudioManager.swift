@@ -92,6 +92,7 @@ class AudioManager {
         UserDefaults.standard.set(isSoundEnabled, forKey: "soundEnabled")
     }
 
+    @MainActor
     func toggleMusic() async {
         isMusicEnabled.toggle()
         UserDefaults.standard.set(isMusicEnabled, forKey: "musicEnabled")

@@ -6,8 +6,14 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 class ThemeManagerTests: XCTestCase {
     var manager: ThemeManager!
+
+    
 
     override func setUp() {
         super.setUp()

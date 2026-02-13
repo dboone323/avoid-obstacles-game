@@ -6,12 +6,25 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 class PowerUpTests: XCTestCase {
     var powerUpSystem: PowerUpSystem!
+
+    
 
     override func setUp() {
         super.setUp()
         powerUpSystem = PowerUpSystem.shared
+        powerUpSystem.reset()
+    }
+
+    override func tearDown() {
+        powerUpSystem.reset()
+        powerUpSystem = nil
+        super.tearDown()
     }
 
     func testAllPowerUpTypes() {

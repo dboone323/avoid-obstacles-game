@@ -6,6 +6,8 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+@MainActor
+
 class RegressionTests: XCTestCase {
     /// Test that old saved games still load
     func testBackwardsCompatibility() {

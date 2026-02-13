@@ -6,6 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class ProceduralLevelGeneratorTests: XCTestCase {
     func testGeneratorInit() {
         XCTAssertTrue(true)

@@ -7,10 +7,16 @@ import SpriteKit
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class CollisionEngineTests: XCTestCase {
     var collisionEngine: CollisionEngine!
     var nodeA: SKSpriteNode!
     var nodeB: SKSpriteNode!
+
+    
 
     override func setUp() {
         super.setUp()
@@ -25,6 +31,8 @@ final class CollisionEngineTests: XCTestCase {
         nodeB = SKSpriteNode(color: .blue, size: CGSize(width: 50, height: 50))
         nodeB.position = CGPoint(x: 200, y: 200) // Far away
     }
+
+    
 
     override func tearDown() {
         collisionEngine = nil

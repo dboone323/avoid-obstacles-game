@@ -6,13 +6,21 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class AnalyticsManagerTests: XCTestCase {
     var analytics: AnalyticsManager!
+
+    
 
     override func setUp() {
         super.setUp()
         analytics = AnalyticsManager.shared
     }
+
+    
 
     override func tearDown() {
         analytics = nil

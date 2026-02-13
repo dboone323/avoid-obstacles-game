@@ -28,6 +28,7 @@ final class AvoidObstaclesGameUITests: XCTestCase {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
+        dismissSystemPermissionAlertsIfPresent(in: app)
 
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
@@ -36,6 +37,7 @@ final class AvoidObstaclesGameUITests: XCTestCase {
     func testScreenshot() {
         let app = XCUIApplication()
         app.launch()
+        dismissSystemPermissionAlertsIfPresent(in: app)
 
         // Take a screenshot
         let screenshot = XCUIScreen.main.screenshot()
@@ -50,7 +52,9 @@ final class AvoidObstaclesGameUITests: XCTestCase {
     func testLaunchPerformance() {
         // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
+            let app = XCUIApplication()
+            app.launch()
+            dismissSystemPermissionAlertsIfPresent(in: app)
         }
     }
 }

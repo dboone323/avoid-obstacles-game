@@ -435,62 +435,62 @@ class PlayerManager {
     /// Creates and configures the player node asynchronously
     /// - Parameter position: Initial position for the player
     func createPlayerAsync(at position: CGPoint) async {
-        await self.createPlayer(at: position)
+        self.createPlayer(at: position)
     }
 
     /// Moves the player to a target position with smooth animation asynchronously
     /// - Parameter targetPosition: The target position to move to
     func moveToAsync(_ targetPosition: CGPoint) async {
-        await self.moveTo(targetPosition)
+        self.moveTo(targetPosition)
     }
 
     /// Instantly moves the player to a position asynchronously (for initialization)
     /// - Parameter position: The position to move to
     func setPositionAsync(_ position: CGPoint) async {
-        await self.setPosition(position)
+        self.setPosition(position)
     }
 
     /// Handles collision with an obstacle asynchronously
     /// - Parameter obstacle: The obstacle node that was hit
     func handleCollisionAsync(with obstacle: SKNode) async {
-        await self.handleCollision(with: obstacle)
+        self.handleCollision(with: obstacle)
     }
 
     /// Sets the player to hidden state asynchronously
     func hideAsync() async {
-        await self.hide()
+        self.hide()
     }
 
     /// Sets the player to visible state asynchronously
     func showAsync() async {
-        await self.show()
+        self.show()
     }
 
     /// Resets the player to initial state asynchronously
     func resetAsync() async {
-        await self.reset()
+        self.reset()
     }
 
     /// Applies a power-up effect to the player asynchronously
     /// - Parameter type: The type of power-up effect
     func applyPowerUpEffectAsync(_ type: PowerUpType) async {
-        await self.applyPowerUpEffect(type)
+        self.applyPowerUpEffect(type)
     }
 
     /// Removes power-up effects from the player asynchronously
     func removePowerUpEffectsAsync() async {
-        await self.removePowerUpEffects()
+        self.removePowerUpEffects()
     }
 
     /// Enables tilt-based movement controls asynchronously
     /// - Parameter sensitivity: Sensitivity multiplier for tilt controls (0.1 to 2.0)
     func enableTiltControlsAsync(sensitivity: CGFloat = 0.5) async {
-        await self.enableTiltControls(sensitivity: sensitivity)
+        self.enableTiltControls(sensitivity: sensitivity)
     }
 
     /// Disables tilt-based movement controls asynchronously
     func disableTiltControlsAsync() async {
-        await self.disableTiltControls()
+        self.disableTiltControls()
     }
 }
 

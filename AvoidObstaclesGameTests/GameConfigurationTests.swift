@@ -8,12 +8,19 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 class GameConfigurationTests: XCTestCase {
+    
     override func setUp() {
         super.setUp()
         // Reset configuration before each test
         GameConfiguration.reset()
     }
+
+    
 
     override func tearDown() {
         GameConfiguration.reset()

@@ -6,6 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class MenuSceneTests: XCTestCase {
     // MARK: - Scene Setup Tests
 

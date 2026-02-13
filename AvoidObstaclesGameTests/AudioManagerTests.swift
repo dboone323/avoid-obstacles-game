@@ -8,13 +8,18 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+@MainActor
 final class AudioManagerTests: XCTestCase {
     var sut: AudioManager!
+
+    
 
     override func setUp() {
         super.setUp()
         sut = AudioManager.shared
     }
+
+    
 
     override func tearDown() {
         sut.stopBackgroundMusic()
@@ -90,9 +95,9 @@ final class AudioManagerTests: XCTestCase {
     }
 
     func testToggleMusic() async {
-        await XCTAssertNoThrow(sut.toggleMusic())
+        await sut.toggleMusic()
         sut.stopBackgroundMusic() // Clean up
-        await XCTAssertNoThrow(sut.toggleMusic()) // Toggle back
+        await sut.toggleMusic() // Toggle back
         sut.stopBackgroundMusic()
     }
 

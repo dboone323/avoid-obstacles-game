@@ -17,7 +17,23 @@
         ) -> Bool {
             // Window creation is handled by SceneDelegate
             // (configured via configurationForConnecting with delegateClass = SceneDelegate.self)
-            true
+            AvoidObstaclesLifecycleCoordinator.configureOnLaunch()
+            return true
+        }
+
+        public func application(
+            _ application: UIApplication,
+            didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+        ) {
+            let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+            CrashReportingManager.shared.log(event: "push_registration_success", parameters: ["token": token])
+        }
+
+        public func application(
+            _ application: UIApplication,
+            didFailToRegisterForRemoteNotificationsWithError error: Error
+        ) {
+            CrashReportingManager.shared.recordError(error, additionalInfo: ["context": "push_registration"])
         }
 
         // MARK: UISceneSession Lifecycle

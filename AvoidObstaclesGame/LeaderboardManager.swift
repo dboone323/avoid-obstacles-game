@@ -82,9 +82,9 @@ class LeaderboardManager: NSObject {
                 return
             }
 
-            let gcVC = GKGameCenterViewController(state: .leaderboards)
-            gcVC.gameCenterDelegate = self
-            viewController.present(gcVC, animated: true)
+            _ = viewController
+            GKAccessPoint.shared.location = .topLeading
+            GKAccessPoint.shared.isActive = true
         }
 
     #elseif os(macOS)
@@ -137,20 +137,6 @@ class LeaderboardManager: NSObject {
                 completion(entries ?? [])
             }
         }
-    }
-}
-
-// MARK: - Game Center Delegate
-
-@available(*, deprecated)
-@MainActor
-extension LeaderboardManager: GKGameCenterControllerDelegate {
-    nonisolated func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        #if os(iOS)
-            gameCenterViewController.dismiss(animated: true)
-        #elseif os(macOS)
-            gameCenterViewController.dismiss(nil)
-        #endif
     }
 }
 

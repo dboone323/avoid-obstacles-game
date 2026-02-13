@@ -6,6 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class SpatialAudioManagerTests: XCTestCase {
     func testAudioInit() {
         XCTAssertTrue(true)

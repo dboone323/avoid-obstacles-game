@@ -511,24 +511,28 @@ class AchievementManager {
 
     /// Gets all achievements asynchronously
     /// - Returns: Array of all achievements
+    @MainActor
     func getAllAchievementsAsync() async -> [Achievement] {
         getAllAchievements()
     }
 
     /// Gets only unlocked achievements asynchronously
     /// - Returns: Array of unlocked achievements
+    @MainActor
     func getUnlockedAchievementsAsync() async -> [Achievement] {
         getUnlockedAchievements()
     }
 
     /// Gets achievements that are in progress asynchronously
     /// - Returns: Array of achievements with progress > 0 and < 100%
+    @MainActor
     func getInProgressAchievementsAsync() async -> [Achievement] {
         getInProgressAchievements()
     }
 
     /// Gets locked achievements asynchronously
     /// - Returns: Array of locked achievements
+    @MainActor
     func getLockedAchievementsAsync() async -> [Achievement] {
         getLockedAchievements()
     }
@@ -536,12 +540,14 @@ class AchievementManager {
     /// Checks if an achievement is unlocked asynchronously
     /// - Parameter id: The achievement ID
     /// - Returns: True if unlocked
+    @MainActor
     func isAchievementUnlockedAsync(_ id: String) async -> Bool {
         isAchievementUnlocked(id)
     }
 
     /// Gets achievement statistics asynchronously
     /// - Returns: Dictionary of statistics
+    @MainActor
     func getAchievementStatisticsAsync() async -> [String: Sendable] {
         let stats = getAchievementStatistics()
         // Convert to Sendable types
@@ -565,6 +571,7 @@ class AchievementManager {
     /// Gets recently unlocked achievements asynchronously
     /// - Parameter count: Number of recent achievements to return
     /// - Returns: Array of recently unlocked achievements
+    @MainActor
     func getRecentUnlocksAsync(count: Int = 5) async -> [Achievement] {
         getRecentUnlocks(count: count)
     }
@@ -578,6 +585,7 @@ class AchievementManager {
     }
 
     /// Resets all achievements asynchronously (for testing or user request)
+    @MainActor
     func resetAllAchievementsAsync() async {
         resetAllAchievements()
     }

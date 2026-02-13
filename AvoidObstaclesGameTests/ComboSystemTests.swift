@@ -6,8 +6,14 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 class ComboSystemTests: XCTestCase {
     var comboSystem: ComboSystem!
+
+    
 
     override func setUp() {
         super.setUp()

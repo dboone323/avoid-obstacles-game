@@ -1,6 +1,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
+
+@MainActor
+
+
 final class AppDelegateTests: XCTestCase {
     // MARK: - AppDelegate Tests
 
