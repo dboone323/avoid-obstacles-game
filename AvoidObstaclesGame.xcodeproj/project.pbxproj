@@ -211,7 +211,7 @@
 			mainGroup = 680BFB112DD7B8FE0051D714;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				SHAREDKIT001 /* XCRemoteSwiftPackageReference "shared-kit" */,
+				SHAREDKIT001 /* XCLocalSwiftPackageReference "../Shared-Kit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 680BFB1B2DD7B8FE0051D714 /* Products */;
@@ -622,16 +622,12 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		SHAREDKIT001 /* XCRemoteSwiftPackageReference "shared-kit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dboone323/shared-kit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		SHAREDKIT001 /* XCLocalSwiftPackageReference "../Shared-Kit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../Shared-Kit";
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 	};
 	rootObject = 680BFB122DD7B8FE0051D714 /* Project object */;
 }
