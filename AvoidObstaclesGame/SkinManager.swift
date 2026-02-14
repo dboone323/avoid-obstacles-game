@@ -79,6 +79,7 @@ class SkinManager {
 
     // MARK: - Effects
 
+    @MainActor
     private func addTrailEffect(to node: SKNode, color: SKColor) {
         let trail = SKEmitterNode()
         trail.particleTexture = SKTexture(imageNamed: "particle")

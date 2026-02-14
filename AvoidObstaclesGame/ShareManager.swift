@@ -8,8 +8,9 @@
     import SpriteKit
     import UIKit
 
+    @MainActor
     class ShareManager {
-        @MainActor static let shared = ShareManager()
+        static let shared = ShareManager()
 
         private init() {}
 
@@ -49,6 +50,7 @@
             viewController.present(activityVC, animated: true)
         }
 
+        @MainActor
         func captureScreenshot(from scene: SKScene) -> UIImage? {
             guard let view = scene.view else { return nil }
 
