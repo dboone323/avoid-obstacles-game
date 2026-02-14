@@ -51,7 +51,7 @@ log_error() {
 detect_project_type() {
 	if [[ -f "Package.swift" ]]; then
 		echo "swift"
-	elif [[ -f "*.xcodeproj" ]] || [[ -f "*.xcworkspace" ]]; then
+	elif ls *.xcodeproj >/dev/null 2>&1 || ls *.xcworkspace >/dev/null 2>&1; then
 		echo "xcode"
 	elif [[ -f "package.json" ]]; then
 		echo "node"
@@ -73,10 +73,10 @@ cmd_build() {
 		swift build
 		;;
 	"xcode")
-		if [[ -f "*.xcworkspace" ]]; then
-			xcodebuild -workspace *.xcworkspace -scheme "${PROJECT_NAME}" build
+		if ls *.xcworkspace >/dev/null 2>&1; then
+			xcodebuild -workspace *.xcworkspace -scheme "AvoidObstaclesGame" -destination 'platform=iOS Simulator,name=iPhone 17' build
 		else
-			xcodebuild -project *.xcodeproj -scheme "${PROJECT_NAME}" build
+			xcodebuild -project *.xcodeproj -scheme "AvoidObstaclesGame" -destination 'platform=iOS Simulator,name=iPhone 17' build
 		fi
 		;;
 	"node")
@@ -102,10 +102,10 @@ cmd_test() {
 		swift test
 		;;
 	"xcode")
-		if [[ -f "*.xcworkspace" ]]; then
-			xcodebuild test -workspace *.xcworkspace -scheme "${PROJECT_NAME}" -destination 'platform=macOS'
+		if ls *.xcworkspace >/dev/null 2>&1; then
+			xcodebuild test -workspace *.xcworkspace -scheme "AvoidObstaclesGame" -destination 'platform=iOS Simulator,name=iPhone 17'
 		else
-			xcodebuild test -project *.xcodeproj -scheme "${PROJECT_NAME}" -destination 'platform=macOS'
+			xcodebuild test -project *.xcodeproj -scheme "AvoidObstaclesGame" -destination 'platform=iOS Simulator,name=iPhone 17'
 		fi
 		;;
 	"node")

@@ -211,7 +211,6 @@
 			mainGroup = 680BFB112DD7B8FE0051D714;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				SHAREDKIT001 /* XCLocalSwiftPackageReference "../Shared-Kit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 680BFB1B2DD7B8FE0051D714 /* Products */;
@@ -631,13 +630,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		SHAREDKIT001 /* XCLocalSwiftPackageReference "../Shared-Kit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../Shared-Kit";
-		};
-/* End XCLocalSwiftPackageReference section */
 	};
 	rootObject = 680BFB122DD7B8FE0051D714 /* Project object */;
 }
