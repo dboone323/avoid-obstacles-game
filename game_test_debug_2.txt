@@ -1,0 +1,132 @@
+Command line invocation:
+    /Applications/Xcode-beta.app/Contents/Developer/usr/bin/xcodebuild test -project AvoidObstaclesGame/AvoidObstaclesGame.xcodeproj -scheme AvoidObstaclesGame -destination "platform=iOS Simulator,name=iPhone 17" "-only-testing:AvoidObstaclesGameUITests/GameFunctionalTests/testGameplayLoop"
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  Shared: https://github.com/dboone323/shared-kit.git @ 1.0.0
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (3 targets)
+    Target 'AvoidObstaclesGameUITests' in project 'AvoidObstaclesGame'
+        ➜ Explicit dependency on target 'AvoidObstaclesGame' in project 'AvoidObstaclesGame'
+    Target 'AvoidObstaclesGameTests' in project 'AvoidObstaclesGame'
+        ➜ Explicit dependency on target 'AvoidObstaclesGame' in project 'AvoidObstaclesGame'
+    Target 'AvoidObstaclesGame' in project 'AvoidObstaclesGame' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/danielstevens/Desktop/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+Build description signature: 52333092c3979c02fb3bd8ae8096d062
+Build description path: /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/XCBuildData/52333092c3979c02fb3bd8ae8096d062.xcbuilddata
+ClangStatCache /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/danielstevens/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C5027e-c6bb09c85eeb1a59968f08cee6a58242.sdkstatcache
+    cd /Users/danielstevens/Desktop/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGame.xcodeproj
+    /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/danielstevens/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C5027e-c6bb09c85eeb1a59968f08cee6a58242.sdkstatcache
+
+note: Disabling hardened runtime with ad-hoc codesigning. (in target 'AvoidObstaclesGame' from project 'AvoidObstaclesGame')
+ProcessInfoPlistFile /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGame.app/Info.plist /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGame.build/empty-AvoidObstaclesGame.plist (in target 'AvoidObstaclesGame' from project 'AvoidObstaclesGame')
+    cd /Users/danielstevens/Desktop/github-projects/tools-automation/AvoidObstaclesGame
+    builtin-infoPlistUtility /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGame.build/empty-AvoidObstaclesGame.plist -producttype com.apple.product-type.application -genpkginfo /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGame.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGame.build/assetcatalog_generated_info.plist -o /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGame.app/Info.plist
+
+ProcessInfoPlistFile /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGame.app/PlugIns/AvoidObstaclesGameTests.xctest/Info.plist /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGameTests.build/empty-AvoidObstaclesGameTests.plist (in target 'AvoidObstaclesGameTests' from project 'AvoidObstaclesGame')
+    cd /Users/danielstevens/Desktop/github-projects/tools-automation/AvoidObstaclesGame
+    builtin-infoPlistUtility /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGameTests.build/empty-AvoidObstaclesGameTests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -format binary -platform iphonesimulator -o /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGame.app/PlugIns/AvoidObstaclesGameTests.xctest/Info.plist
+
+ProcessInfoPlistFile /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/Info.plist /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGameUITests.build/empty-AvoidObstaclesGameUITests.plist (in target 'AvoidObstaclesGameUITests' from project 'AvoidObstaclesGame')
+    cd /Users/danielstevens/Desktop/github-projects/tools-automation/AvoidObstaclesGame
+    builtin-infoPlistUtility /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGameUITests.build/empty-AvoidObstaclesGameUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGameUITests.build/ProductTypeInfoPlistAdditions.plist -o /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/Info.plist
+
+CopySwiftLibs /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest (in target 'AvoidObstaclesGameUITests' from project 'AvoidObstaclesGame')
+    cd /Users/danielstevens/Desktop/github-projects/tools-automation/AvoidObstaclesGame
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/AvoidObstaclesGameUITests --scan-folder /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/Frameworks --scan-folder /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/PlugIns --scan-folder /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/SystemExtensions --scan-folder /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/Extensions --scan-folder /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/System/Library/Frameworks/SpriteKit.framework --platform iphonesimulator --toolchain /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Products/Debug-iphonesimulator/AvoidObstaclesGameUITests-Runner.app/PlugIns/AvoidObstaclesGameUITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Build/Intermediates.noindex/AvoidObstaclesGame.build/Debug-iphonesimulator/AvoidObstaclesGameUITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+2025-12-07 16:52:15.908834-0600 AvoidObstaclesGameUITests-Runner[14244:12831948] [Default] Running tests...
+2025-12-07 16:52:15.996282-0600 AvoidObstaclesGameUITests-Runner[14244:12832688] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+2025-12-07 16:52:16.038760-0600 AvoidObstaclesGameUITests-Runner[14244:12832688] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2025-12-07 16:52:22.624.
+Test Suite 'AvoidObstaclesGameUITests.xctest' started at 2025-12-07 16:52:22.625.
+Test Suite 'GameFunctionalTests' started at 2025-12-07 16:52:22.626.
+Test Case '-[AvoidObstaclesGameUITests.GameFunctionalTests testGameplayLoop]' started.
+    t =     0.00s Start Test at 2025-12-07 16:52:22.627
+    t =     0.32s Set Up
+    t =     0.34s Open com.DanielStevens.AvoidObstaclesGame
+    t =     0.35s     Launch com.DanielStevens.AvoidObstaclesGame
+    t =     1.23s         Setting up automation session
+    t =     2.54s         Wait for com.DanielStevens.AvoidObstaclesGame to idle
+    t =     3.68s Waiting 10.0s for "Play" StaticText to exist
+    t =     4.71s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =     4.71s         Checking existence of `"Play" StaticText`
+    t =     4.74s         Capturing element debug description
+    t =     5.77s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =     5.77s         Checking existence of `"Play" StaticText`
+    t =     5.78s         Capturing element debug description
+    t =     6.71s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =     6.71s         Checking existence of `"Play" StaticText`
+    t =     6.71s         Capturing element debug description
+    t =     7.74s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =     7.74s         Checking existence of `"Play" StaticText`
+    t =     7.74s         Capturing element debug description
+    t =     8.76s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =     8.77s         Checking existence of `"Play" StaticText`
+    t =     8.77s         Capturing element debug description
+    t =     9.70s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =     9.70s         Checking existence of `"Play" StaticText`
+    t =     9.70s         Capturing element debug description
+    t =    10.71s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =    10.71s         Checking existence of `"Play" StaticText`
+    t =    10.72s         Capturing element debug description
+    t =    11.75s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =    11.75s         Checking existence of `"Play" StaticText`
+    t =    11.75s         Capturing element debug description
+    t =    12.72s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =    12.72s         Checking existence of `"Play" StaticText`
+    t =    12.73s         Capturing element debug description
+    t =    13.68s     Checking `Expect predicate `existsNoRetry == 1` for object "Play" StaticText`
+    t =    13.68s         Checking existence of `"Play" StaticText`
+    t =    13.69s         Capturing element debug description
+    t =    13.69s     Checking existence of `"Play" StaticText`
+    t =    13.70s Collecting debug information to assist test failure triage
+    t =    13.70s     Requesting snapshot of accessibility hierarchy for app with pid 14462
+/Users/danielstevens/Desktop/github-projects/tools-automation/AvoidObstaclesGame/AvoidObstaclesGameUITests/GameFunctionalTests.swift:17: error: -[AvoidObstaclesGameUITests.GameFunctionalTests testGameplayLoop] : XCTAssertTrue failed - Play button should exist on launch
+    t =    14.30s Tear Down
+Test Case '-[AvoidObstaclesGameUITests.GameFunctionalTests testGameplayLoop]' failed (14.590 seconds).
+Test Suite 'GameFunctionalTests' failed at 2025-12-07 16:52:37.217.
+	 Executed 1 test, with 1 failure (0 unexpected) in 14.590 (14.591) seconds
+Test Suite 'AvoidObstaclesGameUITests.xctest' failed at 2025-12-07 16:52:37.217.
+	 Executed 1 test, with 1 failure (0 unexpected) in 14.590 (14.592) seconds
+Test Suite 'Selected tests' failed at 2025-12-07 16:52:37.218.
+	 Executed 1 test, with 1 failure (0 unexpected) in 14.590 (14.594) seconds
+2025-12-07 16:52:57.138 xcodebuild[13532:12827828] [MT] IDETestOperationsObserverDebug: 79.738 elapsed -- Testing started completed.
+2025-12-07 16:52:57.138 xcodebuild[13532:12827828] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2025-12-07 16:52:57.138 xcodebuild[13532:12827828] [MT] IDETestOperationsObserverDebug: 79.738 sec, +79.738 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/danielstevens/Library/Developer/Xcode/DerivedData/AvoidObstaclesGame-ftcaflfqghptvoamthzoluzhenhx/Logs/Test/Test-AvoidObstaclesGame-2025.12.07_16-51-32--0600.xcresult
+
+** TEST FAILED **
+
+Testing started
