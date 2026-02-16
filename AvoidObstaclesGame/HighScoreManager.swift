@@ -6,98 +6,88 @@
 //
 
 import Foundation
+import SwiftData
 
-/// Manages high scores with persistent storage using UserDefaults.
-/// Provides methods to add, retrieve, and clear high scores for the AvoidObstaclesGame.
+
+/// Manages high scores with persistent storage using SwiftData.
 @MainActor
 class HighScoreManager {
-    /// Shared singleton instance for global access.
-    @MainActor static let shared = HighScoreManager()
-
-    /// UserDefaults key for storing high scores.
-    private let highScoresKey = "AvoidObstaclesHighScores"
-    /// Maximum number of high scores to keep.
+    static let shared = HighScoreManager()
     private let maxScores = 10
 
-    /// Private initializer to enforce singleton usage.
-    private init() {}
+    private let modelContainer: ModelContainer
+    private var modelContext: ModelContext { modelContainer.mainContext }
 
-    /// Retrieves all high scores sorted from highest to lowest.
-    /// - Returns: An array of high scores in descending order.
-    func getHighScores() -> [Int] {
-        let scores = UserDefaults.standard.array(forKey: highScoresKey) as? [Int] ?? []
-        return scores.sorted(by: >)
+    private init() {
+        do {
+            modelContainer = try ModelContainer(for: HighScoreEntry.self)
+        } catch {
+            fatalError("Failed to initialize ModelContainer: \(error)")
+        }
     }
 
-    /// Retrieves all high scores sorted from highest to lowest (async version).
-    /// - Returns: An array of high scores in descending order.
-    func getHighScoresAsync() async -> [Int] {
+    /// Retrieves all high scores sorted from highest to lowest.
+    func getHighScores() -> [HighScoreEntry] {
+        let descriptor = FetchDescriptor<HighScoreEntry>(sortBy: [SortDescriptor(\.score, order: .reverse), SortDescriptor(\.date, order: .reverse)])
+        return (try? modelContext.fetch(descriptor)) ?? []
+    }
+
+    /// Async version
+    func getHighScoresAsync() async -> [HighScoreEntry] {
         getHighScores()
     }
 
     /// Adds a new score to the high scores list.
-    /// - Parameter score: The score to add.
-    /// - Returns: True if the score is in the top 10 after adding, false otherwise.
-    func addScore(_ score: Int) -> Bool {
-        var scores = getHighScores()
-        scores.append(score)
-        scores.sort(by: >)
-
-        // Keep only top 10 scores
-        if scores.count > maxScores {
-            scores = Array(scores.prefix(maxScores))
-        }
-
-        UserDefaults.standard.set(scores, forKey: highScoresKey)
-        UserDefaults.standard.synchronize()
-
-        // Return true if this score is in the top 10
-        return scores.contains(score)
+    /// Returns true if the score is in the top 10 after adding.
+    func addScore(_ score: Int, playerName: String) -> Bool {
+        let entry = HighScoreEntry(score: score, playerName: playerName)
+        modelContext.insert(entry)
+        trimScoresIfNeeded()
+        return isHighScore(score)
     }
 
-    /// Adds a new score to the high scores list (async version).
-    /// - Parameter score: The score to add.
-    /// - Returns: True if the score is in the top 10 after adding, false otherwise.
-    func addScoreAsync(_ score: Int) async -> Bool {
-        addScore(score)
+    /// Async version
+    func addScoreAsync(_ score: Int, playerName: String) async -> Bool {
+        addScore(score, playerName: playerName)
     }
 
-    /// Retrieves the highest score from the high scores list.
-    /// - Returns: The highest score, or 0 if no scores exist.
+    /// Returns the highest score, or 0 if none exist.
     func getHighestScore() -> Int {
-        getHighScores().first ?? 0
+        getHighScores().first?.score ?? 0
     }
 
-    /// Retrieves the highest score from the high scores list (async version).
-    /// - Returns: The highest score, or 0 if no scores exist.
     func getHighestScoreAsync() async -> Int {
         getHighestScore()
     }
 
     /// Checks if a given score would qualify as a high score without adding it.
-    /// - Parameter score: The score to check.
-    /// - Returns: True if the score would be in the top 10, false otherwise.
     func isHighScore(_ score: Int) -> Bool {
-        let scores = getHighScores()
+        let scores = getHighScores().map { $0.score }
         return scores.count < maxScores || score > (scores.last ?? 0)
     }
 
-    /// Checks if a given score would qualify as a high score without adding it (async version).
-    /// - Parameter score: The score to check.
-    /// - Returns: True if the score would be in the top 10, false otherwise.
     func isHighScoreAsync(_ score: Int) async -> Bool {
         isHighScore(score)
     }
 
-    /// Clears all high scores from persistent storage. Useful for testing or resetting.
+    /// Removes all high scores (for testing/reset)
     func clearHighScores() {
-        UserDefaults.standard.removeObject(forKey: highScoresKey)
-        UserDefaults.standard.synchronize()
+        let all = getHighScores()
+        for entry in all { modelContext.delete(entry) }
     }
 
-    /// Clears all high scores from persistent storage (async version). Useful for testing or resetting.
     func clearHighScoresAsync() async {
         clearHighScores()
+    }
+
+    /// Keeps only the top 10 scores
+    private func trimScoresIfNeeded() {
+        let scores = getHighScores()
+        if scores.count > maxScores {
+            for entry in scores[maxScores...] {
+                modelContext.delete(entry)
+            }
+        }
     }
 }
 

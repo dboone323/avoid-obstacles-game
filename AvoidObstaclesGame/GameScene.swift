@@ -240,16 +240,38 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         // Update achievements
         achievementManager.updateProgress(for: .gameCompleted, value: Int(gameStateManager.survivalTime))
 
-        // Show game over screen
-        let isNewHighScore = HighScoreManager.shared.addScore(gameStateManager.score)
-        uiManager.showGameOverScreen(finalScore: gameStateManager.score, isNewHighScore: isNewHighScore)
+        // Prompt for player name if high score
+
+        let score = gameStateManager.score
+        let isHighScore = HighScoreManager.shared.isHighScore(score)
+        if isHighScore {
+            uiManager.promptForPlayerName { playerName in
+                let isNewHighScore = HighScoreManager.shared.addScore(score, playerName: playerName)
+                let newEntry = HighScoreManager.shared.getHighScores().first { $0.score == score && $0.playerName == playerName }
+                uiManager.showGameOverScreen(finalScore: score, isNewHighScore: isNewHighScore)
+                if let entry = newEntry {
+                    uiManager.showLeaderboard(newHighScoreId: entry.id)
+                } else {
+                    uiManager.showLeaderboard()
+                }
+            }
+        } else {
+            let isNewHighScore = HighScoreManager.shared.addScore(score, playerName: "Player")
+            uiManager.showGameOverScreen(finalScore: score, isNewHighScore: isNewHighScore)
+            uiManager.showLeaderboard()
+        }
+
+        // Submit to Game Center if available
+        #if canImport(GameKit)
+        LeaderboardManager.shared.submitScore(score)
+        #endif
 
         // Play game over sound
         audioManager.playCollision()
 
         // Log for crash reporting
         CrashReportingManager.shared.logGameOver(
-            score: gameStateManager.score,
+            score: score,
             survivalTime: gameStateManager.survivalTime,
             level: gameStateManager.getCurrentDifficultyLevel()
         )
