@@ -8,7 +8,6 @@
 import Foundation
 import SwiftData
 
-
 /// Manages high scores with persistent storage using SwiftData.
 @MainActor
 class HighScoreManager {

@@ -7,21 +7,15 @@ import GameKit
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 class GameCenterManagerTests: XCTestCase {
     var manager: GameCenterManager!
-
-    
 
     override func setUp() {
         super.setUp()
         manager = GameCenterManager()
     }
-
-    
 
     override func tearDown() {
         manager = nil

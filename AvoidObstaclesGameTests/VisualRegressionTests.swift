@@ -2,9 +2,7 @@ import Foundation
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class VisualRegressionTests: XCTestCase {
     func testDashboardSnapshotBaseline() throws {

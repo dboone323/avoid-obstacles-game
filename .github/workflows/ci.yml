@@ -2,20 +2,26 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, develop, 'fix/*']
-    tags: ['v*']
+    branches: [main, develop, "fix/*"]
+    tags: ["v*"]
+    paths-ignore: ["**.md", "docs/**"]
   pull_request:
-    branches: [main, develop, 'feature/*']
+    branches: [main, develop, "feature/*"]
+    paths-ignore: ["**.md", "docs/**"]
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Deployment environment'
+        description: "Deployment environment"
         required: true
-        default: 'testflight'
+        default: "testflight"
         type: choice
         options:
           - testflight
           - appstore
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   # 1. Code Quality & Linting
@@ -33,7 +39,7 @@ jobs:
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2
         with:
-          swift-version: '5.10'
+          swift-version: "5.10"
 
       - name: Cache Dependencies
         uses: actions/cache@v4
@@ -79,17 +85,17 @@ jobs:
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "trivy-results.sarif"
           ignore-unfixed: true
 
       - name: Upload Trivy Results
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: "trivy-results.sarif"
 
       - name: Check for Secrets (TruffleHog)
         uses: trufflesecurity/trufflehog@main
@@ -128,7 +134,7 @@ jobs:
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2
         with:
-          swift-version: '5.10'
+          swift-version: "5.10"
 
       - name: Build (${{ matrix.name }})
         run: |

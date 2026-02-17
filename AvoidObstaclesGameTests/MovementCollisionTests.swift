@@ -8,15 +8,11 @@ import SpriteKit
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class MovementCollisionTests: XCTestCase {
     var scene: SKScene!
     var playerManager: PlayerManager!
-
-    
 
     override func setUp() {
         super.setUp()
@@ -24,8 +20,6 @@ final class MovementCollisionTests: XCTestCase {
         playerManager = PlayerManager(scene: scene)
         playerManager.createPlayer(at: CGPoint(x: 200, y: 100))
     }
-
-    
 
     override func tearDown() {
         playerManager = nil

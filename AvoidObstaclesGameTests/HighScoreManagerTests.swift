@@ -1,9 +1,7 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class HighScoreManagerTests: XCTestCase {
     // MARK: - HighScoreManager Tests

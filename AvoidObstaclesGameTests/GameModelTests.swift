@@ -11,8 +11,6 @@ final class GameModelTests: XCTestCase {
     var modelContainer: ModelContainer!
     var modelContext: ModelContext!
 
-    
-
     override func setUpWithError() throws {
         // Create in-memory model container for testing
         let schema = Schema([
@@ -23,8 +21,6 @@ final class GameModelTests: XCTestCase {
         self.modelContainer = try ModelContainer(for: schema, configurations: [configuration])
         self.modelContext = ModelContext(self.modelContainer)
     }
-
-    
 
     override func tearDownWithError() throws {
         self.modelContainer = nil

@@ -2,23 +2,17 @@ import SpriteKit
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class UIManagerTests: XCTestCase {
     var scene: SKScene!
     var manager: UIManager!
-
-    
 
     override func setUp() {
         super.setUp()
         scene = SKScene(size: CGSize(width: 800, height: 600))
         manager = UIManager(scene: scene)
     }
-
-    
 
     override func tearDown() {
         manager.removeAllUI()

@@ -8,14 +8,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 class LocalizationManagerTests: XCTestCase {
     var manager: LocalizationManager!
-
-    
 
     override func setUp() {
         super.setUp()

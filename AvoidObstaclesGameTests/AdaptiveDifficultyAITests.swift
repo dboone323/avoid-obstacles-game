@@ -11,8 +11,6 @@ import XCTest
 final class AdaptiveDifficultyAITests: XCTestCase {
     var ai: AdaptiveDifficultyAI!
 
-    
-
     override func setUp() {
         super.setUp()
         ai = AdaptiveDifficultyAI() // Use new instance if possible, but it's a singleton 'shared'.
@@ -24,8 +22,6 @@ final class AdaptiveDifficultyAITests: XCTestCase {
         // Yes, internal init.
         ai = AdaptiveDifficultyAI()
     }
-
-    
 
     override func tearDown() {
         ai = nil

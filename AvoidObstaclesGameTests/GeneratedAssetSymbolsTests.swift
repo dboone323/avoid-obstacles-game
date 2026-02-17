@@ -8,9 +8,7 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class GeneratedAssetSymbolsTests: XCTestCase {
     func testInitialization() {

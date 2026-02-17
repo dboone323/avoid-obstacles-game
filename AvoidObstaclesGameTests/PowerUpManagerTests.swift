@@ -7,23 +7,17 @@ import SpriteKit
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class PowerUpManagerTests: XCTestCase {
     var sut: PowerUpManager!
     var testScene: SKScene!
-
-    
 
     override func setUp() {
         super.setUp()
         testScene = SKScene(size: CGSize(width: 400, height: 600))
         sut = PowerUpManager(scene: testScene)
     }
-
-    
 
     override func tearDown() {
         sut = nil

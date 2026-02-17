@@ -8,21 +8,15 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class GameStateManagerTests: XCTestCase {
     var manager: GameStateManager!
-
-    
 
     override func setUp() {
         super.setUp()
         manager = GameStateManager()
     }
-
-    
 
     override func tearDown() {
         manager.resetStatistics()

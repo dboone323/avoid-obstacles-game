@@ -6,14 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class CrashReportingManagerTests: XCTestCase {
     var crashManager: CrashReportingManager!
-
-    
 
     override func setUp() {
         super.setUp()
@@ -21,8 +17,6 @@ final class CrashReportingManagerTests: XCTestCase {
         // Clean up before test
         crashManager.clearCrashLog()
     }
-
-    
 
     override func tearDown() {
         crashManager.clearCrashLog()

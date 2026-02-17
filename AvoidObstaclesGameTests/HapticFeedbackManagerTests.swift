@@ -8,14 +8,10 @@ import XCTest
 final class HapticFeedbackManagerTests: XCTestCase {
     var sut: HapticFeedbackManager!
 
-    
-
     override func setUp() {
         super.setUp()
         sut = HapticFeedbackManager.shared
     }
-
-    
 
     override func tearDown() {
         sut = nil

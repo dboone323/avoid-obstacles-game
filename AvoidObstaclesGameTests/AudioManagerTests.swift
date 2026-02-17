@@ -12,14 +12,10 @@ import XCTest
 final class AudioManagerTests: XCTestCase {
     var sut: AudioManager!
 
-    
-
     override func setUp() {
         super.setUp()
         sut = AudioManager.shared
     }
-
-    
 
     override func tearDown() {
         sut.stopBackgroundMusic()

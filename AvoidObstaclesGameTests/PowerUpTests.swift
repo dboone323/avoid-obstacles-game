@@ -6,14 +6,10 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 class PowerUpTests: XCTestCase {
     var powerUpSystem: PowerUpSystem!
-
-    
 
     override func setUp() {
         super.setUp()

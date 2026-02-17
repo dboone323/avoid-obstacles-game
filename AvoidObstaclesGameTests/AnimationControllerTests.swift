@@ -6,9 +6,7 @@
 import XCTest
 @testable import AvoidObstaclesGame
 
-
 @MainActor
-
 
 final class AnimationControllerTests: XCTestCase {
     func testAnimationSetup() {
