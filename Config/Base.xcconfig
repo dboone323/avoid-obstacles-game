@@ -13,4 +13,15 @@ INFOPLIST_KEY_UILaunchStoryboardName =
 EXCLUDED_SOURCE_FILE_NAMES = Main.storyboard LaunchScreen.storyboard
 
 // Suppress legacy strict-concurrency warnings until ECS/UI classes are fully actor-audited.
-SWIFT_WARN_CONCURRENCY = NO
+// REMOVED: SWIFT_WARN_CONCURRENCY = NO
+SWIFT_STRICT_CONCURRENCY = complete
+
+// 2026 Platform Standards
+COMPILATION_CACHING_ENABLE = YES
+EXPERIMENTAL_SWIFT_EXPLICIT_MODULE_BUILDS = YES
+OTHER_SWIFT_FLAGS = $(inherited) -Xfrontend -debug-time-function-bodies -show-build-timing-summary
+
+// Cross-Repo Dependency Linking (Standard 2026 pattern)
+FRAMEWORK_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)/../shared-kit/.build/$(PLATFORM_NAME)/$(CONFIGURATION)
+LIBRARY_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)/../shared-kit/.build/$(PLATFORM_NAME)/$(CONFIGURATION)
+SWIFT_INCLUDE_PATHS = $(inherited) $(PROJECT_DIR)/../shared-kit/.build/$(PLATFORM_NAME)/$(CONFIGURATION)
