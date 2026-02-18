@@ -8,6 +8,48 @@
 import CoreHaptics
 import Foundation
 
+// MARK: - Haptic Pattern
+
+/// Represents a pattern of haptic events
+struct HapticPattern {
+    struct Event {
+        // swiftlint:disable:next nesting
+        enum EventType {
+            case light, medium, heavy
+            case selection
+            case success, warning, error
+        }
+
+        let type: EventType
+        let delay: TimeInterval
+    }
+
+    let events: [Event]
+
+    // MARK: - Predefined Patterns
+
+    /// Countdown pattern (3-2-1-GO)
+    static let countdown = HapticPattern(events: [
+        Event(type: .light, delay: 0.0),
+        Event(type: .light, delay: 1.0),
+        Event(type: .light, delay: 2.0),
+        Event(type: .heavy, delay: 3.0),
+    ])
+
+    /// Combo pattern (increasing intensity)
+    static let combo = HapticPattern(events: [
+        Event(type: .light, delay: 0.0),
+        Event(type: .medium, delay: 0.1),
+        Event(type: .heavy, delay: 0.2),
+    ])
+
+    /// Achievement unlocked
+    static let achievement = HapticPattern(events: [
+        Event(type: .success, delay: 0.0),
+        Event(type: .medium, delay: 0.1),
+        Event(type: .medium, delay: 0.2),
+    ])
+}
 #if canImport(UIKit)
     import UIKit
 
@@ -239,49 +281,6 @@ import Foundation
         }
     }
 
-    // MARK: - Haptic Pattern
-
-    /// Represents a pattern of haptic events
-    struct HapticPattern {
-        struct Event {
-            // swiftlint:disable:next nesting
-            enum EventType {
-                case light, medium, heavy
-                case selection
-                case success, warning, error
-            }
-
-            let type: EventType
-            let delay: TimeInterval
-        }
-
-        let events: [Event]
-
-        // MARK: - Predefined Patterns
-
-        /// Countdown pattern (3-2-1-GO)
-        static let countdown = HapticPattern(events: [
-            Event(type: .light, delay: 0.0),
-            Event(type: .light, delay: 1.0),
-            Event(type: .light, delay: 2.0),
-            Event(type: .heavy, delay: 3.0),
-        ])
-
-        /// Combo pattern (increasing intensity)
-        static let combo = HapticPattern(events: [
-            Event(type: .light, delay: 0.0),
-            Event(type: .medium, delay: 0.1),
-            Event(type: .heavy, delay: 0.2),
-        ])
-
-        /// Achievement unlocked
-        static let achievement = HapticPattern(events: [
-            Event(type: .success, delay: 0.0),
-            Event(type: .medium, delay: 0.1),
-            Event(type: .medium, delay: 0.2),
-        ])
-    }
-
 #else
 
     /// macOS stub - haptics not available
@@ -293,6 +292,7 @@ import Foundation
         func light() {}
         func medium() {}
         func heavy() {}
+        func impact(intensity: CGFloat) {}
         func selection() {}
         func success() {}
         func warning() {}
@@ -306,26 +306,6 @@ import Foundation
         func gamePause() {}
         func gameResume() {}
         func playPattern(_ pattern: HapticPattern) {}
-    }
-
-    struct HapticPattern {
-        struct Event {
-            // swiftlint:disable:next nesting
-            enum EventType {
-                case light, medium, heavy
-                case selection
-                case success, warning, error
-            }
-
-            let type: EventType
-            let delay: TimeInterval
-        }
-
-        let events: [Event]
-
-        static let countdown = HapticPattern(events: [])
-        static let combo = HapticPattern(events: [])
-        static let achievement = HapticPattern(events: [])
     }
 
 #endif

@@ -10,7 +10,7 @@ import SpriteKit
 
 /// State representing active gameplay.
 @MainActor
-class GamePlayingState: GKState {
+class GamePlayingState: GKState, @unchecked Sendable {
     /// Reference to the game scene.
     weak var scene: GameScene?
 
@@ -24,17 +24,16 @@ class GamePlayingState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        GameLogger.debugNonIsolated("🎮 Entered Playing State")
+        Task { @MainActor in
+            GameLogger.shared.debug("🎮 Entered Playing State")
 
-        guard let scene else { return }
+            guard let scene = self.scene else { return }
 
-        // Ensure physics is running
-        scene.physicsWorld.speed = 1.0
-        scene.isPaused = false
+            scene.physicsWorld.speed = 1.0
+            scene.isPaused = false
 
-        // Start spawning if coming from pause
-        if previousState is GamePausedState {
-            // Resume spawning
+            // Start spawning obstacles
+            scene.obstacleManager.startSpawning(with: scene.gameStateManager.getCurrentDifficulty())
         }
     }
 
@@ -44,6 +43,10 @@ class GamePlayingState: GKState {
     }
 
     override func willExit(to nextState: GKState) {
-        GameLogger.debugNonIsolated("🎮 Exiting Playing State -> \(type(of: nextState))")
+        let nextStateName = String(describing: type(of: nextState))
+        Task { @MainActor in
+            GameLogger.shared.debug("🎮 Exiting Playing State -> \(nextStateName)")
+            self.scene?.obstacleManager.stopSpawning()
+        }
     }
 }

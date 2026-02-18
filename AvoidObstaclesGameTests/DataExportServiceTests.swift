@@ -1,6 +1,6 @@
 import SwiftData
 import XCTest
-@testable import AvoidObstaclesGame
+@testable import AvoidObstaclesGameCore
 
 @MainActor
 

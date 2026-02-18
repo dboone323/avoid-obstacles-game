@@ -45,15 +45,22 @@ class AdaptiveDifficultyAI {
         let avgSurvival = recentGames.map(\.survivalTime).reduce(0, +) / 3.0
         let avgScore = recentGames.map(\.score).reduce(0, +) / 3
 
-        // Adjust based on performance
+        // Adjust based on performance using standardized multipliers
         if avgSurvival > 60 && avgScore > 100 {
-            currentMultiplier = min(currentMultiplier * 1.1, 1.5) // Increase difficulty
+            currentMultiplier = min(
+                currentMultiplier * BalanceConfiguration.difficultyIncreaseMultiplier,
+                BalanceConfiguration.maxDifficultyMultiplier
+            )
         } else if avgSurvival < 20 {
-            currentMultiplier = max(currentMultiplier * 0.9, 0.7) // Decrease difficulty
+            currentMultiplier = max(
+                currentMultiplier * BalanceConfiguration.difficultyDecreaseMultiplier,
+                BalanceConfiguration.minDifficultyMultiplier
+            )
         }
     }
 
-    func getAdjustedDifficulty(base: GameConfiguration.Difficulty.DifficultyLevel) -> GameConfiguration.Difficulty
+    func getAdjustedDifficulty(base: GameConfiguration.Difficulty.DifficultyLevel)
+        -> GameConfiguration.Difficulty
         .DifficultyLevel
     {
         GameConfiguration.Difficulty.DifficultyLevel(

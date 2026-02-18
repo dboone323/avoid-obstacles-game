@@ -22,6 +22,7 @@ enum EnhancedObstacleType: CaseIterable {
         }
     }
 
+    @MainActor
     func createObstacle(size: CGSize, color: PlatformColor) -> SKSpriteNode {
         let obstacle = SKSpriteNode(color: color, size: size)
         obstacle.name = "obstacle"
@@ -79,9 +80,10 @@ extension ObstacleManager {
             duration: TimeInterval(scene.size.height / difficulty.obstacleSpeed)
         )
 
-        obstacle.run(SKAction.sequence([
-            moveAction,
-            SKAction.removeFromParent(),
-        ]))
+        obstacle.run(
+            SKAction.sequence([
+                moveAction,
+                SKAction.removeFromParent(),
+            ]))
     }
 }

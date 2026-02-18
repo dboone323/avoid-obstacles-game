@@ -10,7 +10,7 @@ import SpriteKit
 
 /// State representing paused gameplay.
 @MainActor
-class GamePausedState: GKState {
+class GamePausedState: GKState, @unchecked Sendable {
     /// Reference to the game scene.
     weak var scene: GameScene?
 
@@ -24,24 +24,29 @@ class GamePausedState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        GameLogger.debugNonIsolated("⏸️ Entered Paused State")
+        Task { @MainActor in
+            guard let scene = self.scene else { return }
 
-        guard let scene else { return }
+            scene.physicsWorld.speed = 0.0
+            scene.isPaused = true
 
-        // Pause physics
-        scene.physicsWorld.speed = 0.0
-
-        // Show pause overlay (handled by UIManager)
+            GameLogger.shared.debug("⏸️ Game Paused")
+        }
     }
 
     override func willExit(to nextState: GKState) {
-        GameLogger.debugNonIsolated("⏸️ Exiting Paused State -> \(type(of: nextState))")
+        let nextStateName = String(describing: type(of: nextState))
+        let isGoingToPlaying = nextState is GamePlayingState
 
-        guard let scene else { return }
+        Task { @MainActor in
+            GameLogger.debugNonIsolated("⏸️ Exiting Paused State -> \(nextStateName)")
 
-        // Resume physics if going back to playing
-        if nextState is GamePlayingState {
-            scene.physicsWorld.speed = 1.0
+            guard let scene = self.scene else { return }
+
+            // Resume physics if going back to playing
+            if isGoingToPlaying {
+                scene.physicsWorld.speed = 1.0
+            }
         }
     }
 }

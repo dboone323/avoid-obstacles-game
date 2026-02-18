@@ -1,19 +1,22 @@
 import Foundation
 
 /// Certificate pinning delegate for URLSession
-class CertificatePinningPolicy: NSObject, URLSessionDelegate {
+class CertificatePinningPolicy: NSObject, URLSessionDelegate, @unchecked Sendable {
     // Replace with your actual certificate data (DER format)
     private let pinnedCertificateData: Data = {
         // Load from bundle or hardcode for demo
         guard let certURL = Bundle.main.url(forResource: "server", withExtension: "cer"),
-              let data = try? Data(contentsOf: certURL) else {
+            let data = try? Data(contentsOf: certURL)
+        else {
             fatalError("Pinned certificate not found in bundle.")
         }
         return data
     }()
 
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge,
-                    completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    func urlSession(
+        _ session: URLSession, didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+    ) {
         guard let serverTrust = challenge.protectionSpace.serverTrust else {
             completionHandler(.cancelAuthenticationChallenge, nil)
             return

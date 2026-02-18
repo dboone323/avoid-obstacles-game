@@ -7,6 +7,7 @@
 
 import GameplayKit
 import SpriteKit
+
 #if canImport(UIKit)
     import UIKit
 #endif
@@ -18,13 +19,13 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
     // MARK: - Service Managers
 
     /// Game state management
-    private let gameStateManager = GameStateManager()
+    let gameStateManager = GameStateManager()
 
     /// Player management
     private let playerManager: PlayerManager
 
     /// Obstacle management
-    private let obstacleManager: ObstacleManager
+    let obstacleManager: ObstacleManager
 
     /// UI management
     private let uiManager: UIManager
@@ -166,7 +167,7 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         enableTiltControlsIfAvailable()
 
         // Setup effects
-        effectsManager.createExplosion(at: .zero) // Preload explosion effect
+        effectsManager.createExplosion(at: .zero)  // Preload explosion effect
 
         GameLogger.shared.debug("🎮 setupScene() complete")
 
@@ -191,7 +192,8 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         let maxY = max(minY, size.height)
 
         for _ in 0..<5 {
-            let cloud = SKSpriteNode(color: .white.withAlphaComponent(0.3), size: CGSize(width: 60, height: 30))
+            let cloud = SKSpriteNode(
+                color: .white.withAlphaComponent(0.3), size: CGSize(width: 60, height: 30))
             cloud.position = CGPoint(
                 x: CGFloat.random(in: 0...max(1, size.width)),
                 y: CGFloat.random(in: minY...maxY)
@@ -199,7 +201,8 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
             cloud.zPosition = -50
 
             // Animate clouds
-            let moveAction = SKAction.moveBy(x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10...20))
+            let moveAction = SKAction.moveBy(
+                x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10...20))
             let resetAction = SKAction.moveTo(x: size.width + 60, duration: 0)
             let sequence = SKAction.sequence([moveAction, resetAction])
             cloud.run(SKAction.repeatForever(sequence))
@@ -238,21 +241,27 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         obstacleManager.removeAllObstacles()
 
         // Update achievements
-        achievementManager.updateProgress(for: .gameCompleted, value: Int(gameStateManager.survivalTime))
+        achievementManager.updateProgress(
+            for: .gameCompleted, value: Int(gameStateManager.survivalTime))
 
         // Prompt for player name if high score
 
         let score = gameStateManager.score
         let isHighScore = HighScoreManager.shared.isHighScore(score)
         if isHighScore {
-            uiManager.promptForPlayerName { playerName in
+            uiManager.promptForPlayerName { [weak self] playerName in
+                guard let self = self else { return }
+
                 let isNewHighScore = HighScoreManager.shared.addScore(score, playerName: playerName)
-                let newEntry = HighScoreManager.shared.getHighScores().first { $0.score == score && $0.playerName == playerName }
-                uiManager.showGameOverScreen(finalScore: score, isNewHighScore: isNewHighScore)
+                let newEntry = HighScoreManager.shared.getHighScores().first {
+                    $0.score == score && $0.playerName == playerName
+                }
+
+                self.uiManager.showGameOverScreen(finalScore: score, isNewHighScore: isNewHighScore)
                 if let entry = newEntry {
-                    uiManager.showLeaderboard(newHighScoreId: entry.id)
+                    self.uiManager.showLeaderboard(newHighScoreId: entry.id)
                 } else {
-                    uiManager.showLeaderboard()
+                    self.uiManager.showLeaderboard()
                 }
             }
         } else {
@@ -263,7 +272,7 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
 
         // Submit to Game Center if available
         #if canImport(GameKit)
-        LeaderboardManager.shared.submitScore(score)
+            LeaderboardManager.shared.submitScore(score)
         #endif
 
         // Play game over sound
@@ -377,7 +386,8 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
     /// Updates gameplay logic
     private func updateGameplay(_ deltaTime: TimeInterval) {
         // Update score based on time
-        let scoreIncrement = Int(deltaTime * Double(gameStateManager.getCurrentDifficulty().scoreMultiplier))
+        let scoreIncrement = Int(
+            deltaTime * Double(gameStateManager.getCurrentDifficulty().scoreMultiplier))
         if scoreIncrement > 0 {
             gameStateManager.addScore(scoreIncrement)
         }
@@ -488,24 +498,25 @@ extension GameScene: PhysicsManagerDelegate {
         audioManager.playPowerUp()
 
         // Determine power-up type from identifier (accessible - not color-based)
-        let powerUpType: PowerUpType = if let nodeName = powerUp.name {
-            switch nodeName {
-            case PowerUpType.shield.identifier:
-                .shield
-            case PowerUpType.speedBoost.identifier:
-                .speedBoost
-            case PowerUpType.magnet.identifier:
-                .magnet
-            case PowerUpType.slowTime.identifier:
-                .slowTime
-            case PowerUpType.doublePoints.identifier:
-                .doublePoints
-            default:
-                .shield // Default fallback
+        let powerUpType: PowerUpType =
+            if let nodeName = powerUp.name {
+                switch nodeName {
+                case PowerUpType.shield.identifier:
+                    .shield
+                case PowerUpType.speedBoost.identifier:
+                    .speedBoost
+                case PowerUpType.magnet.identifier:
+                    .magnet
+                case PowerUpType.slowTime.identifier:
+                    .slowTime
+                case PowerUpType.doublePoints.identifier:
+                    .doublePoints
+                default:
+                    .shield  // Default fallback
+                }
+            } else {
+                .shield  // Default fallback
             }
-        } else {
-            .shield // Default fallback
-        }
 
         playerManager.applyPowerUpEffect(powerUpType)
 
@@ -517,7 +528,8 @@ extension GameScene: PhysicsManagerDelegate {
 extension GameScene: AchievementDelegate {
     func achievementUnlocked(_ achievement: Achievement) {
         // Show achievement notification
-        uiManager.showScorePopup(score: achievement.points, at: CGPoint(x: size.width / 2, y: size.height / 2))
+        uiManager.showScorePopup(
+            score: achievement.points, at: CGPoint(x: size.width / 2, y: size.height / 2))
     }
 
     func achievementProgressUpdated(_: Achievement, progress _: Float) {

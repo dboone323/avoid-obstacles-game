@@ -1,6 +1,19 @@
 import Foundation
 import SharedKit
 
+/// Configuration for game balancing adjustments.
+public struct BalanceConfiguration: Sendable {
+    public static let difficultyIncreaseMultiplier = 1.1
+    public static let difficultyDecreaseMultiplier = 0.9
+    public static let maxDifficultyMultiplier = 1.5
+    public static let minDifficultyMultiplier = 0.7
+
+    public static let obstacleSpeedIncrease = 1.2
+    public static let spawnRateDecrease = 0.8
+    public static let obstacleSpeedDecrease = 0.9
+    public static let spawnRateIncrease = 1.5
+}
+
 /// Agent specializing in real-time game balancing based on player performace.
 public final class GameBalanceAgent: BaseAgent {
     public let id = "game_balance_agent_001"
@@ -24,12 +37,12 @@ public final class GameBalanceAgent: BaseAgent {
 
         if survivalTime > 60 && lives == 3 {
             adjustments["difficulty"] = "increase"
-            adjustments["obstacleSpeed"] = "1.2x"
-            adjustments["spawnRate"] = "0.8x"
+            adjustments["obstacleSpeed"] = "\(BalanceConfiguration.obstacleSpeedIncrease)x"
+            adjustments["spawnRate"] = "\(BalanceConfiguration.spawnRateDecrease)x"
         } else if survivalTime < 20 && lives < 2 {
             adjustments["difficulty"] = "decrease"
-            adjustments["obstacleSpeed"] = "0.9x"
-            adjustments["spawnRate"] = "1.5x"
+            adjustments["obstacleSpeed"] = "\(BalanceConfiguration.obstacleSpeedDecrease)x"
+            adjustments["spawnRate"] = "\(BalanceConfiguration.spawnRateIncrease)x"
         } else {
             adjustments["difficulty"] = "stable"
         }

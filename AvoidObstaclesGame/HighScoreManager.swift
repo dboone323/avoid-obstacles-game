@@ -19,7 +19,11 @@ class HighScoreManager {
 
     private init() {
         do {
-            modelContainer = try ModelContainer(for: HighScoreEntry.self)
+            let schema = Schema([HighScoreEntry.self])
+            let isTesting = NSClassFromString("XCTest") != nil
+            let modelConfiguration = ModelConfiguration(
+                schema: schema, isStoredInMemoryOnly: isTesting)
+            modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
             fatalError("Failed to initialize ModelContainer: \(error)")
         }
@@ -27,7 +31,9 @@ class HighScoreManager {
 
     /// Retrieves all high scores sorted from highest to lowest.
     func getHighScores() -> [HighScoreEntry] {
-        let descriptor = FetchDescriptor<HighScoreEntry>(sortBy: [SortDescriptor(\.score, order: .reverse), SortDescriptor(\.date, order: .reverse)])
+        let descriptor = FetchDescriptor<HighScoreEntry>(sortBy: [
+            SortDescriptor(\.score, order: .reverse), SortDescriptor(\.date, order: .reverse),
+        ])
         return (try? modelContext.fetch(descriptor)) ?? []
     }
 

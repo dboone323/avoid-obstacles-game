@@ -1,31 +1,33 @@
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGame
+
+@testable import AvoidObstaclesGameCore
 
 @MainActor
-
 final class UIManagerTests: XCTestCase {
     var scene: SKScene!
     var manager: UIManager!
 
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
+        try await super.setUp()
         scene = SKScene(size: CGSize(width: 800, height: 600))
         manager = UIManager(scene: scene)
     }
 
-    override func tearDown() {
+    override func tearDown() async throws {
         manager.removeAllUI()
         manager = nil
         scene = nil
-        super.tearDown()
+        try await super.tearDown()
     }
 
     func testUISetup() {
         manager.setupUI()
 
         // Should create score, high score, and difficulty labels
-        let scoreLabel = scene.childNode(withName: "//scoreLabel") ?? scene.children
+        let scoreLabel =
+            scene.childNode(withName: "//scoreLabel")
+            ?? scene.children
             .first(where: { ($0 as? SKLabelNode)?.text?.contains("Score") == true })
         XCTAssertNotNil(scoreLabel, "Score label should be created")
     }
@@ -35,7 +37,7 @@ final class UIManagerTests: XCTestCase {
         manager.updateScore(100)
 
         // Score should be updated
-        XCTAssertTrue(true) // If no crash, test passes
+        XCTAssertTrue(true)  // If no crash, test passes
     }
 
     func testDifficultyLevelUpdate() {
@@ -50,7 +52,9 @@ final class UIManagerTests: XCTestCase {
         manager.showGameOverScreen(finalScore: 500, isNewHighScore: true)
 
         // Game over screen should be added
-        let gameOverLabel = scene.children.first(where: { ($0 as? SKLabelNode)?.text?.contains("Game Over") == true })
+        let gameOverLabel = scene.children.first(where: {
+            ($0 as? SKLabelNode)?.text?.contains("Game Over") == true
+        })
         XCTAssertNotNil(gameOverLabel)
     }
 

@@ -1,109 +1,3 @@
-import SwiftData
-    // MARK: - Leaderboard UI
-
-    /// Shows the top 10 leaderboard overlay, highlights new high score if present
-    @MainActor
-    func showLeaderboard(newHighScoreId: UUID? = nil) {
-        guard let scene else { return }
-
-        // Remove any existing leaderboard
-        hideLeaderboard()
-
-        let scores = HighScoreManager.shared.getHighScores()
-        let startY = scene.size.height * 0.6
-        let spacing: CGFloat = 32
-        var currentY = startY
-
-        let titleLabel = SKLabelNode(fontNamed: "Chalkduster")
-        titleLabel.text = "Top 10 Scores"
-        titleLabel.fontSize = 28
-        titleLabel.fontColor = .yellow
-        titleLabel.position = CGPoint(x: scene.size.width / 2, y: currentY + 40)
-        titleLabel.zPosition = 200
-        scene.addChild(titleLabel)
-        statisticsLabels.append(titleLabel)
-
-        for (index, entry) in scores.prefix(10).enumerated() {
-            let label = SKLabelNode(fontNamed: "Chalkduster")
-            label.text = "#\(index + 1): \(entry.playerName) - \(entry.score)"
-            label.fontSize = 22
-            if let newId = newHighScoreId, entry.id == newId {
-                label.fontColor = .systemGreen
-                label.run(SKAction.repeatForever(SKAction.sequence([
-                    SKAction.scale(to: 1.2, duration: 0.2),
-                    SKAction.scale(to: 1.0, duration: 0.2)
-                ])))
-            } else {
-                label.fontColor = .white
-            }
-            label.position = CGPoint(x: scene.size.width / 2, y: currentY)
-            label.zPosition = 200
-            scene.addChild(label)
-            statisticsLabels.append(label)
-            currentY -= spacing
-        }
-
-        // Add close button
-        let closeLabel = SKLabelNode(fontNamed: "Chalkduster")
-        closeLabel.text = "Close"
-        closeLabel.fontSize = 20
-        closeLabel.fontColor = .red
-        closeLabel.position = CGPoint(x: scene.size.width / 2, y: currentY - 20)
-        closeLabel.zPosition = 200
-        closeLabel.name = "LeaderboardCloseButton"
-        scene.addChild(closeLabel)
-        statisticsLabels.append(closeLabel)
-    }
-
-    /// Hides the leaderboard overlay
-    @MainActor
-    func hideLeaderboard() {
-        for label in statisticsLabels {
-            label.run(SKAction.sequence([fadeOutAction, SKAction.removeFromParent()]))
-        }
-        statisticsLabels.removeAll()
-    }
-
-    /// Prompts for player name (real modal for iOS/macOS, fallback to default)
-    @MainActor
-    func promptForPlayerName(completion: @escaping (String) -> Void) {
-        #if canImport(UIKit)
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let rootVC = windowScene.windows.first?.rootViewController {
-            let alert = UIAlertController(title: "New High Score!", message: "Enter your name:", preferredStyle: .alert)
-            alert.addTextField { textField in
-                textField.placeholder = "Your Name"
-            }
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                let name = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                completion((name?.isEmpty ?? true) ? "Player" : name!)
-            })
-            rootVC.present(alert, animated: true, completion: nil)
-        } else {
-            completion("Player")
-        }
-        #elseif canImport(AppKit)
-        // macOS: Use NSAlert with text field (pseudo-code, needs actual implementation)
-        completion("Player")
-        #else
-        completion("Player")
-        #endif
-    }
-    // MARK: - Leaderboard Button
-
-    /// Adds a leaderboard button to the main menu or game over screen
-    @MainActor
-    func addLeaderboardButton(at position: CGPoint) {
-        guard let scene else { return }
-        let button = SKLabelNode(fontNamed: "Chalkduster")
-        button.text = "Leaderboard"
-        button.fontSize = 22
-        button.fontColor = .cyan
-        button.position = position
-        button.zPosition = 150
-        button.name = "LeaderboardButton"
-        scene.addChild(button)
-    }
 //
 // UIManager.swift
 // AvoidObstaclesGame
@@ -113,6 +7,7 @@ import SwiftData
 //
 
 import SpriteKit
+
 #if canImport(UIKit)
     import UIKit
 #endif
@@ -314,10 +209,11 @@ class UIManager {
             finalScoreLabel.isAccessibilityElement = true
             finalScoreLabel.accessibilityLabel = "Final Score: \(finalScore)"
             scene.addChild(finalScoreLabel)
-            finalScoreLabel.run(SKAction.sequence([
-                SKAction.wait(forDuration: 0.2),
-                fadeInAction,
-            ]))
+            finalScoreLabel.run(
+                SKAction.sequence([
+                    SKAction.wait(forDuration: 0.2),
+                    fadeInAction,
+                ]))
         }
 
         // High score achievement notification
@@ -326,17 +222,19 @@ class UIManager {
             highScoreAchievedLabel?.text = "🎉 NEW HIGH SCORE! 🎉"
             highScoreAchievedLabel?.fontSize = 24
             highScoreAchievedLabel?.fontColor = .orange
-            highScoreAchievedLabel?.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2 + 10)
+            highScoreAchievedLabel?.position = CGPoint(
+                x: scene.size.width / 2, y: scene.size.height / 2 + 10)
             highScoreAchievedLabel?.zPosition = 101
 
             if let highScoreAchievedLabel {
                 highScoreAchievedLabel.alpha = 0
                 scene.addChild(highScoreAchievedLabel)
-                highScoreAchievedLabel.run(SKAction.sequence([
-                    SKAction.wait(forDuration: 0.4),
-                    fadeInAction,
-                    SKAction.repeatForever(pulseAction),
-                ]))
+                highScoreAchievedLabel.run(
+                    SKAction.sequence([
+                        SKAction.wait(forDuration: 0.4),
+                        fadeInAction,
+                        SKAction.repeatForever(pulseAction),
+                    ]))
             }
         }
 
@@ -353,10 +251,11 @@ class UIManager {
             restartLabel.isAccessibilityElement = true
             restartLabel.accessibilityLabel = "Tap to Restart Game"
             scene.addChild(restartLabel)
-            restartLabel.run(SKAction.sequence([
-                SKAction.wait(forDuration: 0.6),
-                fadeInAction,
-            ]))
+            restartLabel.run(
+                SKAction.sequence([
+                    SKAction.wait(forDuration: 0.6),
+                    fadeInAction,
+                ]))
         }
     }
 
@@ -444,7 +343,7 @@ class UIManager {
     func showStatistics(_ statistics: [String: Any]) {
         guard let scene else { return }
 
-        hideStatistics() // Clear any existing statistics
+        hideStatistics()  // Clear any existing statistics
 
         let startY = scene.size.height * 0.7
         let spacing: CGFloat = 30
@@ -492,7 +391,7 @@ class UIManager {
     func handleTouch(at location: CGPoint) {
         // Check if restart label was tapped
         if let restartLabel,
-           restartLabel.contains(location)
+            restartLabel.contains(location)
         {
             delegate?.restartButtonTapped()
         }
@@ -532,19 +431,20 @@ class UIManager {
     /// Removes all UI elements from the scene
     @MainActor
     func removeAllUI() {
-        let allLabels = [
-            scoreLabel,
-            highScoreLabel,
-            difficultyLabel,
-            gameOverLabel,
-            restartLabel,
-            highScoreAchievedLabel,
-            finalScoreLabel,
-            levelUpLabel,
-            fpsLabel,
-            memoryLabel,
-            qualityLabel,
-        ] + statisticsLabels
+        let allLabels =
+            [
+                scoreLabel,
+                highScoreLabel,
+                difficultyLabel,
+                gameOverLabel,
+                restartLabel,
+                highScoreAchievedLabel,
+                finalScoreLabel,
+                levelUpLabel,
+                fpsLabel,
+                memoryLabel,
+                qualityLabel,
+            ] + statisticsLabels
 
         for label in allLabels {
             label?.removeFromParent()
@@ -618,7 +518,7 @@ class UIManager {
 
         // Create overlay container
         performanceOverlay = SKNode()
-        performanceOverlay?.zPosition = 200 // Above everything else
+        performanceOverlay?.zPosition = 200  // Above everything else
 
         // FPS Label
         fpsLabel = SKLabelNode(fontNamed: "Menlo")
@@ -673,7 +573,8 @@ class UIManager {
 
     /// Starts periodic performance updates
     private func startPerformanceUpdates() {
-        performanceUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+        performanceUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) {
+            [weak self] _ in
             Task { @MainActor [weak self] in
                 self?.updatePerformanceDisplay()
             }
@@ -692,7 +593,8 @@ class UIManager {
 
         // Update FPS
         fpsLabel?.text = String(format: "FPS: %.1f", stats.averageFPS)
-        fpsLabel?.fontColor = stats.averageFPS >= 55 ? .green : (stats.averageFPS >= 30 ? .yellow : .red)
+        fpsLabel?.fontColor =
+            stats.averageFPS >= 55 ? .green : (stats.averageFPS >= 30 ? .yellow : .red)
 
         // Update Memory
         let memoryMB = Double(stats.currentMemoryUsage) / (1024 * 1024)
@@ -725,5 +627,118 @@ class UIManager {
     /// - Parameter statistics: Dictionary of statistics to display
     func showStatisticsAsync(_ statistics: [String: Any]) async {
         showStatistics(statistics)
+    }
+
+    // MARK: - Leaderboard UI
+
+    /// Shows the top 10 leaderboard overlay, highlights new high score if present
+    @MainActor
+    func showLeaderboard(newHighScoreId: UUID? = nil) {
+        guard let scene else { return }
+
+        // Remove any existing leaderboard
+        hideLeaderboard()
+
+        let scores = HighScoreManager.shared.getHighScores()
+        let startY = scene.size.height * 0.6
+        let spacing: CGFloat = 32
+        var currentY = startY
+
+        let titleLabel = SKLabelNode(fontNamed: "Chalkduster")
+        titleLabel.text = "Top 10 Scores"
+        titleLabel.fontSize = 28
+        titleLabel.fontColor = .yellow
+        titleLabel.position = CGPoint(x: scene.size.width / 2, y: currentY + 40)
+        titleLabel.zPosition = 200
+        scene.addChild(titleLabel)
+        statisticsLabels.append(titleLabel)
+
+        for (index, entry) in scores.prefix(10).enumerated() {
+            let label = SKLabelNode(fontNamed: "Chalkduster")
+            label.text = "#\(index + 1): \(entry.playerName) - \(entry.score)"
+            label.fontSize = 22
+            if let newId = newHighScoreId, entry.id == newId {
+                label.fontColor = .systemGreen
+                label.run(
+                    SKAction.repeatForever(
+                        SKAction.sequence([
+                            SKAction.scale(to: 1.2, duration: 0.2),
+                            SKAction.scale(to: 1.0, duration: 0.2),
+                        ])))
+            } else {
+                label.fontColor = .white
+            }
+            label.position = CGPoint(x: scene.size.width / 2, y: currentY)
+            label.zPosition = 200
+            scene.addChild(label)
+            statisticsLabels.append(label)
+            currentY -= spacing
+        }
+
+        // Add close button
+        let closeLabel = SKLabelNode(fontNamed: "Chalkduster")
+        closeLabel.text = "Close"
+        closeLabel.fontSize = 20
+        closeLabel.fontColor = .red
+        closeLabel.position = CGPoint(x: scene.size.width / 2, y: currentY - 20)
+        closeLabel.zPosition = 200
+        closeLabel.name = "LeaderboardCloseButton"
+        scene.addChild(closeLabel)
+        statisticsLabels.append(closeLabel)
+    }
+
+    /// Hides the leaderboard overlay
+    @MainActor
+    func hideLeaderboard() {
+        for label in statisticsLabels {
+            label.run(SKAction.sequence([fadeOutAction, SKAction.removeFromParent()]))
+        }
+        statisticsLabels.removeAll()
+    }
+
+    /// Prompts for player name (real modal for iOS/macOS, fallback to default)
+    @MainActor
+    func promptForPlayerName(completion: @escaping (String) -> Void) {
+        #if canImport(UIKit)
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                let rootVC = windowScene.windows.first?.rootViewController
+            {
+                let alert = UIAlertController(
+                    title: "New High Score!", message: "Enter your name:", preferredStyle: .alert)
+                alert.addTextField { textField in
+                    textField.placeholder = "Your Name"
+                }
+                alert.addAction(
+                    UIAlertAction(title: "OK", style: .default) { _ in
+                        let name = alert.textFields?.first?.text?.trimmingCharacters(
+                            in: .whitespacesAndNewlines)
+                        completion((name?.isEmpty ?? true) ? "Player" : name!)
+                    })
+                rootVC.present(alert, animated: true, completion: nil)
+            } else {
+                completion("Player")
+            }
+        #elseif canImport(AppKit)
+            // macOS: Use NSAlert with text field (pseudo-code, needs actual implementation)
+            completion("Player")
+        #else
+            completion("Player")
+        #endif
+    }
+
+    // MARK: - Leaderboard Button
+
+    /// Adds a leaderboard button to the main menu or game over screen
+    @MainActor
+    func addLeaderboardButton(at position: CGPoint) {
+        guard let scene else { return }
+        let button = SKLabelNode(fontNamed: "Chalkduster")
+        button.text = "Leaderboard"
+        button.fontSize = 22
+        button.fontColor = .cyan
+        button.position = position
+        button.zPosition = 150
+        button.name = "LeaderboardButton"
+        scene.addChild(button)
     }
 }

@@ -10,7 +10,7 @@ import SpriteKit
 
 /// State representing game over.
 @MainActor
-class GameOverState: GKState {
+class GameOverState: GKState, @unchecked Sendable {
     /// Reference to the game scene.
     weak var scene: GameScene?
 
@@ -27,17 +27,19 @@ class GameOverState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        GameLogger.shared.debug("💀 Entered Game Over State")
+        Task { @MainActor in
+            GameLogger.shared.debug("💀 Entered Game Over State")
 
-        guard let scene else { return }
+            guard let scene = self.scene else { return }
 
-        // Stop physics
-        scene.physicsWorld.speed = 0.0
+            // Stop physics
+            scene.physicsWorld.speed = 0.0
 
-        // Stop spawning obstacles
-        scene.removeAction(forKey: "spawnObstacles")
+            // Stop spawning obstacles
+            scene.removeAction(forKey: "spawnObstacles")
 
-        // Show game over UI (handled by UIManager)
+            // Show game over UI (handled by UIManager)
+        }
     }
 
     /// Called when the player requests a restart.
@@ -47,6 +49,9 @@ class GameOverState: GKState {
     }
 
     override func willExit(to nextState: GKState) {
-        GameLogger.shared.debug("💀 Exiting Game Over State -> \(type(of: nextState))")
+        let nextStateName = String(describing: type(of: nextState))
+        Task { @MainActor in
+            GameLogger.shared.debug("💀 Exiting Game Over State -> \(nextStateName)")
+        }
     }
 }

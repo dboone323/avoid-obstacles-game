@@ -5,6 +5,7 @@
 
 import SpriteKit
 
+@MainActor
 class PerformanceOptimizer {
     @MainActor static let shared = PerformanceOptimizer()
 
@@ -51,6 +52,7 @@ class PerformanceOptimizer {
     }
 }
 
+@MainActor
 class FrameRateMonitor {
     private weak var scene: SKScene?
     private var lastUpdate: TimeInterval = 0

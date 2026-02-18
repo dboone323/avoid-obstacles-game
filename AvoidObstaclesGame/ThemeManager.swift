@@ -12,6 +12,7 @@ import SpriteKit
     import UIKit
 
     /// Manages visual themes and color schemes
+    @MainActor
     class ThemeManager {
         // MARK: - Singleton
 
@@ -73,10 +74,10 @@ import SpriteKit
         static let neonTheme = Theme(
             name: "neon",
             backgroundColor: .black,
-            playerColor: UIColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0), // Magenta
-            obstacleColor: UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0), // Cyan
-            powerUpColor: UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0), // Yellow
-            uiTextColor: UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0), // Bright green
+            playerColor: UIColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0),  // Magenta
+            obstacleColor: UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0),  // Cyan
+            powerUpColor: UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0),  // Yellow
+            uiTextColor: UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0),  // Bright green
             uiBackgroundColor: UIColor(white: 0.05, alpha: 0.95),
             accentColor: UIColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0),
             particleColor: UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0),
@@ -88,9 +89,9 @@ import SpriteKit
         static let retroTheme = Theme(
             name: "retro",
             backgroundColor: UIColor(red: 0.2, green: 0.1, blue: 0.05, alpha: 1.0),
-            playerColor: UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0), // Gold
-            obstacleColor: UIColor(red: 0.6, green: 0.2, blue: 0.1, alpha: 1.0), // Brown
-            powerUpColor: UIColor(red: 0.9, green: 0.9, blue: 0.7, alpha: 1.0), // Cream
+            playerColor: UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0),  // Gold
+            obstacleColor: UIColor(red: 0.6, green: 0.2, blue: 0.1, alpha: 1.0),  // Brown
+            powerUpColor: UIColor(red: 0.9, green: 0.9, blue: 0.7, alpha: 1.0),  // Cream
             uiTextColor: UIColor(red: 0.9, green: 0.8, blue: 0.5, alpha: 1.0),
             uiBackgroundColor: UIColor(red: 0.3, green: 0.2, blue: 0.1, alpha: 0.9),
             accentColor: UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0),
@@ -280,6 +281,7 @@ import SpriteKit
     import AppKit
 
     /// Manages visual themes and color schemes for macOS
+    @MainActor
     class ThemeManager {
         // MARK: - Singleton
 
@@ -387,8 +389,9 @@ import SpriteKit
             case "auto":
                 // Follow system appearance
                 if #available(macOS 10.14, *) {
+                    let app = NSApplication.shared
                     let isDark =
-                        NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+                        app.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
                     return isDark ? ThemeManager.darkTheme : ThemeManager.lightTheme
                 } else {
                     return ThemeManager.lightTheme
@@ -496,7 +499,7 @@ import SpriteKit
         // MARK: - Theme Selection
 
         func setTheme(_ themeName: String) {
-            var modifiedConfig = config
+            let modifiedConfig = config
             var visual = modifiedConfig.visual
             visual = GameConfiguration.Visual(
                 theme: themeName,

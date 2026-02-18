@@ -1,5 +1,6 @@
 import XCTest
-@testable import AvoidObstaclesGame
+
+@testable import AvoidObstaclesGameCore
 
 @MainActor
 
@@ -26,7 +27,7 @@ final class HighScoreManagerTests: XCTestCase {
         manager.clearHighScores()
 
         // Test adding a score
-        let wasAdded = manager.addScore(100)
+        let wasAdded = manager.addScore(100, playerName: "Player")
         XCTAssertTrue(wasAdded, "Score should be added successfully")
 
         // Test getting highest score
@@ -49,9 +50,9 @@ final class HighScoreManagerTests: XCTestCase {
         manager.clearHighScores()
 
         // Test adding multiple scores
-        let added1 = manager.addScore(50)
-        let added2 = manager.addScore(150)
-        let added3 = manager.addScore(75)
+        let added1 = manager.addScore(50, playerName: "Player1")
+        let added2 = manager.addScore(150, playerName: "Player2")
+        let added3 = manager.addScore(75, playerName: "Player3")
 
         XCTAssertTrue(added1, "First score should be added")
         XCTAssertTrue(added2, "Second score should be added")
@@ -63,7 +64,7 @@ final class HighScoreManagerTests: XCTestCase {
         // Test that scores are sorted (assuming descending order)
         if scores.count >= 2 {
             XCTAssertGreaterThanOrEqual(
-                scores[0], scores[1], "First score should be >= second score"
+                scores[0].score, scores[1].score, "First score should be >= second score"
             )
         }
 

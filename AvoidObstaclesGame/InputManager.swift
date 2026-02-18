@@ -9,6 +9,10 @@ import SpriteKit
     import CoreMotion
 #endif
 
+#if canImport(AppKit)
+    import AppKit
+#endif
+
 class InputManager {
     @MainActor static let shared = InputManager()
 
@@ -36,6 +40,12 @@ class InputManager {
             } else {
                 stopTiltMonitoring()
             }
+        #elseif os(macOS)
+            if mode == .tilt {
+                startTiltMonitoring()
+            } else {
+                stopTiltMonitoring()
+            }
         #endif
     }
 
@@ -51,7 +61,7 @@ class InputManager {
             break
 
         case .tilt:
-            // Tilt handled by motion manager
+            // Tilt handled by motion manager or keyboard fallback
             break
         }
     }
@@ -71,6 +81,33 @@ class InputManager {
 
         private func stopTiltMonitoring() {
             motionManager.stopAccelerometerUpdates()
+        }
+    #elseif os(macOS)
+        private var currentTilt: CGFloat = 0.5
+        private let keyboardSensitivity: CGFloat = 0.05
+
+        private func startTiltMonitoring() {
+            NSLog("[InputManager] LOG: Tilt mode fallback active for macOS (Keyboard).")
+        }
+
+        private func stopTiltMonitoring() {
+            currentTilt = 0.5
+            onMove?(currentTilt)
+        }
+
+        @MainActor
+        func handleKeyboard(event: NSEvent) {
+            guard mode == .tilt else { return }
+
+            // Simulating tilt with arrow keys or A/D
+            // Key codes: 123 (Left), 124 (Right), 0 (A), 2 (D)
+            if event.keyCode == 123 || event.keyCode == 0 {
+                currentTilt = max(0, currentTilt - keyboardSensitivity)
+                onMove?(currentTilt)
+            } else if event.keyCode == 124 || event.keyCode == 2 {
+                currentTilt = min(1, currentTilt + keyboardSensitivity)
+                onMove?(currentTilt)
+            }
         }
     #else
         private func startTiltMonitoring() {}

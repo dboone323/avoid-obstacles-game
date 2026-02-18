@@ -5,7 +5,8 @@
 
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGame
+
+@testable import AvoidObstaclesGameCore
 
 @MainActor
 final class PerformanceTests: XCTestCase {
@@ -118,7 +119,7 @@ final class PerformanceTests: XCTestCase {
 
         measure {
             for i in 0..<500 {
-                _ = manager.addScore(i * 100)
+                _ = manager.addScore(i * 100, playerName: "Player")
             }
         }
     }
