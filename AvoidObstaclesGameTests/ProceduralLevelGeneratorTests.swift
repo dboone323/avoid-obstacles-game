@@ -4,7 +4,6 @@
 //
 
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 @MainActor
@@ -23,7 +22,8 @@ final class ProceduralLevelGeneratorTests: XCTestCase {
 
         XCTAssertEqual(
             level1, level2,
-            "Generating with the same seed should result in the exact same level data")
+            "Generating with the same seed should result in the exact same level data"
+        )
     }
 
     func testDifficultyScaling() {
@@ -32,9 +32,11 @@ final class ProceduralLevelGeneratorTests: XCTestCase {
         let levelHard = generator.generateLevel(difficulty: 10, seed: 1)
 
         XCTAssertGreaterThan(
-            levelHard.duration, levelEasy.duration, "Hard levels should have longer duration")
+            levelHard.duration, levelEasy.duration, "Hard levels should have longer duration"
+        )
         XCTAssertGreaterThan(
             levelHard.difficulty, levelEasy.difficulty,
-            "Hard levels should have higher difficulty multiplier")
+            "Hard levels should have higher difficulty multiplier"
+        )
     }
 }
