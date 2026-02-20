@@ -19,7 +19,8 @@ class GameCenterManager: NSObject, ObservableObject {
             } else if GKLocalPlayer.local.isAuthenticated {
                 self?.isAuthenticated = true
             } else {
-                GameLogger.shared.debug("Game Center auth failed: \(error?.localizedDescription ?? "unknown")")
+                GameLogger.shared.debug(
+                    "Game Center auth failed: \(error?.localizedDescription ?? "unknown")")
             }
         }
     }
@@ -39,13 +40,3 @@ class GameCenterManager: NSObject, ObservableObject {
         }
     }
 }
-
-#if os(iOS)
-    @available(*, deprecated)
-    @MainActor
-    extension GameCenterManager: GKGameCenterControllerDelegate {
-        nonisolated func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-            gameCenterViewController.dismiss(animated: true)
-        }
-    }
-#endif
