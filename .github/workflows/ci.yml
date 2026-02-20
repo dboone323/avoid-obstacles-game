@@ -132,7 +132,7 @@ jobs:
         include:
           - destination: "platform=iOS Simulator,name=iPhone 17,OS=26.0"
             name: iOS
-            scheme: AvoidObstacles
+            scheme: AvoidObstaclesGame
 
     steps:
       - name: Checkout Code
