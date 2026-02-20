@@ -1,6 +1,5 @@
 import SpriteKit
 import XCTest
-
 @testable import AvoidObstaclesGameCore
 
 @MainActor
@@ -27,8 +26,8 @@ final class UIManagerTests: XCTestCase {
         // Should create score, high score, and difficulty labels
         let scoreLabel =
             scene.childNode(withName: "//scoreLabel")
-            ?? scene.children
-            .first(where: { ($0 as? SKLabelNode)?.text?.contains("Score") == true })
+                ?? scene.children
+                .first(where: { ($0 as? SKLabelNode)?.text?.contains("Score") == true })
         XCTAssertNotNil(scoreLabel, "Score label should be created")
     }
 
@@ -37,7 +36,7 @@ final class UIManagerTests: XCTestCase {
         manager.updateScore(100)
 
         // Score should be updated
-        XCTAssertTrue(true)  // If no crash, test passes
+        XCTAssertTrue(true) // If no crash, test passes
     }
 
     func testDifficultyLevelUpdate() {

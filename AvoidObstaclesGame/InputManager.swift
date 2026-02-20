@@ -82,6 +82,7 @@ class InputManager {
         private func stopTiltMonitoring() {
             motionManager.stopAccelerometerUpdates()
         }
+
     #elseif os(macOS)
         private var currentTilt: CGFloat = 0.5
         private let keyboardSensitivity: CGFloat = 0.05

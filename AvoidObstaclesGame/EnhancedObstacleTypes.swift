@@ -84,6 +84,7 @@ extension ObstacleManager {
             SKAction.sequence([
                 moveAction,
                 SKAction.removeFromParent(),
-            ]))
+            ])
+        )
     }
 }

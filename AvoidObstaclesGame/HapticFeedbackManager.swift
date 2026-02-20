@@ -50,6 +50,7 @@ struct HapticPattern {
         Event(type: .medium, delay: 0.2),
     ])
 }
+
 #if canImport(UIKit)
     import UIKit
 

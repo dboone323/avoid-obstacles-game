@@ -20,7 +20,8 @@ class GameCenterManager: NSObject, ObservableObject {
                 self?.isAuthenticated = true
             } else {
                 GameLogger.shared.debug(
-                    "Game Center auth failed: \(error?.localizedDescription ?? "unknown")")
+                    "Game Center auth failed: \(error?.localizedDescription ?? "unknown")"
+                )
             }
         }
     }

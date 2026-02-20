@@ -42,7 +42,7 @@ class SpatialAudioManager {
         guard let engine = audioEngine, let env = environment else { return }
 
         let x = Float((position.x / scene.size.width) * 2 - 1)
-        let z = Float((position.y / scene.size.height) * 2 - 1)  // Using Z for depth in spatial audio
+        let z = Float((position.y / scene.size.height) * 2 - 1) // Using Z for depth in spatial audio
 
         env.listenerPosition = AVAudio3DPoint(x: 0, y: 0, z: 0)
 

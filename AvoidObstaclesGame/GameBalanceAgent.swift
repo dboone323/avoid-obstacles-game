@@ -1,7 +1,7 @@
 import Foundation
+import os
 import OSLog
 import SharedKit
-import os
 
 /// Configuration for game balancing adjustments.
 public struct BalanceConfiguration: Sendable {
@@ -21,7 +21,8 @@ public final class GameBalanceAgent: BaseAgent {
     public let id = "game_balance_agent_001"
     public let name = "Dynamic Game Balancer"
     private static let logger = Logger(
-        subsystem: "com.avoid-obstacles.game", category: "GameBalance")
+        subsystem: "com.avoid-obstacles.game", category: "GameBalance"
+    )
 
     public init() {}
 

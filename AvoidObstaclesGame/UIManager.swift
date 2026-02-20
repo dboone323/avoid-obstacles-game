@@ -213,7 +213,8 @@ class UIManager {
                 SKAction.sequence([
                     SKAction.wait(forDuration: 0.2),
                     fadeInAction,
-                ]))
+                ])
+            )
         }
 
         // High score achievement notification
@@ -223,7 +224,8 @@ class UIManager {
             highScoreAchievedLabel?.fontSize = 24
             highScoreAchievedLabel?.fontColor = .orange
             highScoreAchievedLabel?.position = CGPoint(
-                x: scene.size.width / 2, y: scene.size.height / 2 + 10)
+                x: scene.size.width / 2, y: scene.size.height / 2 + 10
+            )
             highScoreAchievedLabel?.zPosition = 101
 
             if let highScoreAchievedLabel {
@@ -234,7 +236,8 @@ class UIManager {
                         SKAction.wait(forDuration: 0.4),
                         fadeInAction,
                         SKAction.repeatForever(pulseAction),
-                    ]))
+                    ])
+                )
             }
         }
 
@@ -255,7 +258,8 @@ class UIManager {
                 SKAction.sequence([
                     SKAction.wait(forDuration: 0.6),
                     fadeInAction,
-                ]))
+                ])
+            )
         }
     }
 
@@ -343,7 +347,7 @@ class UIManager {
     func showStatistics(_ statistics: [String: Any]) {
         guard let scene else { return }
 
-        hideStatistics()  // Clear any existing statistics
+        hideStatistics() // Clear any existing statistics
 
         let startY = scene.size.height * 0.7
         let spacing: CGFloat = 30
@@ -391,7 +395,7 @@ class UIManager {
     func handleTouch(at location: CGPoint) {
         // Check if restart label was tapped
         if let restartLabel,
-            restartLabel.contains(location)
+           restartLabel.contains(location)
         {
             delegate?.restartButtonTapped()
         }
@@ -518,7 +522,7 @@ class UIManager {
 
         // Create overlay container
         performanceOverlay = SKNode()
-        performanceOverlay?.zPosition = 200  // Above everything else
+        performanceOverlay?.zPosition = 200 // Above everything else
 
         // FPS Label
         fpsLabel = SKLabelNode(fontNamed: "Menlo")
@@ -664,7 +668,9 @@ class UIManager {
                         SKAction.sequence([
                             SKAction.scale(to: 1.2, duration: 0.2),
                             SKAction.scale(to: 1.0, duration: 0.2),
-                        ])))
+                        ])
+                    )
+                )
             } else {
                 label.fontColor = .white
             }
@@ -701,19 +707,22 @@ class UIManager {
     func promptForPlayerName(completion: @escaping (String) -> Void) {
         #if canImport(UIKit)
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let rootVC = windowScene.windows.first?.rootViewController
+               let rootVC = windowScene.windows.first?.rootViewController
             {
                 let alert = UIAlertController(
-                    title: "New High Score!", message: "Enter your name:", preferredStyle: .alert)
+                    title: "New High Score!", message: "Enter your name:", preferredStyle: .alert
+                )
                 alert.addTextField { textField in
                     textField.placeholder = "Your Name"
                 }
                 alert.addAction(
                     UIAlertAction(title: "OK", style: .default) { _ in
                         let name = alert.textFields?.first?.text?.trimmingCharacters(
-                            in: .whitespacesAndNewlines)
+                            in: .whitespacesAndNewlines
+                        )
                         completion((name?.isEmpty ?? true) ? "Player" : name!)
-                    })
+                    }
+                )
                 rootVC.present(alert, animated: true, completion: nil)
             } else {
                 completion("Player")
