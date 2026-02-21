@@ -30,7 +30,7 @@ jobs:
           echo "Scanning for potential SQL injection points..."
           grep -rn "sqlite3_exec\|sqlite3_prepare" . --include="*.swift" --exclude-dir=".git" || true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: security-report
           path: security-report.txt
