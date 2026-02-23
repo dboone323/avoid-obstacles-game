@@ -167,7 +167,7 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         enableTiltControlsIfAvailable()
 
         // Setup effects
-        effectsManager.createExplosion(at: .zero)  // Preload explosion effect
+        effectsManager.createExplosion(at: .zero) // Preload explosion effect
 
         GameLogger.shared.debug("🎮 setupScene() complete")
 
@@ -193,7 +193,8 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
 
         for _ in 0..<5 {
             let cloud = SKSpriteNode(
-                color: .white.withAlphaComponent(0.3), size: CGSize(width: 60, height: 30))
+                color: .white.withAlphaComponent(0.3), size: CGSize(width: 60, height: 30)
+            )
             cloud.position = CGPoint(
                 x: CGFloat.random(in: 0...max(1, size.width)),
                 y: CGFloat.random(in: minY...maxY)
@@ -202,7 +203,8 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
 
             // Animate clouds
             let moveAction = SKAction.moveBy(
-                x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10...20))
+                x: -size.width - 60, y: 0, duration: TimeInterval.random(in: 10...20)
+            )
             let resetAction = SKAction.moveTo(x: size.width + 60, duration: 0)
             let sequence = SKAction.sequence([moveAction, resetAction])
             cloud.run(SKAction.repeatForever(sequence))
@@ -242,7 +244,8 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
 
         // Update achievements
         achievementManager.updateProgress(
-            for: .gameCompleted, value: Int(gameStateManager.survivalTime))
+            for: .gameCompleted, value: Int(gameStateManager.survivalTime)
+        )
 
         // Prompt for player name if high score
 
@@ -250,7 +253,7 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         let isHighScore = HighScoreManager.shared.isHighScore(score)
         if isHighScore {
             uiManager.promptForPlayerName { [weak self] playerName in
-                guard let self = self else { return }
+                guard let self else { return }
 
                 let isNewHighScore = HighScoreManager.shared.addScore(score, playerName: playerName)
                 let newEntry = HighScoreManager.shared.getHighScores().first {
@@ -387,7 +390,8 @@ public class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
     private func updateGameplay(_ deltaTime: TimeInterval) {
         // Update score based on time
         let scoreIncrement = Int(
-            deltaTime * Double(gameStateManager.getCurrentDifficulty().scoreMultiplier))
+            deltaTime * Double(gameStateManager.getCurrentDifficulty().scoreMultiplier)
+        )
         if scoreIncrement > 0 {
             gameStateManager.addScore(scoreIncrement)
         }
@@ -512,10 +516,10 @@ extension GameScene: PhysicsManagerDelegate {
                 case PowerUpType.doublePoints.identifier:
                     .doublePoints
                 default:
-                    .shield  // Default fallback
+                    .shield // Default fallback
                 }
             } else {
-                .shield  // Default fallback
+                .shield // Default fallback
             }
 
         playerManager.applyPowerUpEffect(powerUpType)
@@ -529,7 +533,8 @@ extension GameScene: AchievementDelegate {
     func achievementUnlocked(_ achievement: Achievement) {
         // Show achievement notification
         uiManager.showScorePopup(
-            score: achievement.points, at: CGPoint(x: size.width / 2, y: size.height / 2))
+            score: achievement.points, at: CGPoint(x: size.width / 2, y: size.height / 2)
+        )
     }
 
     func achievementProgressUpdated(_: Achievement, progress _: Float) {

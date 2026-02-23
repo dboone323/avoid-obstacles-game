@@ -1,6 +1,15 @@
 {
-  "originHash" : "b30caff831f41f6dc7618fd6f1ec41e09ae435957191bfcb6840fe40e1968efc",
+  "originHash" : "b26dbafb23f85724ac61d091374142066bfb3c4cd85a596ccf46b08a72627dcc",
   "pins" : [
+    {
+      "identity" : "shared-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dboone323/shared-kit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "23e528d664c4b288a207d496bbca78bc8f450252"
+      }
+    },
     {
       "identity" : "swift-atomics",
       "kind" : "remoteSourceControl",

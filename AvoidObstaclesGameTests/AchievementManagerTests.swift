@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import AvoidObstaclesGameCore
+@testable import AvoidObstaclesGame
 
 @MainActor
 
@@ -99,7 +99,7 @@ final class AchievementManagerTests: XCTestCase {
         XCTAssertTrue(sut.isAchievementUnlocked("power_up_collector"))
     }
 
-    func testShieldMasterAchievement() {
+    func testShieldSkillAchievement() {
         for _ in 0..<5 {
             sut.updateProgress(for: .shieldUsed)
         }

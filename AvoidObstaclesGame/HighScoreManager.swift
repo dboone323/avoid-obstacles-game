@@ -15,14 +15,17 @@ class HighScoreManager {
     private let maxScores = 10
 
     private let modelContainer: ModelContainer
-    private var modelContext: ModelContext { modelContainer.mainContext }
+    private var modelContext: ModelContext {
+        modelContainer.mainContext
+    }
 
     private init() {
         do {
             let schema = Schema([HighScoreEntry.self])
             let isTesting = NSClassFromString("XCTest") != nil
             let modelConfiguration = ModelConfiguration(
-                schema: schema, isStoredInMemoryOnly: isTesting)
+                schema: schema, isStoredInMemoryOnly: isTesting
+            )
             modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
             fatalError("Failed to initialize ModelContainer: \(error)")
@@ -67,7 +70,7 @@ class HighScoreManager {
 
     /// Checks if a given score would qualify as a high score without adding it.
     func isHighScore(_ score: Int) -> Bool {
-        let scores = getHighScores().map { $0.score }
+        let scores = getHighScores().map(\.score)
         return scores.count < maxScores || score > (scores.last ?? 0)
     }
 
@@ -78,7 +81,9 @@ class HighScoreManager {
     /// Removes all high scores (for testing/reset)
     func clearHighScores() {
         let all = getHighScores()
-        for entry in all { modelContext.delete(entry) }
+        for entry in all {
+            modelContext.delete(entry)
+        }
     }
 
     func clearHighScoresAsync() async {

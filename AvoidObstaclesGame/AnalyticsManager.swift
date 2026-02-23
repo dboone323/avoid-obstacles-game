@@ -28,12 +28,12 @@ class AnalyticsManager {
             name: name,
             parameters: stringParameters,
             timestamp: Date(),
-            platform: "macOS"  // Hardcoded for current build target logic
+            platform: "macOS" // Hardcoded for current build target logic
         )
 
         // In production, this would be encoded and sent to a backend or persisted locally.
         if let encoded = try? JSONEncoder().encode(event),
-            let jsonString = String(data: encoded, encoding: .utf8)
+           let jsonString = String(data: encoded, encoding: .utf8)
         {
             NSLog("[AnalyticsManager] EVENT: \(jsonString)")
         } else {
@@ -53,7 +53,8 @@ class AnalyticsManager {
             parameters: [
                 "score": score,
                 "survival_time": survivalTime,
-            ])
+            ]
+        )
     }
 
     @MainActor

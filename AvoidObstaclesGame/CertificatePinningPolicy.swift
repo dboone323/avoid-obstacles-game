@@ -6,7 +6,7 @@ class CertificatePinningPolicy: NSObject, URLSessionDelegate, @unchecked Sendabl
     private let pinnedCertificateData: Data = {
         // Load from bundle or hardcode for demo
         guard let certURL = Bundle.main.url(forResource: "server", withExtension: "cer"),
-            let data = try? Data(contentsOf: certURL)
+              let data = try? Data(contentsOf: certURL)
         else {
             fatalError("Pinned certificate not found in bundle.")
         }

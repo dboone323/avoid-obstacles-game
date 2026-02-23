@@ -2,8 +2,8 @@ import Foundation
 import Security
 
 #if os(iOS)
-import UIKit
-import UserNotifications
+    import UIKit
+    import UserNotifications
 #endif
 
 @MainActor
@@ -22,28 +22,28 @@ enum AvoidObstaclesLifecycleCoordinator {
         CrashReportingManager.shared.configure()
 
         #if os(iOS)
-        Task {
-            _ = await requestNotificationAuthorizationIfNeeded()
-        }
-        UIApplication.shared.registerForRemoteNotifications()
+            Task {
+                _ = await requestNotificationAuthorizationIfNeeded()
+            }
+            UIApplication.shared.registerForRemoteNotifications()
         #endif
     }
 
     #if os(iOS)
-    private static func requestNotificationAuthorizationIfNeeded() async -> Bool {
-        let center = UNUserNotificationCenter.current()
-        let currentSettings = await center.notificationSettings()
+        private static func requestNotificationAuthorizationIfNeeded() async -> Bool {
+            let center = UNUserNotificationCenter.current()
+            let currentSettings = await center.notificationSettings()
 
-        if currentSettings.authorizationStatus == .authorized {
-            return true
-        }
+            if currentSettings.authorizationStatus == .authorized {
+                return true
+            }
 
-        do {
-            return try await center.requestAuthorization(options: [.alert, .badge, .sound])
-        } catch {
-            return false
+            do {
+                return try await center.requestAuthorization(options: [.alert, .badge, .sound])
+            } catch {
+                return false
+            }
         }
-    }
     #endif
 }
 

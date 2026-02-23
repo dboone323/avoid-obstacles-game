@@ -5,7 +5,7 @@
 
 import GameKit
 import XCTest
-@testable import AvoidObstaclesGameCore
+@testable import AvoidObstaclesGame
 
 @MainActor
 

@@ -5,8 +5,7 @@
 
 import SpriteKit
 import XCTest
-
-@testable import AvoidObstaclesGameCore
+@testable import AvoidObstaclesGame
 
 @MainActor
 final class PerformanceTests: XCTestCase {
@@ -91,7 +90,7 @@ final class PerformanceTests: XCTestCase {
         let baseLevel = GameConfiguration.Difficulty.default.levels[0]
 
         measure {
-            for score in stride(from: 0, to: 10_000, by: 25) {
+            for score in stride(from: 0, to: 10000, by: 25) {
                 ai.recordPerformance(
                     score: score,
                     survivalTime: TimeInterval((score % 120) + 10),

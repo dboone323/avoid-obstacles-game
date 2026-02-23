@@ -5,7 +5,6 @@
 
 import SpriteKit
 import XCTest
-
 @testable import AvoidObstaclesGame
 
 @MainActor
@@ -36,7 +35,7 @@ final class InputManagerTests: XCTestCase {
     }
 
     #if os(macOS)
-        func testKeyboardInputFallback() {
+        func testKeyboardInputFallback() throws {
             let manager = InputManager.shared
             manager.setMode(.tilt)
 
@@ -44,7 +43,7 @@ final class InputManagerTests: XCTestCase {
             manager.onMove = { movedValue = $0 }
 
             // Mock keyboard event for Left Arrow (keyCode 123)
-            let event = NSEvent.keyEvent(
+            let event = try XCTUnwrap(NSEvent.keyEvent(
                 with: .keyDown,
                 location: .zero,
                 modifierFlags: [],
@@ -55,7 +54,7 @@ final class InputManagerTests: XCTestCase {
                 charactersIgnoringModifiers: "",
                 isARepeat: false,
                 keyCode: 123
-            )!
+            ))
 
             manager.handleKeyboard(event: event)
             XCTAssertLessThan(movedValue ?? 0.5, 0.5, "Left arrow should decrease tilt value")

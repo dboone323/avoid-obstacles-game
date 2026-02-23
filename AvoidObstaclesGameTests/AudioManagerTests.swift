@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import AvoidObstaclesGameCore
+@testable import AvoidObstaclesGame
 
 @MainActor
 final class AudioManagerTests: XCTestCase {

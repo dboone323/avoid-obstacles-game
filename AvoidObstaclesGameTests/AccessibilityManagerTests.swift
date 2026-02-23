@@ -7,7 +7,7 @@
 
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
+@testable import AvoidObstaclesGame
 
 #if canImport(UIKit)
     @MainActor
@@ -15,13 +15,13 @@ import XCTest
         var manager: AccessibilityManager!
         var testNode: SKSpriteNode!
 
-override func setUp() {
+        override func setUp() {
             super.setUp()
             manager = AccessibilityManager.shared
             testNode = SKSpriteNode(color: .blue, size: CGSize(width: 50, height: 50))
         }
 
-override func tearDown() {
+        override func tearDown() {
             testNode = nil
             super.tearDown()
         }

@@ -1,5 +1,5 @@
 import XCTest
-@testable import AvoidObstaclesGameCore
+@testable import AvoidObstaclesGame
 
 /// Comprehensive tests for HapticFeedbackManager
 
