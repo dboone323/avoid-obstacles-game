@@ -18,6 +18,10 @@ let package = Package(
         .library(
             name: "AvoidObstaclesGameCore",
             targets: ["AvoidObstaclesGameCore"]
+        ),
+        .executable(
+            name: "GameBalanceAudit",
+            targets: ["GameBalanceAudit"]
         )
     ],
     dependencies: [
@@ -47,6 +51,12 @@ let package = Package(
             name: "AvoidObstaclesGameTests",
             dependencies: ["AvoidObstaclesGameCore"],
             path: "AvoidObstaclesGameTests"
+        ),
+        .executableTarget(
+            name: "GameBalanceAudit",
+            dependencies: ["AvoidObstaclesGameCore"],
+            path: "Tools",
+            sources: ["GameBalanceAudit.swift"]
         ),
     ]
 )
