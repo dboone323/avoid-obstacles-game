@@ -87,13 +87,13 @@ jobs:
           SHARED_KIT_REF="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME:-main}}"
           candidates=("${SHARED_KIT_REF}" "main")
           rm -rf "${RUNNER_TEMP}/shared-kit"
-          toolchain="$(xcrun swift --version | sed -nE 's/.*version ([0-9]+\\.[0-9]+).*/\\1/p' | head -n 1)"
+          toolchain="$(xcrun swift --version | sed -nE 's/.*version ([0-9]+\.[0-9]+).*/\1/p' | head -n 1)"
           toolchain_major="${toolchain%%.*}"
           toolchain_minor="${toolchain#*.}"
           selected=""
           for candidate in "${candidates[@]}"; do
             if git clone --depth 1 --branch "${candidate}" "${SHARED_KIT_REPO}" "${RUNNER_TEMP}/shared-kit"; then
-              required="$(sed -nE 's#// swift-tools-version: *([0-9]+\\.[0-9]+).*#\\1#p' "${RUNNER_TEMP}/shared-kit/Package.swift" | head -n 1)"
+              required="$(sed -nE 's#// swift-tools-version: *([0-9]+\.[0-9]+).*#\1#p' "${RUNNER_TEMP}/shared-kit/Package.swift" | head -n 1)"
               required_major="${required%%.*}"
               required_minor="${required#*.}"
               if [ -n "${required}" ] && { [ "${required_major}" -gt "${toolchain_major}" ] || { [ "${required_major}" -eq "${toolchain_major}" ] && [ "${required_minor}" -gt "${toolchain_minor}" ]; }; }; then
@@ -112,6 +112,8 @@ jobs:
           fi
           echo "Using shared-kit branch: ${selected}"
           ln -sfn "${RUNNER_TEMP}/shared-kit" "${GITHUB_WORKSPACE}/../shared-kit"
+          ln -sfn "${RUNNER_TEMP}/shared-kit" "${GITHUB_WORKSPACE}/../Shared-Kit"
+
           ln -sfn "${RUNNER_TEMP}/shared-kit" "${GITHUB_WORKSPACE}/../Shared-Kit"
 
       - name: Resolve destination
