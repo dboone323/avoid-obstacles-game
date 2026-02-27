@@ -1,14 +1,17 @@
-//
-// PerformanceManager.swift
-// AI-generated performance monitoring
-//
-
 import Foundation
+#if canImport(QuartzCore)
 import QuartzCore
+#else
+// Fallback for Linux
+func CACurrentMediaTime() -> Double {
+    return Date().timeIntervalSinceReferenceDate
+}
+typealias CFTimeInterval = Double
+#endif
 
 /// Monitors application performance metrics with caching and thread safety
 public final class PerformanceManager {
-    public @MainActor static let shared = PerformanceManager()
+    @MainActor public static let shared = PerformanceManager()
 
     private let frameQueue = DispatchQueue(
         label: "com.quantumworkspace.performance.frames",
@@ -23,23 +26,23 @@ public final class PerformanceManager {
 
     private let maxFrameHistory = 120
     private let fpsSampleSize = 10
-    private let fpsCacheInterval: CFTimeInterval = 0.1
-    private let metricsCacheInterval: CFTimeInterval = 0.5
+    private let fpsCacheInterval: Double = 0.1
+    private let metricsCacheInterval: Double = 0.5
     private let fpsThreshold: Double = 30
     private let memoryThreshold: Double = 500
 
-    private var frameTimes: [CFTimeInterval]
+    private var frameTimes: [Double]
     private var frameWriteIndex = 0
     private var recordedFrameCount = 0
 
     private var cachedFPS: Double = 0
-    private var lastFPSUpdate: CFTimeInterval = 0
+    private var lastFPSUpdate: Double = 0
 
     private var cachedMemoryUsage: Double = 0
-    private var memoryUsageTimestamp: CFTimeInterval = 0
+    private var memoryUsageTimestamp: Double = 0
 
     private var cachedPerformanceDegraded: Bool = false
-    private var performanceTimestamp: CFTimeInterval = 0
+    private var performanceTimestamp: Double = 0
 
     private var machInfoCache = mach_task_basic_info()
 

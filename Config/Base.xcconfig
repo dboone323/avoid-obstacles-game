@@ -19,7 +19,7 @@ SWIFT_STRICT_CONCURRENCY = complete
 // 2026 Platform Standards
 COMPILATION_CACHING_ENABLE = YES
 EXPERIMENTAL_SWIFT_EXPLICIT_MODULE_BUILDS = YES
-OTHER_SWIFT_FLAGS = $(inherited) -Xfrontend -debug-time-function-bodies -show-build-timing-summary
+OTHER_SWIFT_FLAGS = $(inherited) -Xfrontend -debug-time-function-bodies
 
 // Cross-Repo Dependency Linking (Standard 2026 pattern)
 FRAMEWORK_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)/../shared-kit/.build/$(PLATFORM_NAME)/$(CONFIGURATION)
