@@ -1,6 +1,10 @@
 import Foundation
-import os
-import OSLog
+#if canImport(os)
+    import os
+#endif
+#if canImport(OSLog)
+    import OSLog
+#endif
 import SharedKit
 
 /// Configuration for game balancing adjustments.

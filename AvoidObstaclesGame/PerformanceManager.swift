@@ -7,7 +7,17 @@
 //
 
 import Foundation
-import QuartzCore
+#if canImport(QuartzCore)
+    import QuartzCore
+#else
+    // Fallback for Linux
+    func CACurrentMediaTime() -> Double {
+        Date().timeIntervalSinceReferenceDate
+    }
+
+    typealias CFTimeInterval = Double
+#endif
+
 #if canImport(UIKit)
     import UIKit
 #endif

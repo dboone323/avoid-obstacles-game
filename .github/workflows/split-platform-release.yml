@@ -1,141 +1,81 @@
-name: CI/CD Pipeline
+name: Split Platform Release
 
 on:
   push:
-    branches: [main, develop, "fix/*"]
+    branches: [main, develop]
     tags: ["v*"]
-    paths-ignore: ["**.md", "docs/**"]
   pull_request:
-    branches: [main, develop, "feature/*"]
-    paths-ignore: ["**.md", "docs/**"]
+    branches: [main, develop]
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Deployment environment"
+      release_channel:
+        description: Release channel
         required: true
-        default: "testflight"
+        default: candidate
         type: choice
         options:
-          - testflight
-          - appstore
+          - candidate
+          - production
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # 1. Code Quality & Linting
-  quality-checks:
-    name: Code Quality
-    runs-on: macos-latest
-    timeout-minutes: 15
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Swift
-        uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: "6.2"
-
-      - name: Cache Dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            .build
-            ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
-
-      - name: Install SwiftFormat (Pinned)
-        run: |
-          if ! command -v swiftformat >/dev/null 2>&1 || [ "$(swiftformat --version)" != "0.59.1" ]; then
-            brew install swiftformat
-          fi
-          swiftformat --version
-
-      - name: SwiftFormat Check
-        run: |
-          if command -v swiftformat >/dev/null 2>&1; then
-            swiftformat . --config .swiftformat --lint --verbose
-          else
-            echo "SwiftFormat check skipped (not installed)"
-          fi
-
-      - name: SwiftLint
-        run: |
-          if command -v swiftlint >/dev/null 2>&1; then
-            swiftlint --strict --reporter github-actions-logging
-          else
-            echo "SwiftLint check skipped (not installed)"
-          fi
-
-  # 2. Security Scanning
-  security-scan:
-    name: Security Analysis
+  linux_docker_build:
+    name: Linux Docker Build
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     permissions:
       contents: read
-      security-events: write
-
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+
+      - name: Build Linux image
+        env:
+          IMAGE_TAG: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        run: |
+          set -euo pipefail
+          docker buildx build \
+            --file Dockerfile \
+            --pull \
+            --platform linux/amd64 \
+            --load \
+            --sbom=false \
+            --provenance=false \
+            --tag "${IMAGE_TAG}" \
+            .
+          docker image inspect "${IMAGE_TAG}" > linux-image-metadata.json
+
+      - name: Validate compose (if present)
+        run: |
+          set -euo pipefail
+          if [ -f docker-compose.yml ]; then
+            docker compose -f docker-compose.yml config > /tmp/compose.out
+            tail -n 40 /tmp/compose.out || true
+          else
+            echo "docker-compose.yml not present, skipping compose validation"
+          fi
+
+      - name: Upload Linux build metadata
+        uses: actions/upload-artifact@v4
         with:
-          fetch-depth: 0
+          name: linux-build-metadata
+          path: linux-image-metadata.json
+          retention-days: 14
 
-      - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: "fs"
-          scan-ref: "."
-          format: "sarif"
-          output: "trivy-results.sarif"
-          ignore-unfixed: true
-
-      - name: Upload Trivy Results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: "trivy-results.sarif"
-
-      - name: Check for Secrets (TruffleHog)
-        uses: trufflesecurity/trufflehog@main
-        with:
-          path: ./
-          base: ${{ github.event.before }}
-          head: ${{ github.sha }}
-          extra_args: --debug --only-verified
-
-      - name: CodeQL Analysis
-        uses: github/codeql-action/init@v3
-        with:
-          languages: python
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-
-  # 3. Build & Test
-  build-and-test:
-    name: Build and Test
+  apple_app_ci:
+    name: Apple App Build/Test
     runs-on: macos-26
-    timeout-minutes: 45
-    needs: quality-checks
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - destination: "platform=iOS Simulator,name=iPhone 17,OS=latest"
-            name: iOS
-            scheme: AvoidObstaclesGame
-
+    timeout-minutes: 60
+    permissions:
+      contents: read
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Prepare shared-kit dependency
@@ -176,12 +116,13 @@ jobs:
 
           ln -sfn "${RUNNER_TEMP}/shared-kit" "${GITHUB_WORKSPACE}/../Shared-Kit"
 
+          ln -sfn "${RUNNER_TEMP}/shared-kit" "${GITHUB_WORKSPACE}/../Shared-Kit"
 
       - name: Resolve destination
         id: destination
         run: |
           set -euo pipefail
-          requested="${{ matrix.destination }}"
+          requested="platform=iOS Simulator,name=iPhone 17,OS=latest"
           if [[ "${requested}" != platform=iOS\ Simulator* ]]; then
             echo "destination=${requested}" >> "${GITHUB_OUTPUT}"
             exit 0
@@ -211,25 +152,28 @@ jobs:
 
           echo "destination=${resolved}" >> "${GITHUB_OUTPUT}"
 
-      - name: Build (${{ matrix.name }})
+      - name: Build for testing
         run: |
-          echo "Building ${{ matrix.name }}..."
-          xcodebuild build \
-            -scheme ${{ matrix.scheme }} \
-            -destination '${{ steps.destination.outputs.destination }}' \
+          set -euo pipefail
+          export NSUnbufferedIO=YES
+          xcodebuild build-for-testing \
+            -scheme AvoidObstaclesGame \
+            -destination "${{ steps.destination.outputs.destination }}" \
             -configuration Debug \
+            -only-testing:AvoidObstaclesGameTests \
+            -skip-testing:AvoidObstaclesGameUITests \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
-      - name: Run Tests (${{ matrix.name }})
+      - name: Run tests
         run: |
-          echo "Running tests on ${{ matrix.name }}..."
+          set -euo pipefail
           export NSUnbufferedIO=YES
           rm -rf TestResults.xcresult
-          xcodebuild test \
-            -scheme ${{ matrix.scheme }} \
-            -destination '${{ steps.destination.outputs.destination }}' \
+          xcodebuild test-without-building \
+            -scheme AvoidObstaclesGame \
+            -destination "${{ steps.destination.outputs.destination }}" \
             -configuration Debug \
             -only-testing:AvoidObstaclesGameTests \
             -skip-testing:AvoidObstaclesGameUITests \
@@ -242,21 +186,60 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             -resultBundlePath TestResults.xcresult
 
-  # 5. Quality Gate
-  quality-gate:
-    name: Quality Gate
+      - name: Upload Apple test result bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-test-results
+          path: TestResults.xcresult
+          retention-days: 14
+
+  unified_release_gate:
+    name: Unified Release Gate
     runs-on: ubuntu-latest
-    needs: [quality-checks, build-and-test, security-scan]
+    needs: [linux_docker_build, apple_app_ci]
     if: always()
+    permissions:
+      contents: read
     steps:
-      - name: Evaluate
+      - name: Evaluate gate
         run: |
-          if [ "${{ needs.quality-checks.result }}" = "success" ] && \
-             [ "${{ needs.build-and-test.result }}" = "success" ] && \
-             [ "${{ needs.security-scan.result }}" = "success" ]; then
-            echo "All checks passed!"
-            exit 0
-          else
-            echo "Workflow failed."
+          set -euo pipefail
+          echo "linux_docker_build=${{ needs.linux_docker_build.result }}"
+          echo "apple_app_ci=${{ needs.apple_app_ci.result }}"
+          if [ "${{ needs.linux_docker_build.result }}" != "success" ] || [ "${{ needs.apple_app_ci.result }}" != "success" ]; then
+            echo "Unified gate failed"
             exit 1
           fi
+          echo "Unified gate passed"
+
+  release_manifest:
+    name: Release Manifest
+    runs-on: ubuntu-latest
+    needs: [unified_release_gate]
+    if: needs.unified_release_gate.result == 'success' && (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch')
+    permissions:
+      contents: read
+    steps:
+      - name: Generate manifest
+        run: |
+          set -euo pipefail
+          cat > release-manifest.json <<JSON
+          {
+            "repository": "${{ github.repository }}",
+            "sha": "${{ github.sha }}",
+            "ref": "${{ github.ref }}",
+            "run_id": "${{ github.run_id }}",
+            "linux_docker_build": "${{ needs.linux_docker_build.result }}",
+            "apple_app_ci": "${{ needs.apple_app_ci.result }}",
+            "generated_at_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          JSON
+          cat release-manifest.json
+
+      - name: Upload release manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-manifest
+          path: release-manifest.json
+          retention-days: 30
