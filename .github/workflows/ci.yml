@@ -123,7 +123,7 @@ jobs:
   # 3. Build & Test
   build-and-test:
     name: Build and Test
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 45
     needs: quality-checks
     strategy:
@@ -144,7 +144,7 @@ jobs:
         run: |
           SHARED_KIT_REPO="https://x-access-token:${GH_TOKEN}@github.com/dboone323/shared-kit.git"
           SHARED_KIT_REF="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME:-main}}"
-          candidates=("fix/swift6-shared-updates" "feature/security-scanning-february-2026" "$SHARED_KIT_REF" "main")
+          candidates=("$SHARED_KIT_REF" "main")
           rm -rf "$RUNNER_TEMP/shared-kit"
           toolchain="$(xcrun swift --version | sed -nE 's/.*version ([0-9]+\\.[0-9]+).*/\\1/p' | head -n 1)"
           toolchain_major="${toolchain%%.*}"
