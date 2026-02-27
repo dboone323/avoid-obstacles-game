@@ -151,10 +151,13 @@ jobs:
       - name: Build for testing
         run: |
           set -euo pipefail
+          export NSUnbufferedIO=YES
           xcodebuild build-for-testing \
             -scheme AvoidObstaclesGame \
             -destination "${{ steps.destination.outputs.destination }}" \
             -configuration Debug \
+            -only-testing:AvoidObstaclesGameTests \
+            -skip-testing:AvoidObstaclesGameUITests \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
@@ -162,12 +165,17 @@ jobs:
       - name: Run tests
         run: |
           set -euo pipefail
+          export NSUnbufferedIO=YES
           rm -rf TestResults.xcresult
           xcodebuild test-without-building \
             -scheme AvoidObstaclesGame \
             -destination "${{ steps.destination.outputs.destination }}" \
             -configuration Debug \
             -only-testing:AvoidObstaclesGameTests \
+            -skip-testing:AvoidObstaclesGameUITests \
+            -parallel-testing-enabled NO \
+            -maximum-parallel-testing-workers 1 \
+            -maximum-concurrent-test-simulator-destinations 1 \
             -enableCodeCoverage YES \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
