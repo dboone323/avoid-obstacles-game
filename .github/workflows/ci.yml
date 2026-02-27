@@ -27,7 +27,7 @@ jobs:
   # 1. Code Quality & Linting
   quality-checks:
     name: Code Quality
-    runs-on: macos-26
+    runs-on: macos-latest
     timeout-minutes: 15
 
     steps:
@@ -123,7 +123,7 @@ jobs:
   # 3. Build & Test
   build-and-test:
     name: Build and Test
-    runs-on: macos-26
+    runs-on: macos-latest
     timeout-minutes: 45
     needs: quality-checks
     strategy:
