@@ -167,6 +167,7 @@ jobs:
             -scheme AvoidObstaclesGame \
             -destination "${{ steps.destination.outputs.destination }}" \
             -configuration Debug \
+            -only-testing:AvoidObstaclesGameTests \
             -enableCodeCoverage YES \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
