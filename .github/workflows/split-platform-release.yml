@@ -85,11 +85,21 @@ jobs:
           set -euo pipefail
           SHARED_KIT_REPO="https://x-access-token:${GH_TOKEN}@github.com/dboone323/shared-kit.git"
           SHARED_KIT_REF="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME:-main}}"
-          if ! git clone --depth 1 --branch "${SHARED_KIT_REF}" "${SHARED_KIT_REPO}" "${RUNNER_TEMP}/shared-kit"; then
-            echo "Branch ${SHARED_KIT_REF} not found in shared-kit, falling back to default branch"
+          candidates=("${SHARED_KIT_REF}" "fix/swift6-shared-updates" "feature/security-scanning-february-2026" "main")
+          rm -rf "${RUNNER_TEMP}/shared-kit"
+          selected=""
+          for candidate in "${candidates[@]}"; do
+            if git clone --depth 1 --branch "${candidate}" "${SHARED_KIT_REPO}" "${RUNNER_TEMP}/shared-kit"; then
+              selected="${candidate}"
+              break
+            fi
             rm -rf "${RUNNER_TEMP}/shared-kit"
-            git clone --depth 1 "${SHARED_KIT_REPO}" "${RUNNER_TEMP}/shared-kit"
+          done
+          if [ -z "${selected}" ]; then
+            echo "::error::Unable to clone shared-kit using candidate branches: ${candidates[*]}"
+            exit 1
           fi
+          echo "Using shared-kit branch: ${selected}"
           ln -sfn "${RUNNER_TEMP}/shared-kit" "${GITHUB_WORKSPACE}/../shared-kit"
           ln -sfn "${RUNNER_TEMP}/shared-kit" "${GITHUB_WORKSPACE}/../Shared-Kit"
 

@@ -144,19 +144,63 @@ jobs:
         run: |
           SHARED_KIT_REPO="https://x-access-token:${GH_TOKEN}@github.com/dboone323/shared-kit.git"
           SHARED_KIT_REF="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME:-main}}"
-          if ! git clone --depth 1 --branch "$SHARED_KIT_REF" "$SHARED_KIT_REPO" "$RUNNER_TEMP/shared-kit"; then
-            echo "Falling back to default branch for shared-kit"
+          candidates=("$SHARED_KIT_REF" "fix/swift6-shared-updates" "feature/security-scanning-february-2026" "main")
+          rm -rf "$RUNNER_TEMP/shared-kit"
+          selected=""
+          for candidate in "${candidates[@]}"; do
+            if git clone --depth 1 --branch "$candidate" "$SHARED_KIT_REPO" "$RUNNER_TEMP/shared-kit"; then
+              selected="$candidate"
+              break
+            fi
             rm -rf "$RUNNER_TEMP/shared-kit"
-            git clone --depth 1 "$SHARED_KIT_REPO" "$RUNNER_TEMP/shared-kit"
+          done
+          if [ -z "$selected" ]; then
+            echo "::error::Unable to clone shared-kit using candidate branches: ${candidates[*]}"
+            exit 1
           fi
+          echo "Using shared-kit branch: $selected"
           ln -sfn "$RUNNER_TEMP/shared-kit" "$GITHUB_WORKSPACE/../shared-kit"
+
+      - name: Resolve destination
+        id: destination
+        run: |
+          set -euo pipefail
+          requested="${{ matrix.destination }}"
+          if [[ "${requested}" != platform=iOS\ Simulator* ]]; then
+            echo "destination=${requested}" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          available_names="$(xcrun simctl list devices available --json | python3 -c 'import json, sys; data = json.load(sys.stdin); names = sorted({d.get("name", "") for devices in data.get("devices", {}).values() for d in devices if d.get("isAvailable") and d.get("name", "").startswith("iPhone")}); print("\n".join(n for n in names if n))')"
+          requested_name="$(echo "${requested}" | sed -n 's/.*name=\([^,]*\).*/\1/p')"
+
+          resolved=''
+          for candidate in "${requested_name}" "iPhone 17" "iPhone 17 Pro" "iPhone 16e" "iPhone 16"; do
+            if [[ -n "${candidate}" ]] && echo "${available_names}" | grep -Fxq "${candidate}"; then
+              resolved="platform=iOS Simulator,name=${candidate},OS=latest"
+              break
+            fi
+          done
+
+          if [[ -z "${resolved}" ]]; then
+            fallback_name="$(echo "${available_names}" | head -n 1)"
+            if [[ -n "${fallback_name}" ]]; then
+              resolved="platform=iOS Simulator,name=${fallback_name},OS=latest"
+              echo "::warning::Requested simulator unavailable, using fallback: ${fallback_name}"
+            else
+              resolved="${requested}"
+              echo "::warning::No iPhone simulators detected, using requested destination"
+            fi
+          fi
+
+          echo "destination=${resolved}" >> "${GITHUB_OUTPUT}"
 
       - name: Build (${{ matrix.name }})
         run: |
           echo "Building ${{ matrix.name }}..."
           xcodebuild build \
             -scheme ${{ matrix.scheme }} \
-            -destination '${{ matrix.destination }}' \
+            -destination '${{ steps.destination.outputs.destination }}' \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
@@ -168,7 +212,7 @@ jobs:
           rm -rf TestResults.xcresult
           xcodebuild test \
             -scheme ${{ matrix.scheme }} \
-            -destination '${{ matrix.destination }}' \
+            -destination '${{ steps.destination.outputs.destination }}' \
             -configuration Debug \
             -enableCodeCoverage YES \
             CODE_SIGN_IDENTITY="" \
