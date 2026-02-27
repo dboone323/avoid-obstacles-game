@@ -21,7 +21,7 @@ WORKDIR /workspace
 
 RUN groupadd -r gameuser && useradd -r -g gameuser -u 1001 gameuser
 
-COPY --from=builder --chown=gameuser:gameuser /app /workspace
+COPY --from=builder --chown=root:root --chmod=755 /app /workspace
 
 USER gameuser
 
