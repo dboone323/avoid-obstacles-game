@@ -38,6 +38,9 @@ Carthage/Build/
 **/*.swiftinterface
 **/*.swiftdoc
 **/*.o
+**/*.d
+**/*.dia
+**/*.swiftdeps
 **/*.dSYM
 **/SDKStatCaches.noindex/
 
