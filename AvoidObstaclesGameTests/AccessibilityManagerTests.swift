@@ -7,7 +7,7 @@
 
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGame
+@testable import AvoidObstaclesGameCore
 
 #if canImport(UIKit)
     @MainActor

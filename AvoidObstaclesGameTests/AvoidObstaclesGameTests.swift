@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGame
+@testable import AvoidObstaclesGameCore
 
 @MainActor
 
