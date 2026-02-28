@@ -42,6 +42,7 @@ let package = Package(
                 "GameScene.sks",
                 "Actions.sks",
                 "Info.plist.unused",
+                "Info.plist.conflict",
                 "AvoidObstaclesGame.entitlements",
                 "server.cer",
                 "main.swift",
@@ -50,12 +51,14 @@ let package = Package(
         .testTarget(
             name: "AvoidObstaclesGameTests",
             dependencies: ["AvoidObstaclesGameCore"],
-            path: "AvoidObstaclesGameTests"
+            path: "AvoidObstaclesGameTests",
+            exclude: ["Fixtures/dashboard_baseline.txt"]
         ),
         .executableTarget(
             name: "GameBalanceAudit",
             dependencies: ["AvoidObstaclesGameCore"],
             path: "Tools",
+            exclude: ["Automation/ai_workflow_recovery.py"],
             sources: ["GameBalanceAudit.swift"]
         ),
     ]
