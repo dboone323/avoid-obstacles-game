@@ -1,70 +1,142 @@
-import Foundation
-#if canImport(os)
-    import os
-#endif
-#if canImport(OSLog)
-    import OSLog
-#endif
-import SharedKit
+import XCTest
 
-/// Configuration for game balancing adjustments.
-public struct BalanceConfiguration: Sendable {
-    public static let difficultyIncreaseMultiplier = 1.1
-    public static let difficultyDecreaseMultiplier = 0.9
-    public static let maxDifficultyMultiplier = 1.5
-    public static let minDifficultyMultiplier = 0.7
+@testable import AvoidObstaclesGame
 
-    public static let obstacleSpeedIncrease = 1.2
-    public static let spawnRateDecrease = 0.8
-    public static let obstacleSpeedDecrease = 0.9
-    public static let spawnRateIncrease = 1.5
-}
-
-/// Agent specializing in real-time game balancing based on player performace.
-public final class GameBalanceAgent: BaseAgent {
-    public let id = "game_balance_agent_001"
-    public let name = "Dynamic Game Balancer"
-    private static let logger = Logger(
-        subsystem: "com.avoid-obstacles.game", category: "GameBalance"
-    )
-
-    public init() {}
-
-    @MainActor
-    public func execute(context: [String: Sendable]) async throws -> AgentResult {
-        // 1. Extract performance metrics
-        let score = context["score"] as? Int ?? 0
-        let lives = context["lives"] as? Int ?? 3
-        let survivalTime = context["survivalTime"] as? TimeInterval ?? 0.0
-
-        Self.logger.info(
-            "[\(self.name)] Analyzing player performance (Score: \(score), Survival: \(survivalTime)s)..."
-        )
-
-        // 2. Determine balance adjustments
-        var adjustments: [String: String] = [:]
-
-        if survivalTime > 60 && lives == 3 {
-            adjustments["difficulty"] = "increase"
-            adjustments["obstacleSpeed"] = "\(BalanceConfiguration.obstacleSpeedIncrease)x"
-            adjustments["spawnRate"] = "\(BalanceConfiguration.spawnRateDecrease)x"
-        } else if survivalTime < 20 && lives < 2 {
-            adjustments["difficulty"] = "decrease"
-            adjustments["obstacleSpeed"] = "\(BalanceConfiguration.obstacleSpeedDecrease)x"
-            adjustments["spawnRate"] = "\(BalanceConfiguration.spawnRateIncrease)x"
-        } else {
-            adjustments["difficulty"] = "stable"
-        }
-
-        let summary =
-            "Difficulty set to \(adjustments["difficulty"] ?? "stable") based on performance metrics."
-
-        return AgentResult(
-            agentId: id,
-            success: true,
-            summary: summary,
-            detail: adjustments,
-            requiresApproval: false
-        )
+class GameBalanceAgentTests: XCTestCase {
+    
+    func testExecute_HighScoreAndFullLives() async throws {
+        let agent = GameBalanceAgent()
+        let context: [String: Sendable] = [
+            "score": 1000,
+            "lives": 3,
+            "survivalTime": 65.0
+        ]
+        
+        let result = try await agent.execute(context: context)
+        
+        XCTAssertEqual(result.success, true)
+        XCTAssertEqual(result.detail["difficulty"] as? String, "increase")
+        XCTAssertEqual(result.detail["obstacleSpeed"] as? String, "\(BalanceConfiguration.obstacleSpeedIncrease)x")
+        XCTAssertEqual(result.detail["spawnRate"] as? String, "\(BalanceConfiguration.spawnRateDecrease)x")
+        
+        // Performance monitoring
+        logPerformanceMetric("HighScoreAndFullLives", result: result)
+    }
+    
+    func testExecute_LowScoreAndFewLives() async throws {
+        let agent = GameBalanceAgent()
+        let context: [String: Sendable] = [
+            "score": 50,
+            "lives": 1,
+            "survivalTime": 15.0
+        ]
+        
+        let result = try await agent.execute(context: context)
+        
+        XCTAssertEqual(result.success, true)
+        XCTAssertEqual(result.detail["difficulty"] as? String, "decrease")
+        XCTAssertEqual(result.detail["obstacleSpeed"] as? String, "\(BalanceConfiguration.obstacleSpeedDecrease)x")
+        XCTAssertEqual(result.detail["spawnRate"] as? String, "\(BalanceConfiguration.spawnRateIncrease)x")
+        
+        // Performance monitoring
+        logPerformanceMetric("LowScoreAndFewLives", result: result)
+    }
+    
+    func testExecute_StableConditions() async throws {
+        let agent = GameBalanceAgent()
+        let context: [String: Sendable] = [
+            "score": 700,
+            "lives": 2,
+            "survivalTime": 35.0
+        ]
+        
+        let result = try await agent.execute(context: context)
+        
+        XCTAssertEqual(result.success, true)
+        XCTAssertEqual(result.detail["difficulty"] as? String, "stable")
+        
+        // Performance monitoring
+        logPerformanceMetric("StableConditions", result: result)
+    }
+    
+    func testExecute_ExtremelyHighScoreAndFullLives() async throws {
+        let agent = GameBalanceAgent()
+        let context: [String: Sendable] = [
+            "score": Int.max,
+            "lives": 3,
+            "survivalTime": 65.0
+        ]
+        
+        let result = try await agent.execute(context: context)
+        
+        XCTAssertEqual(result.success, true)
+        XCTAssertEqual(result.detail["difficulty"] as? String, "increase")
+        XCTAssertEqual(result.detail["obstacleSpeed"] as? String, "\(BalanceConfiguration.obstacleSpeedIncrease)x")
+        XCTAssertEqual(result.detail["spawnRate"] as? String, "\(BalanceConfiguration.spawnRateDecrease)x")
+        
+        // Performance monitoring
+        logPerformanceMetric("ExtremelyHighScoreAndFullLives", result: result)
+    }
+    
+    func testExecute_ExtremelyLowScoreAndFewLives() async throws {
+        let agent = GameBalanceAgent()
+        let context: [String: Sendable] = [
+            "score": 0,
+            "lives": 1,
+            "survivalTime": 15.0
+        ]
+        
+        let result = try await agent.execute(context: context)
+        
+        XCTAssertEqual(result.success, true)
+        XCTAssertEqual(result.detail["difficulty"] as? String, "decrease")
+        XCTAssertEqual(result.detail["obstacleSpeed"] as? String, "\(BalanceConfiguration.obstacleSpeedDecrease)x")
+        XCTAssertEqual(result.detail["spawnRate"] as? String, "\(BalanceConfiguration.spawnRateIncrease)x")
+        
+        // Performance monitoring
+        logPerformanceMetric("ExtremelyLowScoreAndFewLives", result: result)
+    }
+    
+    func testExecute_ExtremelyHighSurvivalTime() async throws {
+        let agent = GameBalanceAgent()
+        let context: [String: Sendable] = [
+            "score": 700,
+            "lives": 2,
+            "survivalTime": Double.greatestFiniteMagnitude
+        ]
+        
+        let result = try await agent.execute(context: context)
+        
+        XCTAssertEqual(result.success, true)
+        XCTAssertEqual(result.detail["difficulty"] as? String, "increase")
+        XCTAssertEqual(result.detail["obstacleSpeed"] as? String, "\(BalanceConfiguration.obstacleSpeedIncrease)x")
+        XCTAssertEqual(result.detail["spawnRate"] as? String, "\(BalanceConfiguration.spawnRateDecrease)x")
+        
+        // Performance monitoring
+        logPerformanceMetric("ExtremelyHighSurvivalTime", result: result)
+    }
+    
+    func testExecute_ExtremelyLowSurvivalTime() async throws {
+        let agent = GameBalanceAgent()
+        let context: [String: Sendable] = [
+            "score": 700,
+            "lives": 2,
+            "survivalTime": Double.leastNormalMagnitude
+        ]
+        
+        let result = try await agent.execute(context: context)
+        
+        XCTAssertEqual(result.success, true)
+        XCTAssertEqual(result.detail["difficulty"] as? String, "decrease")
+        XCTAssertEqual(result.detail["obstacleSpeed"] as? String, "\(BalanceConfiguration.obstacleSpeedDecrease)x")
+        XCTAssertEqual(result.detail["spawnRate"] as? String, "\(BalanceConfiguration.spawnRateIncrease)x")
+        
+        // Performance monitoring
+        logPerformanceMetric("ExtremelyLowSurvivalTime", result: result)
+    }
+    
+    private func logPerformanceMetric(_ scenario: String, result: Result) {
+        // Implement performance logging logic here
+        print("Scenario: \(scenario), Difficulty: \(result.detail["difficulty"] as? String ?? "unknown"), Obstacle Speed: \(result.detail["obstacleSpeed"] as? String ?? "unknown"), Spawn Rate: \(result.detail["spawnRate"] as? String ?? "unknown")")
     }
 }
