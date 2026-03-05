@@ -19,3 +19,10 @@ AvoidObstaclesGame is a real-time reactive game featuring autonomous difficulty 
 
 - Max 5% CPU overhead for balancing agents.
 - Must coordinate with `GameBalanceAgent` for all state changes.
+
+## March 2026 Code Standards
+
+- **No Stubs/Mocks**: Do not use placeholders, mocks, or stubs in implementation or testing.
+- **Production Ready**: Every new line of code must be real, working, and production-ready.
+- **End-to-End Testing**: Use real working and tested code to verify behavior natively to avoid down-the-line problems.
+- **Modern Standards**: Adhere strictly to the latest ecosystem standards (Swift 6.2 concurrency, Python 3.13).
