@@ -1,0 +1,254 @@
+[
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/Tools/GameBalanceAudit.swift",
+    "line" : 10,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/Tools/GameBalanceAudit.swift",
+    "line" : 13,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/Tools/GameBalanceAudit.swift",
+    "line" : 23,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/Tools/GameBalanceAudit.swift",
+    "line" : 36,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : null,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGame/GameBalanceAgent.swift",
+    "line" : 74,
+    "reason" : "Files should have a single trailing newline",
+    "rule_id" : "trailing_newline",
+    "severity" : "Warning",
+    "type" : "Trailing Newline"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGame/GameBalanceAgent.swift",
+    "line" : 16,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGame/GameBalanceAgent.swift",
+    "line" : 27,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 19,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGame/UIManager.swift",
+    "line" : 581,
+    "reason" : "Closure parameters should be on the same line as opening brace",
+    "rule_id" : "closure_parameter_position",
+    "severity" : "Warning",
+    "type" : "Closure Parameter Position"
+  },
+  {
+    "character" : 25,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGame/UIManager.swift",
+    "line" : 581,
+    "reason" : "Closure parameters should be on the same line as opening brace",
+    "rule_id" : "closure_parameter_position",
+    "severity" : "Warning",
+    "type" : "Closure Parameter Position"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 80,
+    "reason" : "Line should be 150 characters or less; currently it has 215 characters",
+    "rule_id" : "line_length",
+    "severity" : "Error",
+    "type" : "Line Length"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 6,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 14,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 16,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 21,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 25,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 33,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 35,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 40,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 44,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 52,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 54,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 57,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 61,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 69,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 71,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 74,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 78,
+    "reason" : "Lines should not have trailing whitespace",
+    "rule_id" : "trailing_whitespace",
+    "severity" : "Warning",
+    "type" : "Trailing Whitespace"
+  },
+  {
+    "character" : 1,
+    "file" : "/Users/danielstevens/github-projects/avoid-obstacles-game/AvoidObstaclesGameTests/GameBalanceAgentTests.swift",
+    "line" : 6,
+    "reason" : "Don't include vertical whitespace (empty line) after opening braces",
+    "rule_id" : "vertical_whitespace_opening_braces",
+    "severity" : "Warning",
+    "type" : "Vertical Whitespace after Opening Braces"
+  }
+]

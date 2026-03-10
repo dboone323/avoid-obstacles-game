@@ -7,10 +7,10 @@ import AvoidObstaclesGameCore
 struct GameBalanceAudit {
     static func main() async {
         print(">>> [AvoidObstaclesGame Agent] Starting Dynamic Balancing task...")
-        
+
         // Initialize agent
         let agent = GameBalanceAgent()
-        
+
         // Mock player metrics context
         let context: [String: Sendable] = [
             "player_performance": [
@@ -20,7 +20,7 @@ struct GameBalanceAudit {
                 "avg_frame_rate": 60.0
             ]
         ]
-        
+
         print(">>> [Task] Running autonomous difficulty adjustment based on player skill...")
         do {
             let result = try await agent.execute(context: context)
@@ -33,7 +33,7 @@ struct GameBalanceAudit {
         } catch {
             print("Error executing agent: \(error)")
         }
-        
+
         print("\n>>> [AvoidObstaclesGame Agent] Task completed.")
     }
 }

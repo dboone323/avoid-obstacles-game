@@ -11,8 +11,8 @@ let package = Package(
     name: "AvoidObstaclesGame",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v18),
-        .macOS(.v15),
+        .iOS("26.0"),
+        .macOS("26.0"),
     ],
     products: [
         .library(
@@ -58,7 +58,7 @@ let package = Package(
             name: "GameBalanceAudit",
             dependencies: ["AvoidObstaclesGameCore"],
             path: "Tools",
-            exclude: ["Automation/ai_workflow_recovery.py"],
+            exclude: [],
             sources: ["GameBalanceAudit.swift"]
         ),
     ]

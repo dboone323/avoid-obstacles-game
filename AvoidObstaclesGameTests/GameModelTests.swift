@@ -1,9 +1,9 @@
+@testable import AvoidObstaclesGameCore
 import Foundation
 import SwiftData
 import XCTest
-@testable import AvoidObstaclesGameCore
 
-/// Unit tests for AvoidObstaclesGame model functionality
+// Unit tests for AvoidObstaclesGame model functionality
 
 @MainActor
 

@@ -2,7 +2,7 @@ import Foundation
 
 /// Certificate pinning delegate for URLSession
 class CertificatePinningPolicy: NSObject, URLSessionDelegate, @unchecked Sendable {
-    // Replace with your actual certificate data (DER format)
+    /// Replace with your actual certificate data (DER format)
     private let pinnedCertificateData: Data = {
         // Load from bundle or hardcode for demo
         guard let certURL = Bundle.main.url(forResource: "server", withExtension: "cer"),

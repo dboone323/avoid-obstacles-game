@@ -5,8 +5,8 @@
 //  Comprehensive test suite for PhysicsCategory
 //
 
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
 @MainActor
 

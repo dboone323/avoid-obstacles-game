@@ -5,8 +5,8 @@
 // Unit tests for GameConfiguration
 //
 
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
 @MainActor
 
@@ -223,7 +223,7 @@ class GameConfigurationTests: XCTestCase {
         XCTAssertGreaterThan(config.difficulty.levels.count, 1)
 
         // Verify difficulty progression
-        for i in 0..<config.difficulty.levels.count - 1 {
+        for i in 0 ..< config.difficulty.levels.count - 1 {
             let current = config.difficulty.levels[i]
             let next = config.difficulty.levels[i + 1]
 

@@ -5,8 +5,8 @@
 //  Comprehensive test suite for AudioManager
 //
 
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
 @MainActor
 final class AudioManagerTests: XCTestCase {
@@ -172,7 +172,7 @@ final class AudioManagerTests: XCTestCase {
     }
 
     func testRapidFireSounds() {
-        for _ in 0..<10 {
+        for _ in 0 ..< 10 {
             XCTAssertNoThrow(sut.playCollision())
         }
     }

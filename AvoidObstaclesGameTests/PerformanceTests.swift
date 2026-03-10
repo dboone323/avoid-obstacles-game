@@ -3,9 +3,9 @@
 // AvoidObstaclesGameTests
 //
 
+@testable import AvoidObstaclesGameCore
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 final class PerformanceTests: XCTestCase {
@@ -13,7 +13,7 @@ final class PerformanceTests: XCTestCase {
         let optimizer = PerformanceOptimizer.shared
 
         measure {
-            for _ in 0..<1000 {
+            for _ in 0 ..< 1000 {
                 let node = optimizer.getNode(type: "perf") { SKNode() }
                 optimizer.returnNode(node, type: "perf")
             }
@@ -25,7 +25,7 @@ final class PerformanceTests: XCTestCase {
         cache.preloadAssets()
 
         measure {
-            for _ in 0..<500 {
+            for _ in 0 ..< 500 {
                 _ = cache.texture(named: "player")
                 _ = cache.sound(named: "collision")
             }
@@ -37,7 +37,7 @@ final class PerformanceTests: XCTestCase {
         combo.resetStats()
 
         measure {
-            for i in 0..<2000 {
+            for i in 0 ..< 2000 {
                 combo.recordDodge(currentTime: Double(i) * 0.1)
                 _ = combo.calculatePoints()
                 _ = combo.getMultiplier()
@@ -49,7 +49,7 @@ final class PerformanceTests: XCTestCase {
         let scene = GameScene(size: CGSize(width: 375, height: 667))
 
         measure {
-            for frame in 0..<1000 {
+            for frame in 0 ..< 1000 {
                 scene.update(Double(frame) / 60.0)
             }
         }
@@ -60,7 +60,7 @@ final class PerformanceTests: XCTestCase {
         let manager = ObstacleManager(scene: scene)
 
         measure {
-            for _ in 0..<250 {
+            for _ in 0 ..< 250 {
                 manager.spawnPowerUp()
                 manager.updateObstacles()
             }
@@ -72,7 +72,7 @@ final class PerformanceTests: XCTestCase {
         let playerNode = SKSpriteNode(color: .blue, size: CGSize(width: 30, height: 30))
         playerNode.position = CGPoint(x: 200, y: 300)
 
-        let obstacles: [SKSpriteNode] = (0..<120).map { index in
+        let obstacles: [SKSpriteNode] = (0 ..< 120).map { index in
             let node = SKSpriteNode(color: .red, size: CGSize(width: 30, height: 60))
             node.position = CGPoint(x: CGFloat(index) * 5.0, y: 300)
             return node
@@ -106,7 +106,7 @@ final class PerformanceTests: XCTestCase {
         let generator = ProceduralLevelGenerator.shared
 
         measure {
-            for difficulty in 0..<100 {
+            for difficulty in 0 ..< 100 {
                 _ = generator.generateLevel(difficulty: difficulty % 6, seed: difficulty)
             }
         }
@@ -117,7 +117,7 @@ final class PerformanceTests: XCTestCase {
         manager.clearHighScores()
 
         measure {
-            for i in 0..<500 {
+            for i in 0 ..< 500 {
                 _ = manager.addScore(i * 100, playerName: "Player")
             }
         }
@@ -127,7 +127,7 @@ final class PerformanceTests: XCTestCase {
         let manager = AchievementManager.shared
 
         measure {
-            for i in 0..<250 {
+            for i in 0 ..< 250 {
                 manager.updateProgress(for: .scoreReached(score: i * 25))
                 manager.updateProgress(for: .powerUpCollected)
             }
@@ -138,7 +138,7 @@ final class PerformanceTests: XCTestCase {
         let audio = AudioManager.shared
 
         measure {
-            for _ in 0..<200 {
+            for _ in 0 ..< 200 {
                 audio.playSound(.collision)
                 audio.playSound(.powerup)
                 audio.playSound(.levelup)
@@ -150,7 +150,7 @@ final class PerformanceTests: XCTestCase {
         let gameCenter = GameCenterManager()
 
         measure {
-            for score in 1000..<1050 {
+            for score in 1000 ..< 1050 {
                 gameCenter.submitScore(score: score)
             }
         }
@@ -160,7 +160,7 @@ final class PerformanceTests: XCTestCase {
         let manager = PerformanceManager.shared
 
         measure {
-            for _ in 0..<500 {
+            for _ in 0 ..< 500 {
                 _ = manager.getRecommendedPoolSizes()
                 _ = manager.getPerformanceStats()
             }

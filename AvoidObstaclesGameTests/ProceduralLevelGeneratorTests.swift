@@ -3,8 +3,8 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
 @MainActor
 final class ProceduralLevelGeneratorTests: XCTestCase {

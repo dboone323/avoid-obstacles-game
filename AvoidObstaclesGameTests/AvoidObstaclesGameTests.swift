@@ -5,10 +5,10 @@
 //  Created by Daniel Stevens on 5/16/25.
 //
 
+@testable import AvoidObstaclesGameCore
 import Foundation
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 
@@ -245,7 +245,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         let startTime = Date()
 
         // Simulate game loop iterations
-        for _ in 1...1000 {
+        for _ in 1 ... 1000 {
             // Simulate game update logic
             let x = 1 + 1
             XCTAssertEqual(x, 2)
@@ -262,7 +262,7 @@ final class AvoidObstaclesGameTests: XCTestCase {
         let startTime = Date()
 
         // Simulate generating multiple obstacles
-        for i in 1...100 {
+        for i in 1 ... 100 {
             let obstacleData: [String: Any] = ["id": i, "type": "spike", "x": i * 50]
             XCTAssertEqual((obstacleData["id"] as? Int), i)
         }

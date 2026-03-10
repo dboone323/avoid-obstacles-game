@@ -171,7 +171,7 @@ final class IntelligentGameViewModel {
     }
 
     private func updateAdaptiveElements(deltaTime: TimeInterval) async {
-        for i in 0..<adaptiveElements.count {
+        for i in 0 ..< adaptiveElements.count {
             adaptiveElements[i].update(deltaTime: deltaTime, playerScore: currentScore)
         }
     }

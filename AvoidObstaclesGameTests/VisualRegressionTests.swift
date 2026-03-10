@@ -1,6 +1,6 @@
+@testable import AvoidObstaclesGameCore
 import Foundation
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 

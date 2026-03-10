@@ -5,8 +5,8 @@
 // Tests for player skin management and unlocking
 //
 
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
 @MainActor
 

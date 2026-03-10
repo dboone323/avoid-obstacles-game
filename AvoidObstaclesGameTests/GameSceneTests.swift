@@ -1,6 +1,6 @@
+@testable import AvoidObstaclesGameCore
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 

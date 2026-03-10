@@ -5,9 +5,9 @@
 // Unit tests for AccessibilityManager
 //
 
+@testable import AvoidObstaclesGameCore
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 #if canImport(UIKit)
     @MainActor

@@ -5,8 +5,8 @@
 // Unit tests for LocalizationManager
 //
 
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
 @MainActor
 

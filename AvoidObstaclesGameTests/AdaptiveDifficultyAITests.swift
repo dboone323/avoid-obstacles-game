@@ -3,8 +3,8 @@
 // AvoidObstaclesGameTests
 //
 
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
 @MainActor
 
@@ -45,7 +45,7 @@ final class AdaptiveDifficultyAITests: XCTestCase {
         // Record 3 high performance games
         // Avg Survival > 60, Avg Score > 100
 
-        for _ in 0..<3 {
+        for _ in 0 ..< 3 {
             ai.recordPerformance(score: 150, survivalTime: 70, collisions: 0)
         }
 
@@ -58,7 +58,7 @@ final class AdaptiveDifficultyAITests: XCTestCase {
         // Record 3 low performance games
         // Avg Survival < 20
 
-        for _ in 0..<3 {
+        for _ in 0 ..< 3 {
             ai.recordPerformance(score: 10, survivalTime: 10, collisions: 5)
         }
 
@@ -69,7 +69,7 @@ final class AdaptiveDifficultyAITests: XCTestCase {
 
     func testDifficultyLimits() {
         // Increase loop
-        for _ in 0..<10 {
+        for _ in 0 ..< 10 {
             ai.recordPerformance(score: 200, survivalTime: 100, collisions: 0)
         }
         // Should cap at 1.5
@@ -79,7 +79,7 @@ final class AdaptiveDifficultyAITests: XCTestCase {
         ai = AdaptiveDifficultyAI()
 
         // Decrease loop
-        for _ in 0..<10 {
+        for _ in 0 ..< 10 {
             ai.recordPerformance(score: 0, survivalTime: 5, collisions: 5)
         }
         // Should cap at 0.7
@@ -88,7 +88,7 @@ final class AdaptiveDifficultyAITests: XCTestCase {
 
     func testGetAdjustedDifficulty() {
         // Set up high difficulty
-        for _ in 0..<3 {
+        for _ in 0 ..< 3 {
             ai.recordPerformance(score: 150, survivalTime: 70, collisions: 0)
         }
         let multiplier = 1.1

@@ -4,9 +4,9 @@
 //
 // Tests for player movement (left/right) and collision detection
 
+@testable import AvoidObstaclesGameCore
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 

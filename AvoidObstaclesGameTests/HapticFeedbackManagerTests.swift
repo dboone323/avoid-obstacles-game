@@ -1,7 +1,7 @@
-import XCTest
 @testable import AvoidObstaclesGameCore
+import XCTest
 
-/// Comprehensive tests for HapticFeedbackManager
+// Comprehensive tests for HapticFeedbackManager
 
 @MainActor
 
@@ -147,7 +147,7 @@ final class HapticFeedbackManagerTests: XCTestCase {
     }
 
     func testRapidFireHaptics() {
-        for _ in 0..<10 {
+        for _ in 0 ..< 10 {
             XCTAssertNoThrow(sut.light())
         }
     }

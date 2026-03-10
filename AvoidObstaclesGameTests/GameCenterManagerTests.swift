@@ -3,9 +3,9 @@
 // AvoidObstaclesGameTests
 //
 
+@testable import AvoidObstaclesGameCore
 import GameKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 

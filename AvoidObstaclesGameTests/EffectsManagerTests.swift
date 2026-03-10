@@ -1,6 +1,6 @@
+@testable import AvoidObstaclesGameCore
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 
@@ -129,7 +129,7 @@ final class EffectsManagerTests: XCTestCase {
 
     func testParticlePoolExhaustion() {
         // Create more effects than pool size
-        for i in 0..<20 {
+        for i in 0 ..< 20 {
             manager.createExplosion(at: CGPoint(x: Double(i * 50), y: 300))
         }
 

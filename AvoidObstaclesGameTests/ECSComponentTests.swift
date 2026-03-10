@@ -5,10 +5,10 @@
 // Unit tests for ECS components (SpriteComponent, MovementComponent, PhysicsComponent).
 //
 
+@testable import AvoidObstaclesGameCore
 import GameplayKit
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 

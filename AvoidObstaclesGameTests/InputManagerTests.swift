@@ -3,9 +3,9 @@
 // AvoidObstaclesGameTests
 //
 
+@testable import AvoidObstaclesGameCore
 import SpriteKit
 import XCTest
-@testable import AvoidObstaclesGameCore
 
 @MainActor
 final class InputManagerTests: XCTestCase {

@@ -24,7 +24,7 @@ class ProceduralLevelGenerator {
     }
 
     func generateLevel(difficulty: Int, seed: Int? = nil) -> Level {
-        let actualSeed = UInt64(seed ?? Int.random(in: 0...1_000_000))
+        let actualSeed = UInt64(seed ?? Int.random(in: 0 ... 1_000_000))
         let randomSource = GKLinearCongruentialRandomSource(seed: actualSeed)
 
         // Use the seed strictly for all generation parameters
@@ -34,7 +34,7 @@ class ProceduralLevelGenerator {
         var patterns: [ObstaclePattern] = []
         let patternCount = 3 + difficulty
 
-        for _ in 0..<patternCount {
+        for _ in 0 ..< patternCount {
             // Use randomSource for deterministic selections
             let typeIndex = abs(randomSource.nextInt()) % EnhancedObstacleType.allCases.count
             let type = EnhancedObstacleType.allCases[typeIndex]

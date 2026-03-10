@@ -10,7 +10,7 @@ import Foundation
 #if canImport(QuartzCore)
     import QuartzCore
 #else
-    // Fallback for Linux
+    /// Fallback for Linux
     func CACurrentMediaTime() -> Double {
         Date().timeIntervalSinceReferenceDate
     }
